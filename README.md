@@ -1,5 +1,7 @@
 # Crash Course: Agentic Engineering — Capstone
 
+Зміни
+
 Фінальний проєкт курсу **fwdays · Crash Course: Agentic Engineering** (вересень 2026).
 
 Слайди курсу: <https://koldovsky.github.io/2026-agentic-engineering-crash-course/>
