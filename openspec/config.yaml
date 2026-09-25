@@ -1,0 +1,35 @@
+schema: spec-driven
+
+# Project context — shown to AI when creating artifacts and applying changes.
+context: |
+  Next.js 16 + React 19 + TypeScript, pnpm only. Vitest (unit, `*.test.ts(x)` beside the code)
+  and Playwright (`e2e/*.spec.ts`, reuses the running `pnpm dev`). Pure logic lives in `lib/`.
+  Workflow is test-first in two commits per change (red, then green):
+    1. RED commit `test(<change>): add failing tests` — Vitest + Playwright tests for every spec
+       scenario, plus minimal stubs (types, functions that `throw new Error("not implemented")`)
+       so `pnpm typecheck` and `pnpm lint` pass while the tests fail.
+    2. GREEN commit(s) `feat(<change>): ...` — implementation only; all tests pass. The implementation
+       runs through `pnpm agent:loop <change>` (agent → `pnpm check` + `pnpm test:e2e` → feed failures
+       back, until green or stopped); the human reviews the diff and commits.
+  Test files from the red commit are LOCKED: `pnpm tests:locked` (part of `pnpm check`) fails if
+  they change afterwards. A wrong test means a wrong spec: stop, update the spec, make a new red commit.
+
+rules:
+  specs:
+    - 'Every scenario has concrete Given/When/Then with exact values (numbers, thresholds, seeded RNG), so it maps 1:1 to a test.'
+    - 'Tag each scenario as `unit` (pure logic in lib/) or `e2e` (user-visible flow), or both.'
+  tasks:
+    - 'The first section is "0. Red tests" and is completed and committed before any implementation task.'
+    - 'Section 0 lists: one Vitest test file per lib/ module covering its unit scenarios; one e2e/<change>.spec.ts covering its e2e scenarios; stubs needed for typecheck; run `pnpm test` and `pnpm test:e2e` and confirm they fail on assertions or "not implemented" (not on syntax/import errors); commit `test(<change>): add failing tests`.'
+    - 'Implementation sections come after section 0, must not include tasks that edit test files from section 0, and end with committing `feat(<change>): ...` after `pnpm check` and `pnpm test:e2e` are green.'
+    - 'Implementation tasks are written so an unattended agent can do them inside `pnpm agent:loop <change>`: one concrete, checkable step each; anything needing a human decision is marked `DECISION (needs human confirm)` and resolved before the loop starts.'
+
+operations:
+  apply:
+    guidance:
+      - 'Red phase first: if no `test(<change>):` commit exists (`git log --oneline --grep "^test(<change>)"`), do section 0 only, show the failing test output, commit, then continue.'
+      - 'Green phase runs as a loop: the red commit triggers `.githooks/post-commit`, which starts `pnpm agent:loop <change>` in the background (if the human enabled `core.hooksPath`). Do not implement step by step in chat and do not edit files while the loop runs (`.agent-log/loops/.running` exists). If it did not start (hooks not enabled, `AGENT_LOOP=off`), tell the human to run `pnpm agent:loop <change>`. If the loop stops with `no-progress` or `max-iterations`, report the log in `.agent-log/loops/` and ask the human how to proceed.'
+      - 'The red commit is expected to fail `pnpm test`; it must still pass `pnpm typecheck` and `pnpm lint`.'
+      - 'Never modify, skip, or delete a test file from the red commit during implementation. If a test seems wrong, stop and ask the human; the fix is `/opsx:update` on the spec plus a new `test(<change>):` commit.'
+      - 'Adding extra tests during implementation is allowed; weakening locked ones is not.'
+      - 'Before reporting done, run `pnpm check` (includes `pnpm tests:locked`) and `pnpm test:e2e`; quote exit codes and test counts.'

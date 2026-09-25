@@ -1,0 +1,39 @@
+#!/bin/sh
+# After a red commit `test(<change>): ...`, start the green phase: `pnpm agent:loop <change>` in the background.
+# Output: .agent-log/loops/latest.out (+ the run's .jsonl). Skip once with `AGENT_LOOP=off git commit ...`.
+# Off by default. Enable once per clone (human decision): git config core.hooksPath .githooks
+[ "$AGENT_LOOP" = "off" ] && exit 0
+
+root=$(git rev-parse --show-toplevel)
+# Not during rebase / cherry-pick: those replay old commits.
+for d in rebase-merge rebase-apply CHERRY_PICK_HEAD; do
+  [ -e "$(git rev-parse --git-path "$d")" ] && exit 0
+done
+
+change=$(git log -1 --format=%s | sed -nE 's/^test\(([^)]+)\)!?: .*/\1/p')
+[ -z "$change" ] && exit 0
+if [ ! -d "$root/openspec/changes/$change" ]; then
+  echo "[agent-loop] skip: no openspec/changes/$change/"
+  exit 0
+fi
+
+dir="$root/.agent-log/loops"
+lock="$dir/.running"
+out="$dir/latest.out"
+mkdir -p "$dir"
+if [ -f "$lock" ] && kill -0 "$(cat "$lock")" 2>/dev/null; then
+  echo "[agent-loop] already running (pid $(cat "$lock")) — not starting a second one"
+  exit 0
+fi
+
+(
+  cd "$root" && nohup sh -c '
+    echo $$ > "$1"
+    pnpm agent:loop "$2" > "$3" 2>&1
+    status=$?
+    rm -f "$1"
+    [ $status -eq 0 ] && result="green — review the diff and commit" || result="stopped (exit $status) — see latest.out"
+    osascript -e "display notification \"$result\" with title \"agent:loop $2\"" >/dev/null 2>&1
+  ' sh "$lock" "$change" "$out" >/dev/null 2>&1 &
+)
+echo "[agent-loop] started for $change in the background — follow: tail -f .agent-log/loops/latest.out"

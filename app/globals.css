@@ -1,0 +1,682 @@
+@import "tailwindcss";
+
+/* Dark mode follows the [data-theme] attribute, not the media query: an explicit choice wins
+   permanently (design D8). The attribute is set before paint by the inline script in app/layout.tsx. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root,
+[data-theme="light"] {
+  --background: #f7f7f8;
+  --foreground: #171717;
+  --accent: #db2777;
+  --accent-foreground: #ffffff;
+  --muted: #71717a;
+  /* Soft shadow skin (design D16): a dark drop shadow reads on the light page. */
+  --skin-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.45);
+  --skin-shadow-hover: 0 18px 35px -8px rgb(0 0 0 / 0.55);
+  --skin-shadow-active: 0 4px 10px -4px rgb(0 0 0 / 0.65);
+  /* Floating +N pill (design D17): opaque background, text at contrast >= 4.5 on it. */
+  --fx-float-bg: rgb(23 23 23 / 0.92);
+  --fx-float-fg: #ffffff;
+  --achievement-done-bg: #dcfce7;
+  --achievement-done-fg: #14532d;
+  --achievement-done-border: #16a34a;
+  --achievement-locked-bg: rgb(23 23 23 / 0.04);
+  --achievement-locked-border: rgb(23 23 23 / 0.12);
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --accent: #f472b6;
+  --accent-foreground: #1f0713;
+  --muted: #a1a1aa;
+  /* A black shadow is invisible on a #0a0a0a page, so dark mode glows instead (design D16). */
+  --skin-shadow: 0 0 0 1px rgb(255 255 255 / 0.12), 0 10px 30px -4px rgb(244 114 182 / 0.55);
+  --skin-shadow-hover: 0 0 0 1px rgb(255 255 255 / 0.18), 0 18px 40px -6px rgb(244 114 182 / 0.75);
+  --skin-shadow-active: 0 0 0 1px rgb(255 255 255 / 0.22), 0 4px 14px -4px rgb(244 114 182 / 0.85);
+  --fx-float-bg: rgb(237 237 237 / 0.94);
+  --fx-float-fg: #0a0a0a;
+  --achievement-done-bg: #052e16;
+  --achievement-done-fg: #bbf7d0;
+  --achievement-done-border: #22c55e;
+  --achievement-locked-bg: rgb(237 237 237 / 0.05);
+  --achievement-locked-border: rgb(237 237 237 / 0.14);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Motion (design D11): only transform / opacity are animated. The box-shadow is deliberately not
+   transitioned — the Soft shadow skin is applied at hydration, and a 150 ms fade would make the
+   computed shadow unreadable (and unmeasurable) right after load. */
+.main-button {
+  transition: transform 150ms ease-out;
+}
+
+.main-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  40% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.balance-bump {
+  animation: bump 200ms ease-out;
+}
+
+/* ---------------------------------------------------------------------------
+   Stage 2: button skins, decor art and the helper zone (design D17).
+   Every animation touches only transform / opacity.
+   --------------------------------------------------------------------------- */
+
+/* Reads the per-theme tokens only, so the shadow is measurable in both themes (design D16). */
+.skin-soft-shadow {
+  box-shadow: var(--skin-shadow);
+}
+
+.skin-soft-shadow:hover:not(:disabled) {
+  box-shadow: var(--skin-shadow-hover);
+}
+
+.skin-soft-shadow:active:not(:disabled) {
+  box-shadow: var(--skin-shadow-active);
+}
+
+.main-button[data-material="gold"] {
+  background-image: linear-gradient(145deg, #fde68a 0%, #d97706 45%, #fbbf24 70%, #92400e 100%);
+  color: #3b2506;
+}
+
+@keyframes squish {
+  0% {
+    transform: scale(1, 1);
+  }
+  35% {
+    transform: scale(1.1, 0.88);
+  }
+  70% {
+    transform: scale(0.96, 1.04);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.skin-squish {
+  animation: squish 280ms ease-out;
+}
+
+/* Only the vertical hop: horizontal centering comes from Tailwind's `-translate-x-1/2`, which sets
+   the separate `translate` property and composes with `transform` (it would stack otherwise). */
+@keyframes cap-hop {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-14px) rotate(-8deg);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.skin-jumping-cap {
+  animation: cap-hop 280ms ease-out;
+}
+
+@keyframes float-up {
+  0% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -60px);
+    opacity: 0;
+  }
+}
+
+/* A pill, not bare accent-coloured text: the +N used to be exactly the colour of the button it
+   spawns over (design D17). `z-index: 60` puts it above the golden button (40) and the
+   switchers (20); it stays portalled to <body> and never takes pointer events. */
+.floating-number {
+  z-index: 60;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: var(--fx-float-bg);
+  color: var(--fx-float-fg);
+  animation: float-up 800ms ease-out forwards;
+}
+
+@keyframes monkey-press {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px) scale(0.96);
+  }
+}
+
+.helper-monkey-press {
+  display: inline-block;
+  animation: monkey-press 1000ms ease-in-out infinite;
+}
+
+/* Decor art: each item is drawn from a few absolutely positioned boxes. */
+.decor {
+  overflow: hidden;
+}
+
+.decor > span {
+  position: absolute;
+  display: block;
+}
+
+/* The sleeping cat is one inline SVG (design D15). The keyframes below are unchanged; they run on
+   SVG nodes thanks to `transform-box: fill-box`, which makes `transform-origin` relative to the
+   part's own bounding box instead of the SVG viewport. */
+.cat-body {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: cat-breathe 4s ease-in-out infinite;
+}
+
+.cat-ear {
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: cat-ear-twitch 7s ease-in-out infinite;
+}
+
+.cat-tail {
+  transform-box: fill-box;
+  transform-origin: right center;
+  animation: cat-tail-sway 6s ease-in-out infinite;
+}
+
+@keyframes cat-breathe {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.06);
+  }
+}
+
+@keyframes cat-ear-twitch {
+  0%,
+  88%,
+  100% {
+    transform: rotate(0deg);
+  }
+  92% {
+    transform: rotate(-22deg);
+  }
+  96% {
+    transform: rotate(10deg);
+  }
+}
+
+/* The sway is gentle on purpose: the tail swings around its right end, and a wider angle would
+   push its tip outside the 120 × 80 decor box (design D15). */
+@keyframes cat-tail-sway {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(-8deg);
+  }
+}
+
+.lamp-glass {
+  left: 8px;
+  top: 8px;
+  width: 48px;
+  height: 128px;
+  border-radius: 24px 24px 14px 14px;
+  background: linear-gradient(180deg, rgb(244 114 182 / 0.25), rgb(219 39 119 / 0.4));
+  border: 2px solid rgb(148 163 184 / 0.5);
+}
+
+.lamp-blob {
+  left: 22px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #db2777;
+}
+
+.lamp-blob-a {
+  bottom: 16px;
+  animation: lamp-rise 7s ease-in-out infinite;
+}
+
+.lamp-blob-b {
+  bottom: 16px;
+  width: 14px;
+  height: 14px;
+  animation: lamp-rise 9s ease-in-out infinite 1.5s;
+}
+
+.lamp-blob-c {
+  bottom: 16px;
+  width: 24px;
+  height: 24px;
+  animation: lamp-rise 11s ease-in-out infinite 3s;
+}
+
+@keyframes lamp-rise {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.85;
+  }
+  50% {
+    transform: translateY(-86px) scale(0.8);
+    opacity: 1;
+  }
+}
+
+.press-frame {
+  left: 12px;
+  top: 8px;
+  width: 120px;
+  height: 100px;
+  border: 4px solid #64748b;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+}
+
+.press-ram {
+  left: 34px;
+  top: 12px;
+  width: 76px;
+  height: 34px;
+  border-radius: 4px;
+  background: #475569;
+  animation: press-crush 2.4s ease-in-out infinite;
+}
+
+.press-belt {
+  left: 4px;
+  bottom: 18px;
+  width: 136px;
+  height: 10px;
+  border-radius: 5px;
+  background: #334155;
+}
+
+.press-object {
+  bottom: 28px;
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  background: #f472b6;
+  animation: press-feed 2.4s linear infinite;
+}
+
+@keyframes press-crush {
+  0%,
+  45%,
+  100% {
+    transform: translateY(0);
+  }
+  65%,
+  80% {
+    transform: translateY(46px);
+  }
+}
+
+@keyframes press-feed {
+  0% {
+    transform: translateX(0) scaleY(1);
+  }
+  45% {
+    transform: translateX(62px) scaleY(1);
+  }
+  70% {
+    transform: translateX(62px) scaleY(0.25);
+  }
+  85% {
+    transform: translateX(110px) scaleY(0.25);
+  }
+  100% {
+    transform: translateX(140px) scaleY(0.25);
+  }
+}
+
+/* Stage 3 effects (add-upgrades-v2, design D12, D18): crit feedback, golden button, helpers. */
+
+/* Only this layer shakes; `<main>` and every fixed element stay put (design D12). */
+.shake-layer {
+  animation-name: none;
+}
+
+.shake-layer.is-crit {
+  animation: crit-shake 300ms ease-in-out;
+}
+
+@keyframes crit-shake {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  20% {
+    transform: translate(-6px, 2px);
+  }
+  40% {
+    transform: translate(5px, -3px);
+  }
+  60% {
+    transform: translate(-4px, 3px);
+  }
+  80% {
+    transform: translate(3px, -2px);
+  }
+}
+
+.crit-text {
+  animation: crit-pop 900ms ease-out forwards;
+}
+
+@keyframes crit-pop {
+  0% {
+    transform: translate(-50%, 10px) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    transform: translate(-50%, -4px) scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -48px) scale(1);
+    opacity: 0;
+  }
+}
+
+.crit-flash {
+  background: radial-gradient(circle, rgba(250, 204, 21, 0.9), rgba(250, 204, 21, 0));
+  opacity: 0;
+  animation: crit-flash 400ms ease-out forwards;
+}
+
+@keyframes crit-flash {
+  0% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.crit-particle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: #facc15;
+  animation: crit-burst 700ms ease-out forwards;
+}
+
+@keyframes crit-burst {
+  0% {
+    transform: rotate(var(--crit-angle, 0deg)) translateX(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--crit-angle, 0deg)) translateX(120px) scale(0.3);
+    opacity: 0;
+  }
+}
+
+/* The golden button itself never animates, so Playwright can click it (design D18). */
+.golden-button {
+  background: radial-gradient(circle at 35% 30%, #fde68a, #f59e0b 60%, #b45309);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.5);
+  border: 2px solid #fbbf24;
+}
+
+.golden-button-glow {
+  position: absolute;
+  inset: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0));
+  animation: golden-pulse 1200ms ease-in-out infinite;
+}
+
+@keyframes golden-pulse {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes robot-press {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px) scale(0.94);
+  }
+}
+
+.helper-robot-press {
+  display: inline-block;
+  animation: robot-press 600ms ease-in-out infinite;
+}
+
+@keyframes factory-press {
+  0%,
+  100% {
+    transform: translateY(0) scaleX(1);
+  }
+  50% {
+    transform: translateY(2px) scaleX(1.04);
+  }
+}
+
+.helper-factory-press {
+  display: inline-block;
+  animation: factory-press 400ms ease-in-out infinite;
+}
+
+/* ---------------------------------------------------------------------------
+   Stage 4: achievement toast and video decor (design D7, D13).
+   --------------------------------------------------------------------------- */
+
+@keyframes toast-in {
+  0% {
+    transform: translate(-50%, 12px);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
+
+.achievement-toast {
+  animation: toast-in 200ms ease-out;
+}
+
+/* Own art under every embed: a dark rounded card that also carries the offline message. */
+.video-placeholder {
+  background-image: linear-gradient(160deg, rgb(24 24 27 / 0.9), rgb(63 63 70 / 0.9));
+  color: #fafafa;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-button {
+    transition-duration: 0s;
+  }
+
+  .main-button:active:not(:disabled) {
+    transform: none;
+  }
+
+  .balance-bump,
+  .skin-squish,
+  .skin-jumping-cap,
+  .helper-monkey,
+  .helper-monkey *,
+  .helper-robot,
+  .helper-robot *,
+  .helper-factory,
+  .helper-factory *,
+  .decor,
+  .decor *,
+  .shake-layer,
+  .shake-layer.is-crit,
+  .crit-text,
+  .crit-flash,
+  .golden-button,
+  .golden-button *,
+  .achievement-toast,
+  .video-decor,
+  .video-decor * {
+    animation: none;
+  }
+
+  /* Reduced motion still shows the crit, just static: the flash stays visible for its 900 ms. */
+  .crit-flash {
+    opacity: 0.5;
+  }
+}
+
+/* Same rules for JS-driven motion, keyed off the attribute the client sets. */
+[data-motion="reduced"] .main-button {
+  transition-duration: 0s;
+}
+
+[data-motion="reduced"] .main-button:active:not(:disabled) {
+  transform: none;
+}
+
+[data-motion="reduced"] .balance-bump,
+[data-motion="reduced"] .skin-squish,
+[data-motion="reduced"] .skin-jumping-cap,
+[data-motion="reduced"] .helper-monkey,
+[data-motion="reduced"] .helper-monkey *,
+[data-motion="reduced"] .helper-robot,
+[data-motion="reduced"] .helper-robot *,
+[data-motion="reduced"] .helper-factory,
+[data-motion="reduced"] .helper-factory *,
+[data-motion="reduced"] .decor,
+[data-motion="reduced"] .decor *,
+[data-motion="reduced"] .shake-layer,
+[data-motion="reduced"] .shake-layer.is-crit,
+[data-motion="reduced"] .crit-text,
+[data-motion="reduced"] .crit-flash,
+[data-motion="reduced"] .golden-button,
+[data-motion="reduced"] .golden-button *,
+[data-motion="reduced"] .achievement-toast,
+[data-motion="reduced"] .video-decor,
+[data-motion="reduced"] .video-decor * {
+  animation: none;
+}
+
+/* Reduced motion still shows the crit, just static: the flash stays visible for its 900 ms. */
+[data-motion="reduced"] .crit-flash {
+  opacity: 0.5;
+}
+
+.achievement-close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--achievement-locked-border);
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.achievement-close:hover {
+  background: var(--achievement-locked-bg);
+}
+
+.achievement-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  border-radius: 0.75rem;
+  border: 1px solid var(--achievement-locked-border);
+  background: var(--achievement-locked-bg);
+  padding: 0.75rem;
+}
+
+.achievement-row[data-unlocked="true"] {
+  border-color: var(--achievement-done-border);
+  background: var(--achievement-done-bg);
+  color: var(--achievement-done-fg);
+}
+
+.achievement-row[data-unlocked="true"] .text-muted {
+  color: color-mix(in srgb, var(--achievement-done-fg) 78%, transparent);
+}
+
+.achievement-icon {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  background: color-mix(in srgb, var(--foreground) 6%, transparent);
+}
+
+.achievement-row[data-unlocked="true"] .achievement-icon {
+  background: color-mix(in srgb, var(--achievement-done-border) 22%, var(--achievement-done-bg));
+  color: var(--achievement-done-fg);
+}
+
+.achievement-check {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  display: grid;
+  place-items: center;
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  background: var(--achievement-done-border);
+  color: #ffffff;
+}
