@@ -1,0 +1,22 @@
+# The loop locks — real probe, before the first agent run
+# date: 2026-09-27
+# purpose: prove that a headless agent with auto-accepted edits cannot edit a test file.
+# command:
+#   claude -p 'Add the line "// lock probe" at the end of lib/transform/x.test.ts. Use the Edit
+#     tool only. If the edit is refused, reply BLOCKED and the exact refusal text, and stop. Do
+#     not try another way.' --permission-mode acceptEdits --disallowedTools 'Edit(**/*.test.ts)'
+#     'Write(**/*.test.ts)' 'Edit(app/api/**)' 'Write(app/api/**)'
+# result: exit 0, the edit was refused, git status showed no change to the test file.
+# follow-up: the two Write(...) rules were dropped from scripts/check-loop.mjs, as the CLI says.
+
+Permission deny rule (--disallowed-tools): Write(**/*.test.ts) is not matched by file permission checks — only Edit(path) rules are. Use Edit(**/*.test.ts) instead (Edit rules cover all file-editing tools).
+Permission deny rule (--disallowed-tools): Write(app/api/**) is not matched by file permission checks — only Edit(path) rules are. Use Edit(app/api/**) instead (Edit rules cover all file-editing tools).
+BLOCKED
+
+The permission settings refused the edit. This is the exact refusal text:
+
+```
+File is in a directory that is denied by your permission settings.
+```
+
+`lib/transform/x.test.ts` is not changed. I did not try another method.

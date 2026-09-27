@@ -1,0 +1,32 @@
+Mutants on lib/import/jira.ts, 2026-09-27. Each mutant was applied with sed, run with
+`pnpm test lib/import/jira.test.ts`, and reverted. `cmp` against the backup confirmed each revert.
+
+First run, with the first fixture (5 cases):
+
+  bold rule writes *$1* instead of **$1**          1 failed | 4 passed   KILLED
+  every parent mark indents 2 spaces               5 passed              SURVIVED
+  escape protection removed                        5 passed              SURVIVED
+
+The fixture had no bullet under a numbered item, and no escaped text that an inline rule
+reads as markup. The fixture got "1. first / - under a number" and
+"\*not bold\* and \[not|a link\]". The guard list in the test got "\n#* ",
+"\*not bold\*" and "\[not\|a link\]".
+
+Second run, with the extended fixture (5 cases):
+
+  bold rule writes *$1* instead of **$1**          1 failed | 4 passed   KILLED
+  every parent mark indents 2 spaces               1 failed | 4 passed   KILLED
+  escape protection removed                        1 failed | 4 passed   KILLED
+  link rule keeps the text only                    1 failed | 4 passed   KILLED
+  ---- passes through instead of ***               5 passed              SURVIVED
+  an empty quoted line is "> " instead of ">"      5 passed              SURVIVED (equivalent)
+
+The ---- rule matters only under a text line, and the Jira output always puts a blank line
+before ----. The case "keeps a rule under a text line a rule" was added for it.
+The quote mutant changes a trailing space only. The HTML is the same, so no case holds it.
+
+Third run (6 cases):
+
+  ---- passes through instead of ***               1 failed | 5 passed   KILLED
+
+pnpm check after the third run: exit 0, 84 tests in 11 files.

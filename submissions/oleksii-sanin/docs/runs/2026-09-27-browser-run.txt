@@ -1,0 +1,61 @@
+Browser run of add-jira-gdocs-and-import, tasks 9.1 and 9.2, 2026-09-27, at ed83bff.
+
+The human asked the agent to run Playwright and test the page. The Playwright MCP server did not
+connect in this session. docs/runs/2026-09-27-browser-run.mjs drove the system Chrome with
+Playwright 1.60.0 from the npx cache, headless, against the `pnpm dev` server that already ran on
+:3033. The project got no dependency. Command, from the project directory:
+
+  PLAYWRIGHT=~/.npm/_npx/e41f203b7505f1fb/node_modules/playwright OUT=<file> SHOT=<file> \
+    node docs/runs/2026-09-27-browser-run.mjs
+
+First run: 13 passed, 3 failed. All three failures had one cause in the script, not in the page:
+getByRole("alert") also found #__next-route-announcer__, the route announcer of Next.js dev, and
+Playwright refused the ambiguous locator. The script now scopes the locator to <main>. Nothing in
+app/ changed between the two runs.
+
+What the run does not prove:
+
+- A paste into Google Docs and a paste into Jira. Both need an account. The human runs them.
+- The Google Docs clipboard format. The "Rich text becomes markdown" check writes hand-made HTML in
+  the Google Docs shape. The real capture of task 5.1 is still missing.
+- A real VS Code copy. The "normal paste" check writes a text/html entry and a text/plain entry
+  the way VS Code does, then presses Cmd+V.
+
+Second run:
+
+PASS  9.2 The first page load carries no conversion code
+      15 scripts on the first load, none holds "convertToHtml" or "docs-internal-guid"
+
+## transform-tool
+PASS  Paste gives six tabs
+      tabs: Blog, Email, X thread, LinkedIn, Jira, Google Docs. Jira starts "h2. Setup". Google Docs starts "<h2>Setup</h2>"
+PASS  The X tab shows each part apart
+      Part 1 of 3, Part 2 of 3, Part 3 of 3
+PASS  An empty textarea shows no error
+PASS  The Google Docs tab copies rich text: the clipboard holds both entries
+      types: text/plain, text/html. text/html read back: "<h2>Setup</h2>\n<p>Run the <strong>check</strong> first.</p>"
+NOT RUN  A paste into Google Docs keeps the heading
+      It needs a Google account in the browser. The human runs it.
+
+## markdown-import
+PASS  A markdown file loads unchanged
+PASS  An oversized file is refused
+      message: "The file is over the 1 MB limit."
+PASS  An unsupported file is refused
+      message: "Open a .md, .markdown, .txt, .html or .docx file."
+PASS  An .html file loads as markdown
+      textarea: "## Setup\n\nSee [docs](https://example.com).\n"
+PASS  A .docx file loads as markdown, and stays in the browser
+      textarea: "# Release notes\n\nRun the **check** first.\n\n- one\n- two\n"
+      requests during the open: 8, all GET with no body: /_next/static/chunks/02bj_next_dist_compiled_1g2_fuf._.js, /_next/static/chunks/1ctj_underscore_modules_1kwnj0z._.js, /_next/static/chunks/0aki_mammoth_0g5arhf._.js, /_next/static/chunks/0sk2_jszip_lib_0f1_g4y._.js, /_next/static/chunks/02wh_pako_0nlb_66._.js, /_next/static/chunks/17l5_%40xmldom_xmldom_lib_0js4byg._.js, /_next/static/chunks/node_modules__pnpm_0urm8xi._.js, /_next/static/chunks/lib_import_1istcul._.js
+PASS  9.2 The conversion code loads on demand
+      12 scripts after the first load: /_next/static/chunks/lib_import_html_ts_1yb-jxg._.js, /_next/static/chunks/1mts_mdast-util-to-markdown_lib_1k_a3wl._.js, /_next/static/chunks/082q_parse5_dist_00vtioy._.js, /_next/static/chunks/node_modules__pnpm_06d2ucr._.js, /_next/static/chunks/0sk2_jszip_lib_0f1_g4y._.js, /_next/static/chunks/0aki_mammoth_0g5arhf._.js, /_next/static/chunks/1ctj_underscore_modules_1kwnj0z._.js, /_next/static/chunks/02bj_next_dist_compiled_1g2_fuf._.js, /_next/static/chunks/lib_import_1istcul._.js, /_next/static/chunks/17l5_%40xmldom_xmldom_lib_0js4byg._.js, /_next/static/chunks/02wh_pako_0nlb_66._.js, /_next/static/chunks/node_modules__pnpm_0urm8xi._.js
+PASS  Rich text becomes markdown (SIMULATED Google Docs HTML, not a real capture)
+      textarea: "## Setup\n\nRun the **check** first.\n"
+PASS  A clipboard with no rich text changes nothing
+      message: "The clipboard holds no rich text. Copy from Google Docs, Word or a web page first."
+PASS  A normal paste does not convert
+PASS  The page converts the textarea (Convert Jira text)
+PASS  The Jira output converts back through the page
+
+16 passed, 0 failed, 1 not run. Screenshot: docs/runs/2026-09-27-browser-run.png

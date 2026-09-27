@@ -1,0 +1,108 @@
+# pnpm check:loop — real run, red, stops at the retry cap
+# date: 2026-09-20
+# command: pnpm check:loop 2
+# deliberate break: lib/transform/linkedin.ts LIMIT 3000 -> 300,
+#   so the 'cuts long input at the last complete sentence' case fails.
+# reverted with git checkout right after this run.
+
+
+> markdown-transform@0.1.0 check:loop /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> node scripts/check-loop.mjs 2
+
+
+=== iteration 1 of 2 — pnpm check ===
+
+> markdown-transform@0.1.0 check /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> pnpm typecheck && pnpm lint && vitest run
+
+
+> markdown-transform@0.1.0 typecheck /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+
+> markdown-transform@0.1.0 lint /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> eslint
+
+
+ RUN  v5.0.1 /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+
+ ❯ lib/transform/linkedin.test.ts (5 tests | 1 failed) 16ms
+   ❯ LinkedIn output is plain text (5)
+     × cuts long input at the last complete sentence under 3000 characters 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  lib/transform/linkedin.test.ts > LinkedIn output is plain text > cuts long input at the last complete sentence under 3000 characters
+AssertionError: expected 213 to be greater than 2800
+ ❯ lib/transform/linkedin.test.ts:41:29
+     39|     // The cut sits at the LAST sentence under the limit, not at an ea…
+     40|     // bound a limit of 300, or of 10, would satisfy every other asser…
+     41|     expect(linkedin.length).toBeGreaterThan(2800);
+       |                             ^
+     42|     expect(linkedin.trimEnd()).toMatch(/\.$/);
+     43|     expect(meta.linkedin.truncated).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 27 passed (28)
+   Start at  14:48:59
+   Duration  306ms (import 71%, transform 19%, tests 8%, worker 2%)
+
+ ELIFECYCLE  Command failed with exit code 1.
+=== iteration 1 exit 1 ===
+
+=== iteration 2 of 2 — pnpm check ===
+
+> markdown-transform@0.1.0 check /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> pnpm typecheck && pnpm lint && vitest run
+
+
+> markdown-transform@0.1.0 typecheck /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> next typegen && tsc --noEmit
+
+Generating route types...
+✓ Types generated successfully
+
+> markdown-transform@0.1.0 lint /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+> eslint
+
+
+ RUN  v5.0.1 /Users/sas/bookmarks/i/it/courses/2026-agentic-engineering-crash-course-capstone/submissions/oleksii-sanin
+
+ ❯ lib/transform/linkedin.test.ts (5 tests | 1 failed) 18ms
+   ❯ LinkedIn output is plain text (5)
+     × cuts long input at the last complete sentence under 3000 characters 8ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  lib/transform/linkedin.test.ts > LinkedIn output is plain text > cuts long input at the last complete sentence under 3000 characters
+AssertionError: expected 213 to be greater than 2800
+ ❯ lib/transform/linkedin.test.ts:41:29
+     39|     // The cut sits at the LAST sentence under the limit, not at an ea…
+     40|     // bound a limit of 300, or of 10, would satisfy every other asser…
+     41|     expect(linkedin.length).toBeGreaterThan(2800);
+       |                             ^
+     42|     expect(linkedin.trimEnd()).toMatch(/\.$/);
+     43|     expect(meta.linkedin.truncated).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 5 passed (6)
+      Tests  1 failed | 27 passed (28)
+   Start at  14:49:03
+   Duration  309ms (import 68%, transform 22%, tests 9%, worker 2%)
+
+ ELIFECYCLE  Command failed with exit code 1.
+=== iteration 2 exit 1 ===
+
+iterations: 2
+stop reason: the retry cap of 2 was reached
+last exit code: 1
+seconds: 7.3
+ ELIFECYCLE  Command failed with exit code 1.
+# loop exit: 1

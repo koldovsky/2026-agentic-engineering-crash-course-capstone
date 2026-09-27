@@ -1,0 +1,64 @@
+Browser run after the page fixes of task 9.4, 2026-09-27. The code was a7bfb99 plus the
+app/tool.tsx change of the next commit, "fix: Guard the textarea against stale imports".
+
+The same script as the first run, docs/runs/2026-09-27-browser-run.mjs, with four checks added for
+review findings 6, 16, 17 and 18. The same Playwright 1.60.0 from the npx cache drove the system
+Chrome, headless, against the `pnpm dev` server that already ran on :3033. Command:
+
+  PLAYWRIGHT=~/.npm/_npx/e41f203b7505f1fb/node_modules/playwright \
+    OUT=docs/runs/2026-09-27-browser-run-fixes.txt node docs/runs/2026-09-27-browser-run.mjs
+
+Result: 20 passed, 0 failed, 1 not run (it needs a Google account).
+
+Mutant run for finding 6: the agent removed the line `if (id !== latest.current) return;` from
+app/tool.tsx, ran the script again, and restored the line. Result: 19 passed, 1 failed. The failed
+check was "Finding 6", with the textarea value "# Release notes\n\nRun the **check** first.\n\n- one\n- two\n".
+The .docx result overwrote the edit. The check therefore detects a missing guard.
+
+Still not proven by a browser: the real Google Docs clipboard (the fixture is hand-made), the paste
+into Google Docs, and the paste into Jira. Task 9.1 needs the human for all three.
+
+---
+
+PASS  9.2 The first page load carries no conversion code
+      15 scripts on the first load, none holds "convertToHtml" or "docs-internal-guid"
+
+## transform-tool
+PASS  Paste gives six tabs
+      tabs: Blog, Email, X thread, LinkedIn, Jira, Google Docs. Jira starts "h2. Setup". Google Docs starts "<h2>Setup</h2>"
+PASS  The X tab shows each part apart
+      Part 1 of 3, Part 2 of 3, Part 3 of 3
+PASS  An empty textarea shows no error
+PASS  The Google Docs tab copies rich text: the clipboard holds both entries
+      types: text/plain, text/html. text/html read back: "<h2>Setup</h2>\n<p>Run the <strong>check</strong> first.</p>"
+NOT RUN  A paste into Google Docs keeps the heading
+      It needs a Google account in the browser. The human runs it.
+
+## markdown-import
+PASS  A markdown file loads unchanged
+PASS  An oversized file is refused
+      message: "The file is over the 1 MB limit."
+PASS  An unsupported file is refused
+      message: "Open a .md, .markdown, .txt, .html or .docx file."
+PASS  An .html file loads as markdown
+      textarea: "## Setup\n\nSee [docs](https://example.com).\n"
+PASS  A .docx file loads as markdown, and stays in the browser
+      textarea: "# Release notes\n\nRun the **check** first.\n\n- one\n- two\n"
+      requests during the open: 8, all GET with no body: /_next/static/chunks/02bj_next_dist_compiled_1g2_fuf._.js, /_next/static/chunks/1ctj_underscore_modules_1kwnj0z._.js, /_next/static/chunks/0aki_mammoth_0g5arhf._.js, /_next/static/chunks/0sk2_jszip_lib_0f1_g4y._.js, /_next/static/chunks/02wh_pako_0nlb_66._.js, /_next/static/chunks/17l5_%40xmldom_xmldom_lib_0js4byg._.js, /_next/static/chunks/node_modules__pnpm_0urm8xi._.js, /_next/static/chunks/lib_import_1istcul._.js
+PASS  9.2 The conversion code loads on demand
+      12 scripts after the first load: /_next/static/chunks/lib_import_html_ts_1yb-jxg._.js, /_next/static/chunks/1mts_mdast-util-to-markdown_lib_1k_a3wl._.js, /_next/static/chunks/082q_parse5_dist_00vtioy._.js, /_next/static/chunks/node_modules__pnpm_06d2ucr._.js, /_next/static/chunks/0aki_mammoth_0g5arhf._.js, /_next/static/chunks/0sk2_jszip_lib_0f1_g4y._.js, /_next/static/chunks/1ctj_underscore_modules_1kwnj0z._.js, /_next/static/chunks/17l5_%40xmldom_xmldom_lib_0js4byg._.js, /_next/static/chunks/02bj_next_dist_compiled_1g2_fuf._.js, /_next/static/chunks/02wh_pako_0nlb_66._.js, /_next/static/chunks/lib_import_1istcul._.js, /_next/static/chunks/node_modules__pnpm_0urm8xi._.js
+PASS  Rich text becomes markdown (SIMULATED Google Docs HTML, not a real capture)
+      textarea: "## Setup\n\nRun the **check** first.\n"
+PASS  A clipboard with no rich text changes nothing
+      message: "The clipboard holds no rich text. Copy from Google Docs, Word or a web page first."
+PASS  A normal paste does not convert
+PASS  The page converts the textarea (Convert Jira text)
+PASS  The Jira output converts back through the page
+
+## page fixes, docs/reviews/2026-09-27-add-jira-gdocs-and-import.md
+PASS  Finding 17: Convert Jira text runs once for each edit
+PASS  Finding 18: Convert Jira text clears an old message
+PASS  Finding 16: rich text with only an inline image changes nothing
+      message: "The page found no text in the rich text."
+PASS  Finding 6: an edit during a slow import stays
+      the .docx code arrived after the edit, and the textarea kept the edit

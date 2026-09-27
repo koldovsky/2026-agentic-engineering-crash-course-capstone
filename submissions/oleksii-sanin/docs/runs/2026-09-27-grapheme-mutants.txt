@@ -1,0 +1,45 @@
+Mutation run for review finding 3.1, docs/reviews/2026-09-20-lib-transform-groups-2-3.md
+Date: 2026-09-27. Scope: pnpm vitest run lib/transform.
+
+Mutant A: graphemes() counts UTF-16 code units.
+  export const graphemes = (text: string): number => text.length;
+Mutant B: splitGraphemes() cuts by code point, so a family emoji splits into its 7 parts.
+  const all = [...text];
+
+The script copies lib/transform/ast.ts aside, applies one mutant with sed, runs the suite,
+and restores the file on exit:
+
+#!/bin/zsh
+# Run the lib/transform suite against the two mutants of review finding 3.1, then restore ast.ts.
+F=lib/transform/ast.ts
+cp $F $F.orig
+trap 'mv $F.orig $F' EXIT
+sed -i '' 's/^export const graphemes = (text: string): number => .*/export const graphemes = (text: string): number => text.length;/' $F
+grep -c 'number => text.length;' $F | sed 's/^/mutant A applied: /'
+pnpm vitest run lib/transform 2>&1 | grep -E 'Test Files|Tests ' | sed 's/^/mutant A: /'
+cp $F.orig $F
+sed -i '' 's/^  const all = clusters(text);/  const all = [...text];/' $F
+grep -c 'const all = \[\.\.\.text\];' $F | sed 's/^/mutant B applied: /'
+pnpm vitest run lib/transform 2>&1 | grep -E 'Test Files|Tests ' | sed 's/^/mutant B: /'
+
+--- Before: at 95e86ce, with the fixes for 1.1 to 1.6 and no new grapheme test ---
+mutant A applied: 1
+mutant A:  Test Files  5 passed (5)
+mutant A:       Tests  32 passed (32)
+mutant B applied: 1
+mutant B:  Test Files  5 passed (5)
+mutant B:       Tests  32 passed (32)
+
+--- After: with lib/transform/ast.test.ts and the stronger emoji case in x.test.ts ---
+mutant A applied: 1
+mutant A: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+mutant A:  Test Files  2 failed | 4 passed (6)
+mutant A:       Tests  2 failed | 32 passed (34)
+mutant B applied: 1
+mutant B: ⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+mutant B:  Test Files  1 failed | 5 passed (6)
+mutant B:       Tests  1 failed | 33 passed (34)
+
+--- The unmutated suite, same tree ---
+ Test Files  6 passed (6)
+      Tests  34 passed (34)
