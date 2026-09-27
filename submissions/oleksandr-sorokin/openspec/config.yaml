@@ -1,0 +1,42 @@
+schema: spec-driven
+
+context: |
+  Tech stack: Next.js 16, React 19, TypeScript, Tailwind CSS 4, Vitest, Zod, Recharts.
+  Package manager: pnpm only — never npm or yarn.
+  Pure logic lives in lib/ (no React/Next imports) with a Vitest test beside it.
+  Filter, sort, and page state lives in the URL (searchParams) — every view is a shareable link.
+  Import alias @/* = project root.
+
+  Docs to read before writing any code:
+    - docs/PRD.md — requirements and feature scope
+    - docs/architecture.md — file layout and routing conventions
+    - docs/design.md — UI states and component guidelines
+    - docs/data-model.md — ETF data shape and field definitions
+    - openspec/specs/ — approved behaviour specs for each feature
+
+  Demo-data rule: the project uses generated demo data only (data/etfs.json).
+  Never fetch live market data. Never call any external financial API.
+  Never render or imply investment advice in UI copy.
+
+  Scope rule: write only inside submissions/oleksandr-sorokin/.
+  The scope guard blocks writes outside it; do not work around a block — report it.
+
+  English only: all UI copy, code identifiers, comments, docs, and commit messages must be in English.
+
+  Next.js 16 async APIs: params, searchParams, cookies(), headers() are async — always await them.
+  Server Components by default; 'use client' only for hooks, browser APIs, and event handlers.
+
+rules:
+  tasks:
+    - First task must be "Write failing tests for <scenario>" before any implementation.
+    - Break tasks into single logical units; each task maps to one commit.
+    - No task may disable a lint rule or skip a test to reach green.
+
+operations:
+  apply:
+    guidance:
+      - Run pnpm check and quote exit code + test count before marking any task done.
+      - A separate reviewer subagent checks the diff; do not review your own work.
+  archive:
+    guidance:
+      - Confirm pnpm check is green and all tasks are marked done before archiving.

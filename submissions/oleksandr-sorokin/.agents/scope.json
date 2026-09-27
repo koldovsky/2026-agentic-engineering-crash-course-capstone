@@ -1,0 +1,13 @@
+{
+  "$comment": "Write scope for the agent, enforced by .claude/hooks/guard-scope.mjs (canonical: .agents/hooks/). Paths are relative to this project folder. The agent may write only inside 'allow' and never inside 'deny'. Reads are not limited. Only the human edits this file.",
+  "allow": ["."],
+  "deny": [
+    { "path": ".agents/scope.json", "reason": "The scope config is edited only by the human." },
+    { "path": ".claude/settings.json", "reason": "Hooks and permissions are edited only by the human." },
+    { "path": ".claude/hooks", "reason": "Generated copy. Edit .agents/hooks/ and run: node scripts/agents-sync.mjs" },
+    { "path": ".claude/skills", "reason": "Generated copy. Edit .agents/skills/ and run: node scripts/agents-sync.mjs" },
+    { "path": ".claude/agents", "reason": "Generated copy. Edit .agents/agents/ and run: node scripts/agents-sync.mjs" },
+    { "path": ".agent-log", "reason": "The action log is written only by hooks." },
+    { "path": ".env", "reason": "Secrets file: ask the human to change it." }
+  ]
+}
