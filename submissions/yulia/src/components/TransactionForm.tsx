@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ReactNode } from 'react'
 
 import {
   EXPENSE_CATEGORIES,
+  type Transaction,
   type TransactionType,
 } from '../domain/model'
 import type { TransactionValidationErrors } from '../domain/transactions'
@@ -22,13 +23,25 @@ export type SubmissionResult =
 
 interface TransactionFormProps {
   onSubmit: (input: NewTransactionInput) => SubmissionResult
+  transaction?: Transaction
+  onCancel?: () => void
 }
 
-export function TransactionForm({ onSubmit }: TransactionFormProps) {
-  const [type, setType] = useState<TransactionType>('expense')
-  const [amount, setAmount] = useState('')
-  const [date, setDate] = useState('')
-  const [category, setCategory] = useState('')
+export function TransactionForm({
+  onSubmit,
+  transaction,
+  onCancel,
+}: TransactionFormProps) {
+  const [type, setType] = useState<TransactionType>(
+    transaction?.type ?? 'expense',
+  )
+  const [amount, setAmount] = useState(() =>
+    transaction ? amountForInput(transaction.amountMinor) : '',
+  )
+  const [date, setDate] = useState(transaction?.date ?? '')
+  const [category, setCategory] = useState(
+    transaction?.type === 'expense' ? transaction.category : '',
+  )
   const [errors, setErrors] = useState<TransactionValidationErrors>({})
   const [formError, setFormError] = useState<string | null>(null)
 
@@ -49,9 +62,11 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
 
     setErrors({})
     setFormError(null)
-    setAmount('')
-    setDate('')
-    setCategory('')
+    if (!transaction) {
+      setAmount('')
+      setDate('')
+      setCategory('')
+    }
   }
 
   function handleTypeChange(nextType: TransactionType): void {
@@ -62,7 +77,9 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
   return (
     <section className="panel" aria-labelledby="transaction-form-heading">
       <p className="eyebrow">Manual entry</p>
-      <h2 id="transaction-form-heading">Add transaction</h2>
+      <h2 id="transaction-form-heading">
+        {transaction ? 'Edit transaction' : 'Add transaction'}
+      </h2>
 
       <form className="transaction-form" onSubmit={handleSubmit} noValidate>
         <fieldset>
@@ -143,10 +160,26 @@ export function TransactionForm({ onSubmit }: TransactionFormProps) {
           </p>
         ) : null}
 
-        <button type="submit">Add transaction</button>
+        <div className="form-actions">
+          <button type="submit">
+            {transaction ? 'Save changes' : 'Add transaction'}
+          </button>
+          {transaction ? (
+            <button type="button" className="button-secondary" onClick={onCancel}>
+              Cancel
+            </button>
+          ) : null}
+        </div>
       </form>
     </section>
   )
+}
+
+function amountForInput(amountMinor: number): string {
+  const amount = BigInt(amountMinor)
+  const major = amount / 100n
+  const fraction = (amount % 100n).toString().padStart(2, '0')
+  return `${major}.${fraction}`
 }
 
 interface FormFieldProps {

@@ -4,10 +4,14 @@ import { formatMoney } from '../domain/money'
 interface TransactionListProps {
   currency: Currency
   transactions: readonly Transaction[]
+  onEdit: (transaction: Transaction) => void
+  onDelete: (transaction: Transaction) => void
 }
 export function TransactionList({
   currency,
   transactions,
+  onEdit,
+  onDelete,
 }: TransactionListProps) {
   return (
     <section className="panel" aria-labelledby="transactions-heading">
@@ -27,12 +31,30 @@ export function TransactionList({
                 ) : null}
                 <span>{transaction.date}</span>
               </div>
-              <span
-                className={`transaction-amount transaction-amount--${transaction.type}`}
-              >
-                {transaction.type === 'income' ? '+' : '−'}
-                {formatMoney(transaction.amountMinor, currency)}
-              </span>
+              <div className="transaction-row-end">
+                <span
+                  className={`transaction-amount transaction-amount--${transaction.type}`}
+                >
+                  {transaction.type === 'income' ? '+' : '−'}
+                  {formatMoney(transaction.amountMinor, currency)}
+                </span>
+                <div className="transaction-actions">
+                  <button
+                    type="button"
+                    className="button-secondary button-compact"
+                    onClick={() => onEdit(transaction)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    className="button-danger button-compact"
+                    onClick={() => onDelete(transaction)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
             </li>
           ))}
         </ul>

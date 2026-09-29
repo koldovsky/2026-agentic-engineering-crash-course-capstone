@@ -198,6 +198,187 @@ describe('Varto application', () => {
     expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 20.00')
   })
 
+  it('edits an expense with the creation validation path and persists the replacement', async () => {
+    const { storage, unmount } = renderApp()
+    const user = await completeSetup()
+    await addExpense(user)
+
+    await user.click(
+      within(screen.getByRole('listitem')).getByRole('button', { name: 'Edit' }),
+    )
+
+    expect(
+      screen.getByRole('heading', { name: 'Edit transaction' }),
+    ).toBeInTheDocument()
+    expect(screen.getByLabelText('Amount')).toHaveValue('25.50')
+    expect(screen.getByLabelText('Date')).toHaveValue('2026-01-10')
+    expect(screen.getByLabelText('Category')).toHaveValue('Groceries')
+
+    await user.clear(screen.getByLabelText('Amount'))
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+
+    expect(screen.getByText('Amount is required')).toBeInTheDocument()
+    expect(
+      JSON.parse(storage.values.get(STORAGE_KEY) ?? '{}').transactions[0],
+    ).toMatchObject({ amountMinor: 2_550, category: 'Groceries' })
+
+    await user.type(screen.getByLabelText('Amount'), '30.00')
+    await user.selectOptions(screen.getByLabelText('Category'), 'Car')
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+
+    expect(screen.getByRole('list')).toHaveTextContent('Car')
+    expect(screen.getByRole('list')).not.toHaveTextContent('Groceries')
+    expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 30.00')
+    expect(
+      screen.queryByText('No expense categories this month.'),
+    ).not.toBeInTheDocument()
+    const categorySummary = screen.getByRole('region', {
+      name: 'Spending by category',
+    })
+    expect(within(categorySummary).getByText('Car')).toBeInTheDocument()
+    expect(within(categorySummary).getByText('USD 30.00')).toBeInTheDocument()
+
+    const stored = JSON.parse(storage.values.get(STORAGE_KEY) ?? '{}')
+    expect(stored.transactions).toEqual([
+      {
+        id: 'transaction-1',
+        type: 'expense',
+        amountMinor: 3_000,
+        date: '2026-01-10',
+        category: 'Car',
+      },
+    ])
+
+    unmount()
+    renderApp(storage)
+
+    expect(screen.getByRole('list')).toHaveTextContent('Car')
+    expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 30.00')
+  })
+
+  it('normalizes an expense changed to income and moves it to the new month', async () => {
+    const { storage } = renderApp()
+    const user = await completeSetup()
+    await addExpense(user)
+
+    await user.click(
+      within(screen.getByRole('listitem')).getByRole('button', { name: 'Edit' }),
+    )
+    await user.click(screen.getByLabelText('Income'))
+    expect(screen.queryByLabelText('Category')).not.toBeInTheDocument()
+    await user.clear(screen.getByLabelText('Date'))
+    await user.type(screen.getByLabelText('Date'), '2026-02-08')
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+
+    expect(screen.getByText('No transactions this month.')).toBeInTheDocument()
+    expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 0.00')
+    expect(screen.getByLabelText('Total balance')).toHaveTextContent('USD 0.00')
+
+    await user.clear(screen.getByLabelText('Month'))
+    await user.type(screen.getByLabelText('Month'), '2026-02')
+
+    expect(screen.getByRole('list')).toHaveTextContent('Income')
+    expect(screen.getByRole('list')).toHaveTextContent('2026-02-08')
+    expect(screen.getByLabelText('Total income')).toHaveTextContent('USD 25.50')
+    expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 0.00')
+    expect(screen.getByLabelText('Total balance')).toHaveTextContent('USD 25.50')
+
+    const stored = JSON.parse(storage.values.get(STORAGE_KEY) ?? '{}')
+    expect(stored.transactions[0]).toEqual({
+      id: 'transaction-1',
+      type: 'income',
+      amountMinor: 2_550,
+      date: '2026-02-08',
+    })
+  })
+
+  it('keeps the prior transaction when an edit would make totals unsafe', async () => {
+    const storage = new MemoryStorage()
+    storage.values.set(
+      STORAGE_KEY,
+      JSON.stringify({
+        schemaVersion: SCHEMA_VERSION,
+        currency: 'USD',
+        transactions: [
+          {
+            id: 'income-one',
+            type: 'income',
+            amountMinor: Number.MAX_SAFE_INTEGER - 1,
+            date: '2026-01-01',
+          },
+          {
+            id: 'income-two',
+            type: 'income',
+            amountMinor: 1,
+            date: '2026-01-02',
+          },
+        ],
+      }),
+    )
+    renderApp(storage)
+    const user = userEvent.setup()
+
+    const rows = screen.getAllByRole('listitem')
+    await user.click(within(rows[1]).getByRole('button', { name: 'Edit' }))
+    await user.clear(screen.getByLabelText('Amount'))
+    await user.type(screen.getByLabelText('Amount'), '.02')
+    await user.click(screen.getByRole('button', { name: 'Save changes' }))
+
+    expect(
+      screen.getByText('This amount would make the monthly totals too large.'),
+    ).toBeInTheDocument()
+    const stored = JSON.parse(storage.values.get(STORAGE_KEY) ?? '{}')
+    expect(stored.transactions[1].amountMinor).toBe(1)
+  })
+
+  it('cancels and confirms native deletion, then persists the empty state', async () => {
+    const { storage, unmount } = renderApp()
+    const user = await completeSetup()
+    await addExpense(user)
+    const confirmDeletion = vi
+      .spyOn(window, 'confirm')
+      .mockReturnValueOnce(false)
+      .mockReturnValueOnce(true)
+
+    try {
+      await user.click(
+        within(screen.getByRole('listitem')).getByRole('button', {
+          name: 'Delete',
+        }),
+      )
+
+      expect(confirmDeletion).toHaveBeenCalledWith(
+        'Delete this expense transaction permanently?',
+      )
+      expect(screen.getByRole('listitem')).toBeInTheDocument()
+      expect(
+        JSON.parse(storage.values.get(STORAGE_KEY) ?? '{}').transactions,
+      ).toHaveLength(1)
+      expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 25.50')
+
+      await user.click(
+        within(screen.getByRole('listitem')).getByRole('button', {
+          name: 'Delete',
+        }),
+      )
+
+      expect(confirmDeletion).toHaveBeenCalledTimes(2)
+      expect(screen.getByText('No transactions this month.')).toBeInTheDocument()
+      expect(screen.getByText('No expense categories this month.')).toBeInTheDocument()
+      expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 0.00')
+      expect(screen.getByLabelText('Total balance')).toHaveTextContent('USD 0.00')
+      expect(
+        JSON.parse(storage.values.get(STORAGE_KEY) ?? '{}').transactions,
+      ).toEqual([])
+
+      unmount()
+      renderApp(storage)
+      expect(screen.getByText('No transactions this month.')).toBeInTheDocument()
+    } finally {
+      confirmDeletion.mockRestore()
+    }
+  })
+
   it('shows a zero summary and empty states for a month without transactions', async () => {
     renderApp()
     await completeSetup()

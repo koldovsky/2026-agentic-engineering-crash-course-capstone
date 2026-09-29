@@ -8,10 +8,12 @@ import {
   type SubmissionResult,
 } from './components/TransactionForm'
 import { TransactionList } from './components/TransactionList'
-import type { Currency } from './domain/model'
+import type { Currency, Transaction } from './domain/model'
 import {
   addTransaction,
   filterTransactionsByMonth,
+  removeTransaction,
+  replaceTransaction,
   summarizeMonth,
   validateTransactionInput,
 } from './domain/transactions'
@@ -28,12 +30,17 @@ interface AppProps {
   storage?: StorageAdapter
   now?: Date
   createTransactionId?: () => string
+  confirmDeletion?: (transaction: Transaction) => boolean
 }
 
 export function App({
   storage,
   now = new Date(),
   createTransactionId = () => crypto.randomUUID(),
+  confirmDeletion = (transaction) =>
+    window.confirm(
+      `Delete this ${transaction.type} transaction permanently?`,
+    ),
 }: AppProps) {
   const [activeStorage] = useState(() => resolveStorage(storage))
   const [initialLoad] = useState(() => loadState(activeStorage))
@@ -41,6 +48,9 @@ export function App({
     initialLoad.status === 'loaded' ? initialLoad.state : null,
   )
   const [selectedMonth, setSelectedMonth] = useState(() => monthFromDate(now))
+  const [editingTransactionId, setEditingTransactionId] = useState<string | null>(
+    null,
+  )
   const [storageError, setStorageError] = useState<string | null>(() =>
     initialLoad.status === 'unavailable'
       ? 'Browser storage is unavailable. Varto cannot safely save your data.'
@@ -63,6 +73,10 @@ export function App({
     () => summarizeMonth(persistedState?.transactions ?? [], selectedMonth),
     [persistedState, selectedMonth],
   )
+  const editingTransaction =
+    persistedState?.transactions.find(
+      (transaction) => transaction.id === editingTransactionId,
+    ) ?? null
 
   function handleCurrencySelected(currency: Currency): void {
     const nextState: PersistedState = {
@@ -123,6 +137,77 @@ export function App({
     setStorageError(null)
     setPersistedState(nextState)
     return { ok: true }
+  }
+
+  function handleEditTransaction(input: NewTransactionInput): SubmissionResult {
+    if (!persistedState || !editingTransaction) {
+      return { ok: false, formError: 'The transaction is no longer available.' }
+    }
+
+    const validation = validateTransactionInput({
+      ...input,
+      id: editingTransaction.id,
+    })
+
+    if (!validation.ok) {
+      return { ok: false, errors: validation.errors }
+    }
+
+    const change = replaceTransaction(
+      persistedState.transactions,
+      validation.value,
+    )
+
+    if (!change.ok) {
+      return {
+        ok: false,
+        errors: {
+          amount: 'This amount would make the monthly totals too large.',
+        },
+      }
+    }
+
+    const nextState: PersistedState = {
+      ...persistedState,
+      transactions: change.value,
+    }
+    const saveResult = saveState(activeStorage, nextState)
+
+    if (!saveResult.ok) {
+      setStorageError('Varto could not save these changes. No changes were kept.')
+      return { ok: false, formError: 'The transaction could not be updated.' }
+    }
+
+    setStorageError(null)
+    setPersistedState(nextState)
+    setEditingTransactionId(null)
+    return { ok: true }
+  }
+
+  function handleDeleteTransaction(transaction: Transaction): void {
+    if (!persistedState || !confirmDeletion(transaction)) {
+      return
+    }
+
+    const nextState: PersistedState = {
+      ...persistedState,
+      transactions: removeTransaction(
+        persistedState.transactions,
+        transaction.id,
+      ),
+    }
+    const saveResult = saveState(activeStorage, nextState)
+
+    if (!saveResult.ok) {
+      setStorageError('Varto could not delete this transaction. No changes were kept.')
+      return
+    }
+
+    setStorageError(null)
+    setPersistedState(nextState)
+    setEditingTransactionId((current) =>
+      current === transaction.id ? null : current,
+    )
   }
 
   if (initialLoad.status === 'unavailable') {
@@ -189,10 +274,19 @@ export function App({
       />
 
       <div className="content-grid">
-        <TransactionForm onSubmit={handleAddTransaction} />
+        <TransactionForm
+          key={editingTransaction?.id ?? 'new-transaction'}
+          transaction={editingTransaction ?? undefined}
+          onSubmit={
+            editingTransaction ? handleEditTransaction : handleAddTransaction
+          }
+          onCancel={() => setEditingTransactionId(null)}
+        />
         <TransactionList
           currency={persistedState.currency}
           transactions={selectedTransactions}
+          onEdit={(transaction) => setEditingTransactionId(transaction.id)}
+          onDelete={handleDeleteTransaction}
         />
       </div>
     </main>
