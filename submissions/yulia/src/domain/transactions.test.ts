@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import type { Transaction, TransactionInput } from './model'
 import {
+  addTransaction,
   filterTransactionsByMonth,
   isValidCalendarDate,
   isValidMonth,
@@ -9,6 +10,7 @@ import {
   removeTransaction,
   replaceTransaction,
   summarizeMonth,
+  UnsafeAggregateError,
   validateTransactionInput,
 } from './transactions'
 
@@ -195,11 +197,107 @@ describe('monthly calculations', () => {
       ...transactions[4],
       date: '2026-01-31',
     }
-    const updated = replaceTransaction(transactions, moved)
+    const result = replaceTransaction(transactions, moved)
 
-    expect(summarizeMonth(updated, '2026-01').expensesMinor).toBe(22_500)
-    expect(summarizeMonth(updated, '2026-02').expensesMinor).toBe(0)
+    expect(result.ok).toBe(true)
+    if (!result.ok) {
+      throw result.error
+    }
+
+    expect(summarizeMonth(result.value, '2026-01').expensesMinor).toBe(22_500)
+    expect(summarizeMonth(result.value, '2026-02').expensesMinor).toBe(0)
     expect(transactions[4].date).toBe('2026-02-01')
+  })
+
+  it('fails explicitly instead of returning an unsafe aggregate', () => {
+    const unsafe: Transaction[] = [
+      {
+        id: 'income-limit',
+        type: 'income',
+        amountMinor: Number.MAX_SAFE_INTEGER,
+        date: '2026-01-01',
+      },
+      {
+        id: 'income-overflow',
+        type: 'income',
+        amountMinor: 1,
+        date: '2026-01-02',
+      },
+    ]
+
+    expect(() => summarizeMonth(unsafe, '2026-01')).toThrow(
+      UnsafeAggregateError,
+    )
+  })
+
+  it('rejects an addition that would make a monthly aggregate unsafe', () => {
+    const previous: Transaction[] = [
+      {
+        id: 'income-limit',
+        type: 'income',
+        amountMinor: Number.MAX_SAFE_INTEGER,
+        date: '2026-01-01',
+      },
+    ]
+    const addition: Transaction = {
+      id: 'income-overflow',
+      type: 'income',
+      amountMinor: 1,
+      date: '2026-01-02',
+    }
+
+    const result = addTransaction(previous, addition)
+
+    expect(result.ok).toBe(false)
+    if (!result.ok) {
+      expect(result.error).toBeInstanceOf(UnsafeAggregateError)
+    }
+    expect(previous).toHaveLength(1)
+  })
+
+  it('rejects an edit that would make a monthly aggregate unsafe', () => {
+    const previous: Transaction[] = [
+      {
+        id: 'income-one',
+        type: 'income',
+        amountMinor: Number.MAX_SAFE_INTEGER - 1,
+        date: '2026-01-01',
+      },
+      {
+        id: 'income-two',
+        type: 'income',
+        amountMinor: 1,
+        date: '2026-01-02',
+      },
+    ]
+    const replacement: Transaction = {
+      ...previous[1],
+      amountMinor: 2,
+    }
+
+    const result = replaceTransaction(previous, replacement)
+
+    expect(result.ok).toBe(false)
+    expect(previous[1].amountMinor).toBe(1)
+  })
+
+  it('allows safe aggregates in different calendar months', () => {
+    const previous: Transaction[] = [
+      {
+        id: 'january-limit',
+        type: 'income',
+        amountMinor: Number.MAX_SAFE_INTEGER,
+        date: '2026-01-01',
+      },
+    ]
+    const addition: Transaction = {
+      id: 'february-limit',
+      type: 'income',
+      amountMinor: Number.MAX_SAFE_INTEGER,
+      date: '2026-02-01',
+    }
+
+    expect(addTransaction(previous, addition).ok).toBe(true)
   })
 
   it('removes a transaction immutably', () => {

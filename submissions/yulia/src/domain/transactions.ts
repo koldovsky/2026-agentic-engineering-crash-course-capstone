@@ -18,6 +18,17 @@ export interface TransactionValidationErrors {
   category?: string
 }
 
+export class UnsafeAggregateError extends RangeError {
+  constructor(aggregate: string) {
+    super(`${aggregate} exceeds the safe integer range`)
+    this.name = 'UnsafeAggregateError'
+  }
+}
+
+export type TransactionChangeResult =
+  | { ok: true; value: Transaction[] }
+  | { ok: false; error: UnsafeAggregateError }
+
 type AmountResult =
   | { ok: true; value: number }
   | { ok: false; message: string }
@@ -167,19 +178,30 @@ export function summarizeTransactions(
 
   for (const transaction of transactions) {
     if (transaction.type === 'income') {
-      incomeMinor += transaction.amountMinor
+      incomeMinor = addSafe(
+        incomeMinor,
+        transaction.amountMinor,
+        'Monthly income',
+      )
       continue
     }
 
-    expensesMinor += transaction.amountMinor
-    spendingByCategory[transaction.category] =
-      (spendingByCategory[transaction.category] ?? 0) + transaction.amountMinor
+    expensesMinor = addSafe(
+      expensesMinor,
+      transaction.amountMinor,
+      'Monthly expenses',
+    )
+    spendingByCategory[transaction.category] = addSafe(
+      spendingByCategory[transaction.category] ?? 0,
+      transaction.amountMinor,
+      `${transaction.category} spending`,
+    )
   }
 
   return {
     incomeMinor,
     expensesMinor,
-    balanceMinor: incomeMinor - expensesMinor,
+    balanceMinor: subtractSafe(incomeMinor, expensesMinor, 'Monthly balance'),
     spendingByCategory,
   }
 }
@@ -191,13 +213,22 @@ export function summarizeMonth(
   return summarizeTransactions(filterTransactionsByMonth(transactions, month))
 }
 
+export function addTransaction(
+  transactions: readonly Transaction[],
+  transaction: Transaction,
+): TransactionChangeResult {
+  return acceptIfAggregatesAreSafe([...transactions, transaction])
+}
+
 export function replaceTransaction(
   transactions: readonly Transaction[],
   replacement: Transaction,
-): Transaction[] {
-  return transactions.map((transaction) =>
+): TransactionChangeResult {
+  const candidate = transactions.map((transaction) =>
     transaction.id === replacement.id ? replacement : transaction,
   )
+
+  return acceptIfAggregatesAreSafe(candidate)
 }
 
 export function removeTransaction(
@@ -217,4 +248,59 @@ function daysInMonth(year: number, month: number): number {
 
 function isLeapYear(year: number): boolean {
   return year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)
+}
+
+function acceptIfAggregatesAreSafe(
+  candidate: Transaction[],
+): TransactionChangeResult {
+  try {
+    assertSafeMonthlyAggregates(candidate)
+    return { ok: true, value: candidate }
+  } catch (error) {
+    if (error instanceof UnsafeAggregateError) {
+      return { ok: false, error }
+    }
+
+    throw error
+  }
+}
+
+export function assertSafeMonthlyAggregates(
+  transactions: readonly Transaction[],
+): void {
+  const months = new Set(
+    transactions.map((transaction) => transaction.date.slice(0, 7)),
+  )
+
+  for (const month of months) {
+    summarizeMonth(transactions, month)
+  }
+}
+
+function addSafe(left: number, right: number, aggregate: string): number {
+  const result = left + right
+
+  if (
+    !Number.isSafeInteger(left) ||
+    !Number.isSafeInteger(right) ||
+    !Number.isSafeInteger(result)
+  ) {
+    throw new UnsafeAggregateError(aggregate)
+  }
+
+  return result
+}
+
+function subtractSafe(left: number, right: number, aggregate: string): number {
+  const result = left - right
+
+  if (
+    !Number.isSafeInteger(left) ||
+    !Number.isSafeInteger(right) ||
+    !Number.isSafeInteger(result)
+  ) {
+    throw new UnsafeAggregateError(aggregate)
+  }
+
+  return result
 }

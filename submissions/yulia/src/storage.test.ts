@@ -105,6 +105,26 @@ describe('Varto storage', () => {
         transactions: [{ ...state.transactions[0], description: 'Salary' }],
       }),
     ],
+    [
+      'unsafe monthly aggregates',
+      JSON.stringify({
+        ...state,
+        transactions: [
+          {
+            id: 'income-limit',
+            type: 'income',
+            amountMinor: Number.MAX_SAFE_INTEGER,
+            date: '2026-01-01',
+          },
+          {
+            id: 'income-overflow',
+            type: 'income',
+            amountMinor: 1,
+            date: '2026-01-02',
+          },
+        ],
+      }),
+    ],
   ])('discards %s and returns a recoverable empty state', (_label, serialized) => {
     const storage = new MemoryStorage()
     storage.values.set(STORAGE_KEY, serialized)
@@ -161,6 +181,30 @@ describe('Varto storage', () => {
 
     expect(isPersistedState(invalidState)).toBe(false)
     expect(saveState(storage, invalidState as PersistedState).ok).toBe(false)
+    expect(storage.values.has(STORAGE_KEY)).toBe(false)
+  })
+
+  it('refuses to persist individually valid transactions with unsafe totals', () => {
+    const storage = new MemoryStorage()
+    const unsafeState: PersistedState = {
+      ...state,
+      transactions: [
+        {
+          id: 'income-limit',
+          type: 'income',
+          amountMinor: Number.MAX_SAFE_INTEGER,
+          date: '2026-01-01',
+        },
+        {
+          id: 'income-overflow',
+          type: 'income',
+          amountMinor: 1,
+          date: '2026-01-02',
+        },
+      ],
+    }
+
+    expect(saveState(storage, unsafeState).ok).toBe(false)
     expect(storage.values.has(STORAGE_KEY)).toBe(false)
   })
 })

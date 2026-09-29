@@ -22,6 +22,7 @@ The following product decisions were made by the project owner:
 - The selected currency applies to the whole application and cannot be changed afterward in the MVP.
 - Data persists in the browser using `localStorage`.
 - Users can edit and delete existing transactions.
+- Creating or editing a transaction must be rejected if it would make any monthly income, expense, balance, or category total exceed JavaScript's safe-integer range; the previous state remains unchanged.
 - Deleting a transaction requires confirmation; undo is not included.
 - Users can select a month and view its summary.
 - Google Chrome is the reference browser for verification, using the current stable version available in the development environment.
@@ -130,7 +131,7 @@ Income transactions do not have categories.
 - **FR-5:** The user must be able to create an income transaction with a valid amount and date.
 - **FR-6:** The user must be able to create an expense transaction with a valid amount, date, and one category from the fixed expense category set.
 - **FR-7:** Income transactions must not require or store an expense category.
-- **FR-8:** Varto must reject a transaction whose amount is missing, not numeric, or less than or equal to zero.
+- **FR-8:** Varto must reject a transaction whose amount is missing, not numeric, or less than or equal to zero. Varto must also reject a create or edit if the resulting transactions would make any monthly income, expense, balance, or expense-category total exceed JavaScript's safe-integer range, and must leave the previous state unchanged.
 - **FR-9:** Varto must reject a transaction whose date is missing or invalid.
 - **FR-10:** Varto must reject an expense whose category is missing or outside the fixed set.
 - **FR-11:** The user must be able to view saved transactions for the selected month, including type, amount, date, and category where applicable.
@@ -184,6 +185,8 @@ Given a currency is selected, when the user saves income with amount `1000` and 
 ### AC-4: Reject invalid transactions
 
 Given the transaction form is open, when the user submits a missing, non-numeric, zero, or negative amount, an invalid or missing date, or an expense without a valid fixed category, then no transaction is stored and the relevant field is identified for correction.
+
+Given existing transactions, when creating or editing a transaction would make any monthly income, expense, balance, or expense-category total exceed JavaScript's safe-integer range, then the change is rejected, the previous state remains unchanged, and Varto does not display an unsafe aggregate.
 
 ### AC-5: Calculate a selected month correctly
 

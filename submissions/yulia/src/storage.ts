@@ -4,7 +4,11 @@ import {
   type Currency,
   type Transaction,
 } from './domain/model'
-import { isValidCalendarDate } from './domain/transactions'
+import {
+  assertSafeMonthlyAggregates,
+  isValidCalendarDate,
+  UnsafeAggregateError,
+} from './domain/transactions'
 
 export const STORAGE_KEY = 'varto:state'
 export const SCHEMA_VERSION = 1 as const
@@ -95,6 +99,7 @@ export function isPersistedState(value: unknown): value is PersistedState {
   }
 
   const ids = new Set<string>()
+  const transactions: Transaction[] = []
 
   for (const transaction of value.transactions) {
     if (!isTransaction(transaction) || ids.has(transaction.id)) {
@@ -102,9 +107,19 @@ export function isPersistedState(value: unknown): value is PersistedState {
     }
 
     ids.add(transaction.id)
+    transactions.push(transaction)
   }
 
-  return true
+  try {
+    assertSafeMonthlyAggregates(transactions)
+    return true
+  } catch (error) {
+    if (error instanceof UnsafeAggregateError) {
+      return false
+    }
+
+    throw error
+  }
 }
 
 function isTransaction(value: unknown): value is Transaction {

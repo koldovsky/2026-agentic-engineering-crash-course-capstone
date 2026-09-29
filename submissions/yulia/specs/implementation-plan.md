@@ -19,6 +19,7 @@ No application code should be implemented until this plan is approved.
 - the current calendar month as the initially selected month
 - the browser's native confirmation dialog for transaction deletion
 - malformed persisted data is discarded and the application returns to empty initial setup
+- a create or edit that would make any monthly aggregate exceed the safe-integer range is rejected, leaving the previous state unchanged
 - no linter in the initial toolchain
 
 The project-level quality gate will use TypeScript checking, unit/component tests, a production build, and Playwright. Adding other frameworks, services, state libraries, routers, or tooling requires a demonstrated need rather than being included preemptively.
@@ -95,6 +96,7 @@ The following behavior belongs in pure TypeScript functions with no React, DOM, 
 - transaction creation/update inputs to validated domain transactions;
 - filtering transactions by selected calendar month;
 - calculation of income, expenses, balance, and expense totals by category;
+- safe-integer validation of monthly aggregates before accepting a create or edit;
 - immutable replacement and removal of transactions where useful;
 - validation of data decoded from storage.
 
@@ -162,7 +164,7 @@ npm run check       # runs all four commands above and fails on any failure
 npm run typecheck && npm run test:unit && npm run build && npm run test:e2e
 ```
 
-During development, narrower watch commands may be used for feedback, but a milestone is not complete until the relevant focused tests and the full `npm run check` gate pass. Test failures must be fixed or escalated; tests must not be weakened, skipped, or bypassed to obtain a green result.
+During Milestones 1–3, a milestone is complete when the focused checks and evidence named for that milestone pass. The full `npm run check` gate becomes required in Milestone 4, after the planned Playwright acceptance flows exist. Do not add placeholder end-to-end tests or bypass Playwright's no-tests failure merely to make the full gate pass early. Test failures must be fixed or escalated; tests must not be weakened, skipped, or bypassed to obtain a green result.
 
 ## Implementation milestones
 
@@ -215,7 +217,7 @@ During development, narrower watch commands may be used for feedback, but a mile
 
 | Risk | Control |
 |---|---|
-| Floating-point errors corrupt totals | Parse input to integer minor units and calculate only with integers |
+| Floating-point or safe-integer overflow errors corrupt totals | Parse input to integer minor units, use checked integer arithmetic, and reject creates or edits that would make a monthly aggregate unsafe |
 | Timezone conversion assigns a date to the wrong month | Store and compare calendar strings; do not use timestamps for transaction dates |
 | Invalid `localStorage` content crashes rendering | Validate unknown data at the storage boundary, discard it, and restart setup safely |
 | Storage is cleared or unavailable | Treat cleared data as first use; report storage write failures rather than claiming persistence |
