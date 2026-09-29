@@ -5,6 +5,7 @@ export default defineConfig({
   use: {
     baseURL: 'http://127.0.0.1:4173',
     ...devices['Desktop Chrome'],
+    channel: 'chrome',
   },
   webServer: {
     command: 'npm run dev -- --host 127.0.0.1 --port 4173',
@@ -12,4 +13,3 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
   },
 })
-
