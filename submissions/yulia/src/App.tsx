@@ -31,11 +31,12 @@ interface AppProps {
 }
 
 export function App({
-  storage = window.localStorage,
+  storage,
   now = new Date(),
   createTransactionId = () => crypto.randomUUID(),
 }: AppProps) {
-  const [initialLoad] = useState(() => loadState(storage))
+  const [activeStorage] = useState(() => resolveStorage(storage))
+  const [initialLoad] = useState(() => loadState(activeStorage))
   const [persistedState, setPersistedState] = useState<PersistedState | null>(() =>
     initialLoad.status === 'loaded' ? initialLoad.state : null,
   )
@@ -69,7 +70,7 @@ export function App({
       currency,
       transactions: [],
     }
-    const result = saveState(storage, nextState)
+    const result = saveState(activeStorage, nextState)
 
     if (!result.ok) {
       setStorageError('Varto could not save your currency. No changes were kept.')
@@ -112,7 +113,7 @@ export function App({
       ...persistedState,
       transactions: change.value,
     }
-    const saveResult = saveState(storage, nextState)
+    const saveResult = saveState(activeStorage, nextState)
 
     if (!saveResult.ok) {
       setStorageError('Varto could not save this transaction. No changes were kept.')
@@ -198,9 +199,33 @@ export function App({
   )
 }
 
+function resolveStorage(storage: StorageAdapter | undefined): StorageAdapter {
+  if (storage) {
+    return storage
+  }
+
+  try {
+    return window.localStorage
+  } catch (error) {
+    const storageAccessError =
+      error instanceof Error ? error : new Error(String(error))
+
+    return {
+      getItem: () => {
+        throw storageAccessError
+      },
+      setItem: () => {
+        throw storageAccessError
+      },
+      removeItem: () => {
+        throw storageAccessError
+      },
+    }
+  }
+}
+
 function monthFromDate(date: Date): string {
   const year = date.getFullYear().toString().padStart(4, '0')
   const month = (date.getMonth() + 1).toString().padStart(2, '0')
   return `${year}-${month}`
 }
-

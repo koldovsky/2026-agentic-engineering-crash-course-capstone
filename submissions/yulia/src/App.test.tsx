@@ -1,6 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { App } from './App'
 import {
@@ -91,8 +91,10 @@ describe('Varto application', () => {
     expect(screen.getByLabelText('Total income')).toHaveTextContent('USD 0.00')
     expect(screen.getByLabelText('Total expenses')).toHaveTextContent('USD 25.50')
     expect(screen.getByLabelText('Total balance')).toHaveTextContent('−USD 25.50')
-    expect(screen.getByRole('list')).toHaveTextContent('Groceries')
-    expect(screen.getByRole('list')).toHaveTextContent('2026-01-10')
+    const transactionRow = screen.getByRole('listitem')
+    expect(within(transactionRow).getByText('Expense')).toBeInTheDocument()
+    expect(within(transactionRow).getByText('Groceries')).toBeInTheDocument()
+    expect(within(transactionRow).getByText('2026-01-10')).toBeInTheDocument()
 
     const breakdown = screen
       .getByRole('heading', { name: 'Spending by category' })
@@ -273,5 +275,34 @@ describe('Varto application', () => {
     expect(screen.getByRole('alert')).toHaveTextContent(
       'Varto cannot safely save your data',
     )
+  })
+
+  it('shows the storage-unavailable state when browser storage access is denied', () => {
+    const localStorageGetter = vi
+      .spyOn(window, 'localStorage', 'get')
+      .mockImplementation(() => {
+        throw new Error('Storage access denied')
+      })
+
+    try {
+      expect(() =>
+        render(
+          <App
+            now={NOW}
+            createTransactionId={() => 'denied-storage-id'}
+          />,
+        ),
+      ).not.toThrow()
+
+      expect(
+        screen.getByRole('heading', { name: 'Storage unavailable' }),
+      ).toBeInTheDocument()
+      expect(screen.getByRole('alert')).toHaveTextContent(
+        'Varto cannot safely save your data',
+      )
+      expect(screen.getByText('Enable browser storage and reload to use Varto.')).toBeInTheDocument()
+    } finally {
+      localStorageGetter.mockRestore()
+    }
   })
 })

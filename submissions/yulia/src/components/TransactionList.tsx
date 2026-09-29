@@ -21,11 +21,10 @@ export function TransactionList({
           {transactions.map((transaction) => (
             <li key={transaction.id}>
               <div>
-                <strong>
-                  {transaction.type === 'income'
-                    ? 'Income'
-                    : transaction.category}
-                </strong>
+                <strong>{transaction.type === 'income' ? 'Income' : 'Expense'}</strong>
+                {transaction.type === 'expense' ? (
+                  <span>{transaction.category}</span>
+                ) : null}
                 <span>{transaction.date}</span>
               </div>
               <span
