@@ -13,6 +13,7 @@
     "test:unit": "vitest run",
     "test:unit:watch": "vitest",
     "test:e2e": "playwright test",
+    "verify:current": "bash scripts/verify-current.sh",
     "check": "npm run typecheck && npm run test:unit && npm run build && npm run test:e2e"
   },
   "dependencies": {
