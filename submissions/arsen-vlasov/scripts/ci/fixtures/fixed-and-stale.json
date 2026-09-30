@@ -1,0 +1,77 @@
+{
+  "build": {
+    "number": 101,
+    "result": "SUCCESS",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-tests/101/",
+    "timestamp": 1790000000000,
+    "duration": 600000
+  },
+  "report": {
+    "passCount": 11,
+    "failCount": 0,
+    "skipCount": 0,
+    "suites": [
+      {
+        "name": "chromium",
+        "cases": [
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 1",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 2",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 3",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 4",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 5",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 6",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 7",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 8",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 9",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 10",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/known.spec.ts",
+            "name": "known flaky one",
+            "status": "PASSED"
+          }
+        ]
+      }
+    ]
+  }
+}

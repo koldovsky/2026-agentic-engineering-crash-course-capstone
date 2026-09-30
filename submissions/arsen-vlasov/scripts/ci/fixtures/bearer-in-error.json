@@ -1,0 +1,43 @@
+{
+  "build": {
+    "number": 101,
+    "result": "UNSTABLE",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-tests/101/",
+    "timestamp": 1790000000000,
+    "duration": 600000
+  },
+  "report": {
+    "passCount": 3,
+    "failCount": 1,
+    "skipCount": 0,
+    "suites": [
+      {
+        "name": "chromium",
+        "cases": [
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 1",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 2",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 3",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/api.spec.ts",
+            "name": "leaks a token",
+            "status": "FAILED",
+            "errorDetails": "GET failed - Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ4In0.c2lnbmF0dXJl rest"
+          }
+        ]
+      }
+    ]
+  }
+}

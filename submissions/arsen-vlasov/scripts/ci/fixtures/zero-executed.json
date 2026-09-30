@@ -1,0 +1,247 @@
+{
+  "build": {
+    "number": 101,
+    "result": "SUCCESS",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-tests/101/",
+    "timestamp": 1790000000000,
+    "duration": 600000
+  },
+  "report": {
+    "passCount": 0,
+    "failCount": 0,
+    "skipCount": 45,
+    "suites": [
+      {
+        "name": "chromium",
+        "cases": [
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 1",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 2",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 3",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 4",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 5",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 6",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 7",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 8",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 9",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 10",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 11",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 12",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 13",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 14",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 15",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 16",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 17",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 18",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 19",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 20",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 21",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 22",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 23",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 24",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 25",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 26",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 27",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 28",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 29",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 30",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 31",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 32",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 33",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 34",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 35",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 36",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 37",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 38",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 39",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 40",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 41",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 42",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 43",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 44",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 45",
+            "status": "SKIPPED"
+          }
+        ]
+      }
+    ]
+  }
+}

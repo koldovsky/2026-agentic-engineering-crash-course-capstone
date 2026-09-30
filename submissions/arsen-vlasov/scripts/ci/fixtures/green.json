@@ -1,0 +1,637 @@
+{
+  "build": {
+    "number": 101,
+    "result": "SUCCESS",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-tests/101/",
+    "timestamp": 1790000000000,
+    "duration": 600000
+  },
+  "report": {
+    "passCount": 120,
+    "failCount": 0,
+    "skipCount": 3,
+    "suites": [
+      {
+        "name": "chromium",
+        "cases": [
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 1",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 2",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 3",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 4",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 5",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 6",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 7",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 8",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 9",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 10",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 11",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 12",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 13",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 14",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 15",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 16",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 17",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 18",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 19",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 20",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 21",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 22",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 23",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 24",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 25",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 26",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 27",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 28",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 29",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 30",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 31",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 32",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 33",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 34",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 35",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 36",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 37",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 38",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 39",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 40",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 41",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 42",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 43",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 44",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 45",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 46",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 47",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 48",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 49",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 50",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 51",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 52",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 53",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 54",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 55",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 56",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 57",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 58",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 59",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 60",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 61",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 62",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 63",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 64",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 65",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 66",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 67",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 68",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 69",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 70",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 71",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 72",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 73",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 74",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 75",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 76",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 77",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 78",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 79",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 80",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 81",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 82",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 83",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 84",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 85",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 86",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 87",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 88",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 89",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 90",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 91",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 92",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 93",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 94",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 95",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 96",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 97",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 98",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 99",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 100",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 101",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 102",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 103",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 104",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 105",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 106",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 107",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 108",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 109",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 110",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 111",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 112",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 113",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 114",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 115",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 116",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 117",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 118",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 119",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 120",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 1",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 2",
+            "status": "SKIPPED"
+          },
+          {
+            "className": "regression/demo/skipped.spec.ts",
+            "name": "skipped test 3",
+            "status": "SKIPPED"
+          }
+        ]
+      }
+    ]
+  }
+}

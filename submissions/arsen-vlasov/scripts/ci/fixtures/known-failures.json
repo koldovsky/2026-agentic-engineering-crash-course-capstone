@@ -1,0 +1,20 @@
+[
+  {
+    "test": "regression/demo/known.spec.ts › known flaky one",
+    "reason": "stage timeout on the payment step",
+    "issue": "DEMO-1",
+    "added": "2026-09-29"
+  },
+  {
+    "test": "regression/demo/known.spec.ts › known product bug",
+    "reason": "audit log written twice",
+    "issue": "DEMO-2",
+    "added": "2026-09-29"
+  },
+  {
+    "test": "regression/demo/gone.spec.ts › deleted long ago",
+    "reason": "spec removed",
+    "issue": "DEMO-3",
+    "added": "2026-09-29"
+  }
+]

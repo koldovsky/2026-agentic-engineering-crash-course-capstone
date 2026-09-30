@@ -1,0 +1,124 @@
+{
+  "build": {
+    "number": 7,
+    "result": "FAILURE",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-allure/7/",
+    "timestamp": 1790000000000,
+    "duration": 500000
+  },
+  "allure": {
+    "uid": "root",
+    "name": "suites",
+    "children": [
+      {
+        "uid": "p1",
+        "name": "chromium",
+        "children": [
+          {
+            "uid": "s1",
+            "name": "regression/demo/area.spec.ts",
+            "children": [
+              {
+                "uid": "d1",
+                "name": "Demo describe",
+                "children": [
+                  {
+                    "uid": "t1",
+                    "name": "passes",
+                    "status": "passed",
+                    "time": {
+                      "duration": 1000
+                    },
+                    "flaky": false,
+                    "parameters": [
+                      "chromium"
+                    ]
+                  },
+                  {
+                    "uid": "t2",
+                    "name": "fails on an assertion",
+                    "status": "failed",
+                    "time": {
+                      "duration": 1000
+                    },
+                    "flaky": false,
+                    "parameters": [
+                      "chromium"
+                    ]
+                  },
+                  {
+                    "uid": "d2",
+                    "name": "Nested describe",
+                    "children": [
+                      {
+                        "uid": "t3",
+                        "name": "breaks in a fixture",
+                        "status": "broken",
+                        "time": {
+                          "duration": 1000
+                        },
+                        "flaky": false,
+                        "parameters": [
+                          "chromium"
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "uid": "t4",
+                "name": "is skipped",
+                "status": "skipped",
+                "time": {
+                  "duration": 1000
+                },
+                "flaky": false,
+                "parameters": [
+                  "chromium"
+                ]
+              },
+              {
+                "uid": "t5",
+                "name": "has unknown status",
+                "status": "unknown",
+                "time": {
+                  "duration": 1000
+                },
+                "flaky": false,
+                "parameters": [
+                  "chromium"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "uid": "p2",
+        "name": "api",
+        "children": [
+          {
+            "uid": "s2",
+            "name": "api/demo/endpoint.spec.ts",
+            "children": [
+              {
+                "uid": "t6",
+                "name": "returns 200",
+                "status": "passed",
+                "time": {
+                  "duration": 1000
+                },
+                "flaky": false,
+                "parameters": [
+                  "chromium"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

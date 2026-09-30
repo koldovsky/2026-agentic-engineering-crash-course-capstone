@@ -1,0 +1,23 @@
+[
+  {
+    "test": "regression/admin-panel/roles/roles-access-section.spec.ts › Список ролей Access Matrix: пошук, створення, редагування і видалення",
+    "job": "admin-stage-regression-tests",
+    "reason": "role search on the Access Matrix tab does not filter the table",
+    "issue": "PRJ-6768",
+    "added": "2026-09-29"
+  },
+  {
+    "test": "regression/lms/courses/trading-basics/recommendations-access.spec.ts › Сценарій рекомендацій: VIP + таймаут фінального тесту",
+    "job": "lms-stage-regression-tests",
+    "reason": "recommendation page does not open after the final test access expires; PRJ-4825 is Closed in Jira, so this may be a regression",
+    "issue": "PRJ-4825",
+    "added": "2026-09-29"
+  },
+  {
+    "test": "regression/lms/courses/trading-basics/recommendations-access.spec.ts › Сценарій рекомендацій: Extended + таймаут фінального тесту",
+    "job": "lms-stage-regression-tests",
+    "reason": "recommendation page does not open after the final test access expires; PRJ-4825 is Closed in Jira, so this may be a regression",
+    "issue": "PRJ-4825",
+    "added": "2026-09-29"
+  }
+]

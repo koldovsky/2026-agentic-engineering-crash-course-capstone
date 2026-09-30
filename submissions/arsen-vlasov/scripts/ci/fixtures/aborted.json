@@ -1,0 +1,11 @@
+{
+  "build": {
+    "number": 101,
+    "result": "ABORTED",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-tests/101/",
+    "timestamp": 1790000000000,
+    "duration": 600000
+  },
+  "report": null
+}

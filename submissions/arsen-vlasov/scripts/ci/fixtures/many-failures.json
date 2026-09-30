@@ -1,0 +1,287 @@
+{
+  "build": {
+    "number": 101,
+    "result": "UNSTABLE",
+    "building": false,
+    "url": "https://jenkins.example.test/job/demo-tests/101/",
+    "timestamp": 1790000000000,
+    "duration": 600000
+  },
+  "report": {
+    "passCount": 5,
+    "failCount": 40,
+    "skipCount": 0,
+    "suites": [
+      {
+        "name": "chromium",
+        "cases": [
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 1",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 2",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 3",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 4",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/area.spec.ts",
+            "name": "passing test 5",
+            "status": "PASSED"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 1",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 1"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 2",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 2"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 3",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 3"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 4",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 4"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 5",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 5"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 6",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 6"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 7",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 7"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 8",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 8"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 9",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 9"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 10",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 10"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 11",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 11"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 12",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 12"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 13",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 13"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 14",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 14"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 15",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 15"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 16",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 16"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 17",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 17"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 18",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 18"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 19",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 19"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 20",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 20"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 21",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 21"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 22",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 22"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 23",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 23"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 24",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 24"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 25",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 25"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 26",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 26"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 27",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 27"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 28",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 28"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 29",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 29"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 30",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 30"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 31",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 31"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 32",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 32"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 33",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 33"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 34",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 34"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 35",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 35"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 36",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 36"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 37",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 37"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 38",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 38"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 39",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 39"
+          },
+          {
+            "className": "regression/demo/broken.spec.ts",
+            "name": "failing test 40",
+            "status": "FAILED",
+            "errorDetails": "Error: failure number 40"
+          }
+        ]
+      }
+    ]
+  }
+}
