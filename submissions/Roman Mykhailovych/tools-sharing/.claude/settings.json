@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/appsettings.json)",
+      "Read(**/appsettings.*.json)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-action.mjs\""
+          }
+        ],
+        "matcher": "Bash|PowerShell|Edit|Write|NotebookEdit|Agent|Skill|WebFetch|WebSearch|mcp__.*"
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-action.mjs\""
+          }
+        ],
+        "matcher": "Bash|PowerShell|Edit|Write|NotebookEdit|Agent|Skill|WebFetch|WebSearch|mcp__.*"
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/log-action.mjs\""
+          }
+        ],
+        "matcher": "Bash|PowerShell|Edit|Write|NotebookEdit|Agent|Skill|WebFetch|WebSearch|mcp__.*"
+      }
+    ]
+  }
+}
