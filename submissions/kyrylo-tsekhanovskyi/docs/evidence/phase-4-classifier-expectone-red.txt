@@ -1,0 +1,45 @@
+# Red run: red classifier must accept HttpTestingController expectOne failures (fe-maker report, phase 4)
+# cmd: node --test scripts/test/red.test.mjs
+✔ failing assertions (or not-implemented stubs) count as red (3.1376ms)
+✖ an HttpTestingController expectation failure counts as red (1.2707ms)
+✔ a Playwright assertion failure counts as red (0.3286ms)
+✔ Playwright infrastructure failures are not red (0.4111ms)
+✔ coloured (ANSI) test output is classified like plain output (0.2149ms)
+✔ stripAnsi removes colour codes (0.1312ms)
+✔ a passing run is not red (0.1847ms)
+✔ a C# compile error is not red (0.1934ms)
+✔ a TypeScript compile error is not red (0.2979ms)
+✔ a run where no tests executed is not red (0.4448ms)
+✔ an infrastructure or fixture failure is not red, even with a failed-test count (0.2144ms)
+✔ failed tests without an assertion or not-implemented failure are not red (0.1622ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 11
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 103.8562
+
+✖ failing tests:
+
+test at scripts\test\red.test.mjs:16:1
+✖ an HttpTestingController expectation failure counts as red (1.2707ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:20:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

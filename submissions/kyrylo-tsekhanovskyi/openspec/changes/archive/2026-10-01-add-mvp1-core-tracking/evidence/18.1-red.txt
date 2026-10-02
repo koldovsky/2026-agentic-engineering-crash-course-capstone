@@ -1,0 +1,245 @@
+# Red evidence: task 18.1 (add-mvp1-core-tracking)
+# date: 2026-10-01  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [4.139 seconds] - 2026-10-01T12:27:07.360Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.spec.ts (2 tests | 2 failed) 1064ms
+   ❯ ListingDetailPage (2)
+     × listings: Change status on the listing page 774ms
+     × listings: Offers across items 286ms
+ ❯  bomkeeper  src/app/items/item-detail-page/item-detail-page.spec.ts (3 tests | 1 failed) 1449ms
+   ❯ ItemDetailPage (3)
+     × offers: Wrong items are visible 107ms
+ ❯  bomkeeper  src/app/visual-fixes.spec.ts (7 tests | 7 failed) 1372ms
+   ❯ Visual review fixes (7)
+     × visual: the project listings stack on phone width with status kept visible 771ms
+     × visual: the listing offers stack on phone width with fit kept visible 258ms
+     × visual: status and fit values use human labels in chips and selects 114ms
+     × visual: the item page fit menu uses human labels 55ms
+     × visual: the project list pluralizes counts 23ms
+     × visual: the listing page shows its status once 61ms
+     × visual: the four item statuses have distinct tones 87ms
+ ❯  bomkeeper  src/app/ui-polish.spec.ts (12 tests | 2 failed) 1643ms
+   ❯ UI polish (12)
+     ❯ item page (4)
+       × polish: the offer card labels its chips 124ms
+     ❯ listing page (5)
+       × polish: listing status is changed with a Material select 94ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > item page > polish: the offer card labels its chips
+AssertionError: expected 'Deye inverter 5 kWOLXListing: FoundFi…' to contain 'Fit: Wrong item'
+
+Expected: "Fit: Wrong item"
+Received: "Deye inverter 5 kWOLXListing: FoundFit: WrongItemarrow_drop_downAsking: —Agreed: —ChooseEdit pricesDelete"
+
+ ❯ src/app/ui-polish.spec.ts:84:25
+     82|
+     83|       expect(text(row)).toContain('Listing: Found');
+     84|       expect(text(row)).toContain('Fit: Wrong item');
+       |                         ^
+     85|       expect(row.querySelector('.fit')?.classList).toContain('fit-wron…
+     86|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > listing page > polish: listing status is changed with a Material select
+AssertionError: expected "mat-mdc-select status-select" to contain "listing-scam"
+
+Expected: "mat-mdc-select status-select listing-scam"
+Received: "mat-mdc-select status-select"
+
+ ❯ src/app/ui-polish.spec.ts:143:73
+    141|       expect(page.querySelector('mat-select.status-select')).not.toBeN…
+    142|       expect(page.querySelector('select')).toBeNull();
+    143|       expect(page.querySelector('mat-select.status-select')?.classList…
+       |                                                                         ^
+    144|     });
+    145|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: the project listings stack on phone width with status kept visible
+TypeError: Cannot read properties of null (reading 'classList')
+ ❯ src/app/visual-fixes.spec.ts:71:18
+     69|     const table = page.querySelector('table.listings-table')!;
+     70|
+     71|     expect(table.classList).toContain('stack-on-phone');
+       |                  ^
+     72|     const status = table.querySelector('tr.listing-row td.status-cell'…
+     73|     expect(status.getAttribute('data-label')).toBe('Status');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: the listing offers stack on phone width with fit kept visible
+TypeError: Cannot read properties of null (reading 'classList')
+ ❯ src/app/visual-fixes.spec.ts:81:18
+     79|     const table = page.querySelector('table.offers-table')!;
+     80|
+     81|     expect(table.classList).toContain('stack-on-phone');
+       |                  ^
+     82|     const fit = table.querySelector('tr.offer-row td.fit-cell')!;
+     83|     expect(fit.getAttribute('data-label')).toBe('Fit');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: status and fit values use human labels in chips and selects
+AssertionError: expected [ 'WrongItem', 'NotQuiteRight' ] to deeply equal [ 'Wrong item', 'Not quite right' ]
+
+- Expected
++ Received
+
+  [
+-   "Wrong item",
+-   "Not quite right",
++   "WrongItem",
++   "NotQuiteRight",
+  ]
+
+ ❯ src/app/visual-fixes.spec.ts:90:18
+     88|     const listing = await listingPage();
+     89|     const fits = Array.from(listing.querySelectorAll('tr.offer-row .fi…
+     90|     expect(fits).toEqual(['Wrong item', 'Not quite right']);
+       |                  ^
+     91|     expect(selectedText(listing.querySelector<HTMLElement>('mat-select…
+     92|       'Not responding',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: the item page fit menu uses human labels
+AssertionError: expected 'NotQuiteRight' to be 'Not quite right' // Object.is equality
+
+Expected: "Not quite right"
+Received: "NotQuiteRight"
+
+ ❯ src/app/visual-fixes.spec.ts:108:57
+    106|     const page = fixture.nativeElement as HTMLElement;
+    107|
+    108|     expect(text(page.querySelector('.offer-row .fit'))).toBe('Not quit…
+       |                                                         ^
+    109|     page.querySelector<HTMLButtonElement>('.offer-row button[aria-labe…
+    110|     await settle(fixture);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: the project list pluralizes counts
+AssertionError: expected '1 items1 listingscreated Sep 30, 2026' to contain '1 item '
+
+Expected: "1 item "
+Received: "1 items1 listingscreated Sep 30, 2026"
+
+ ❯ src/app/visual-fixes.spec.ts:127:22
+    125|     );
+    126|
+    127|     expect(metas[0]).toContain('1 item ');
+       |                      ^
+    128|     expect(metas[0]).toContain('1 listing ');
+    129|     expect(metas[1]).toContain('2 items');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: the listing page shows its status once
+AssertionError: expected <span …(2)></span> to be null
+
+- Expected:
+null
+
++ Received:
+<span
+  _ngcontent-a-c2796796737=""
+  class="status-chip listing-not-responding"
+>
+  NotResponding
+</span>
+
+ ❯ src/app/visual-fixes.spec.ts:136:62
+    134|     const page = await listingPage();
+    135|
+    136|     expect(page.querySelector('.status-panel .status-chip')).toBeNull(…
+       |                                                              ^
+    137|     expect(page.querySelector('.status-panel mat-select')).not.toBeNul…
+    138|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL   bomkeeper  src/app/visual-fixes.spec.ts > Visual review fixes > visual: the four item statuses have distinct tones
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/app/visual-fixes.spec.ts:146:34
+    144|     );
+    145|
+    146|     expect(tones.every(Boolean)).toBe(true);
+       |                                  ^
+    147|     expect(new Set(tones).size).toBe(4);
+    148|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.spec.ts > ItemDetailPage > offers: Wrong items are visible
+AssertionError: expected 'WrongItem' to be 'Wrong item' // Object.is equality
+
+Expected: "Wrong item"
+Received: "WrongItem"
+
+ ❯ src/app/items/item-detail-page/item-detail-page.spec.ts:117:62
+    115|
+    116|     const [wrong, fits] = offerRows();
+    117|     expect(wrong.querySelector('.fit')?.textContent?.trim()).toBe('Wro…
+       |                                                              ^
+    118|     expect(wrong.querySelector('.fit')?.classList).toContain('fit-warn…
+    119|     expect(fits.querySelector('.fit')?.classList).not.toContain('fit-w…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.spec.ts > ListingDetailPage > listings: Change status on the listing page
+Error: expected an option "Not responding" to exist
+ ❯ pickOption src/app/testing/dom.ts:39:22
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.spec.ts:45:5
+     43|     const select = page().querySelector<HTMLElement>('mat-select.statu…
+     44|     expect(select).not.toBeNull();
+     45|     await pickOption(fixture, select!, 'Not responding');
+       |     ^
+     46|
+     47|     const patch = expectRequest(http, 'PATCH', '/api/listings/l1/statu…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.spec.ts > ListingDetailPage > listings: Offers across items
+AssertionError: expected 'NotQuiteRight' to be 'Not quite right' // Object.is equality
+
+Expected: "Not quite right"
+Received: "NotQuiteRight"
+
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.spec.ts:89:64
+     87|     expect(rows[1].textContent).toContain('Battery');
+     88|     expect(rows[1].textContent).toContain('300.00 EUR');
+     89|     expect(rows[1].querySelector('.fit')?.textContent?.trim()).toBe('N…
+       |                                                                ^
+     90|     expect(rows[1].querySelector('.chosen')?.textContent?.trim()).toBe…
+     91|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+
+ Test Files  4 failed | 8 passed (12)
+      Tests  12 failed | 42 passed (54)
+   Start at  15:27:08
+   Duration  9.20s (environment 48%, import 19%, tests 15%, setup 15%, transform 4%, worker 1%)
+

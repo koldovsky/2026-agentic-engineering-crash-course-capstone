@@ -1,0 +1,92 @@
+# Red evidence: task 9.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/projects/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/projects/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [2.174 seconds] - 2026-09-30T20:03:24.216Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/projects/project-list-page/project-list-page.spec.ts (3 tests | 3 failed) 56ms
+   ❯ ProjectListPage (3)
+     × projects: Empty project list 44ms
+     × projects: Create a project from the UI 6ms
+     × projects: Confirm before deleting 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/projects/project-list-page/project-list-page.spec.ts > ProjectListPage > projects: Empty project list
+AssertionError: GET /api/projects requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:6:56
+ ❯ loadProjects src/app/projects/project-list-page/project-list-page.spec.ts:40:5
+     38|
+     39|   async function loadProjects(projects: ProjectListEntry[]) {
+     40|     expectRequest(http, 'GET', '/api/projects').flush(projects);
+       |     ^
+     41|     await settle(fixture);
+     42|   }
+ ❯ src/app/projects/project-list-page/project-list-page.spec.ts:45:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-list-page/project-list-page.spec.ts > ProjectListPage > projects: Create a project from the UI
+AssertionError: GET /api/projects requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:6:56
+ ❯ loadProjects src/app/projects/project-list-page/project-list-page.spec.ts:40:5
+     38|
+     39|   async function loadProjects(projects: ProjectListEntry[]) {
+     40|     expectRequest(http, 'GET', '/api/projects').flush(projects);
+       |     ^
+     41|     await settle(fixture);
+     42|   }
+ ❯ src/app/projects/project-list-page/project-list-page.spec.ts:53:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-list-page/project-list-page.spec.ts > ProjectListPage > projects: Confirm before deleting
+AssertionError: GET /api/projects requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:6:56
+ ❯ loadProjects src/app/projects/project-list-page/project-list-page.spec.ts:40:5
+     38|
+     39|   async function loadProjects(projects: ProjectListEntry[]) {
+     40|     expectRequest(http, 'GET', '/api/projects').flush(projects);
+       |     ^
+     41|     await settle(fixture);
+     42|   }
+ ❯ src/app/projects/project-list-page/project-list-page.spec.ts:74:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  23:03:24
+   Duration  2.53s (environment 72%, setup 17%, transform 4%, import 3%, tests 2%, worker 1%)
+

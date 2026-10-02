@@ -1,0 +1,748 @@
+openapi: 3.1.1
+info:
+  title: BOMKeeper API
+  version: v1
+  description: >
+    MVP-1 contract for change add-mvp1-core-tracking. Contract-first: the backend is held to it by the
+    contract-drift integration test (design D5), and the frontend generates its types from it (design D6).
+    Changes are escalated to the human; makers never edit this file.
+    Errors are RFC 9457 problem details (application/problem+json). Business-rule violations are 409 with
+    type "/problems/duplicate-offer" or "/problems/listing-in-other-project".
+servers:
+  - url: /
+    description: Same origin as the UI (the Api serves the SPA)
+security: []  # no authentication in MVP-1 (ADR 0003)
+tags:
+  - name: projects
+    description: DIY projects and their summary
+  - name: items
+    description: Parts a project needs
+  - name: listings
+    description: Ads and shop pages that may supply parts
+  - name: offers
+    description: Links between items and listings, with unit prices, fit and choice
+
+paths:
+  /api/projects:
+    get:
+      tags: [projects]
+      operationId: listProjects
+      summary: List projects, newest first, with item and listing counts
+      responses:
+        '200':
+          description: Projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/ProjectListEntry' }
+    post:
+      tags: [projects]
+      operationId: createProject
+      summary: Create a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProjectInput' }
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location: { $ref: '#/components/headers/Location' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Project' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+
+  /api/projects/{projectId}:
+    parameters:
+      - $ref: '#/components/parameters/projectId'
+    get:
+      tags: [projects]
+      operationId: getProject
+      summary: Get a project
+      responses:
+        '200':
+          description: The project
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Project' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [projects]
+      operationId: updateProject
+      summary: Replace a project's name and description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ProjectInput' }
+      responses:
+        '200':
+          description: The updated project
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Project' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [projects]
+      operationId: deleteProject
+      summary: Delete a project with all its items, listings and offers
+      responses:
+        '204': { description: Deleted }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/projects/{projectId}/summary:
+    parameters:
+      - $ref: '#/components/parameters/projectId'
+    get:
+      tags: [projects]
+      operationId: getProjectSummary
+      summary: Status counts, per-currency totals and gaps of a project
+      responses:
+        '200':
+          description: Status counts, per-currency totals and gaps
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ProjectSummary' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/projects/{projectId}/items:
+    parameters:
+      - $ref: '#/components/parameters/projectId'
+    get:
+      tags: [items]
+      operationId: listProjectItems
+      summary: List the items of a project in the order they were added
+      responses:
+        '200':
+          description: Items
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Item' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    post:
+      tags: [items]
+      operationId: createItem
+      summary: Add an item to a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ItemInput' }
+      responses:
+        '201':
+          description: Created (status Needed)
+          headers:
+            Location: { $ref: '#/components/headers/Location' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Item' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/items/{itemId}:
+    parameters:
+      - $ref: '#/components/parameters/itemId'
+    get:
+      tags: [items]
+      operationId: getItem
+      summary: Get an item
+      responses:
+        '200':
+          description: The item
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Item' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [items]
+      operationId: updateItem
+      summary: Replace an item's name, quantity and notes
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ItemInput' }
+      responses:
+        '200':
+          description: The updated item (status unchanged)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Item' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [items]
+      operationId: deleteItem
+      summary: Delete an item and its offers
+      responses:
+        '204': { description: Deleted }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/items/{itemId}/status:
+    parameters:
+      - $ref: '#/components/parameters/itemId'
+    patch:
+      tags: [items]
+      operationId: setItemStatus
+      summary: Set an item's sourcing status (any transition)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ItemStatusUpdate' }
+      responses:
+        '200':
+          description: The item with the new status
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Item' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/items/{itemId}/offers:
+    parameters:
+      - $ref: '#/components/parameters/itemId'
+    get:
+      tags: [offers]
+      operationId: listItemOffers
+      summary: List the offers of an item in the order they were created
+      responses:
+        '200':
+          description: Offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Offer' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    post:
+      tags: [offers]
+      operationId: createOffer
+      summary: Link the item to a listing of the same project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OfferCreate' }
+      responses:
+        '201':
+          description: Created (fit Unverified, not chosen)
+          headers:
+            Location: { $ref: '#/components/headers/Location' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Offer' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '409': { $ref: '#/components/responses/Conflict' }
+
+  /api/projects/{projectId}/listings:
+    parameters:
+      - $ref: '#/components/parameters/projectId'
+    get:
+      tags: [listings]
+      operationId: listProjectListings
+      summary: List the listings of a project in the order they were added
+      responses:
+        '200':
+          description: Listings
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Listing' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    post:
+      tags: [listings]
+      operationId: createListing
+      summary: Add a listing to a project
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ListingInput' }
+      responses:
+        '201':
+          description: Created (status Found)
+          headers:
+            Location: { $ref: '#/components/headers/Location' }
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Listing' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/listings/{listingId}:
+    parameters:
+      - $ref: '#/components/parameters/listingId'
+    get:
+      tags: [listings]
+      operationId: getListing
+      summary: Get a listing
+      responses:
+        '200':
+          description: The listing
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Listing' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    put:
+      tags: [listings]
+      operationId: updateListing
+      summary: Replace a listing's fields other than the status
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ListingInput' }
+      responses:
+        '200':
+          description: The updated listing (status and statusChangedAt unchanged)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Listing' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [listings]
+      operationId: deleteListing
+      summary: Delete a listing and its offers; the linked items stay
+      responses:
+        '204': { description: Deleted }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/listings/{listingId}/status:
+    parameters:
+      - $ref: '#/components/parameters/listingId'
+    patch:
+      tags: [listings]
+      operationId: setListingStatus
+      summary: Set a listing's negotiation status (any transition)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ListingStatusUpdate' }
+      responses:
+        '200':
+          description: The listing with the new status
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Listing' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/listings/{listingId}/offers:
+    parameters:
+      - $ref: '#/components/parameters/listingId'
+    get:
+      tags: [offers]
+      operationId: listListingOffers
+      summary: List the offers of a listing (across items) in the order they were created
+      responses:
+        '200':
+          description: Offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Offer' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/offers/{offerId}:
+    parameters:
+      - $ref: '#/components/parameters/offerId'
+    put:
+      tags: [offers]
+      operationId: updateOffer
+      summary: Replace the asking and agreed unit prices (null clears a price)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OfferUpdate' }
+      responses:
+        '200':
+          description: The updated offer (fit and choice unchanged)
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Offer' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+    delete:
+      tags: [offers]
+      operationId: deleteOffer
+      summary: Delete an offer
+      responses:
+        '204': { description: Deleted }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/offers/{offerId}/fit:
+    parameters:
+      - $ref: '#/components/parameters/offerId'
+    patch:
+      tags: [offers]
+      operationId: setOfferFit
+      summary: Set whether the offered part fits
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OfferFitUpdate' }
+      responses:
+        '200':
+          description: The offer with the new fit
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Offer' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/offers/{offerId}/choice:
+    parameters:
+      - $ref: '#/components/parameters/offerId'
+    patch:
+      tags: [offers]
+      operationId: setOfferChoice
+      summary: Choose (auto-switching the item's previous choice) or un-choose an offer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/OfferChoiceUpdate' }
+      responses:
+        '200':
+          description: The offer with the new choice
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Offer' }
+        '400': { $ref: '#/components/responses/BadRequest' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+components:
+  parameters:
+    projectId:
+      name: projectId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    itemId:
+      name: itemId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    listingId:
+      name: listingId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+    offerId:
+      name: offerId
+      in: path
+      required: true
+      schema: { type: string, format: uuid }
+
+  headers:
+    Location:
+      description: URL of the created resource
+      schema: { type: string }
+
+  responses:
+    BadRequest:
+      description: Invalid input
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/ValidationProblemDetails' }
+    NotFound:
+      description: Unknown id
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/ProblemDetails' }
+    Conflict:
+      description: Business rule violated (type /problems/duplicate-offer or /problems/listing-in-other-project)
+      content:
+        application/problem+json:
+          schema: { $ref: '#/components/schemas/RuleViolationProblemDetails' }
+
+  schemas:
+    ItemStatus:
+      type: string
+      enum: [Needed, Sourcing, Ordered, Received]
+    ListingStatus:
+      type: string
+      enum: [Found, Contacted, Negotiating, Agreed, Purchased, Received, NotResponding, Declined, Scam]
+    OfferFit:
+      type: string
+      enum: [Unverified, Fits, NotQuiteRight, WrongItem]
+
+    Money:
+      type: object
+      description: An amount in one currency. Never converted between currencies.
+      required: [amount, currency]
+      properties:
+        amount:
+          type: number
+          minimum: 0
+          maximum: 999999999.99
+          multipleOf: 0.01
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+          description: An active ISO 4217 code, e.g. UAH, EUR, USD, PLN. Unknown codes (e.g. ZZZ) and special non-currency codes (e.g. XXX, XAU, XDR) are rejected with 400.
+    MoneyTotal:
+      type: object
+      description: >
+        An aggregated amount in one currency (Σ unit price × quantity). It has no upper bound, because a total
+        may exceed the single-price limit.
+      required: [amount, currency]
+      properties:
+        amount:
+          type: number
+          minimum: 0
+        currency:
+          type: string
+          pattern: '^[A-Z]{3}$'
+
+    ProjectInput:
+      type: object
+      required: [name]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 200 }
+        description: { type: [string, 'null'], maxLength: 2000 }
+    Project:
+      type: object
+      required: [id, name, description, createdAt]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        description: { type: [string, 'null'] }
+        createdAt: { type: string, format: date-time }
+    ProjectListEntry:
+      type: object
+      required: [id, name, description, createdAt, itemCount, listingCount]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+        description: { type: [string, 'null'] }
+        createdAt: { type: string, format: date-time }
+        itemCount: { type: integer, format: int32 }
+        listingCount: { type: integer, format: int32 }
+    ItemCountsByStatus:
+      type: object
+      description: Item count per ItemStatus value (camelCase keys); every status is present, 0 when empty
+      required: [needed, sourcing, ordered, received]
+      properties:
+        needed: { type: integer, format: int32 }
+        sourcing: { type: integer, format: int32 }
+        ordered: { type: integer, format: int32 }
+        received: { type: integer, format: int32 }
+    ItemRef:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: string, format: uuid }
+        name: { type: string }
+    OfferRef:
+      type: object
+      required: [offerId, itemId, itemName, listingId, listingTitle]
+      properties:
+        offerId: { type: string, format: uuid }
+        itemId: { type: string, format: uuid }
+        itemName: { type: string }
+        listingId: { type: string, format: uuid }
+        listingTitle: { type: string }
+    ProjectSummary:
+      type: object
+      required: [projectId, itemCountsByStatus, totals, itemsWithoutChosenOffer, chosenOffersWithoutPrice]
+      properties:
+        projectId: { type: string, format: uuid }
+        itemCountsByStatus: { $ref: '#/components/schemas/ItemCountsByStatus' }
+        totals:
+          type: array
+          description: One entry per currency, ordered by currency code; Σ (agreed ?? asking) × quantity over chosen offers
+          items: { $ref: '#/components/schemas/MoneyTotal' }
+        itemsWithoutChosenOffer:
+          type: array
+          items: { $ref: '#/components/schemas/ItemRef' }
+        chosenOffersWithoutPrice:
+          type: array
+          items: { $ref: '#/components/schemas/OfferRef' }
+
+    ItemInput:
+      type: object
+      required: [name, quantity]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 200 }
+        quantity: { type: integer, format: int32, minimum: 1, maximum: 10000 }
+        notes: { type: [string, 'null'], maxLength: 2000 }
+    ItemStatusUpdate:
+      type: object
+      required: [status]
+      properties:
+        status: { $ref: '#/components/schemas/ItemStatus' }
+    ChosenOfferSummary:
+      type: object
+      required: [offerId, listingId, listingTitle, unitPrice]
+      properties:
+        offerId: { type: string, format: uuid }
+        listingId: { type: string, format: uuid }
+        listingTitle: { type: string }
+        unitPrice:
+          description: Agreed price if set, otherwise asking price; null when neither is set
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+    Item:
+      type: object
+      required: [id, projectId, name, quantity, notes, status, chosenOffer]
+      properties:
+        id: { type: string, format: uuid }
+        projectId: { type: string, format: uuid }
+        name: { type: string }
+        quantity: { type: integer, format: int32 }
+        notes: { type: [string, 'null'] }
+        status: { $ref: '#/components/schemas/ItemStatus' }
+        chosenOffer:
+          oneOf:
+            - $ref: '#/components/schemas/ChosenOfferSummary'
+            - type: 'null'
+
+    ListingInput:
+      type: object
+      required: [title, url, platform]
+      properties:
+        title: { type: string, minLength: 1, maxLength: 200 }
+        url: { type: string, format: uri, maxLength: 2048, description: 'Absolute http or https URL' }
+        platform: { type: string, minLength: 1, maxLength: 50, description: 'Free text; the UI suggests OLX, eBay, Allegro, Amazon, Rozetka, Prom' }
+        sellerName: { type: [string, 'null'], maxLength: 200 }
+        sellerContact: { type: [string, 'null'], maxLength: 200 }
+        notes: { type: [string, 'null'], maxLength: 2000 }
+        agreedTotal:
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+    ListingStatusUpdate:
+      type: object
+      required: [status]
+      properties:
+        status: { $ref: '#/components/schemas/ListingStatus' }
+    Listing:
+      type: object
+      required: [id, projectId, title, url, platform, sellerName, sellerContact, notes, agreedTotal, status, statusChangedAt]
+      properties:
+        id: { type: string, format: uuid }
+        projectId: { type: string, format: uuid }
+        title: { type: string }
+        url: { type: string, format: uri }
+        platform: { type: string }
+        sellerName: { type: [string, 'null'] }
+        sellerContact: { type: [string, 'null'] }
+        notes: { type: [string, 'null'] }
+        agreedTotal:
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+        status: { $ref: '#/components/schemas/ListingStatus' }
+        statusChangedAt: { type: string, format: date-time }
+
+    OfferCreate:
+      type: object
+      required: [listingId]
+      properties:
+        listingId: { type: string, format: uuid }
+        askingPrice:
+          description: Unit price asked by the seller
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+        agreedPrice:
+          description: Unit price agreed with the seller
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+    OfferUpdate:
+      type: object
+      required: [askingPrice, agreedPrice]
+      properties:
+        askingPrice:
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+        agreedPrice:
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+    OfferFitUpdate:
+      type: object
+      required: [fit]
+      properties:
+        fit: { $ref: '#/components/schemas/OfferFit' }
+    OfferChoiceUpdate:
+      type: object
+      required: [isChosen]
+      properties:
+        isChosen: { type: boolean }
+    Offer:
+      type: object
+      required: [id, itemId, itemName, listingId, listingTitle, listingPlatform, listingStatus, askingPrice, agreedPrice, fit, isChosen]
+      properties:
+        id: { type: string, format: uuid }
+        itemId: { type: string, format: uuid }
+        itemName: { type: string }
+        listingId: { type: string, format: uuid }
+        listingTitle: { type: string }
+        listingPlatform: { type: string }
+        listingStatus: { $ref: '#/components/schemas/ListingStatus' }
+        askingPrice:
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+        agreedPrice:
+          oneOf:
+            - $ref: '#/components/schemas/Money'
+            - type: 'null'
+        fit: { $ref: '#/components/schemas/OfferFit' }
+        isChosen: { type: boolean }
+
+    ProblemDetails:
+      type: object
+      description: RFC 9457 problem details
+      properties:
+        type: { type: [string, 'null'] }
+        title: { type: [string, 'null'] }
+        status: { type: [integer, 'null'], format: int32 }
+        detail: { type: [string, 'null'] }
+        instance: { type: [string, 'null'] }
+    RuleViolationProblemDetails:
+      type: object
+      description: RFC 9457 problem details for a violated business rule; `type` names the rule
+      required: [type, title, status]
+      properties:
+        type:
+          type: string
+          description: /problems/duplicate-offer or /problems/listing-in-other-project
+        title: { type: string }
+        status: { type: integer, format: int32 }
+        detail: { type: [string, 'null'] }
+        instance: { type: [string, 'null'] }
+    ValidationProblemDetails:
+      type: object
+      description: RFC 9457 problem details with field errors keyed by JSON property path (e.g. "askingPrice.amount")
+      required: [title, status, errors]
+      properties:
+        type: { type: [string, 'null'] }
+        title: { type: string }
+        status: { type: integer, format: int32 }
+        detail: { type: [string, 'null'] }
+        instance: { type: [string, 'null'] }
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items: { type: string }

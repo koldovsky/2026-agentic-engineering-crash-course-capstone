@@ -1,0 +1,19 @@
+# Agent working files (proposed commit messages, review scratch, hook state, action logs)
+.agent-work/
+.agent-log/
+
+# .NET
+bin/
+obj/
+*.user
+TestResults/
+
+# SPA build output served by the Api
+backend/src/BOMKeeper.Api/wwwroot/
+
+# Node / Angular / Playwright
+node_modules/
+.angular/
+coverage/
+playwright-report/
+test-results/

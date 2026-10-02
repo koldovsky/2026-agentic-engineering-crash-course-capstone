@@ -1,0 +1,124 @@
+@if (item.value(); as i) {
+  <a class="back-link" [routerLink]="['/projects', i.projectId]">
+    <mat-icon aria-hidden="true">arrow_back</mat-icon>Back to project
+  </a>
+  <header class="page-header">
+    <div class="item-heading">
+      <h1>{{ i.name }}</h1>
+      <div class="item-facts">
+        <span class="quantity"><span class="chip-label">Quantity:</span> {{ i.quantity }}</span>
+        <button
+          mat-button
+          class="status-trigger"
+          [matMenuTriggerFor]="statusMenu"
+          aria-label="Change item status"
+        >
+          <span
+            class="status-chip"
+            [class]="i.status | chipClass: 'status'"
+            [attr.data-tone]="i.status | itemTone"
+            >{{ i.status | label }}</span
+          >
+          <mat-icon iconPositionEnd aria-hidden="true">arrow_drop_down</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="actions">
+      <button mat-flat-button (click)="addOffer(i)">Add offer</button>
+      <button mat-button (click)="editItem(i)">Edit item</button>
+      <button mat-button class="destructive" (click)="deleteItem(i)">Delete item</button>
+    </div>
+  </header>
+  @if (i.notes) {
+    <section class="notes-block">
+      <h2 class="notes-label">Notes</h2>
+      <p class="notes">{{ i.notes }}</p>
+    </section>
+  }
+
+  <mat-menu #statusMenu="matMenu">
+    @for (status of statuses; track status) {
+      <button mat-menu-item (click)="setStatus(i, status)">{{ status | label }}</button>
+    }
+  </mat-menu>
+}
+
+@for (message of [item.error(), actionError()]; track $index) {
+  @if (message) {
+    <p class="form-error" role="alert">{{ message }}</p>
+  }
+}
+
+<h2>Offers</h2>
+@if (offers.error()) {
+  <p class="form-error" role="alert">{{ offers.error() }}</p>
+} @else if (offers.loading()) {
+  <p class="loading">Loading offers…</p>
+} @else {
+  @for (offer of offers.value() ?? []; track offer.id) {
+    <article class="offer-row" [class.chosen]="offer.isChosen">
+      <div class="offer-main">
+        <a class="offer-title" [routerLink]="['/listings', offer.listingId]">{{
+          offer.listingTitle
+        }}</a>
+        <span class="muted">{{ offer.listingPlatform }}</span>
+        @if (offer.isChosen) {
+          <span class="chosen-badge"
+            ><mat-icon aria-hidden="true">check_circle</mat-icon>Chosen</span
+          >
+        }
+      </div>
+      <div class="offer-facts">
+        <span class="fact">
+          <span class="chip-label">Listing: </span>
+          <span class="status-chip" [class]="offer.listingStatus | chipClass: 'listing'">{{
+            offer.listingStatus | label
+          }}</span>
+        </span>
+        <span class="fact">
+          <span class="chip-label">Fit: </span>
+          <button
+            mat-button
+            class="status-trigger"
+            [matMenuTriggerFor]="fitMenu"
+            [matMenuTriggerData]="{ offer: offer }"
+            aria-label="Change fit"
+          >
+            <span
+              class="status-chip fit"
+              [class]="offer.fit | chipClass: 'fit'"
+              [class.fit-warning]="offer.fit === 'WrongItem'"
+              >{{ offer.fit | label }}</span
+            >
+            <mat-icon iconPositionEnd aria-hidden="true">arrow_drop_down</mat-icon>
+          </button>
+        </span>
+        <span class="fact"
+          ><span class="chip-label">Asking:</span> {{ offer.askingPrice | money }}</span
+        >
+        <span class="fact"
+          ><span class="chip-label">Agreed:</span> {{ offer.agreedPrice | money }}</span
+        >
+      </div>
+      <div class="offer-actions">
+        @if (offer.isChosen) {
+          <button mat-stroked-button (click)="setChoice(offer, false)">Un-choose</button>
+        } @else {
+          <button mat-flat-button (click)="setChoice(offer, true)">Choose</button>
+        }
+        <button mat-button (click)="editPrices(offer)">Edit prices</button>
+        <button mat-button class="destructive" (click)="deleteOffer(offer)">Delete</button>
+      </div>
+    </article>
+  } @empty {
+    <p class="empty-state">No offers yet. Link a listing with "Add offer".</p>
+  }
+}
+
+<mat-menu #fitMenu="matMenu">
+  <ng-template matMenuContent let-offer="offer">
+    @for (fit of fits; track fit) {
+      <button mat-menu-item (click)="setFit(offer, fit)">{{ fit | label }}</button>
+    }
+  </ng-template>
+</mat-menu>

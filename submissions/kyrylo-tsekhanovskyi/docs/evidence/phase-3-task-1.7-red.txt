@@ -1,0 +1,46 @@
+# Red run: task 1.7 - red classifier recognises Playwright (e2e) runs
+2026-09-29T23:40:17+03:00
+# cmd: node --test scripts/test/red.test.mjs
+✔ failing assertions (or not-implemented stubs) count as red (3.7156ms)
+✖ a Playwright assertion failure counts as red (1.0145ms)
+✔ Playwright infrastructure failures are not red (0.3469ms)
+✔ coloured (ANSI) test output is classified like plain output (0.1348ms)
+✔ stripAnsi removes colour codes (0.1297ms)
+✔ a passing run is not red (0.1585ms)
+✔ a C# compile error is not red (0.1377ms)
+✔ a TypeScript compile error is not red (0.1678ms)
+✔ a run where no tests executed is not red (0.2746ms)
+✔ an infrastructure or fixture failure is not red, even with a failed-test count (0.3116ms)
+✔ failed tests without an assertion or not-implemented failure are not red (0.2249ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 10
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 115.2776
+
+✖ failing tests:
+
+test at scripts\test\red.test.mjs:16:1
+✖ a Playwright assertion failure counts as red (1.0145ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:25:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+# exit code: 1

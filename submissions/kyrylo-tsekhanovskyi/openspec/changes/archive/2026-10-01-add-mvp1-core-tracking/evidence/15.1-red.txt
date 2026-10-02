@@ -1,0 +1,252 @@
+# Red evidence: task 15.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/**/*.review.spec.ts --include src/app/shared/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/**/*.review.spec.ts --include src/app/shared/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [3.737 seconds] - 2026-09-30T20:57:13.637Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/shared/money.spec.ts (2 tests | 2 failed) 60ms
+   ❯ moneyForm (2)
+     × review: clearing the amount of an optional price makes the form valid with a partial currency 41ms
+     × review: clearing the amount drops stale server errors on the price 10ms
+ ❯  bomkeeper  src/app/items/item-detail-page/item-detail-page.review.spec.ts (4 tests | 4 failed) 575ms
+   ❯ ItemDetailPage review fixes (4)
+     × review: the item detail page reloads when the route id changes and ignores a superseded response 236ms
+     × review: a failed offers load stays visible when the item load succeeds later 49ms
+     × review: the offers collection shows a loading state while pending 33ms
+     × review: a detail page destroyed before its delete response arrives neither navigates nor reloads 255ms
+ ❯  bomkeeper  src/app/projects/project-detail-page/project-detail-page.review.spec.ts (2 tests | 2 failed) 486ms
+   ❯ ProjectDetailPage review fixes (2)
+     × review: the project detail page reloads when the route id changes and ignores a superseded response 413ms
+     × review: the items collection shows a loading state while pending and no empty message after a failure 70ms
+ ❯  bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts (4 tests | 4 failed) 617ms
+   ❯ ListingDetailPage review fixes (4)
+     × review: the listing detail page reloads when the route id changes and ignores a superseded response 278ms
+     × review: the listing status selector shows the persisted status again after a failed PATCH 86ms
+     × review: the offers collection shows a loading state while pending 25ms
+     × review: a listing page destroyed before its delete response arrives does not navigate 225ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/shared/money.spec.ts > moneyForm > review: clearing the amount of an optional price makes the form valid with a partial currency
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/app/shared/money.spec.ts:13:24
+     11|     price.controls.amount.setValue(null);
+     12|
+     13|     expect(form.valid).toBe(true);
+       |                        ^
+     14|     expect(moneyValue(price)).toBeNull();
+     15|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL   bomkeeper  src/app/shared/money.spec.ts > moneyForm > review: clearing the amount drops stale server errors on the price
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/app/shared/money.spec.ts:25:24
+     23|     price.controls.amount.setValue(null);
+     24|
+     25|     expect(form.valid).toBe(true);
+       |                        ^
+     26|   });
+     27| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.review.spec.ts > ItemDetailPage review fixes > review: the item detail page reloads when the route id changes and ignores a superseded response
+AssertionError: expected 'Stale item' to contain 'Battery'
+
+Expected: "Battery"
+Received: "Stale item"
+
+ ❯ src/app/items/item-detail-page/item-detail-page.review.spec.ts:38:53
+     36|     await settle(fixture);
+     37|
+     38|     expect(page().querySelector('h1')?.textContent).toContain('Battery…
+       |                                                     ^
+     39|     expect(page().querySelectorAll('.offer-row').length).toBe(0);
+     40|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.review.spec.ts > ItemDetailPage review fixes > review: a failed offers load stays visible when the item load succeeds later
+AssertionError: expected 'Back to projectInverter Quantity 1 · …' to contain 'Offers failed'
+
+Expected: "Offers failed"
+Received: "Back to projectInverter Quantity 1 · NeededAdd offerEdit itemDelete itemOffersNo offers yet. Link a listing with "Add offer"."
+
+ ❯ src/app/items/item-detail-page/item-detail-page.review.spec.ts:48:32
+     46|     await settle(fixture);
+     47|
+     48|     expect(page().textContent).toContain('Offers failed');
+       |                                ^
+     49|     expect(page().textContent).not.toContain('No offers yet');
+     50|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.review.spec.ts > ItemDetailPage review fixes > review: the offers collection shows a loading state while pending
+AssertionError: expected null not to be null
+ ❯ src/app/items/item-detail-page/item-detail-page.review.spec.ts:53:50
+     51|
+     52|   it('review: the offers collection shows a loading state while pendin…
+     53|     expect(page().querySelector('.loading')).not.toBeNull();
+       |                                                  ^
+     54|     expect(page().textContent).not.toContain('No offers yet');
+     55|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.review.spec.ts > ItemDetailPage review fixes > review: a detail page destroyed before its delete response arrives neither navigates nor reloads
+AssertionError: expected "navigate" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st navigate call:
+
+    Array [
+      Array [
+        "/projects",
+        "p1",
+      ],
+    ]
+
+
+Number of calls: 1
+
+ ❯ src/app/items/item-detail-page/item-detail-page.review.spec.ts:73:26
+     71|     });
+     72|
+     73|     expect(navigate).not.toHaveBeenCalled();
+       |                          ^
+     74|     expect(http.match(() => true).length).toBe(0);
+     75|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.review.spec.ts > ProjectDetailPage review fixes > review: the project detail page reloads when the route id changes and ignores a superseded response
+AssertionError: expected 'ProjectsStale projectEdit projectSumm…' not to contain 'Stale project'
+
+Expected: "Stale project"
+Received: "ProjectsStale projectEdit projectSummary Needed 0 · Sourcing 0 · Ordered 0 · Received 0 TotalNo chosen offers with a price yet Items without a chosen offer: 0 Add itemAdd listingItemsListingsNameQtyStatusChosen offerStale project item1Needed — "
+
+ ❯ src/app/projects/project-detail-page/project-detail-page.review.spec.ts:36:36
+     34|     await settle(fixture);
+     35|
+     36|     expect(page().textContent).not.toContain('Stale project');
+       |                                    ^
+     37|     expect(page().querySelector('h1')?.textContent).toContain('Garden …
+     38|     expect(page().textContent).toContain('Garden pump item');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.review.spec.ts > ProjectDetailPage review fixes > review: the items collection shows a loading state while pending and no empty message after a failure
+AssertionError: expected null not to be null
+ ❯ src/app/projects/project-detail-page/project-detail-page.review.spec.ts:42:50
+     40|
+     41|   it('review: the items collection shows a loading state while pending…
+     42|     expect(page().querySelector('.loading')).not.toBeNull();
+       |                                                  ^
+     43|     expect(page().textContent).not.toContain('No items yet');
+     44|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts > ListingDetailPage review fixes > review: the listing detail page reloads when the route id changes and ignores a superseded response
+AssertionError: expected 'Stale ad' to contain 'Battery ad'
+
+Expected: "Battery ad"
+Received: "Stale ad"
+
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts:43:53
+     41|     await settle(fixture);
+     42|
+     43|     expect(page().querySelector('h1')?.textContent).toContain('Battery…
+       |                                                     ^
+     44|     expect(page().querySelectorAll('tr.offer-row').length).toBe(0);
+     45|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts > ListingDetailPage review fixes > review: the listing status selector shows the persisted status again after a failed PATCH
+AssertionError: expected 'Scam' to be 'Contacted' // Object.is equality
+
+Expected: "Contacted"
+Received: "Scam"
+
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts:60:26
+     58|     await settle(fixture);
+     59|
+     60|     expect(select.value).toBe('Contacted');
+       |                          ^
+     61|   });
+     62|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts > ListingDetailPage review fixes > review: the offers collection shows a loading state while pending
+AssertionError: expected null not to be null
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts:64:50
+     62|
+     63|   it('review: the offers collection shows a loading state while pendin…
+     64|     expect(page().querySelector('.loading')).not.toBeNull();
+       |                                                  ^
+     65|     expect(page().textContent).not.toContain('not linked to any item y…
+     66|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts > ListingDetailPage review fixes > review: a listing page destroyed before its delete response arrives does not navigate
+AssertionError: expected "navigate" to not be called at all, but actually been called 1 times
+
+Received:
+
+  1st navigate call:
+
+    Array [
+      Array [
+        "/projects",
+        "p1",
+      ],
+    ]
+
+
+Number of calls: 1
+
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.review.spec.ts:82:26
+     80|     });
+     81|
+     82|     expect(navigate).not.toHaveBeenCalled();
+       |                          ^
+     83|   });
+     84| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+
+ Test Files  4 failed (4)
+      Tests  12 failed (12)
+   Start at  23:57:14
+   Duration  4.45s (environment 40%, import 22%, setup 21%, tests 12%, transform 5%, worker 1%)
+

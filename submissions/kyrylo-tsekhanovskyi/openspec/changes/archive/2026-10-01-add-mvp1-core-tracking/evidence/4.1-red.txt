@@ -1,0 +1,170 @@
+# Red evidence: task 4.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~.Listings."
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+[xUnit.net 00:00:00.65]     listings: Setting the same status keeps the time [FAIL]
+[xUnit.net 00:00:00.68]     listings: Add a listing (BLL) [FAIL]
+[xUnit.net 00:00:00.69]     listings: Reject an invalid URL(url: "/d/uk/obyavlenie/inverter.html") [FAIL]
+[xUnit.net 00:00:00.69]     listings: Reject an invalid URL(url: "https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"···) [FAIL]
+[xUnit.net 00:00:00.69]     listings: Reject an invalid URL(url: "ftp://files.example.com/inverter.pdf") [FAIL]
+[xUnit.net 00:00:00.69]     listings: Reject an invalid URL(url: "javascript:alert(1)") [FAIL]
+[xUnit.net 00:00:00.69]     listings: Reject an invalid URL(url: "olx.ua/inverter") [FAIL]
+[xUnit.net 00:00:00.69]     listings: Editing fields keeps the status time [FAIL]
+[xUnit.net 00:00:00.69]     listings: Any transition is allowed [FAIL]
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+  Failed listings: Setting the same status keeps the time [7 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Listings.ListingService.SetStatusAsync(Guid id, ListingStatus status, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 41
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.SameStatusKeepsTime() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 83
+--- End of stack trace from previous location ---
+  Failed listings: Add a listing (BLL) [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.AddStartsInFoundAtCreationTime() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 94
+--- End of stack trace from previous location ---
+  Failed listings: Reject an invalid URL(url: "/d/uk/obyavlenie/inverter.html") [8 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.RejectInvalidUrl(String url) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 35
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.<>c__DisplayClass7_0.<RejectInvalidUrl>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 36
+  Failed listings: Reject an invalid URL(url: "https://example.com/aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"···) [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.RejectInvalidUrl(String url) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 35
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.<>c__DisplayClass7_0.<RejectInvalidUrl>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 36
+  Failed listings: Reject an invalid URL(url: "ftp://files.example.com/inverter.pdf") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.RejectInvalidUrl(String url) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 35
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.<>c__DisplayClass7_0.<RejectInvalidUrl>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 36
+  Failed listings: Reject an invalid URL(url: "javascript:alert(1)") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.RejectInvalidUrl(String url) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 35
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.<>c__DisplayClass7_0.<RejectInvalidUrl>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 36
+  Failed listings: Reject an invalid URL(url: "olx.ua/inverter") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.RejectInvalidUrl(String url) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 35
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.<>c__DisplayClass7_0.<RejectInvalidUrl>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 36
+  Failed listings: Editing fields keeps the status time [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Listings.ListingService.UpdateAsync(Guid id, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 38
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.EditingFieldsKeepsStatusTime() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 60
+--- End of stack trace from previous location ---
+  Failed listings: Any transition is allowed [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Listings.ListingService.SetStatusAsync(Guid id, ListingStatus status, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 41
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.AnyTransitionIsAllowed() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 72
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.77]     listings: Reject an invalid URL (a 2048-character URL is accepted) [FAIL]
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+  Failed listings: Reject an invalid URL (a 2048-character URL is accepted) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Listings.ListingService.CreateAsync(Guid projectId, ListingDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Listings\ListingService.cs:line 32
+   at BOMKeeper.BLL.Tests.Listings.ListingServiceTests.LongestUrlIsAccepted() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Listings\ListingServiceTests.cs:line 50
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:    10, Passed:     0, Skipped:     0, Total:    10, Duration: 167 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:07.58]     listings: Update a listing [FAIL]
+  Failed listings: Update a listing [2 s]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-56bc85187cce63f583103909c974fe8d-b5156e9f9cd35a98-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Listings.ListingsApiTests.UpdateListing() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Listings\ListingsApiTests.cs:line 59
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:08.02]     projects: List projects with counts [FAIL]
+[xUnit.net 00:00:08.05]     listings: List listings [FAIL]
+[xUnit.net 00:00:08.07]     listings: Set status through the API [FAIL]
+[xUnit.net 00:00:08.10]     listings: Add a listing [FAIL]
+  Failed projects: List projects with counts [434 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-f236552d3f05c55370410ccf93a2b9b3-98d6bb1a3caa903c-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Listings.ListingsApiTests.ListProjectsWithCounts() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Listings\ListingsApiTests.cs:line 103
+--- End of stack trace from previous location ---
+  Failed listings: List listings [14 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-1b74b2fba14812fb89673e78ad55b819-ce6ceda72269a1d4-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Listings.ListingsApiTests.ListListings() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Listings\ListingsApiTests.cs:line 39
+--- End of stack trace from previous location ---
+  Failed listings: Set status through the API [12 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-b296e85e3a147fcb5349c91835cd3268-9995daf5701fbb6d-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Listings.ListingsApiTests.SetStatus() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Listings\ListingsApiTests.cs:line 88
+--- End of stack trace from previous location ---
+  Failed listings: Add a listing [16 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-c2bab25b8a1f7f9231a04c22f5001d0d-0229f2da7630eced-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Listings.ListingsApiTests.AddListing() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Listings\ListingsApiTests.cs:line 21
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     5, Passed:     0, Skipped:     0, Total:     5, Duration: 2 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

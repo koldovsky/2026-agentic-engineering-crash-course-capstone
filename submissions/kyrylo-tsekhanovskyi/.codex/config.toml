@@ -1,0 +1,9 @@
+# Project Codex defaults for BOMKeeper. Codex loads this file (and .codex/hooks.json) only after you
+# trust the project. Start Codex from submissions/kyrylo-tsekhanovskyi/ so that it finds AGENTS.md,
+# .agents/skills and these files.
+#
+# In this project Codex is the cross-vendor checker. scripts/review.mjs also passes the model, the
+# effort and the sandbox explicitly, so reviews behave the same even without this file.
+model = "gpt-6-astra"
+model_reasoning_effort = "high"
+sandbox_mode = "read-only"

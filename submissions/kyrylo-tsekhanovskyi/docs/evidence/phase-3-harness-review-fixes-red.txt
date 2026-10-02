@@ -1,0 +1,77 @@
+# Red run: harness-checker review 2026-09-29 (#4) P2 #2 - the staleness check must not modify the checked file
+2026-09-30T00:02:37+03:00
+# cmd: node --test scripts/test/generated.test.mjs
+✖ a file that regenerates identically is up to date (2.7099ms)
+✖ a stale file is reported and left exactly as it was (2.1996ms)
+✖ a missing file is stale and is not created (0.8221ms)
+✖ a failing generator is an error, and the file is restored (2.8304ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 0
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 114.1977
+
+✖ failing tests:
+
+test at scripts\test\generated.test.mjs:15:1
+✖ a file that regenerates identically is up to date (2.7099ms)
+  Error: not implemented
+      at isUpToDate (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/generated.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/generated.test.mjs:17:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts\test\generated.test.mjs:20:1
+✖ a stale file is reported and left exactly as it was (2.1996ms)
+  Error: not implemented
+      at isUpToDate (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/generated.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/generated.test.mjs:22:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts\test\generated.test.mjs:26:1
+✖ a missing file is stale and is not created (0.8221ms)
+  Error: not implemented
+      at isUpToDate (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/generated.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/generated.test.mjs:28:22)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\generated.test.mjs:32:1
+✖ a failing generator is an error, and the file is restored (2.8304ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /generator failed/. Input:
+  
+  'Error: not implemented'
+  
+      at async TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/generated.test.mjs:34:3)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: Error: not implemented
+        at isUpToDate (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/generated.mjs:3:9)
+        at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/generated.test.mjs:35:5)
+        at Test.runInAsyncScope (node:async_hooks:227:14)
+        at Test.run (node:internal/test_runner/test:1382:25)
+        at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+        at Test.postRun (node:internal/test_runner/test:1522:19)
+        at Test.run (node:internal/test_runner/test:1447:12)
+        at async Test.processPendingSubtests (node:internal/test_runner/test:960:7),
+    expected: /generator failed/,
+    operator: 'rejects',
+    diff: 'simple'
+  }
+# exit code: 1

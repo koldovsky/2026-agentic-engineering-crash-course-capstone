@@ -1,0 +1,14 @@
+{
+  "bomkeeper-guards": {
+    "PreToolUse": [
+      {
+        "hooks": [{ "type": "command", "command": "node scripts/hooks/protect-env.mjs", "timeout": 15 }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [{ "type": "command", "command": "node scripts/hooks/log-action.mjs", "timeout": 15 }]
+      }
+    ]
+  }
+}

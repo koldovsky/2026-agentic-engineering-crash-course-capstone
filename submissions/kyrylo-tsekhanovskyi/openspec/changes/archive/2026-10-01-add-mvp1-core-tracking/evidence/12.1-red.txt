@@ -1,0 +1,70 @@
+# Red evidence: task 12.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/listings/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/listings/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [2.439 seconds] - 2026-09-30T20:18:43.195Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.spec.ts (2 tests | 2 failed) 56ms
+   ❯ ListingDetailPage (2)
+     × listings: Change status on the listing page 47ms
+     × listings: Offers across items 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.spec.ts > ListingDetailPage > listings: Change status on the listing page
+AssertionError: GET /api/listings/l1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/listings/listing-detail-page/listing-detail-page.spec.ts:35:5
+     33|
+     34|   async function load(offers: Offer[] = []) {
+     35|     expectRequest(http, 'GET', '/api/listings/l1').flush(listing);
+       |     ^
+     36|     expectRequest(http, 'GET', '/api/listings/l1/offers').flush(offers…
+     37|     await settle(fixture);
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.spec.ts:41:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL   bomkeeper  src/app/listings/listing-detail-page/listing-detail-page.spec.ts > ListingDetailPage > listings: Offers across items
+AssertionError: GET /api/listings/l1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/listings/listing-detail-page/listing-detail-page.spec.ts:35:5
+     33|
+     34|   async function load(offers: Offer[] = []) {
+     35|     expectRequest(http, 'GET', '/api/listings/l1').flush(listing);
+       |     ^
+     36|     expectRequest(http, 'GET', '/api/listings/l1/offers').flush(offers…
+     37|     await settle(fixture);
+ ❯ src/app/listings/listing-detail-page/listing-detail-page.spec.ts:61:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed (2)
+   Start at  23:18:43
+   Duration  2.25s (environment 60%, setup 20%, import 13%, transform 4%, tests 3%, worker 1%)
+

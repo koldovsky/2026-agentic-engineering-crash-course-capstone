@@ -1,0 +1,172 @@
+@if (project.value(); as p) {
+  <header class="page-header">
+    <div>
+      <a class="back-link" routerLink="/projects"
+        ><mat-icon aria-hidden="true">arrow_back</mat-icon>Projects</a
+      >
+      <h1>{{ p.name }}</h1>
+      @if (p.description) {
+        <p>{{ p.description }}</p>
+      }
+    </div>
+    <button mat-button (click)="editProject(p)">Edit project</button>
+  </header>
+}
+
+@for (message of [project.error(), summary.error(), actionError()]; track $index) {
+  @if (message) {
+    <p class="form-error" role="alert">{{ message }}</p>
+  }
+}
+
+@if (summary.value(); as s) {
+  <mat-card class="summary-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Summary</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p class="counts">
+        Needed {{ s.itemCountsByStatus.needed }} · Sourcing {{ s.itemCountsByStatus.sourcing }} ·
+        Ordered {{ s.itemCountsByStatus.ordered }} · Received {{ s.itemCountsByStatus.received }}
+      </p>
+      <div class="totals">
+        <span class="label">Total</span>
+        @for (total of s.totals; track total.currency) {
+          <div class="total-line">{{ total | money }}</div>
+        } @empty {
+          <div class="muted">No chosen offers with a price yet</div>
+        }
+      </div>
+      <p class="without-choice">
+        Items without a chosen offer: {{ s.itemsWithoutChosenOffer.length }}
+      </p>
+      @if (s.chosenOffersWithoutPrice.length) {
+        <p class="without-price">
+          Chosen offers without a price:
+          @for (offer of s.chosenOffersWithoutPrice; track offer.offerId; let last = $last) {
+            <a [routerLink]="['/items', offer.itemId]">{{ offer.itemName }}</a
+            >{{ last ? '' : ', ' }}
+          }
+        </p>
+      }
+    </mat-card-content>
+  </mat-card>
+}
+
+<div class="tab-actions">
+  <button mat-flat-button (click)="addItem()">Add item</button>
+  <button mat-stroked-button (click)="addListing()">Add listing</button>
+</div>
+
+<mat-tab-group>
+  <mat-tab label="Items">
+    @if (items.error()) {
+      <p class="form-error" role="alert">{{ items.error() }}</p>
+    } @else if (items.loading()) {
+      <p class="loading">Loading items…</p>
+    } @else if (items.value()?.length === 0) {
+      <p class="empty-state">No items yet.</p>
+    } @else {
+      <table
+        mat-table
+        [dataSource]="items.value() ?? []"
+        class="full-width items-table stack-on-phone"
+      >
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let item">
+            <a [routerLink]="['/items', item.id]">{{ item.name }}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef>Qty</th>
+          <td mat-cell *matCellDef="let item" class="qty" data-label="Qty">{{ item.quantity }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let item" data-label="Status">
+            <button
+              mat-button
+              class="status-trigger"
+              [matMenuTriggerFor]="statusMenu"
+              [matMenuTriggerData]="{ item: item }"
+              [attr.aria-label]="'Change status of ' + item.name"
+            >
+              <span
+                class="status-chip"
+                [class]="item.status | chipClass: 'status'"
+                [attr.data-tone]="item.status | itemTone"
+                >{{ item.status | label }}</span
+              >
+              <mat-icon iconPositionEnd aria-hidden="true">arrow_drop_down</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="chosen">
+          <th mat-header-cell *matHeaderCellDef>Chosen offer</th>
+          <td mat-cell *matCellDef="let item" class="chosen" data-label="Chosen offer">
+            @if (item.chosenOffer; as chosen) {
+              <a [routerLink]="['/listings', chosen.listingId]">{{ chosen.listingTitle }}</a>
+              · {{ chosen.unitPrice | money }}
+            } @else {
+              —
+            }
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="itemColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: itemColumns" class="item-row"></tr>
+      </table>
+    }
+  </mat-tab>
+
+  <mat-tab label="Listings">
+    @if (listings.error()) {
+      <p class="form-error" role="alert">{{ listings.error() }}</p>
+    } @else if (listings.loading()) {
+      <p class="loading">Loading listings…</p>
+    } @else if (listings.value()?.length === 0) {
+      <p class="empty-state">No listings yet.</p>
+    } @else {
+      <table
+        mat-table
+        [dataSource]="listings.value() ?? []"
+        class="full-width listings-table stack-on-phone"
+      >
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef>Title</th>
+          <td mat-cell *matCellDef="let listing">
+            <a [routerLink]="['/listings', listing.id]">{{ listing.title }}</a>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="platform">
+          <th mat-header-cell *matHeaderCellDef>Platform</th>
+          <td mat-cell *matCellDef="let listing" data-label="Platform">{{ listing.platform }}</td>
+        </ng-container>
+        <ng-container matColumnDef="seller">
+          <th mat-header-cell *matHeaderCellDef>Seller</th>
+          <td mat-cell *matCellDef="let listing" data-label="Seller">
+            {{ listing.sellerName ?? '—' }}
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let listing" class="status-cell" data-label="Status">
+            <span class="status-chip" [class]="listing.status | chipClass: 'listing'">{{
+              listing.status | label
+            }}</span>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="listingColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: listingColumns" class="listing-row"></tr>
+      </table>
+    }
+  </mat-tab>
+</mat-tab-group>
+
+<mat-menu #statusMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    @for (status of statuses; track status) {
+      <button mat-menu-item (click)="setStatus(item, status)">{{ status | label }}</button>
+    }
+  </ng-template>
+</mat-menu>

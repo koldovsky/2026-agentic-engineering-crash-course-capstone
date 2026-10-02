@@ -1,0 +1,201 @@
+# Red evidence: task 5.6 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~OfferServiceTests.RejectSpecialCurrencyCodes|FullyQualifiedName~OfferServiceTests.OrdinaryCodesStayValid"
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+[xUnit.net 00:00:00.42]     offers: Reject special currency codes(currency: "XAU") [FAIL]
+[xUnit.net 00:00:00.45]     offers: Reject special currency codes(currency: "XUA") [FAIL]
+[xUnit.net 00:00:00.45]     offers: Reject special currency codes(currency: "BOV") [FAIL]
+[xUnit.net 00:00:00.45]     offers: Reject special currency codes(currency: "CHE") [FAIL]
+[xUnit.net 00:00:00.45]     offers: Reject special currency codes(currency: "CHW") [FAIL]
+[xUnit.net 00:00:00.46]     offers: Reject special currency codes(currency: "XDR") [FAIL]
+[xUnit.net 00:00:00.46]     offers: Reject special currency codes(currency: "XBD") [FAIL]
+[xUnit.net 00:00:00.46]     offers: Reject special currency codes(currency: "UYI") [FAIL]
+[xUnit.net 00:00:00.46]     offers: Reject special currency codes(currency: "CLF") [FAIL]
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+  Failed offers: Reject special currency codes(currency: "XAU") [29 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XUA") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "BOV") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "CHE") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "CHW") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XDR") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XBD") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "UYI") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "CLF") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:00.50]     offers: Reject special currency codes(currency: "XSU") [FAIL]
+[xUnit.net 00:00:00.50]     offers: Reject special currency codes(currency: "XPT") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "XTS") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "MXV") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "XBA") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "UYW") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "XAG") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "COU") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "XXX") [FAIL]
+  Failed offers: Reject special currency codes(currency: "XSU") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XPT") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XTS") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "MXV") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XBA") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "UYW") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XAG") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "XPD") [FAIL]
+[xUnit.net 00:00:00.51]     offers: Reject special currency codes(currency: "USN") [FAIL]
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "COU") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XXX") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "XPD") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+  Failed offers: Reject special currency codes(currency: "USN") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: No exception was thrown
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 153
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectSpecialCurrencyCodes(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 111
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:    20, Passed:     1, Skipped:     0, Total:    21, Duration: 157 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+A total of 1 test files matched the specified pattern.
+No test matches the given testcase filter `FullyQualifiedName~OfferServiceTests.RejectSpecialCurrencyCodes|FullyQualifiedName~OfferServiceTests.OrdinaryCodesStayValid` in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+

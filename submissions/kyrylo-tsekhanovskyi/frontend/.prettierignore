@@ -1,0 +1,6 @@
+# Written by npm, and by openapi-typescript from the contract (checked for staleness, never hand-edited).
+package-lock.json
+src/app/api/schema.d.ts
+# Playwright output
+test-results/
+playwright-report/

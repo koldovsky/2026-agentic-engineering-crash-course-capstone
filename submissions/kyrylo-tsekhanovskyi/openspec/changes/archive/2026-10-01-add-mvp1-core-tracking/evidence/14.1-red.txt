@@ -1,0 +1,111 @@
+# Red evidence: task 14.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~ReviewFindingsApiTests|FullyQualifiedName~NullableWrapperConstraintTests"
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+No test matches the given testcase filter `FullyQualifiedName~ReviewFindingsApiTests|FullyQualifiedName~NullableWrapperConstraintTests` in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.28]     contract drift: a nullable union's sibling constraint is kept [FAIL]
+[xUnit.net 00:00:00.30]     contract drift: a nullable union's sibling constraint is reported(property: "code", keyword: "maxLength", value: 20) [FAIL]
+[xUnit.net 00:00:00.30]     contract drift: a nullable union's sibling constraint is reported(property: "code", keyword: "pattern", value: ^[A-Z]+$) [FAIL]
+[xUnit.net 00:00:00.30]     contract drift: a nullable union's sibling constraint is reported(property: "weight", keyword: "minimum", value: 1) [FAIL]
+  Failed contract drift: a nullable union's sibling constraint is kept [19 ms]
+  Error Message:
+   System.Collections.Generic.KeyNotFoundException : The given key 'schema ThingInput property code maxLength' was not present in the dictionary.
+  Stack Trace:
+     at System.Collections.Generic.SortedDictionary`2.get_Item(TKey key)
+   at BOMKeeper.Api.IntegrationTests.Contract.NullableWrapperConstraintTests.SiblingConstraintIsKept() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\NullableWrapperConstraintTests.cs:line 57
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed contract drift: a nullable union's sibling constraint is reported(property: "code", keyword: "maxLength", value: 20) [7 ms]
+  Error Message:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: []
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.NullableWrapperConstraintTests.SiblingConstraintIsReported(String property, String keyword, JsonNode value) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\NullableWrapperConstraintTests.cs:line 49
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed contract drift: a nullable union's sibling constraint is reported(property: "code", keyword: "pattern", value: ^[A-Z]+$) [< 1 ms]
+  Error Message:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: []
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.NullableWrapperConstraintTests.SiblingConstraintIsReported(String property, String keyword, JsonNode value) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\NullableWrapperConstraintTests.cs:line 49
+   at InvokeStub_NullableWrapperConstraintTests.SiblingConstraintIsReported(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: a nullable union's sibling constraint is reported(property: "weight", keyword: "minimum", value: 1) [< 1 ms]
+  Error Message:
+   Assert.Contains() Failure: Filter not matched in collection
+Collection: []
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.NullableWrapperConstraintTests.SiblingConstraintIsReported(String property, String keyword, JsonNode value) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\NullableWrapperConstraintTests.cs:line 49
+   at InvokeStub_NullableWrapperConstraintTests.SiblingConstraintIsReported(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:06.78]     review: concurrent duplicate links return 409, never 500 [FAIL]
+  Failed review: concurrent duplicate links return 409, never 500 [2 s]
+  Error Message:
+   Assert.All() Failure: 18 out of 19 items in the collection did not pass.
+[0]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-5d5d024c1037e0561abf877e4764c8ec-d7f85bb55ee98d1c-01"}
+[1]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-c1668c09b2289e46b3621d0995a806eb-7a63bb818f520aa6-01"}
+[2]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-cf16e307dee7105b7e30f9dcfbebd662-8f115b2a1f675ce5-01"}
+[3]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-35e9df52449c0aad13cc0394ebcf4874-336cda0ed9e399ce-01"}
+[4]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-1f2f863221d48c37bcbce87050584ecd-19f1128cb7a2e37d-01"}
+[5]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-ac5b942bd91c1c2f2f1cea66120ead48-ccdefd5be7d42ed6-01"}
+[6]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-d641b834950adbf73c196682ffaa3378-92c8f6a646de9467-01"}
+[7]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-399599987646a91e0f179e61918b4816-e11470e3d720a1be-01"}
+[8]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-8cfd2adf2404850f99df0668871da776-ed9039724bb58fb0-01"}
+[9]:  Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-396a2042a9c18df725e1ae8dc347eae6-dee348e7067636c0-01"}
+[10]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-060697d0cad3200e52336057bea97def-27e02cba8666f70f-01"}
+[11]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-f728690dbea0f0dc190f59a49f4d4186-3cdfd56fa0c38187-01"}
+[12]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-e4be2f66e481379200b79f7dd9e8ecce-58c157e1b36b3e3f-01"}
+[13]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-da4eca3550aa3a354b2415a81c183de4-a16d5b607cfa6a89-01"}
+[14]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-1d7823929862dc3a27f02b9a53672dda-ebb9f4061c95b9f1-01"}
+[15]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-d80313aa2b1b26e09e0cbbb60b54a03e-44086bd803ba24f9-01"}
+[16]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-ceb3834c45e23aa2cdb1780a0ce9b0b7-97744a82b422395e-01"}
+[17]: Item:  Tuple (InternalServerError, "{\"type\":\"https://tools.ietf.org/html/rfc9110#se"···)
+      Error: 500: {"type":"https://tools.ietf.org/html/rfc9110#section-15.6.1","title":"An error occurred while processing your request.","status":500,"traceId":"00-1d3f13d7a8bb2589c189f6b419021dbe-43b956afbd63e678-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Offers.ReviewFindingsApiTests.ConcurrentDuplicatesReturnConflict() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ReviewFindingsApiTests.cs:line 47
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:07.17]     review: a retried choice switch leaves the response and the database in agreement [FAIL]
+  Failed review: a retried choice switch leaves the response and the database in agreement [373 ms]
+  Error Message:
+   Assert.Equal() Failure: Collections differ
+                                                               ↓ (pos 0)
+Expected: <generated>                                         ["01a0f41c-f905-777d-8b53-68117f2830ab"]
+Actual:   IEnumerableWhereSelectIterator<JsonElement, string> ["01a0f41c-f8ef-73d0-a615-8828f90b7240"]
+                                                               ↑ (pos 0)
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Offers.ReviewFindingsApiTests.RetriedChoiceSwitchAgrees() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ReviewFindingsApiTests.cs:line 29
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     6, Passed:     0, Skipped:     0, Total:     6, Duration: 6 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

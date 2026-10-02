@@ -1,0 +1,240 @@
+# Red evidence: task 16.1 (add-mvp1-core-tracking)
+# date: 2026-10-01  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/ui-polish.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/ui-polish.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [3.768 seconds] - 2026-09-30T21:29:56.034Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/ui-polish.spec.ts (12 tests | 12 failed) 747ms
+   ❯ UI polish (12)
+     × polish: the app toolbar has its own container background 84ms
+     × polish: status and fit chips carry per-value classes, and clickable chips show a dropdown icon 177ms
+     ❯ item page (4)
+       × polish: the offer card labels its chips 48ms
+       × polish: the item page shows the quantity and labelled notes without a dangling separator 32ms
+       × polish: destructive actions on the item page differ from edit actions 34ms
+       × polish: the listing picker in "Add offer" has an untruncated label 213ms
+     ❯ listing page (5)
+       × polish: listing status is changed with a Material select 39ms
+       × polish: the listing URL is a short "Open ad" link with the host name 23ms
+       × polish: the status time is shown without seconds 23ms
+       × polish: the offer table uses short price headers with the unit meaning in a tooltip 23ms
+       × polish: delete listing is styled as destructive 22ms
+     × polish: delete project is styled as destructive 27ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > polish: the app toolbar has its own container background
+AssertionError: expected "mat-toolbar mat-toolbar-single-row" to contain "app-toolbar"
+
+Expected: "mat-toolbar mat-toolbar-single-row app-toolbar"
+Received: "mat-toolbar mat-toolbar-single-row"
+
+ ❯ src/app/ui-polish.spec.ts:32:32
+     30|
+     31|     const toolbar = (fixture.nativeElement as HTMLElement).querySelect…
+     32|     expect(toolbar?.classList).toContain('app-toolbar');
+       |                                ^
+     33|     const rules = Array.from(document.querySelectorAll('style'))
+     34|       .map((s) => s.textContent ?? '')
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > polish: status and fit chips carry per-value classes, and clickable chips show a dropdown icon
+AssertionError: expected "status-chip" to contain "status-ordered"
+
+Expected: "status-chip status-ordered"
+Received: "status-chip"
+
+ ❯ src/app/ui-polish.spec.ts:53:62
+     51|
+     52|     const trigger = page.querySelector('tr.item-row button.status-trig…
+     53|     expect(trigger.querySelector('.status-chip')?.classList).toContain…
+       |                                                              ^
+     54|     expect(text(trigger.querySelector('mat-icon'))).toBe('arrow_drop_d…
+     55|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > item page > polish: the offer card labels its chips
+AssertionError: expected 'Deye inverter 5 kWOLXFoundAsking: —Ag…' to contain 'Listing: Found'
+
+Expected: "Listing: Found"
+Received: "Deye inverter 5 kWOLXFoundAsking: —Agreed: —WrongItemChooseEdit pricesDelete"
+
+ ❯ src/app/ui-polish.spec.ts:82:25
+     80|       const row = page.querySelector('.offer-row')!;
+     81|
+     82|       expect(text(row)).toContain('Listing: Found');
+       |                         ^
+     83|       expect(text(row)).toContain('Fit: WrongItem');
+     84|       expect(row.querySelector('.fit')?.classList).toContain('fit-wron…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > item page > polish: the item page shows the quantity and labelled notes without a dangling separator
+AssertionError: expected '' to be 'Quantity: 1' // Object.is equality
+
+- Expected
++ Received
+
+- Quantity: 1
+
+ ❯ src/app/ui-polish.spec.ts:90:53
+     88|       const page = (await itemPage()).nativeElement as HTMLElement;
+     89|
+     90|       expect(text(page.querySelector('.quantity'))).toBe('Quantity: 1'…
+       |                                                     ^
+     91|       expect(text(page.querySelector('header'))).not.toMatch(/·\s*$/);
+     92|       expect(text(page.querySelector('.notes-label'))).toBe('Notes');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > item page > polish: destructive actions on the item page differ from edit actions
+AssertionError: expected "mdc-button mat-mdc-button-base mat-mdc-button mat-unthemed _mat-animation-noopable" to contain "destructive"
+
+Expected: "mdc-button mat-mdc-button-base mat-mdc-button mat-unthemed _mat-animation-noopable destructive"
+Received: "mdc-button mat-mdc-button-base mat-mdc-button mat-unthemed _mat-animation-noopable"
+
+ ❯ src/app/ui-polish.spec.ts:99:59
+     97|       const page = (await itemPage()).nativeElement as HTMLElement;
+     98|
+     99|       expect(buttonByText('Delete item', page).classList).toContain('d…
+       |                                                           ^
+    100|       expect(buttonByText('Delete', page.querySelector('.offer-row')!)…
+    101|         'destructive',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > item page > polish: the listing picker in "Add offer" has an untruncated label
+AssertionError: expected 'Pick a listing of this project' to be '' // Object.is equality
+
+- Expected
++ Received
+
++ Pick a listing of this project
+
+ ❯ src/app/ui-polish.spec.ts:117:39
+    115|       expect(text(field.querySelector('mat-label'))).toBe('Listing');
+    116|       const select = field.querySelector('select')!;
+    117|       expect(text(select.options[0])).toBe('');
+       |                                       ^
+    118|       expect(text(field.querySelector('mat-hint'))).toBe('A listing of…
+    119|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > listing page > polish: listing status is changed with a Material select
+AssertionError: expected null not to be null
+ ❯ src/app/ui-polish.spec.ts:138:66
+    136|       const page = await listingPage();
+    137|
+    138|       expect(page.querySelector('mat-select.status-select')).not.toBeN…
+       |                                                                  ^
+    139|       expect(page.querySelector('select')).toBeNull();
+    140|       expect(page.querySelector('.status-chip')?.classList).toContain(…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > listing page > polish: the listing URL is a short "Open ad" link with the host name
+AssertionError: expected '' to contain 'Open ad'
+
+- Expected
++ Received
+
+- Open ad
+
+ ❯ src/app/ui-polish.spec.ts:147:26
+    145|       const link = page.querySelector<HTMLAnchorElement>('a.open-ad')!;
+    146|
+    147|       expect(text(link)).toContain('Open ad');
+       |                          ^
+    148|       expect(text(link)).toContain('olx.ua');
+    149|       expect(text(page)).not.toContain('/d/obyavlenie/deye');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > listing page > polish: the status time is shown without seconds
+AssertionError: expected 'Sep 30, 2026, 3:30:45 PM' not to match /\d{1,2}:\d{2}:\d{2}/
+
+- Expected:
+/\d{1,2}:\d{2}:\d{2}/
+
++ Received:
+"Sep 30, 2026, 3:30:45 PM"
+
+ ❯ src/app/ui-polish.spec.ts:160:24
+    158|
+    159|       expect(time).toMatch(/\d{1,2}:\d{2}/);
+    160|       expect(time).not.toMatch(/\d{1,2}:\d{2}:\d{2}/);
+       |                        ^
+    161|     });
+    162|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > listing page > polish: the offer table uses short price headers with the unit meaning in a tooltip
+AssertionError: expected undefined to be 'Asking price per unit' // Object.is equality
+
+- Expected:
+"Asking price per unit"
+
++ Received:
+undefined
+
+ ❯ src/app/ui-polish.spec.ts:169:45
+    167|       const agreed = headers.find((th) => text(th) === 'Agreed');
+    168|
+    169|       expect(asking?.getAttribute('title')).toBe('Asking price per uni…
+       |                                             ^
+    170|       expect(agreed?.getAttribute('title')).toBe('Agreed price per uni…
+    171|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > listing page > polish: delete listing is styled as destructive
+AssertionError: expected "mdc-button mat-mdc-button-base mat-mdc-button mat-unthemed _mat-animation-noopable" to contain "destructive"
+
+Expected: "mdc-button mat-mdc-button-base mat-mdc-button mat-unthemed _mat-animation-noopable destructive"
+Received: "mdc-button mat-mdc-button-base mat-mdc-button mat-unthemed _mat-animation-noopable"
+
+ ❯ src/app/ui-polish.spec.ts:176:62
+    174|       const page = await listingPage();
+    175|
+    176|       expect(buttonByText('Delete listing', page).classList).toContain…
+       |                                                              ^
+    177|       expect(buttonByText('Edit listing', page).classList).not.toConta…
+    178|     });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL   bomkeeper  src/app/ui-polish.spec.ts > UI polish > polish: delete project is styled as destructive
+AssertionError: expected "mdc-button mat-mdc-button-base mat-mdc-list-item-meta mdc-list-item__end mat-mdc-button mat-unthemed _mat-animation-noopable" to contain "destructive"
+
+Expected: "mdc-button mat-mdc-button-base mat-mdc-list-item-meta mdc-list-item__end mat-mdc-button mat-unthemed _mat-animation-noopable destructive"
+Received: "mdc-button mat-mdc-button-base mat-mdc-list-item-meta mdc-list-item__end mat-mdc-button mat-unthemed _mat-animation-noopable"
+
+ ❯ src/app/ui-polish.spec.ts:189:84
+    187|     await settle(fixture);
+    188|
+    189|     expect(buttonByText('Delete', fixture.nativeElement as HTMLElement…
+       |                                                                                    ^
+    190|       'destructive',
+    191|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  12 failed (12)
+   Start at  00:29:56
+   Duration  3.80s (environment 34%, import 24%, tests 21%, setup 14%, transform 7%)
+

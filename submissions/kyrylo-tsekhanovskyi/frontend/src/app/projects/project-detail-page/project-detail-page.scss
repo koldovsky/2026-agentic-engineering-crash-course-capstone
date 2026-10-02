@@ -1,0 +1,29 @@
+.summary-card {
+  margin: 16px 0;
+}
+
+.totals {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
+
+  .label {
+    font-weight: 600;
+  }
+}
+
+.total-line {
+  font: var(--mat-sys-title-medium);
+}
+
+.muted {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.tab-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 0;
+}

@@ -1,0 +1,29 @@
+{
+  "name": "bomkeeper",
+  "private": true,
+  "type": "module",
+  "description": "Task runner for BOMKeeper. No runtime dependencies: every script is plain Node.js.",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "check": "node scripts/check.mjs all",
+    "check:harness": "node scripts/check.mjs harness",
+    "check:be": "node scripts/check.mjs be",
+    "check:fe": "node scripts/check.mjs fe",
+    "check:e2e": "node scripts/check.mjs e2e",
+    "build:fe": "npm --prefix frontend run build",
+    "start": "dotnet run --project backend/src/BOMKeeper.AppHost",
+    "stop": "node scripts/stop.mjs",
+    "e2e": "npm --prefix frontend run e2e",
+    "screens": "npm --prefix frontend run screens",
+    "review:be": "node scripts/review.mjs be",
+    "review:fe": "node scripts/review.mjs fe",
+    "review:harness": "node scripts/review.mjs harness",
+    "review:spec": "node scripts/review.mjs spec",
+    "skills:sync": "node scripts/skills-sync.mjs",
+    "skills:restore": "npx -y skills experimental_install && node scripts/skills-sync.mjs",
+    "log:retry-stop": "node scripts/log-retry-stop.mjs"
+  }
+}

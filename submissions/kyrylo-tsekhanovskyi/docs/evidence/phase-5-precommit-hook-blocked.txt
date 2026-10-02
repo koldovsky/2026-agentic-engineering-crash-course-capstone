@@ -1,0 +1,35 @@
+# Definition of done (tasks.md 13.4): the git pre-commit hook blocks a commit with a failing test.
+# Date: 2026-10-01. The orchestrator staged a deliberately failing BLL test
+# (backend/tests/BOMKeeper.BLL.Tests/DodHookProofTests.cs, removed right after). The human ran:
+#   git commit -m "dod: hook proof - this commit must be blocked"
+# Result: the hook ran `npm run check`, the backend tests failed on the proof test, and the commit was refused.
+# Output as pasted by the human (the build/format steps are shortened to their headers):
+
+=== be: docker running ===
+=== be: build ===
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+=== be: format ===
+=== be: tests (unit + integration) ===
+[xUnit.net 00:00:00.33]     dod: the pre-commit hook blocks a commit with a failing test [FAIL]
+  Failed dod: the pre-commit hook blocks a commit with a failing test [4 ms]
+  Error Message:
+   Deliberately failing: the pre-commit hook must block this commit.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.DodHookProofTests.FailsOnPurpose() in ...\backend\tests\BOMKeeper.BLL.Tests\DodHookProofTests.cs:line 8
+
+Failed!  - Failed:     1, Passed:    75, Skipped:     0, Total:    76, Duration: 100 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+Passed!  - Failed:     0, Passed:    80, Skipped:     0, Total:    80, Duration: 9 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)
+
+=== summary ===
+ok                           harness: script tests
+ok                           harness: skills in sync
+ok                           harness: red evidence for ticked [checks] tasks
+ok                           harness: openspec validate
+ok                           harness: every review has a Resolution
+ok                           be: docker running
+ok                           be: build
+ok                           be: format
+FAILED                       be: tests (unit + integration)
+pre-commit: check failed, commit blocked.

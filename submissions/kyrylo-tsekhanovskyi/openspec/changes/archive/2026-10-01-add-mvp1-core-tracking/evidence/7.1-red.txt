@@ -1,0 +1,353 @@
+# Red evidence: task 7.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~.Contract."
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+No test matches the given testcase filter `FullyQualifiedName~.Contract.` in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.43]     contract drift: a document equals itself [FAIL]
+[xUnit.net 00:00:00.45]     contract drift: the normalizer ignores(change: "nullability as nullable: true", mutate: Action`1 { Method = Void <get_Ignored>b__4_0(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "nullability as oneOf with null", mutate: Action`1 { Method = Void <get_Ignored>b__4_1(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "nullability of a $ref as anyOf with null", mutate: Action`1 { Method = Void <get_Ignored>b__4_2(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "nullability of a $ref as nullable: true", mutate: Action`1 { Method = Void <get_Ignored>b__4_3(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "a different format", mutate: Action`1 { Method = Void <get_Ignored>b__4_4(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "a missing multipleOf", mutate: Action`1 { Method = Void <get_Ignored>b__4_5(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "different descriptions and summaries", mutate: Action`1 { Method = Void <get_Ignored>b__4_6(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "different tags, servers, security and info", mutate: Action`1 { Method = Void <get_Ignored>b__4_7(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.46]     contract drift: the normalizer ignores(change: "a different key and element order", mutate: Action`1 { Method = Void <get_Ignored>b__4_8(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+  Failed contract drift: a document equals itself [7 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.DocumentEqualsItself() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 189
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed contract drift: the normalizer ignores(change: "nullability as nullable: true", mutate: Action`1 { Method = Void <get_Ignored>b__4_0(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [2 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed contract drift: the normalizer ignores(change: "nullability as oneOf with null", mutate: Action`1 { Method = Void <get_Ignored>b__4_1(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "nullability of a $ref as anyOf with null", mutate: Action`1 { Method = Void <get_Ignored>b__4_2(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "nullability of a $ref as nullable: true", mutate: Action`1 { Method = Void <get_Ignored>b__4_3(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "a different format", mutate: Action`1 { Method = Void <get_Ignored>b__4_4(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "a missing multipleOf", mutate: Action`1 { Method = Void <get_Ignored>b__4_5(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "different descriptions and summaries", mutate: Action`1 { Method = Void <get_Ignored>b__4_6(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "different tags, servers, security and info", mutate: Action`1 { Method = Void <get_Ignored>b__4_7(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "a different key and element order", mutate: Action`1 { Method = Void <get_Ignored>b__4_8(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [4 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.51]     contract drift: the normalizer ignores(change: "a missing /api/health", mutate: Action`1 { Method = Void <get_Ignored>b__4_9(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.51]     contract drift: the normalizer ignores(change: "a body on a 204", mutate: Action`1 { Method = Void <get_Ignored>b__4_10(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.51]     contract drift: the normalizer ignores(change: "an unused component schema", mutate: Action`1 { Method = Void <get_Ignored>b__4_11(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.51]     contract drift: the normalizer ignores(change: "an inlined parameter", mutate: Action`1 { Method = Void <get_Ignored>b__4_12(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.51]     contract drift: differences name the differing path [FAIL]
+[xUnit.net 00:00:00.70]     contract drift: the contract YAML loads [FAIL]
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a missing path", mutate: Action`1 { Method = Void <get_Reported>b__2_0(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a missing method", mutate: Action`1 { Method = Void <get_Reported>b__2_1(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a changed operationId", mutate: Action`1 { Method = Void <get_Reported>b__2_2(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a changed enum", mutate: Action`1 { Method = Void <get_Reported>b__2_3(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+  Failed contract drift: the normalizer ignores(change: "a missing /api/health", mutate: Action`1 { Method = Void <get_Ignored>b__4_9(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "a body on a 204", mutate: Action`1 { Method = Void <get_Ignored>b__4_10(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "an unused component schema", mutate: Action`1 { Method = Void <get_Ignored>b__4_11(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer ignores(change: "an inlined parameter", mutate: Action`1 { Method = Void <get_Ignored>b__4_12(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Ignores(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 182
+   at InvokeStub_ContractNormalizerTests.Ignores(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: differences name the differing path [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.DifferencesNameThePath() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 194
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed contract drift: the contract YAML loads [243 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizer.Normalize(JsonNode document) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 10
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.ContractYamlLoads() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 206
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+  Failed contract drift: the normalizer reports(change: "a missing path", mutate: Action`1 { Method = Void <get_Reported>b__2_0(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed contract drift: the normalizer reports(change: "a missing method", mutate: Action`1 { Method = Void <get_Reported>b__2_1(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed operationId", mutate: Action`1 { Method = Void <get_Reported>b__2_2(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed enum", mutate: Action`1 { Method = Void <get_Reported>b__2_3(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a changed required set", mutate: Action`1 { Method = Void <get_Reported>b__2_4(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a changed property type", mutate: Action`1 { Method = Void <get_Reported>b__2_5(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.71]     contract drift: the normalizer reports(change: "a changed nullability", mutate: Action`1 { Method = Void <get_Reported>b__2_6(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.72]     contract drift: the normalizer reports(change: "a changed minimum", mutate: Action`1 { Method = Void <get_Reported>b__2_7(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.72]     contract drift: the normalizer reports(change: "a changed maximum", mutate: Action`1 { Method = Void <get_Reported>b__2_8(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.72]     contract drift: the normalizer reports(change: "a changed minLength", mutate: Action`1 { Method = Void <get_Reported>b__2_9(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.72]     contract drift: the normalizer reports(change: "a changed maxLength", mutate: Action`1 { Method = Void <get_Reported>b__2_10(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.72]     contract drift: the normalizer reports(change: "a changed pattern", mutate: Action`1 { Method = Void <get_Reported>b__2_11(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a changed array items schema", mutate: Action`1 { Method = Void <get_Reported>b__2_12(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a changed additionalProperties", mutate: Action`1 { Method = Void <get_Reported>b__2_13(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+  Failed contract drift: the normalizer reports(change: "a changed required set", mutate: Action`1 { Method = Void <get_Reported>b__2_4(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed property type", mutate: Action`1 { Method = Void <get_Reported>b__2_5(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed nullability", mutate: Action`1 { Method = Void <get_Reported>b__2_6(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed minimum", mutate: Action`1 { Method = Void <get_Reported>b__2_7(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed maximum", mutate: Action`1 { Method = Void <get_Reported>b__2_8(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed minLength", mutate: Action`1 { Method = Void <get_Reported>b__2_9(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed maxLength", mutate: Action`1 { Method = Void <get_Reported>b__2_10(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed pattern", mutate: Action`1 { Method = Void <get_Reported>b__2_11(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed array items schema", mutate: Action`1 { Method = Void <get_Reported>b__2_12(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed additionalProperties", mutate: Action`1 { Method = Void <get_Reported>b__2_13(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a changed request media type", mutate: Action`1 { Method = Void <get_Reported>b__2_14(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a changed response media type", mutate: Action`1 { Method = Void <get_Reported>b__2_15(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a missing Location header on a 201", mutate: Action`1 { Method = Void <get_Reported>b__2_16(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a missing response status", mutate: Action`1 { Method = Void <get_Reported>b__2_17(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a changed path parameter", mutate: Action`1 { Method = Void <get_Reported>b__2_18(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+[xUnit.net 00:00:00.73]     contract drift: the normalizer reports(change: "a changed request body requirement", mutate: Action`1 { Method = Void <get_Reported>b__2_19(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [FAIL]
+  Failed contract drift: the normalizer reports(change: "a changed request media type", mutate: Action`1 { Method = Void <get_Reported>b__2_14(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed response media type", mutate: Action`1 { Method = Void <get_Reported>b__2_15(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a missing Location header on a 201", mutate: Action`1 { Method = Void <get_Reported>b__2_16(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a missing response status", mutate: Action`1 { Method = Void <get_Reported>b__2_17(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed path parameter", mutate: Action`1 { Method = Void <get_Reported>b__2_18(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed contract drift: the normalizer reports(change: "a changed request body requirement", mutate: Action`1 { Method = Void <get_Reported>b__2_19(System.Text.Json.Nodes.JsonNode), Target = <>c { } }) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractNormalizerTests.Reports(String change, Action`1 mutate) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizerTests.cs:line 173
+   at InvokeStub_ContractNormalizerTests.Reports(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+[xUnit.net 00:00:06.59]     contract drift: /openapi/v1.json matches contracts/openapi.yaml [FAIL]
+  Failed contract drift: /openapi/v1.json matches contracts/openapi.yaml [2 s]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Contract.ContractComparer.Compare(JsonNode contract, JsonNode actual) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractNormalizer.cs:line 17
+   at BOMKeeper.Api.IntegrationTests.Contract.ContractDriftTests.GeneratedDocumentMatchesContract() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Contract\ContractDriftTests.cs:line 18
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:    37, Passed:     0, Skipped:     0, Total:    37, Duration: 6 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

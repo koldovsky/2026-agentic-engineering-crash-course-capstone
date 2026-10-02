@@ -1,0 +1,39 @@
+schema: spec-driven
+
+# Project context, shown to AI when creating artifacts. Rules live in AGENTS.md; decisions in docs/adr/.
+context: |
+  BOMKeeper: a single-user web app that tracks DIY-project parts (Items), the ads that could supply
+  them (Listings, from shops and private sellers such as OLX and eBay), and the Offers linking the two.
+  Negotiation status is on Listing, fit status on Offer, sourcing status on Item.
+  Money is amount + ISO 4217 currency; totals are grouped per currency, with no FX. No auth.
+  Backend: .NET 10 / C# 14, ASP.NET Core controllers, EF Core 10 + PostgreSQL 17, .NET Aspire 13,
+  and the layers Entities <- DAL <- BLL <- Api. Tests: xUnit (BLL unit), and API integration with
+  WebApplicationFactory + Testcontainers.
+  Frontend: Angular 22 + Angular Material, Vitest, with types generated from the OpenAPI contract.
+  E2E: Playwright.
+  Capabilities: projects, items, listings, offers.
+
+rules:
+  proposal:
+    - List non-goals explicitly (things deferred to a later change).
+  specs:
+    - Every requirement has at least one "#### Scenario:" in WHEN/THEN form that can become a test.
+    - Name the test level each scenario needs (BLL unit, API integration, FE unit, e2e).
+  design:
+    - Any HTTP surface change goes into contracts/openapi.yaml of the change (OpenAPI 3.1), including
+      ProblemDetails error shapes.
+  tasks:
+    - Use numbered section headings "## N. <Owner>: <area>", where the owner is Shared (the orchestrator, sequential), Backend (be-maker) or Frontend (fe-maker).
+    - In each [checks] task, list the scenarios it covers as "<capability>: <scenario title>", exactly as written in the specs.
+    - Before each implementation task, add a checks task tagged [checks], for example
+      "- [ ] 2.1 [checks] Tests for <scenarios> (<level>)", then "- [ ] 2.2 Implement ...", then "- [ ] 2.3 Refactor".
+    - A ticked [checks] task needs evidence/<id>-red.txt, created by `npm run check:<be|fe> -- --red <id>`.
+
+operations:
+  apply:
+    guidance:
+      - Follow the TDD loop in .agents/roles/<be|fe>-maker.md; never tick a [checks] task without red evidence.
+      - Treat contracts/openapi.yaml as read-only during apply; escalate contract changes to the human.
+  archive:
+    guidance:
+      - Archive only after npm run check is green and every row in docs/logs/reviews.md has a Resolution.

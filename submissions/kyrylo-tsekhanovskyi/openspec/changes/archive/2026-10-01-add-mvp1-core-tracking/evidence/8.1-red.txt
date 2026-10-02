@@ -1,0 +1,124 @@
+# Red evidence: task 8.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/api/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/api/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [1.829 seconds] - 2026-09-30T19:56:14.891Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/api/api-services.spec.ts (7 tests | 7 failed) 47ms
+   ❯ API services (7)
+     × api: projects service uses the contract operations 27ms
+     × api: items service uses the contract operations 5ms
+     × api: listings service uses the contract operations 3ms
+     × api: offers service uses the contract operations 2ms
+     × api: a 400 problem details response is mapped to field errors 3ms
+     × api: a 409 problem details response is mapped to its rule code 2ms
+     × api: other errors keep their status 3ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: projects service uses the contract operations
+Error: not implemented
+ ❯ _ProjectsService.list src/app/api/projects.service.ts:7:50
+ ❯ src/app/api/api-services.spec.ts:43:31
+     41|
+     42|   it('api: projects service uses the contract operations', async () =>…
+     43|     await expectCall(projects.list(), 'GET', '/api/projects');
+       |                               ^
+     44|     await expectCall(projects.create({ name: 'A' }), 'POST', '/api/pro…
+     45|     await expectCall(projects.get('p1'), 'GET', '/api/projects/p1');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: items service uses the contract operations
+Error: not implemented
+ ❯ _ItemsService.listByProject src/app/api/items.service.ts:7:80
+ ❯ src/app/api/api-services.spec.ts:58:28
+     56|   it('api: items service uses the contract operations', async () => {
+     57|     const input = { name: 'Inverter', quantity: 1, notes: null };
+     58|     await expectCall(items.listByProject('p1'), 'GET', '/api/projects/…
+       |                            ^
+     59|     await expectCall(items.create('p1', input), 'POST', '/api/projects…
+     60|     await expectCall(items.get('i1'), 'GET', '/api/items/i1');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: listings service uses the contract operations
+Error: not implemented
+ ❯ _ListingsService.listByProject src/app/api/listings.service.ts:7:83
+ ❯ src/app/api/api-services.spec.ts:70:31
+     68|   it('api: listings service uses the contract operations', async () =>…
+     69|     const input = { title: 'T', url: 'https://olx.ua/x', platform: 'OL…
+     70|     await expectCall(listings.listByProject('p1'), 'GET', '/api/projec…
+       |                               ^
+     71|     await expectCall(listings.create('p1', input), 'POST', '/api/proje…
+     72|     await expectCall(listings.get('l1'), 'GET', '/api/listings/l1');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: offers service uses the contract operations
+Error: not implemented
+ ❯ _OffersService.listByItem src/app/api/offers.service.ts:7:72
+ ❯ src/app/api/api-services.spec.ts:81:29
+     79|
+     80|   it('api: offers service uses the contract operations', async () => {
+     81|     await expectCall(offers.listByItem('i1'), 'GET', '/api/items/i1/of…
+       |                             ^
+     82|     await expectCall(offers.listByListing('l1'), 'GET', '/api/listings…
+     83|     await expectCall(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: a 400 problem details response is mapped to field errors
+Error: not implemented
+ ❯ _ProjectsService.create src/app/api/projects.service.ts:8:72
+ ❯ src/app/api/api-services.spec.ts:116:43
+    114|
+    115|   it('api: a 400 problem details response is mapped to field errors', …
+    116|     const error = await failWith(projects.create({ name: '' }), 400, {
+       |                                           ^
+    117|       title: 'One or more validation errors occurred.',
+    118|       status: 400,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: a 409 problem details response is mapped to its rule code
+Error: not implemented
+ ❯ _OffersService.create src/app/api/offers.service.ts:9:98
+ ❯ src/app/api/api-services.spec.ts:130:41
+    128|
+    129|   it('api: a 409 problem details response is mapped to its rule code',…
+    130|     const error = await failWith(offers.create('i1', { listingId: 'l1'…
+       |                                         ^
+    131|       type: '/problems/duplicate-offer',
+    132|       title: 'The item is already linked to this listing.',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+ FAIL   bomkeeper  src/app/api/api-services.spec.ts > API services > api: other errors keep their status
+Error: not implemented
+ ❯ _ProjectsService.get src/app/api/projects.service.ts:9:57
+ ❯ src/app/api/api-services.spec.ts:142:43
+    140|
+    141|   it('api: other errors keep their status', async () => {
+    142|     const error = await failWith(projects.get('x'), 404, { title: 'Not…
+       |                                           ^
+    143|
+    144|     expect(error.kind).toBe('other');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/7]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  7 failed (7)
+   Start at  22:56:15
+   Duration  1.99s (environment 68%, setup 23%, transform 4%, tests 3%, import 2%, worker 1%)
+

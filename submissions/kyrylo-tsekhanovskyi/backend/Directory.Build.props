@@ -1,0 +1,14 @@
+<Project>
+  <!-- Shared build settings for every BOMKeeper project: warnings are errors, analyzers at the
+       latest recommended level, and code style (.editorconfig) enforced at build time. -->
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <!-- Needed for IDE0005 (unused usings) to run at build time; missing XML docs are not errors. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+</Project>

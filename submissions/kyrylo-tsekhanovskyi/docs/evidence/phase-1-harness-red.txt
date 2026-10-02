@@ -1,0 +1,200 @@
+# Red run: phase 1 harness scripts (scripts/lib stubs throw 'not implemented')
+# 2026-09-29T00:32:16+03:00  cmd: node --test "scripts/test/*.test.mjs"
+✖ real .env files are detected (1.0102ms)
+✖ templates and look-alikes are allowed (0.2492ms)
+✖ only ticked [checks] tasks are collected (0.9059ms)
+✖ tasks without a <id>-red.txt file are reported (0.1851ms)
+✖ no ticked checks tasks means nothing is missing (0.1801ms)
+✖ escapeCell flattens newlines and escapes pipes (0.8368ms)
+✖ the first row replaces the placeholder row (0.1804ms)
+✖ later rows are appended after the last row (0.1006ms)
+✖ the SUMMARY line is parsed (0.1136ms)
+✖ without a SUMMARY line, [Pn] tags are counted and the verdict is unparsed (1.3769ms)
+✖ failing assertions count as red (0.909ms)
+✖ a passing run is not red (0.1449ms)
+✖ a C# compile error is not red (0.118ms)
+✖ a TypeScript compile error is not red (0.1456ms)
+✖ a run where no tests executed is not red (1.1716ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 0
+ℹ fail 15
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 154.6819
+
+✖ failing tests:
+
+test at scripts\test\env-guard.test.mjs:5:1
+✖ real .env files are detected (1.0102ms)
+  Error: not implemented
+      at mentionsEnvFile (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/env-guard.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/env-guard.test.mjs:13:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts\test\env-guard.test.mjs:17:1
+✖ templates and look-alikes are allowed (0.2492ms)
+  Error: not implemented
+      at mentionsEnvFile (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/env-guard.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/env-guard.test.mjs:26:18)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts\test\evidence.test.mjs:14:1
+✖ only ticked [checks] tasks are collected (0.9059ms)
+  Error: not implemented
+      at tickedCheckTaskIds (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/evidence.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/evidence.test.mjs:15:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts\test\evidence.test.mjs:18:1
+✖ tasks without a <id>-red.txt file are reported (0.1851ms)
+  Error: not implemented
+      at missingEvidence (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/evidence.mjs:7:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/evidence.test.mjs:20:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts\test\evidence.test.mjs:23:1
+✖ no ticked checks tasks means nothing is missing (0.1801ms)
+  Error: not implemented
+      at missingEvidence (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/evidence.mjs:7:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/evidence.test.mjs:24:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\ledger.test.mjs:14:1
+✖ escapeCell flattens newlines and escapes pipes (0.8368ms)
+  Error: not implemented
+      at escapeCell (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/ledger.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:15:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts\test\ledger.test.mjs:18:1
+✖ the first row replaces the placeholder row (0.1804ms)
+  Error: not implemented
+      at appendTableRow (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/ledger.mjs:7:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:19:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts\test\ledger.test.mjs:24:1
+✖ later rows are appended after the last row (0.1006ms)
+  Error: not implemented
+      at appendTableRow (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/ledger.mjs:7:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:25:16)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\ledger.test.mjs:30:1
+✖ the SUMMARY line is parsed (0.1136ms)
+  Error: not implemented
+      at parseReviewSummary (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/ledger.mjs:11:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:31:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\ledger.test.mjs:35:1
+✖ without a SUMMARY line, [Pn] tags are counted and the verdict is unparsed (1.3769ms)
+  Error: not implemented
+      at parseReviewSummary (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/ledger.mjs:11:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:36:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\red.test.mjs:5:1
+✖ failing assertions count as red (0.909ms)
+  Error: not implemented
+      at classifyRedRun (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/red.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:6:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts\test\red.test.mjs:10:1
+✖ a passing run is not red (0.1449ms)
+  Error: not implemented
+      at classifyRedRun (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/red.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:11:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts\test\red.test.mjs:16:1
+✖ a C# compile error is not red (0.118ms)
+  Error: not implemented
+      at classifyRedRun (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/red.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:17:13)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\red.test.mjs:25:1
+✖ a TypeScript compile error is not red (0.1456ms)
+  Error: not implemented
+      at classifyRedRun (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/red.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:27:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\red.test.mjs:33:1
+✖ a run where no tests executed is not red (1.1716ms)
+  Error: not implemented
+      at classifyRedRun (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/red.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:35:15)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+# exit code: 1

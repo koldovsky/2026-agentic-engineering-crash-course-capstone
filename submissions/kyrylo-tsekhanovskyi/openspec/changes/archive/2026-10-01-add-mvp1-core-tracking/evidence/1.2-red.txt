@@ -1,0 +1,72 @@
+# Red evidence: task 1.2 (add-mvp1-core-tracking)
+# date: 2026-09-29  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+[xUnit.net 00:00:00.52]     architecture: project references follow the layering(project: "BOMKeeper.Api", required: ["BOMKeeper.BLL", "BOMKeeper.DAL", "BOMKeeper.ServiceDefaults"], allowed: ["BOMKeeper.BLL", "BOMKeeper.DAL", "BOMKeeper.ServiceDefaults"]) [FAIL]
+[xUnit.net 00:00:00.54]     architecture: project references follow the layering(project: "BOMKeeper.AppHost", required: ["BOMKeeper.Api"], allowed: ["BOMKeeper.Api", "BOMKeeper.ServiceDefaults"]) [FAIL]
+[xUnit.net 00:00:00.54]     architecture: project references follow the layering(project: "BOMKeeper.DAL", required: ["BOMKeeper.Entities"], allowed: ["BOMKeeper.Entities"]) [FAIL]
+[xUnit.net 00:00:00.54]     architecture: project references follow the layering(project: "BOMKeeper.BLL", required: ["BOMKeeper.DAL"], allowed: ["BOMKeeper.DAL", "BOMKeeper.Entities"]) [FAIL]
+A total of 1 test files matched the specified pattern.
+  Failed architecture: project references follow the layering(project: "BOMKeeper.Api", required: ["BOMKeeper.BLL", "BOMKeeper.DAL", "BOMKeeper.ServiceDefaults"], allowed: ["BOMKeeper.BLL", "BOMKeeper.DAL", "BOMKeeper.ServiceDefaults"]) [199 ms]
+  Error Message:
+   Assert.Empty() Failure: Collection was not empty
+Collection: ["BOMKeeper.BLL", "BOMKeeper.DAL", "BOMKeeper.ServiceDefaults"]
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Architecture.ReferenceDirectionTests.ProjectReferencesFollowLayering(String project, String[] required, String[] allowed) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Architecture\ReferenceDirectionTests.cs:line 33
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+  Failed architecture: project references follow the layering(project: "BOMKeeper.AppHost", required: ["BOMKeeper.Api"], allowed: ["BOMKeeper.Api", "BOMKeeper.ServiceDefaults"]) [1 ms]
+  Error Message:
+   Assert.Empty() Failure: Collection was not empty
+Collection: ["BOMKeeper.Api"]
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Architecture.ReferenceDirectionTests.ProjectReferencesFollowLayering(String project, String[] required, String[] allowed) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Architecture\ReferenceDirectionTests.cs:line 33
+   at InvokeStub_ReferenceDirectionTests.ProjectReferencesFollowLayering(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed architecture: project references follow the layering(project: "BOMKeeper.DAL", required: ["BOMKeeper.Entities"], allowed: ["BOMKeeper.Entities"]) [< 1 ms]
+  Error Message:
+   Assert.Empty() Failure: Collection was not empty
+Collection: ["BOMKeeper.Entities"]
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Architecture.ReferenceDirectionTests.ProjectReferencesFollowLayering(String project, String[] required, String[] allowed) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Architecture\ReferenceDirectionTests.cs:line 33
+   at InvokeStub_ReferenceDirectionTests.ProjectReferencesFollowLayering(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+  Failed architecture: project references follow the layering(project: "BOMKeeper.BLL", required: ["BOMKeeper.DAL"], allowed: ["BOMKeeper.DAL", "BOMKeeper.Entities"]) [< 1 ms]
+  Error Message:
+   Assert.Empty() Failure: Collection was not empty
+Collection: ["BOMKeeper.DAL"]
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Architecture.ReferenceDirectionTests.ProjectReferencesFollowLayering(String project, String[] required, String[] allowed) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Architecture\ReferenceDirectionTests.cs:line 33
+   at InvokeStub_ReferenceDirectionTests.ProjectReferencesFollowLayering(Object, Span`1)
+   at System.Reflection.MethodBaseInvoker.InvokeWithFewArgs(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+
+Failed!  - Failed:     4, Passed:     4, Skipped:     0, Total:     8, Duration: 242 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+[xUnit.net 00:00:37.04]     skeleton: GET /api/health returns 200 [FAIL]
+[xUnit.net 00:00:37.48]     skeleton: migrations are applied on startup [FAIL]
+  Failed skeleton: GET /api/health returns 200 [598 ms]
+  Error Message:
+   Assert.Equal() Failure: Values differ
+Expected: OK
+Actual:   NotFound
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Skeleton.HealthTests.HealthEndpointIsUp() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Skeleton\HealthTests.cs:line 17
+--- End of stack trace from previous location ---
+  Failed skeleton: migrations are applied on startup [434 ms]
+  Error Message:
+   The EF migrations history table does not exist.
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Skeleton.HealthTests.MigrationsAreApplied() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Skeleton\HealthTests.cs:line 31
+   at BOMKeeper.Api.IntegrationTests.Skeleton.HealthTests.MigrationsAreApplied() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Skeleton\HealthTests.cs:line 31
+   at BOMKeeper.Api.IntegrationTests.Skeleton.HealthTests.MigrationsAreApplied() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Skeleton\HealthTests.cs:line 31
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     2, Passed:     0, Skipped:     0, Total:     2, Duration: 1 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

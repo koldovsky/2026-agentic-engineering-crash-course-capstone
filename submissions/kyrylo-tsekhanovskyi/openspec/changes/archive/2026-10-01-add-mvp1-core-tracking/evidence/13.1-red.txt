@@ -1,0 +1,48 @@
+# Red evidence: task 13.1 (add-mvp1-core-tracking)
+# date: 2026-10-01  side: e2e  exit code: 1
+# command: npm --prefix frontend run e2e -- e2e/flow.spec.ts
+# verdict: Tests ran and failed on assertions.
+# MUTATION EVIDENCE (human decision 2026-10-01): the flow already passed, since every step was built test-first in phase 4 (red evidence 2.1-15.1). To prove the e2e catches a regression, a business-rule mutation was applied temporarily: backend/src/BOMKeeper.BLL/Projects/SummaryService.cs line 31 `?.UnitPrice` (agreed ?? asking) -> `?.AgreedPrice` (agreed only). The flow sets only asking prices, so the summary lost its UAH total and the test failed on its assertion. The mutation was reverted right after this run, and the green run follows. The mutation also exposed a weak assertion (the "12,000.00 UAH" text was also shown in the items table), which was scoped to the summary card before this run.
+
+Running 1 test using 1 worker
+
+  x  1 [chromium] › e2e\flow.spec.ts:29:5 › projects: From project to total (12.1s)
+
+
+  1) [chromium] › e2e\flow.spec.ts:29:5 › projects: From project to total ──────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('mat-card').filter({ hasText: 'Summary' })
+    Expected substring: "12,000.00 UAH"
+    Received string:    "Summary Needed 2 · Sourcing 0 · Ordered 0 · Received 0 TotalNo chosen offers with a price yet Items without a chosen offer: 1 "
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" locator('mat-card').filter({ hasText: 'Summary' }) with timeout 5000ms
+      - waiting for locator('mat-card').filter({ hasText: 'Summary' })
+        14 × locator resolved to <mat-card appearance="outlined" _ngcontent-ng-c1252291396="" class="mat-mdc-card mdc-card summary-card mat-mdc-card-outlined mdc-card--outlined">…</mat-card>
+           - unexpected value "Summary Needed 2 · Sourcing 0 · Ordered 0 · Received 0 TotalNo chosen offers with a price yet Items without a chosen offer: 1 "
+
+
+      86 |     await page.goto(projectUrl);
+      87 |     // Scoped to the summary card: the items table also shows the chosen offer's price.
+    > 88 |     await expect(page.locator('mat-card').filter({ hasText: 'Summary' })).toContainText('12,000.00 UAH');
+         |                                                                           ^
+      89 |     const batteryRow = page.getByRole('row', { name: /Battery/ });
+      90 |     await expect(batteryRow).toContainText('—'); // no chosen offer
+      91 |     await expect(page.getByText(/Items without a chosen offer:\s*1/)).toBeVisible();
+        at D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\frontend\e2e\flow.spec.ts:88:75
+
+    Error Context: test-results\flow-projects-From-project-to-total-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\flow-projects-From-project-to-total-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\flow-projects-From-project-to-total-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e\flow.spec.ts:29:5 › projects: From project to total ───────────────────────────

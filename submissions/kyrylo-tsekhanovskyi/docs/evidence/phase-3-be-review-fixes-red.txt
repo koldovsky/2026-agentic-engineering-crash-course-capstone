@@ -1,0 +1,25 @@
+# Red run: be-checker review 2026-09-29 P2 #2 (Api must reach the DAL only through its registration extensions)
+2026-09-30T00:01:17+03:00
+# cmd: dotnet test backend/tests/BOMKeeper.BLL.Tests
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:00.30]     architecture: the Api reaches the DAL only through its registration extensions [FAIL]
+  Failed architecture: the Api reaches the DAL only through its registration extensions [20 ms]
+  Error Message:
+   Assert.DoesNotMatch() Failure: Match found
+                                 ↓ (pos 275)
+String: ···");\nbuilder.AddNpgsqlDbContext<BomKeeperDb"···
+RegEx:  "DbContext|\\.Database\\b"
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Architecture.ReferenceDirectionTests.ApiUsesDalOnlyForRegistration() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Architecture\ReferenceDirectionTests.cs:line 56
+   at System.Reflection.MethodBaseInvoker.InterpretedInvoke_Method(Object obj, IntPtr* args)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+
+Failed!  - Failed:     1, Passed:     8, Skipped:     0, Total:     9, Duration: 57 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+# exit code: 1

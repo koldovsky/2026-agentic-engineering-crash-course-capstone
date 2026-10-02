@@ -1,0 +1,254 @@
+# Red run: fixes for harness review 2026-09-29 (docs/reviews/2026-09-29-harness-harness-checker.md)
+# 2026-09-29T01:02:17+03:00  cmd: node --test "scripts/test/*.test.mjs"
+# Note: the guard input-scoping fix (reviewer P2 #1) was implemented BEFORE its test, with human approval,
+# because the old guard blocked writing the test file. Its content-scoping assertions pass here; the same test
+# still fails on its wildcard case (reviewer P1 #2), which is still red.
+✖ .env files, variants and wildcards are detected (2.4227ms)
+✔ only the .env.example template and look-alikes are allowed (0.3581ms)
+✖ file tools are judged by their paths, not by the content they write (0.6626ms)
+✔ shell tools are judged by their command (1.2236ms)
+✔ only ticked [checks] tasks are collected (2.6001ms)
+✔ tasks without a <id>-red.txt file are reported (0.3916ms)
+✔ no ticked checks tasks means nothing is missing (0.1977ms)
+✔ escapeCell flattens newlines and escapes pipes (2.2663ms)
+✔ the first row replaces the placeholder row (0.799ms)
+✔ later rows are appended after the last row (0.3549ms)
+✔ the SUMMARY line is parsed (1.1505ms)
+✖ without a SUMMARY line, [Pn] tags are counted and the verdict is derived from them (2.0747ms)
+✖ review rows without a Resolution are reported (0.4155ms)
+✖ concurrent ledger writers do not lose rows (155.2012ms)
+✖ value options consume the next argument verbatim, even when it starts with dashes (2.75ms)
+✔ flags without values are true (0.3182ms)
+✖ a value option without a value is an error (0.5358ms)
+✔ failing assertions count as red (1.6789ms)
+✔ a passing run is not red (0.5562ms)
+✔ a C# compile error is not red (0.5291ms)
+✔ a TypeScript compile error is not red (0.5282ms)
+✔ a run where no tests executed is not red (0.4457ms)
+✖ an infrastructure failure without failing tests is not red (1.5036ms)
+✖ a maker subagent is checked only on its own side (1.3287ms)
+✖ a maker with no changes on its side is not checked (0.2164ms)
+✖ the main session and other agents are checked on every changed side (0.1978ms)
+ℹ tests 26
+ℹ suites 0
+ℹ pass 15
+ℹ fail 11
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 301.0956
+
+✖ failing tests:
+
+test at scripts\test\env-guard.test.mjs:5:1
+✖ .env files, variants and wildcards are detected (2.4227ms)
+  AssertionError [ERR_ASSERTION]: cat .env*
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/env-guard.test.mjs:16:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\env-guard.test.mjs:26:1
+✖ file tools are judged by their paths, not by the content they write (0.6626ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/env-guard.test.mjs:33:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\ledger.test.mjs:40:1
+✖ without a SUMMARY line, [Pn] tags are counted and the verdict is derived from them (2.0747ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+      counts: {
+        P0: 0,
+        P1: 2,
+        P2: 1,
+        P3: 0
+      },
+  +   verdict: 'unparsed'
+  -   verdict: 'changes-requested (derived)'
+    }
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:41:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { counts: { P0: 0, P1: 2, P2: 1, P3: 0 }, verdict: 'unparsed' },
+    expected: { counts: { P0: 0, P1: 2, P2: 1, P3: 0 }, verdict: 'changes-requested (derived)' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\ledger.test.mjs:54:1
+✖ review rows without a Resolution are reported (0.4155ms)
+  Error: not implemented
+      at unresolvedReviews (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/ledger.mjs:32:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:55:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+
+test at scripts\test\ledger.test.mjs:59:1
+✖ concurrent ledger writers do not lose rows (155.2012ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+  +   1,
+  +   1,
+  +   1,
+  +   1,
+  +   1,
+  +   1
+  -   0,
+  -   0,
+  -   0,
+  -   0,
+  -   0,
+  -   0
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:69:10)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 1, 1, 1, 1, 1, 1 ],
+    expected: [ 0, 0, 0, 0, 0, 0 ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\proc.test.mjs:7:1
+✖ value options consume the next argument verbatim, even when it starts with dashes (2.75ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    {
+  +   'include src/app/items/**': true,
+  +   filter: true,
+  -   filter: '--include src/app/items/**',
+      red: '1.2'
+    }
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/proc.test.mjs:10:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: { red: '1.2', filter: true, 'include src/app/items/**': true },
+    expected: { red: '1.2', filter: '--include src/app/items/**' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\proc.test.mjs:17:1
+✖ a value option without a value is an error (0.5358ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/proc.test.mjs:18:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: /--red needs a value/,
+    operator: 'throws',
+    diff: 'simple'
+  }
+
+test at scripts\test\red.test.mjs:46:1
+✖ an infrastructure failure without failing tests is not red (1.5036ms)
+  AssertionError [ERR_ASSERTION]: 'dotnet' is not recognized as an internal or external command
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:53:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\stop.test.mjs:7:1
+✖ a maker subagent is checked only on its own side (1.3287ms)
+  Error: not implemented
+      at sidesToCheck (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/stop.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/stop.test.mjs:8:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17)
+
+test at scripts\test\stop.test.mjs:12:1
+✖ a maker with no changes on its side is not checked (0.2164ms)
+  Error: not implemented
+      at sidesToCheck (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/stop.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/stop.test.mjs:13:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3)
+
+test at scripts\test\stop.test.mjs:16:1
+✖ the main session and other agents are checked on every changed side (0.1978ms)
+  Error: not implemented
+      at sidesToCheck (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/lib/stop.mjs:3:9)
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/stop.test.mjs:17:20)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7)
+# exit code: 1

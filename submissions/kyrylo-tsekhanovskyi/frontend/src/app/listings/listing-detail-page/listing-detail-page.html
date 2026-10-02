@@ -1,0 +1,119 @@
+@if (listing.value(); as l) {
+  <a class="back-link" [routerLink]="['/projects', l.projectId]">
+    <mat-icon aria-hidden="true">arrow_back</mat-icon>Back to project
+  </a>
+  <header class="page-header">
+    <h1>{{ l.title }}</h1>
+    <div class="actions">
+      <button mat-button (click)="editListing(l)">Edit listing</button>
+      <button mat-button class="destructive" (click)="deleteListing(l)">Delete listing</button>
+    </div>
+  </header>
+
+  <section class="status-panel">
+    <mat-form-field class="status-field" subscriptSizing="dynamic">
+      <mat-label>Status</mat-label>
+      <mat-select
+        #statusSelect
+        class="status-select"
+        [class]="l.status | chipClass: 'listing'"
+        [value]="l.status"
+        (selectionChange)="onStatusChange($event.value, statusSelect, l)"
+      >
+        @for (status of statuses; track status) {
+          <mat-option [value]="status">{{ status | label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <span class="muted">
+      since
+      <time class="status-time" [attr.datetime]="l.statusChangedAt">{{
+        l.statusChangedAt | date: 'MMM d, y, HH:mm'
+      }}</time>
+    </span>
+  </section>
+
+  <dl class="fields">
+    <dt>Ad</dt>
+    <dd>
+      <a class="open-ad" [href]="l.url" target="_blank" rel="noopener noreferrer">
+        <mat-icon aria-hidden="true">open_in_new</mat-icon>
+        Open ad <span class="muted">({{ l.url | host }})</span>
+      </a>
+    </dd>
+    <dt>Platform</dt>
+    <dd>{{ l.platform }}</dd>
+    <dt>Seller</dt>
+    <dd>{{ l.sellerName ?? '—' }}</dd>
+    <dt>Seller contact</dt>
+    <dd>{{ l.sellerContact ?? '—' }}</dd>
+    <dt>Agreed total</dt>
+    <dd>{{ l.agreedTotal | money }}</dd>
+    <dt>Notes</dt>
+    <dd class="notes">{{ l.notes ?? '—' }}</dd>
+  </dl>
+}
+
+@for (message of [listing.error(), offers.error(), actionError()]; track $index) {
+  @if (message) {
+    <p class="form-error" role="alert">{{ message }}</p>
+  }
+}
+
+<h2>Offers across items</h2>
+@if (offers.error()) {
+  <p class="muted">Offers could not be loaded.</p>
+} @else if (offers.loading()) {
+  <p class="loading">Loading offers…</p>
+} @else if (offers.value()?.length === 0) {
+  <p class="empty-state">This listing is not linked to any item yet.</p>
+} @else {
+  <div class="table-scroll">
+    <table
+      mat-table
+      [dataSource]="offers.value() ?? []"
+      class="full-width offers-table stack-on-phone"
+    >
+      <caption class="table-caption">
+        Prices are per unit of the item.
+      </caption>
+      <ng-container matColumnDef="item">
+        <th mat-header-cell *matHeaderCellDef>Item</th>
+        <td mat-cell *matCellDef="let offer">
+          <a [routerLink]="['/items', offer.itemId]">{{ offer.itemName }}</a>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="asking">
+        <th mat-header-cell *matHeaderCellDef title="Asking price per unit">Asking</th>
+        <td mat-cell *matCellDef="let offer" class="nowrap" data-label="Asking">
+          {{ offer.askingPrice | money }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="agreed">
+        <th mat-header-cell *matHeaderCellDef title="Agreed price per unit">Agreed</th>
+        <td mat-cell *matCellDef="let offer" class="nowrap" data-label="Agreed">
+          {{ offer.agreedPrice | money }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="fit">
+        <th mat-header-cell *matHeaderCellDef>Fit</th>
+        <td mat-cell *matCellDef="let offer" class="fit-cell" data-label="Fit">
+          <span
+            class="status-chip fit"
+            [class]="offer.fit | chipClass: 'fit'"
+            [class.fit-warning]="offer.fit === 'WrongItem'"
+            >{{ offer.fit | label }}</span
+          >
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="chosen">
+        <th mat-header-cell *matHeaderCellDef>Chosen</th>
+        <td mat-cell *matCellDef="let offer" class="chosen" data-label="Chosen">
+          {{ offer.isChosen ? 'Chosen' : '—' }}
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="offerColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: offerColumns" class="offer-row"></tr>
+    </table>
+  </div>
+}

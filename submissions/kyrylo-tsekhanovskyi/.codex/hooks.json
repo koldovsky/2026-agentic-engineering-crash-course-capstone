@@ -1,0 +1,18 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash|apply_patch",
+        "hooks": [
+          { "type": "command", "command": "node scripts/hooks/protect-env.mjs", "timeout": 15, "statusMessage": "Checking for .env access" }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash|apply_patch",
+        "hooks": [{ "type": "command", "command": "node scripts/hooks/log-action.mjs", "timeout": 15 }]
+      }
+    ]
+  }
+}

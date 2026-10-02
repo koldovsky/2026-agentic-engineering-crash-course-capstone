@@ -1,0 +1,107 @@
+# Red evidence: task 5.3 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~OfferChoiceTests|FullyQualifiedName~ChoiceAndDeletionApiTests"
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+[xUnit.net 00:00:00.57]     offers: Un-choose an offer [FAIL]
+[xUnit.net 00:00:00.59]     items: Choosing an offer does not change the item status [FAIL]
+[xUnit.net 00:00:00.59]     offers: Choosing switches the choice [FAIL]
+[xUnit.net 00:00:00.59]     offers: Choice is per item [FAIL]
+  Failed offers: Un-choose an offer [7 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Offers.OfferService.SetChoiceAsync(Guid id, Boolean isChosen, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 98
+   at BOMKeeper.BLL.Tests.Offers.OfferChoiceTests.UnChooseAnOffer() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferChoiceTests.cs:line 55
+--- End of stack trace from previous location ---
+  Failed items: Choosing an offer does not change the item status [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Offers.OfferService.SetChoiceAsync(Guid id, Boolean isChosen, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 98
+   at BOMKeeper.BLL.Tests.Offers.OfferChoiceTests.ChoosingDoesNotChangeItemStatus() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferChoiceTests.cs:line 69
+--- End of stack trace from previous location ---
+  Failed offers: Choosing switches the choice [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Offers.OfferService.SetChoiceAsync(Guid id, Boolean isChosen, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 98
+   at BOMKeeper.BLL.Tests.Offers.OfferChoiceTests.ChoosingSwitchesTheChoice() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferChoiceTests.cs:line 27
+--- End of stack trace from previous location ---
+  Failed offers: Choice is per item [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Offers.OfferService.SetChoiceAsync(Guid id, Boolean isChosen, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 98
+   at BOMKeeper.BLL.Tests.Offers.OfferChoiceTests.ChoiceIsPerItem() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferChoiceTests.cs:line 42
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     4, Passed:     0, Skipped:     0, Total:     4, Duration: 63 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:08.74]     listings: Delete a listing, keep the items [FAIL]
+[xUnit.net 00:00:08.88]     items: List items with chosen offers [FAIL]
+[xUnit.net 00:00:08.93]     offers: Delete an offer [FAIL]
+[xUnit.net 00:00:09.01]     offers: Choose through the API [FAIL]
+[xUnit.net 00:00:09.06]     offers: Un-choose an offer (API) [FAIL]
+[xUnit.net 00:00:09.20]     offers: Switching back and forth [FAIL]
+  Failed listings: Delete a listing, keep the items [64 ms]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-86f2b497ff251300bd199008b6f3a056-fc5dd898a807ac6b-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PatchAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 62
+   at BOMKeeper.Api.IntegrationTests.Offers.ChoiceAndDeletionApiTests.DeleteAListingKeepTheItems() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ChoiceAndDeletionApiTests.cs:line 122
+--- End of stack trace from previous location ---
+  Failed items: List items with chosen offers [132 ms]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-ddd48ef146933f4fea44abe24dd60463-b9f5500ade2874b5-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PatchAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 62
+   at BOMKeeper.Api.IntegrationTests.Offers.ChoiceAndDeletionApiTests.ListItemsWithChosenOffers() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ChoiceAndDeletionApiTests.cs:line 82
+--- End of stack trace from previous location ---
+  Failed offers: Delete an offer [46 ms]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-8b410812f8ff97c11ee76ae8508418fd-59c1d1288959f034-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PatchAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 62
+   at BOMKeeper.Api.IntegrationTests.Offers.ChoiceAndDeletionApiTests.DeleteAnOffer() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ChoiceAndDeletionApiTests.cs:line 63
+--- End of stack trace from previous location ---
+  Failed offers: Choose through the API [69 ms]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-d4f1874130245dc053d7105a30d5aa53-acf849035263e643-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PatchAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 62
+   at BOMKeeper.Api.IntegrationTests.Offers.ChoiceAndDeletionApiTests.ChooseThroughTheApi() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ChoiceAndDeletionApiTests.cs:line 33
+--- End of stack trace from previous location ---
+  Failed offers: Un-choose an offer (API) [43 ms]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-2be2c9eebf5e3dd8eb3d7ebeccd70d2f-68104425196a88d8-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PatchAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 62
+   at BOMKeeper.Api.IntegrationTests.Offers.ChoiceAndDeletionApiTests.UnChooseThroughTheApi() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ChoiceAndDeletionApiTests.cs:line 48
+--- End of stack trace from previous location ---
+  Failed offers: Switching back and forth [123 ms]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-673ee224ae00dbb2ff19a761c7dbe04d-7536801b9e53698e-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PatchAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 62
+   at BOMKeeper.Api.IntegrationTests.Offers.ChoiceAndDeletionApiTests.SwitchingBackAndForth() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\ChoiceAndDeletionApiTests.cs:line 19
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     6, Passed:     2, Skipped:     0, Total:     8, Duration: 4 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

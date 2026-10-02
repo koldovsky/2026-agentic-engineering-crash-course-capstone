@@ -1,0 +1,85 @@
+# Red run: fixes for harness review #3 2026-09-29 (docs/reviews/2026-09-29-harness-harness-checker-3.md)
+# 2026-09-29T22:11:11+03:00  cmd: node --test "scripts/test/*.test.mjs"
+✖ .env files, variants and wildcards are detected (2.7058ms)
+✔ only the .env.example template and look-alikes are allowed (0.3205ms)
+✔ file tools are judged by their paths, not by the content they write (0.4791ms)
+✔ shell tools are judged by their command (1.2346ms)
+✔ only ticked [checks] tasks are collected (1.9509ms)
+✔ tasks without a <id>-red.txt file are reported (0.5273ms)
+✔ no ticked checks tasks means nothing is missing (0.2032ms)
+✔ escapeCell flattens newlines and escapes pipes (1.2971ms)
+✔ the first row replaces the placeholder row (0.5768ms)
+✔ later rows are appended after the last row (0.3965ms)
+✔ the SUMMARY line is parsed (1.4188ms)
+✔ without a SUMMARY line, [Pn] tags are counted and the verdict is derived from them (0.5037ms)
+✖ clean results in the Codex native format are recognized (1.2544ms)
+✔ findings in the Codex native JSON format are counted (0.2332ms)
+✔ output that is neither a summary, findings nor an explicit clean result is unrecognized (0.1359ms)
+✔ review rows without a Resolution are reported (0.6505ms)
+✔ concurrent ledger writers do not lose rows (150.7459ms)
+✔ value options consume the next argument verbatim, even when it starts with dashes (1.5215ms)
+✔ flags without values are true (0.2218ms)
+✔ a value option without a value is an error (1.329ms)
+✔ failing assertions (or not-implemented stubs) count as red (2.1675ms)
+✔ a passing run is not red (0.3964ms)
+✔ a C# compile error is not red (1.3619ms)
+✔ a TypeScript compile error is not red (0.4467ms)
+✔ a run where no tests executed is not red (0.3748ms)
+✔ an infrastructure or fixture failure is not red, even with a failed-test count (0.3582ms)
+✔ failed tests without an assertion or not-implemented failure are not red (0.3239ms)
+✔ a maker subagent is checked only on its own side (1.96ms)
+✔ a maker with no changes on its side is not checked (0.233ms)
+✔ the main session and other agents are checked on every changed side (0.2388ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 28
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 297.8402
+
+✖ failing tests:
+
+test at scripts\test\env-guard.test.mjs:5:1
+✖ .env files, variants and wildcards are detected (2.7058ms)
+  AssertionError [ERR_ASSERTION]: cat .e*
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/env-guard.test.mjs:27:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\ledger.test.mjs:49:1
+✖ clean results in the Codex native format are recognized (1.2544ms)
+  AssertionError [ERR_ASSERTION]: No actionable findings.
+  + actual - expected
+  
+  + 'unrecognized'
+  - 'approve (derived)'
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:55:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'unrecognized',
+    expected: 'approve (derived)',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+# exit code: 1

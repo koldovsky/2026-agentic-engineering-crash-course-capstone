@@ -1,0 +1,137 @@
+# Red evidence: task 2.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~.Projects."
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+[xUnit.net 00:00:00.50]     projects: Reject a blank or too long name(name: null) [FAIL]
+[xUnit.net 00:00:00.51]     projects: Reject a blank or too long name(name: "") [FAIL]
+[xUnit.net 00:00:00.52]     projects: Reject a blank or too long name(name: "x201") [FAIL]
+[xUnit.net 00:00:00.52]     projects: Reject a blank or too long name(name: "   ") [FAIL]
+[xUnit.net 00:00:00.52]     projects: Create a project (BLL) [FAIL]
+[xUnit.net 00:00:00.52]     projects: Unknown id (BLL) [FAIL]
+  Failed projects: Reject a blank or too long name(name: null) [13 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.RejectBlankOrTooLongName(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 27
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Projects.ProjectService.CreateAsync(ProjectInput input, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\ProjectService.cs:line 17
+   at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.<>c__DisplayClass4_0.<RejectBlankOrTooLongName>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 28
+  Failed projects: Reject a blank or too long name(name: "") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.RejectBlankOrTooLongName(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 27
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Projects.ProjectService.CreateAsync(ProjectInput input, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\ProjectService.cs:line 17
+   at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.<>c__DisplayClass4_0.<RejectBlankOrTooLongName>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 28
+  Failed projects: Reject a blank or too long name(name: "x201") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.RejectBlankOrTooLongName(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 27
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Projects.ProjectService.CreateAsync(ProjectInput input, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\ProjectService.cs:line 17
+   at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.<>c__DisplayClass4_0.<RejectBlankOrTooLongName>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 28
+  Failed projects: Reject a blank or too long name(name: "   ") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.RejectBlankOrTooLongName(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 27
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Projects.ProjectService.CreateAsync(ProjectInput input, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\ProjectService.cs:line 17
+   at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.<>c__DisplayClass4_0.<RejectBlankOrTooLongName>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 28
+  Failed projects: Create a project (BLL) [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Projects.ProjectService.CreateAsync(ProjectInput input, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\ProjectService.cs:line 17
+   at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.CreateTrimsNameAndStampsTime() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 38
+--- End of stack trace from previous location ---
+  Failed projects: Unknown id (BLL) [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.NotFoundException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.UnknownIdThrowsNotFound() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 49
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Projects.ProjectService.GetAsync(Guid id, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\ProjectService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.ProjectServiceTests.<UnknownIdThrowsNotFound>b__6_0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\ProjectServiceTests.cs:line 49
+
+Failed!  - Failed:     6, Passed:     0, Skipped:     0, Total:     6, Duration: 72 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:07.14]     projects: Get a project [FAIL]
+  Failed projects: Get a project [2 s]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-f047019a32910389d6e70721b013fed1-4ee75099ad60339f-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.CreateProjectAsync(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 73
+   at BOMKeeper.Api.IntegrationTests.Projects.ProjectsApiTests.GetProject() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Projects\ProjectsApiTests.cs:line 29
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:07.17]     projects: Validation error shape(name: "") [FAIL]
+[xUnit.net 00:00:07.17]     projects: Validation error shape(name: "   ") [FAIL]
+[xUnit.net 00:00:07.17]     projects: Update a project [FAIL]
+[xUnit.net 00:00:07.18]     projects: Create a project [FAIL]
+  Failed projects: Validation error shape(name: "") [6 ms]
+  Error Message:
+   Expected 400, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-ea83e9dd7e7f515f29dfa4dbee29e70c-24dda369d766f6ad-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Projects.ProjectsApiTests.ValidationErrorShape(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Projects\ProjectsApiTests.cs:line 59
+--- End of stack trace from previous location ---
+  Failed projects: Validation error shape(name: "   ") [3 ms]
+  Error Message:
+   Expected 400, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-8807d1bc86f8cfb0601f38a14c078870-7f30669cdac9e5c9-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Projects.ProjectsApiTests.ValidationErrorShape(String name) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Projects\ProjectsApiTests.cs:line 59
+--- End of stack trace from previous location ---
+  Failed projects: Update a project [6 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-ca081091ae276085beeef92d138f5ade-bca63ed5e95b4c5a-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Projects.ProjectsApiTests.UpdateProject() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Projects\ProjectsApiTests.cs:line 40
+--- End of stack trace from previous location ---
+  Failed projects: Create a project [3 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-5c29709e6271364e70b972a74c02b216-637486f487a4094f-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 78
+   at BOMKeeper.Api.IntegrationTests.Projects.ProjectsApiTests.CreateProject() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Projects\ProjectsApiTests.cs:line 17
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     5, Passed:     1, Skipped:     0, Total:     6, Duration: 2 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

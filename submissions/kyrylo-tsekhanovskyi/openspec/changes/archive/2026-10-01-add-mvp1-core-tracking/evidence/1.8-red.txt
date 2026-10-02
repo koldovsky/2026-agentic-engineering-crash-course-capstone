@@ -1,0 +1,46 @@
+# Red evidence: task 1.8 (add-mvp1-core-tracking)
+# date: 2026-09-29  side: e2e  exit code: 1
+# command: npm --prefix frontend run e2e
+# verdict: Tests ran and failed on assertions.
+# note: run with the stack started by `npm run start` but before `npm run build:fe` (wwwroot absent, as on a fresh clone): the Api served no UI.
+
+Running 1 test using 1 worker
+
+  x  1 [chromium] › e2e\smoke.spec.ts:4:5 › skeleton: app loads (5.6s)
+
+
+  1) [chromium] › e2e\smoke.spec.ts:4:5 › skeleton: app loads ──────────────────────────────────────
+
+    Error: expect(page).toHaveTitle(expected) failed
+
+    Expected: "BOMKeeper"
+    Received: ""
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveTitle" with timeout 5000ms
+        14 × locator resolved to <html>…</html>
+           - unexpected value ""
+
+
+       5 |   await page.goto('/');
+       6 |
+    >  7 |   await expect(page).toHaveTitle('BOMKeeper');
+         |                      ^
+       8 |   await expect(page.getByRole('link', { name: 'BOMKeeper' })).toBeVisible();
+       9 |   await expect(page).toHaveURL(/\/projects$/);
+      10 | });
+        at D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\frontend\e2e\smoke.spec.ts:7:22
+
+    Error Context: test-results\smoke-skeleton-app-loads-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results\smoke-skeleton-app-loads-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\smoke-skeleton-app-loads-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › e2e\smoke.spec.ts:4:5 › skeleton: app loads ───────────────────────────────────────

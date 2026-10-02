@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BOMKeeper.Api/BOMKeeper.Api.csproj" />
+    <Project Path="src/BOMKeeper.AppHost/BOMKeeper.AppHost.csproj" />
+    <Project Path="src/BOMKeeper.BLL/BOMKeeper.BLL.csproj" />
+    <Project Path="src/BOMKeeper.DAL/BOMKeeper.DAL.csproj" />
+    <Project Path="src/BOMKeeper.Entities/BOMKeeper.Entities.csproj" />
+    <Project Path="src/BOMKeeper.ServiceDefaults/BOMKeeper.ServiceDefaults.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BOMKeeper.Api.IntegrationTests/BOMKeeper.Api.IntegrationTests.csproj" />
+    <Project Path="tests/BOMKeeper.BLL.Tests/BOMKeeper.BLL.Tests.csproj" />
+  </Folder>
+</Solution>

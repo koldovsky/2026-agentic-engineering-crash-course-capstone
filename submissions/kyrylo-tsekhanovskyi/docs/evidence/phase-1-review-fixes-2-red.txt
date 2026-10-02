@@ -1,0 +1,127 @@
+# Red run: fixes for harness re-review 2026-09-29 (docs/reviews/2026-09-29-harness-harness-checker-2.md)
+# 2026-09-29T01:15:54+03:00  cmd: node --test "scripts/test/*.test.mjs"
+✖ .env files, variants and wildcards are detected (3.9212ms)
+✔ only the .env.example template and look-alikes are allowed (0.5279ms)
+✔ file tools are judged by their paths, not by the content they write (0.7662ms)
+✔ shell tools are judged by their command (1.4629ms)
+✔ only ticked [checks] tasks are collected (2.018ms)
+✔ tasks without a <id>-red.txt file are reported (0.4027ms)
+✔ no ticked checks tasks means nothing is missing (0.2197ms)
+✔ escapeCell flattens newlines and escapes pipes (1.5449ms)
+✔ the first row replaces the placeholder row (0.6658ms)
+✔ later rows are appended after the last row (0.3913ms)
+✔ the SUMMARY line is parsed (1.1921ms)
+✔ without a SUMMARY line, [Pn] tags are counted and the verdict is derived from them (0.5351ms)
+✖ output that is neither a summary, findings nor an explicit clean result is unrecognized (1.2512ms)
+✔ review rows without a Resolution are reported (0.5087ms)
+✔ concurrent ledger writers do not lose rows (154.379ms)
+✔ value options consume the next argument verbatim, even when it starts with dashes (1.969ms)
+✔ flags without values are true (0.2423ms)
+✔ a value option without a value is an error (1.576ms)
+✔ failing assertions (or not-implemented stubs) count as red (2.351ms)
+✔ a passing run is not red (0.9392ms)
+✔ a C# compile error is not red (1.5399ms)
+✔ a TypeScript compile error is not red (0.4283ms)
+✔ a run where no tests executed is not red (0.691ms)
+✖ an infrastructure or fixture failure is not red, even with a failed-test count (1.4965ms)
+✖ failed tests without an assertion or not-implemented failure are not red (0.4575ms)
+✔ a maker subagent is checked only on its own side (1.6724ms)
+✔ a maker with no changes on its side is not checked (0.1966ms)
+✔ the main session and other agents are checked on every changed side (0.2126ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 24
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 316.0378
+
+✖ failing tests:
+
+test at scripts\test\env-guard.test.mjs:5:1
+✖ .env files, variants and wildcards are detected (3.9212ms)
+  AssertionError [ERR_ASSERTION]: cat <.env
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/env-guard.test.mjs:20:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.start (node:internal/test_runner/test:1242:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:387:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\ledger.test.mjs:49:1
+✖ output that is neither a summary, findings nor an explicit clean result is unrecognized (1.2512ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + 'approve (derived)'
+  - 'unrecognized'
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/ledger.test.mjs:50:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'approve (derived)',
+    expected: 'unrecognized',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\red.test.mjs:47:1
+✖ an infrastructure or fixture failure is not red, even with a failed-test count (1.4965ms)
+  AssertionError [ERR_ASSERTION]: System.AggregateException : One or more errors occurred. (Class fixture type 'ApiFactory' threw in its InitializeAsync)
+  DockerUnavailableException : Docker is either not running or misconfigured
+  Failed!  - Failed:     4, Passed:     0
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:56:12)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at scripts\test\red.test.mjs:61:1
+✖ failed tests without an assertion or not-implemented failure are not red (0.4575ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/red.test.mjs:63:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+# exit code: 1

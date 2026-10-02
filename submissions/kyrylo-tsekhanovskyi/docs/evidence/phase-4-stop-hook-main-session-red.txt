@@ -1,0 +1,41 @@
+# Red run: the main-session Stop hook must not run the fast check (it raced be-maker: testhost locked the IntegrationTests DLL)
+✔ a maker subagent is checked only on its own side (1.4295ms)
+✔ a maker with no changes on its side is not checked (0.1673ms)
+✔ other subagents are checked on every changed side (0.1274ms)
+✖ the main session's Stop is never checked (it would race the makers' builds) (2.5261ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 104.458
+
+✖ failing tests:
+
+test at scripts\test\stop.test.mjs:20:1
+✖ the main session's Stop is never checked (it would race the makers' builds) (2.5261ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'be',
+  +   'fe'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file:///D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/scripts/test/stop.test.mjs:21:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1382:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:960:18)
+      at Test.postRun (node:internal/test_runner/test:1522:19)
+      at Test.run (node:internal/test_runner/test:1447:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'be', 'fe' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

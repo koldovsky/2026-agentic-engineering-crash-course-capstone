@@ -1,0 +1,46 @@
+<header class="page-header">
+  <h1>Projects</h1>
+  @if (projects()?.length) {
+    <button mat-flat-button (click)="newProject()">New project</button>
+  }
+</header>
+
+<section class="page-content">
+  @if (error()) {
+    <p class="form-error" role="alert">{{ error() }}</p>
+  }
+
+  @if (projects(); as list) {
+    @if (list.length === 0) {
+      <section class="empty-state">
+        <p>No projects yet. Start by creating your first DIY project.</p>
+        <button mat-flat-button (click)="newProject()">New project</button>
+      </section>
+    } @else {
+      <ul class="project-list">
+        @for (project of list; track project.id) {
+          <li class="project-row">
+            <div class="project-text">
+              <a class="project-name" [routerLink]="['/projects', project.id]">{{
+                project.name
+              }}</a>
+              <span class="meta">
+                <span>{{ project.itemCount | plural: 'item' }}</span>
+                <span>{{ project.listingCount | plural: 'listing' }}</span>
+                <span>created {{ project.createdAt | date: 'mediumDate' }}</span>
+              </span>
+            </div>
+            <button
+              mat-button
+              class="destructive"
+              (click)="deleteProject(project)"
+              [attr.aria-label]="'Delete ' + project.name"
+            >
+              Delete
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  }
+</section>

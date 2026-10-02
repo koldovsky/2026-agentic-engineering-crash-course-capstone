@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Read",
+      "Edit(./**)",
+
+      "Bash(git status)",
+      "Bash(git status *)",
+      "Bash(git diff)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(git branch)",
+      "Bash(git branch *)",
+      "Bash(git rev-parse *)",
+      "Bash(git ls-files *)",
+      "Bash(git remote -v)",
+      "Bash(git stash list)",
+      "Bash(git switch *)",
+      "Bash(git checkout -b *)",
+      "Bash(git mv *)",
+      "Bash(git add *)",
+      "Bash(git update-index --chmod=*)",
+      "Bash(git config --get *)",
+      "Bash(git config --list*)",
+      "Bash(git config -l)",
+      "Bash(git config core.hooksPath)",
+
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(wc *)",
+      "Bash(pwd)",
+      "Bash(which *)",
+      "Bash(diff *)",
+      "Bash(grep *)",
+      "Bash(sort *)",
+      "Bash(uniq *)",
+      "Bash(cut *)",
+      "Bash(sed -n *)",
+      "Bash(du *)",
+      "Bash(date *)",
+      "Bash(echo *)",
+      "Bash(printf *)",
+      "Bash(mkdir *)",
+      "Bash(cp *)",
+      "Bash(mv *)",
+      "Bash(touch *)",
+
+      "Bash(dotnet --version)",
+      "Bash(dotnet --info)",
+      "Bash(dotnet --list-sdks)",
+      "Bash(dotnet new *)",
+      "Bash(dotnet sln *)",
+      "Bash(dotnet add *)",
+      "Bash(dotnet restore *)",
+      "Bash(dotnet build *)",
+      "Bash(dotnet test *)",
+      "Bash(dotnet format *)",
+      "Bash(dotnet run *)",
+      "Bash(dotnet list *)",
+      "Bash(dotnet ef *)",
+      "Bash(dotnet tool restore)",
+      "Bash(dotnet clean *)",
+      "Bash(dotnet remove *)",
+      "Bash(dotnet package *)",
+      "Bash(dotnet --list-runtimes)",
+      "Bash(dotnet new list*)",
+      "PowerShell(dotnet *)",
+
+      "Bash(node --version)",
+      "Bash(node scripts/*)",
+      "Bash(node --test *)",
+      "Bash(cd *)",
+      "Bash(ng *)",
+      "Bash(npm --prefix * run *)",
+      "PowerShell(npx ng *)",
+      "PowerShell(ng *)",
+      "Bash(npm --version)",
+      "Bash(npm ci)",
+      "Bash(npm run *)",
+      "Bash(npm test *)",
+      "Bash(npm view *)",
+      "Bash(npm ls *)",
+      "Bash(npx ng *)",
+      "Bash(npx prettier *)",
+      "Bash(npx eslint *)",
+      "Bash(npx tsc *)",
+      "Bash(npx playwright *)",
+      "Bash(npx openapi-typescript *)",
+
+      "Bash(openspec *)",
+      "Bash(codex --version)",
+      "Bash(codex --help)",
+      "Bash(codex exec --help)",
+      "Bash(codex exec review *)",
+      "Bash(npx -y skills --help)",
+
+      "Bash(docker info *)",
+      "Bash(docker version)",
+      "Bash(docker ps)",
+      "Bash(docker ps *)",
+      "Bash(docker logs *)",
+      "Bash(curl -s http://localhost:*)",
+      "Bash(curl -si http://localhost:*)",
+
+      "PowerShell(git status *)",
+      "PowerShell(git diff *)",
+      "PowerShell(git log *)",
+      "PowerShell(dotnet build *)",
+      "PowerShell(dotnet test *)",
+      "PowerShell(dotnet format *)",
+      "PowerShell(npm run *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Get-Content *)",
+      "PowerShell(Test-Path *)",
+      "PowerShell(Get-Service *)",
+      "PowerShell(Get-NetTCPConnection *)"
+    ],
+    "ask": [
+      "Bash(git reset *)",
+      "Bash(git restore *)",
+      "Bash(git checkout -- *)",
+      "Bash(git clean *)",
+      "Bash(npm install)",
+      "Bash(npm install *)",
+      "Bash(npm i *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx skills *)",
+      "Bash(npx ng add *)",
+      "Bash(npx ng update *)",
+      "Bash(ng add *)",
+      "Bash(ng update *)",
+      "PowerShell(npx ng add *)",
+      "PowerShell(ng add *)",
+      "PowerShell(npx ng update *)",
+      "PowerShell(ng update *)",
+      "Bash(docker run *)",
+      "Bash(docker rm *)",
+      "Bash(docker volume rm *)",
+      "Edit(./.claude/settings.json)",
+      "Edit(./.githooks/**)",
+      "Edit(./.codex/**)"
+    ],
+    "deny": [
+      "Bash(git commit)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(rm -rf *)",
+      "PowerShell(git commit *)",
+      "PowerShell(git push *)",
+      "PowerShell(Remove-Item * -Recurse *)",
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|MultiEdit|NotebookEdit|Bash|PowerShell|Grep|Glob",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/protect-env.mjs\"", "timeout": 15 }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|NotebookEdit|Bash|PowerShell",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/log-action.mjs\"", "timeout": 15 }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/stop-check.mjs\"", "timeout": 600 }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks/stop-check.mjs\"", "timeout": 600 }
+        ]
+      }
+    ]
+  }
+}

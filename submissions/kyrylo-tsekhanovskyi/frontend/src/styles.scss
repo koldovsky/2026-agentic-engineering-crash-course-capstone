@@ -1,0 +1,318 @@
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      typography: Roboto,
+      density: 0,
+    )
+  );
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+/* You can add global styles to this file, and also import other style files */
+
+// Shared page building blocks used by the feature pages.
+.page-header {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.empty-state {
+  padding: 32px 0;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.form-error {
+  color: var(--mat-sys-error);
+}
+
+// Shared create/edit dialog form: one column of full-width fields, 16 px apart, aligned to the top
+// so hints and errors never shift their neighbours.
+.dialog-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  // Every field reserves its subscript line (fixed sizing), so the rhythm is the same with and
+  // without hints or errors; the padding keeps a hint 8 px + the row gap away from the next field.
+  row-gap: 4px;
+  align-items: start;
+  padding-top: 8px !important;
+
+  .mat-mdc-form-field-subscript-wrapper {
+    padding-bottom: 8px;
+  }
+
+  > mat-form-field,
+  .form-row > mat-form-field {
+    width: 100%;
+  }
+}
+
+// Only an amount and its currency share a row; the currency stays narrow.
+.form-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+
+  > mat-form-field:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  > .currency {
+    flex: 0 0 110px;
+    width: 110px;
+  }
+}
+
+.dialog-context {
+  margin: 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// Chips: one tonal color per value, from the theme's system tokens.
+.status-chip {
+  --chip-bg: var(--mat-sys-surface-container-highest);
+  --chip-fg: var(--mat-sys-on-surface-variant);
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: 8px;
+  background: var(--chip-bg);
+  color: var(--chip-fg);
+  font: var(--mat-sys-label-large);
+  white-space: nowrap;
+}
+
+%chip-primary {
+  --chip-bg: var(--mat-sys-primary-container);
+  --chip-fg: var(--mat-sys-on-primary-container);
+}
+%chip-secondary {
+  --chip-bg: var(--mat-sys-secondary-container);
+  --chip-fg: var(--mat-sys-on-secondary-container);
+}
+%chip-tertiary {
+  --chip-bg: var(--mat-sys-tertiary-container);
+  --chip-fg: var(--mat-sys-on-tertiary-container);
+}
+%chip-error {
+  --chip-bg: var(--mat-sys-error-container);
+  --chip-fg: var(--mat-sys-on-error-container);
+}
+%chip-muted {
+  --chip-bg: transparent;
+  --chip-fg: var(--mat-sys-on-surface-variant);
+  outline: 1px solid var(--mat-sys-outline-variant);
+}
+
+// Item statuses: four clearly distinct tones.
+.status-chip[data-tone='outline'] {
+  @extend %chip-muted;
+}
+.status-chip[data-tone='tertiary'] {
+  @extend %chip-tertiary;
+}
+.status-chip[data-tone='secondary-strong'] {
+  --chip-bg: var(--mat-sys-secondary);
+  --chip-fg: var(--mat-sys-on-secondary);
+}
+.status-chip[data-tone='primary-strong'] {
+  --chip-bg: var(--mat-sys-primary);
+  --chip-fg: var(--mat-sys-on-primary);
+}
+
+.listing-contacted,
+.listing-negotiating,
+.fit-not-quite-right {
+  @extend %chip-tertiary;
+}
+.listing-agreed,
+.listing-purchased {
+  @extend %chip-secondary;
+}
+.listing-received,
+.fit-fits {
+  @extend %chip-primary;
+}
+.listing-not-responding,
+.listing-declined {
+  @extend %chip-muted;
+}
+.status-chip.listing-scam,
+.fit-wrong-item,
+.fit-warning {
+  @extend %chip-error;
+  font-weight: 600;
+}
+
+// An inactive tab is shifted off-screen; hide it so wide content never peeks in at the edge.
+.mat-mdc-tab-body:not(.mat-mdc-tab-body-active) {
+  visibility: hidden;
+}
+
+// Tables that turn into stacked cards at phone width, so no column is cut off.
+@media (max-width: 599.98px) {
+  table.stack-on-phone {
+    &,
+    tbody,
+    tr,
+    td {
+      display: block;
+      width: 100%;
+    }
+
+    thead,
+    tr.mat-mdc-header-row {
+      display: none;
+    }
+
+    // A stacked table is display:block, so the caption needs block sizing too.
+    caption {
+      display: block;
+      width: auto;
+      white-space: normal;
+    }
+
+    tr.mat-mdc-row {
+      position: relative;
+      overflow: hidden;
+      height: auto;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--mat-sys-outline-variant);
+    }
+
+    td.mat-mdc-cell {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 32px;
+      padding: 2px 4px;
+      border: 0;
+      box-sizing: border-box;
+
+      &[data-label]::before {
+        content: attr(data-label);
+        color: var(--mat-sys-on-surface-variant);
+        font: var(--mat-sys-label-medium);
+      }
+
+      // The title cell has no label: a plain block, so no stray flex items appear at the edge.
+      &:not([data-label]) {
+        display: block;
+        min-height: 0;
+        padding: 4px;
+        font: var(--mat-sys-title-small);
+        overflow-wrap: anywhere;
+      }
+    }
+  }
+}
+
+.chip-label {
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-label-medium);
+}
+
+// A chip that opens a menu: the chip plus a dropdown icon.
+.status-trigger {
+  padding-inline: 4px !important;
+
+  mat-icon {
+    margin: 0 !important;
+  }
+}
+
+// Links use the theme instead of the browser default blue.
+a {
+  color: var(--mat-sys-primary);
+  text-decoration: none;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration: underline;
+  }
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: var(--mat-sys-label-large);
+}
+
+// Destructive actions (delete) differ from edit actions.
+.destructive {
+  --mat-button-text-label-text-color: var(--mat-sys-error);
+  --mat-button-outlined-label-text-color: var(--mat-sys-error);
+  --mat-button-outlined-outline-color: var(--mat-sys-error);
+  color: var(--mat-sys-error) !important;
+}
+
+.loading {
+  padding: 24px 0;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.muted {
+  color: var(--mat-sys-on-surface-variant);
+}
+
+.table-caption {
+  caption-side: bottom;
+  padding-top: 8px;
+  text-align: start;
+  color: var(--mat-sys-on-surface-variant);
+  font: var(--mat-sys-body-small);
+}
+
+// Wide tables scroll inside their container, never the page.
+.table-scroll {
+  overflow-x: auto;
+}
+
+h1 {
+  font: var(--mat-sys-headline-small);
+  margin: 4px 0 8px;
+}
+
+h2 {
+  font: var(--mat-sys-title-large);
+  margin: 24px 0 12px;
+}
+
+.full-width {
+  width: 100%;
+}

@@ -1,0 +1,136 @@
+# Red evidence: task 10.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/projects/project-detail-page/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/projects/project-detail-page/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [3.354 seconds] - 2026-09-30T20:10:34.160Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/projects/project-detail-page/project-detail-page.spec.ts (5 tests | 5 failed) 129ms
+   ❯ ProjectDetailPage (5)
+     × items: Items table 76ms
+     × items: Change status from the items table 13ms
+     × listings: Listings tab 15ms
+     × listings: Platform suggestions with free text 13ms
+     × projects: Summary card on the project page 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.spec.ts > ProjectDetailPage > items: Items table
+AssertionError: GET /api/projects/p1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/projects/project-detail-page/project-detail-page.spec.ts:47:5
+     45|     summary: ProjectSummary = aSummary(),
+     46|   ) {
+     47|     expectRequest(http, 'GET', '/api/projects/p1').flush(aProject());
+       |     ^
+     48|     expectRequest(http, 'GET', '/api/projects/p1/items').flush(items);
+     49|     expectRequest(http, 'GET', '/api/projects/p1/listings').flush(list…
+ ❯ src/app/projects/project-detail-page/project-detail-page.spec.ts:59:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.spec.ts > ProjectDetailPage > items: Change status from the items table
+AssertionError: GET /api/projects/p1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/projects/project-detail-page/project-detail-page.spec.ts:47:5
+     45|     summary: ProjectSummary = aSummary(),
+     46|   ) {
+     47|     expectRequest(http, 'GET', '/api/projects/p1').flush(aProject());
+       |     ^
+     48|     expectRequest(http, 'GET', '/api/projects/p1/items').flush(items);
+     49|     expectRequest(http, 'GET', '/api/projects/p1/listings').flush(list…
+ ❯ src/app/projects/project-detail-page/project-detail-page.spec.ts:73:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.spec.ts > ProjectDetailPage > listings: Listings tab
+AssertionError: GET /api/projects/p1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/projects/project-detail-page/project-detail-page.spec.ts:47:5
+     45|     summary: ProjectSummary = aSummary(),
+     46|   ) {
+     47|     expectRequest(http, 'GET', '/api/projects/p1').flush(aProject());
+       |     ^
+     48|     expectRequest(http, 'GET', '/api/projects/p1/items').flush(items);
+     49|     expectRequest(http, 'GET', '/api/projects/p1/listings').flush(list…
+ ❯ src/app/projects/project-detail-page/project-detail-page.spec.ts:91:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.spec.ts > ProjectDetailPage > listings: Platform suggestions with free text
+AssertionError: GET /api/projects/p1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/projects/project-detail-page/project-detail-page.spec.ts:47:5
+     45|     summary: ProjectSummary = aSummary(),
+     46|   ) {
+     47|     expectRequest(http, 'GET', '/api/projects/p1').flush(aProject());
+       |     ^
+     48|     expectRequest(http, 'GET', '/api/projects/p1/items').flush(items);
+     49|     expectRequest(http, 'GET', '/api/projects/p1/listings').flush(list…
+ ❯ src/app/projects/project-detail-page/project-detail-page.spec.ts:110:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL   bomkeeper  src/app/projects/project-detail-page/project-detail-page.spec.ts > ProjectDetailPage > projects: Summary card on the project page
+AssertionError: GET /api/projects/p1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/projects/project-detail-page/project-detail-page.spec.ts:47:5
+     45|     summary: ProjectSummary = aSummary(),
+     46|   ) {
+     47|     expectRequest(http, 'GET', '/api/projects/p1').flush(aProject());
+       |     ^
+     48|     expectRequest(http, 'GET', '/api/projects/p1/items').flush(items);
+     49|     expectRequest(http, 'GET', '/api/projects/p1/listings').flush(list…
+ ❯ src/app/projects/project-detail-page/project-detail-page.spec.ts:135:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  23:10:35
+   Duration  3.39s (environment 58%, setup 21%, import 13%, tests 4%, transform 3%, worker 1%)
+

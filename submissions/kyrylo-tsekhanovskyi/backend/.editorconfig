@@ -1,0 +1,84 @@
+# BOMKeeper backend code style (C# coding conventions, see AGENTS.md). Enforced at build time.
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{csproj,props,targets,slnx,xml,json}]
+indent_size = 2
+
+[*.cs]
+# Layout
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_using_directive_placement = outside_namespace:warning
+dotnet_sort_system_directives_first = true
+csharp_prefer_braces = true:warning
+csharp_new_line_before_open_brace = all
+
+# Language
+csharp_style_var_for_built_in_types = true:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+csharp_style_prefer_primary_constructors = true:suggestion
+dotnet_style_prefer_collection_expression = when_types_loosely_match:suggestion
+dotnet_style_readonly_field = true:warning
+dotnet_style_predefined_type_for_locals_parameters_members = true:warning
+
+# Naming: constants and static readonly fields PascalCase, other private fields _camelCase,
+# interfaces I-prefixed, async methods end in Async. Rules with required modifiers are more specific.
+dotnet_naming_rule.constants.symbols = constants
+dotnet_naming_rule.constants.style = pascal
+dotnet_naming_rule.constants.severity = warning
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+
+dotnet_naming_rule.static_readonly_fields.symbols = static_readonly_fields
+dotnet_naming_rule.static_readonly_fields.style = pascal
+dotnet_naming_rule.static_readonly_fields.severity = warning
+dotnet_naming_symbols.static_readonly_fields.applicable_kinds = field
+dotnet_naming_symbols.static_readonly_fields.required_modifiers = static, readonly
+
+dotnet_naming_style.pascal.capitalization = pascal_case
+
+dotnet_naming_rule.private_fields.symbols = private_fields
+dotnet_naming_rule.private_fields.style = underscore_camel
+dotnet_naming_rule.private_fields.severity = warning
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_style.underscore_camel.capitalization = camel_case
+dotnet_naming_style.underscore_camel.required_prefix = _
+
+dotnet_naming_rule.interfaces.symbols = interfaces
+dotnet_naming_rule.interfaces.style = i_prefix
+dotnet_naming_rule.interfaces.severity = warning
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_style.i_prefix.capitalization = pascal_case
+dotnet_naming_style.i_prefix.required_prefix = I
+
+dotnet_naming_rule.async_methods.symbols = async_methods
+dotnet_naming_rule.async_methods.style = async_suffix
+dotnet_naming_rule.async_methods.severity = warning
+dotnet_naming_symbols.async_methods.applicable_kinds = method
+dotnet_naming_symbols.async_methods.required_modifiers = async
+dotnet_naming_style.async_suffix.capitalization = pascal_case
+dotnet_naming_style.async_suffix.required_suffix = Async
+
+# Diagnostics
+dotnet_diagnostic.IDE0005.severity = warning   # unused usings
+dotnet_diagnostic.IDE0161.severity = warning   # file-scoped namespaces
+dotnet_diagnostic.IDE0011.severity = warning   # braces
+
+[tests/**.cs]
+# Test methods are discovered by reflection and named by DisplayName (design D7).
+dotnet_naming_rule.async_methods.severity = none
+dotnet_diagnostic.CA1707.severity = none
+dotnet_diagnostic.CA1515.severity = none
+
+[**/Migrations/*.cs]
+# EF-generated code
+generated_code = true

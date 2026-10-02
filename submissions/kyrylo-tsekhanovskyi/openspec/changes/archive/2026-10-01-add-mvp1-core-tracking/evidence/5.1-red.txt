@@ -1,0 +1,210 @@
+# Red evidence: task 5.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~.Offers."
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+[xUnit.net 00:00:00.41]     offers: Duplicate link [FAIL]
+[xUnit.net 00:00:00.43]     offers: Reject an invalid currency code(currency: "uah") [FAIL]
+[xUnit.net 00:00:00.44]     offers: Reject an invalid currency code(currency: "") [FAIL]
+[xUnit.net 00:00:00.44]     offers: Reject an invalid currency code(currency: "EURO") [FAIL]
+[xUnit.net 00:00:00.45]     offers: Create an offer (BLL) [FAIL]
+[xUnit.net 00:00:00.45]     offers: Listing from another project [FAIL]
+[xUnit.net 00:00:00.45]     offers: A bundle listing supplies two items [FAIL]
+[xUnit.net 00:00:00.45]     offers: Reject a negative amount [FAIL]
+[xUnit.net 00:00:00.46]     offers: Reject an unknown currency code [FAIL]
+  Failed offers: Duplicate link [13 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.BusinessRuleException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.DuplicateLink() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 58
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<DuplicateLink>b__8_0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 59
+  Failed offers: Reject an invalid currency code(currency: "uah") [3 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 118
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectInvalidCurrencyCode(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 85
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<>c__DisplayClass14_0.<AssertCurrencyRejectedAsync>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 119
+  Failed offers: Reject an invalid currency code(currency: "") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 118
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectInvalidCurrencyCode(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 85
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<>c__DisplayClass14_0.<AssertCurrencyRejectedAsync>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 119
+  Failed offers: Reject an invalid currency code(currency: "EURO") [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 118
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectInvalidCurrencyCode(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 85
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<>c__DisplayClass14_0.<AssertCurrencyRejectedAsync>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 119
+  Failed offers: Create an offer (BLL) [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.CreateStartsUnverifiedAndNotChosen() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 106
+--- End of stack trace from previous location ---
+  Failed offers: Listing from another project [1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.BusinessRuleException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.ListingFromAnotherProject() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 45
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<>c__DisplayClass7_0.<ListingFromAnotherProject>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 46
+  Failed offers: A bundle listing supplies two items [1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.BundleListingSuppliesTwoItems() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 32
+--- End of stack trace from previous location ---
+  Failed offers: Reject a negative amount [1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectNegativeAmount() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 71
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<>c__DisplayClass9_0.<RejectNegativeAmount>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 72
+  Failed offers: Reject an unknown currency code [< 1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.AssertCurrencyRejectedAsync(String currency) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 118
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectUnknownCurrencyCode() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 88
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<>c__DisplayClass14_0.<AssertCurrencyRejectedAsync>b__0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 119
+[xUnit.net 00:00:00.53]     offers: Reject more than two decimal places [FAIL]
+  Failed offers: Reject more than two decimal places [1 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.ValidationFailedException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.RejectMoreThanTwoDecimalPlaces() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 93
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Offers.OfferService.CreateAsync(Guid itemId, OfferDraft draft, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Offers\OfferService.cs:line 16
+   at BOMKeeper.BLL.Tests.Offers.OfferServiceTests.<RejectMoreThanTwoDecimalPlaces>b__12_0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Offers\OfferServiceTests.cs:line 94
+
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Failed!  - Failed:    10, Passed:     0, Skipped:     0, Total:    10, Duration: 197 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:09.50]     offers: Set fit through the API [FAIL]
+  Failed offers: Set fit through the API [4 s]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-3b2a0e4a74e0657c45b16803786dba41-9fae08b082d94d40-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.CreateOfferAsync(String itemId, String listingId, Nullable`1 askingUah) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 88
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.SetFit() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 121
+--- End of stack trace from previous location ---
+[xUnit.net 00:00:09.55]     offers: Update prices [FAIL]
+[xUnit.net 00:00:09.59]     offers: Create an offer [FAIL]
+[xUnit.net 00:00:09.63]     offers: Duplicate link over HTTP [FAIL]
+[xUnit.net 00:00:09.67]     offers: Rule violation over HTTP [FAIL]
+[xUnit.net 00:00:09.71]     offers: Offers of an item [FAIL]
+[xUnit.net 00:00:09.75]     offers: Offers of a listing [FAIL]
+  Failed offers: Update prices [34 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-7cdf24b5fc4903bcfd517ab99fa17443-a5d1d6a85670ce5b-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.CreateOfferAsync(String itemId, String listingId, Nullable`1 askingUah) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 88
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.UpdatePrices() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 72
+--- End of stack trace from previous location ---
+  Failed offers: Create an offer [36 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-02fcb350902b987d9f5a767dd66799cf-cf79a55f3f3282a6-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.CreateOffer() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 21
+--- End of stack trace from previous location ---
+  Failed offers: Duplicate link over HTTP [29 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-8b3eeacf33ddb1617a3df71c10c4f3b0-b4e83853cb33e0d0-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.DuplicateLinkOverHttp() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 58
+--- End of stack trace from previous location ---
+  Failed offers: Rule violation over HTTP [31 ms]
+  Error Message:
+   Expected 409, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-08b479fe708c03de1662d2f54d467cba-43c8d01d2a79359d-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.RuleViolationOverHttp() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 45
+--- End of stack trace from previous location ---
+  Failed offers: Offers of an item [26 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-65bcada936f6f9bfe7deecfc1347573f-167b2a7370ef897e-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.CreateOfferAsync(String itemId, String listingId, Nullable`1 askingUah) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 88
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.OffersOfAnItem() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 90
+--- End of stack trace from previous location ---
+  Failed offers: Offers of a listing [26 ms]
+  Error Message:
+   Expected 201, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-6e1ff5fb345b0a323088e6171fd210a3-fddf847fd6b5ecf2-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.PostAsync(String url, Object body, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 44
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.CreateOfferAsync(String itemId, String listingId, Nullable`1 askingUah) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 88
+   at BOMKeeper.Api.IntegrationTests.Offers.OffersApiTests.OffersOfAListing() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Offers\OffersApiTests.cs:line 109
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     7, Passed:     0, Skipped:     0, Total:     7, Duration: 4 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

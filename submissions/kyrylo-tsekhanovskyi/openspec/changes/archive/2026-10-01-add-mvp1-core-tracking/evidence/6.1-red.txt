@@ -1,0 +1,83 @@
+# Red evidence: task 6.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: be  exit code: 1
+# command: dotnet test backend/BOMKeeper.slnx --filter "FullyQualifiedName~Summary"
+# verdict: Tests ran and failed on assertions.
+  Determining projects to restore...
+  All projects are up-to-date for restore.
+  BOMKeeper.Entities -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Entities\bin\Debug\net10.0\BOMKeeper.Entities.dll
+  BOMKeeper.DAL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.DAL\bin\Debug\net10.0\BOMKeeper.DAL.dll
+  BOMKeeper.ServiceDefaults -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.ServiceDefaults\bin\Debug\net10.0\BOMKeeper.ServiceDefaults.dll
+  BOMKeeper.BLL -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\bin\Debug\net10.0\BOMKeeper.BLL.dll
+  BOMKeeper.BLL.Tests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\bin\Debug\net10.0\BOMKeeper.BLL.Tests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+  BOMKeeper.Api -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.Api\bin\Debug\net10.0\BOMKeeper.Api.dll
+[xUnit.net 00:00:00.49]     projects: Missing choices and prices are reported [FAIL]
+[xUnit.net 00:00:00.51]     projects: Total uses agreed price over asking price, times quantity [FAIL]
+[xUnit.net 00:00:00.51]     projects: Summary endpoint (BLL unknown project) [FAIL]
+[xUnit.net 00:00:00.51]     projects: Totals may exceed the single-price limit [FAIL]
+[xUnit.net 00:00:00.51]     projects: Totals are kept per currency [FAIL]
+[xUnit.net 00:00:00.51]     projects: Counts by status include zeros [FAIL]
+  Failed projects: Missing choices and prices are reported [7 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Projects.SummaryService.GetAsync(Guid projectId, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\SummaryService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.MissingChoicesAndPricesAreReported() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 79
+--- End of stack trace from previous location ---
+  Failed projects: Total uses agreed price over asking price, times quantity [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Projects.SummaryService.GetAsync(Guid projectId, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\SummaryService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.TotalUsesAgreedOverAskingTimesQuantity() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 45
+--- End of stack trace from previous location ---
+  Failed projects: Summary endpoint (BLL unknown project) [6 ms]
+  Error Message:
+   Assert.Throws() Failure: Exception type was not an exact match
+Expected: typeof(BOMKeeper.BLL.Errors.NotFoundException)
+Actual:   typeof(System.NotImplementedException)
+---- System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.UnknownProject() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 88
+--- End of stack trace from previous location ---
+----- Inner Stack Trace -----
+   at BOMKeeper.BLL.Projects.SummaryService.GetAsync(Guid projectId, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\SummaryService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.<UnknownProject>b__10_0() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 88
+  Failed projects: Totals may exceed the single-price limit [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Projects.SummaryService.GetAsync(Guid projectId, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\SummaryService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.TotalsMayExceedTheSinglePriceLimit() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 67
+--- End of stack trace from previous location ---
+  Failed projects: Totals are kept per currency [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Projects.SummaryService.GetAsync(Guid projectId, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\SummaryService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.TotalsAreKeptPerCurrency() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 57
+--- End of stack trace from previous location ---
+  Failed projects: Counts by status include zeros [< 1 ms]
+  Error Message:
+   System.NotImplementedException : The method or operation is not implemented.
+  Stack Trace:
+     at BOMKeeper.BLL.Projects.SummaryService.GetAsync(Guid projectId, CancellationToken cancellationToken) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\src\BOMKeeper.BLL\Projects\SummaryService.cs:line 20
+   at BOMKeeper.BLL.Tests.Projects.SummaryServiceTests.CountsByStatusIncludeZeros() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.BLL.Tests\Projects\SummaryServiceTests.cs:line 31
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     6, Passed:     0, Skipped:     0, Total:     6, Duration: 62 ms - BOMKeeper.BLL.Tests.dll (net10.0)
+  BOMKeeper.Api.IntegrationTests -> D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll
+Test run for D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\bin\Debug\net10.0\BOMKeeper.Api.IntegrationTests.dll (.NETCoreApp,Version=v10.0)
+A total of 1 test files matched the specified pattern.
+[xUnit.net 00:00:07.82]     projects: Summary endpoint [FAIL]
+  Failed projects: Summary endpoint [1 s]
+  Error Message:
+   Expected 200, got 404: {"type":"https://tools.ietf.org/html/rfc9110#section-15.5.5","title":"Not Found","status":404,"traceId":"00-6dcbce8405a16975806a9981092cfa75-b597119b2e64dcfc-01"}
+  Stack Trace:
+     at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.ExpectAsync(HttpResponseMessage response, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 96
+   at BOMKeeper.Api.IntegrationTests.Infrastructure.ApiTestBase.GetAsync(String url, Int32 expectedStatus) in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Infrastructure\ApiTestBase.cs:line 50
+   at BOMKeeper.Api.IntegrationTests.Projects.SummaryApiTests.SummaryEndpoint() in D:\Education\External\AI\CrashCourseAgenticEngineering\2026-agentic-engineering-crash-course-capstone\submissions\kyrylo-tsekhanovskyi\backend\tests\BOMKeeper.Api.IntegrationTests\Projects\SummaryApiTests.cs:line 22
+--- End of stack trace from previous location ---
+
+Failed!  - Failed:     1, Passed:     1, Skipped:     0, Total:     2, Duration: 3 s - BOMKeeper.Api.IntegrationTests.dll (net10.0)

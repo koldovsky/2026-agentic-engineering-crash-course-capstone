@@ -1,0 +1,143 @@
+# Red evidence: task 19.1 (add-mvp1-core-tracking)
+# date: 2026-10-01  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/dialog-layout.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/dialog-layout.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [3.388 seconds] - 2026-10-01T12:54:27.442Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/dialog-layout.spec.ts (7 tests | 6 failed) 853ms
+   ❯ Dialog layout (7)
+     × layout: the new project dialog uses the shared single-column form 219ms
+     × layout: the edit project dialog uses the shared single-column form 130ms
+     × layout: the add item dialog uses the shared single-column form 91ms
+     × layout: the add listing dialog uses the shared single-column form 125ms
+     × layout: the add offer dialog uses the shared single-column form 88ms
+     × layout: the edit prices dialog uses the shared single-column form 61ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 6 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/dialog-layout.spec.ts > Dialog layout > layout: the new project dialog uses the shared single-column form
+AssertionError: expected "cdk-overlay-pane mat-mdc-dialog-panel" to contain "app-form-dialog"
+
+Expected: "cdk-overlay-pane mat-mdc-dialog-panel app-form-dialog"
+Received: "cdk-overlay-pane mat-mdc-dialog-panel"
+
+ ❯ expectSharedLayout src/app/dialog-layout.spec.ts:37:66
+     35|     expect(fieldOrder(row).map((p) => p.split('.').pop())).toEqual(['a…
+     36|   }
+     37|   expect(document.querySelector('.cdk-overlay-pane')?.classList).toCon…
+       |                                                                  ^
+     38| }
+     39|
+ ❯ src/app/dialog-layout.spec.ts:102:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+ FAIL   bomkeeper  src/app/dialog-layout.spec.ts > Dialog layout > layout: the edit project dialog uses the shared single-column form
+AssertionError: expected "cdk-overlay-pane mat-mdc-dialog-panel" to contain "app-form-dialog"
+
+Expected: "cdk-overlay-pane mat-mdc-dialog-panel app-form-dialog"
+Received: "cdk-overlay-pane mat-mdc-dialog-panel"
+
+ ❯ expectSharedLayout src/app/dialog-layout.spec.ts:37:66
+     35|     expect(fieldOrder(row).map((p) => p.split('.').pop())).toEqual(['a…
+     36|   }
+     37|   expect(document.querySelector('.cdk-overlay-pane')?.classList).toCon…
+       |                                                                  ^
+     38| }
+     39|
+ ❯ src/app/dialog-layout.spec.ts:109:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL   bomkeeper  src/app/dialog-layout.spec.ts > Dialog layout > layout: the add item dialog uses the shared single-column form
+AssertionError: expected "cdk-overlay-pane mat-mdc-dialog-panel" to contain "app-form-dialog"
+
+Expected: "cdk-overlay-pane mat-mdc-dialog-panel app-form-dialog"
+Received: "cdk-overlay-pane mat-mdc-dialog-panel"
+
+ ❯ expectSharedLayout src/app/dialog-layout.spec.ts:37:66
+     35|     expect(fieldOrder(row).map((p) => p.split('.').pop())).toEqual(['a…
+     36|   }
+     37|   expect(document.querySelector('.cdk-overlay-pane')?.classList).toCon…
+       |                                                                  ^
+     38| }
+     39|
+ ❯ src/app/dialog-layout.spec.ts:116:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+ FAIL   bomkeeper  src/app/dialog-layout.spec.ts > Dialog layout > layout: the add listing dialog uses the shared single-column form
+AssertionError: unexpected dialog-form child <div class="money-row ng-untouched ng-pristine ng-valid">: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ expectSharedLayout src/app/dialog-layout.spec.ts:32:108
+     30|       child.matches('.form-row') ||
+     31|       child.matches('p.form-error, p.dialog-context');
+     32|     expect(ok, `unexpected dialog-form child <${child.tagName.toLowerC…
+       |                                                                                                            ^
+     33|   }
+     34|   for (const row of Array.from(form.querySelectorAll('.form-row'))) {
+ ❯ src/app/dialog-layout.spec.ts:123:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯
+
+ FAIL   bomkeeper  src/app/dialog-layout.spec.ts > Dialog layout > layout: the add offer dialog uses the shared single-column form
+AssertionError: unexpected dialog-form child <div class="money-row ng-untouched ng-pristine ng-valid">: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ expectSharedLayout src/app/dialog-layout.spec.ts:32:108
+     30|       child.matches('.form-row') ||
+     31|       child.matches('p.form-error, p.dialog-context');
+     32|     expect(ok, `unexpected dialog-form child <${child.tagName.toLowerC…
+       |                                                                                                            ^
+     33|   }
+     34|   for (const row of Array.from(form.querySelectorAll('.form-row'))) {
+ ❯ src/app/dialog-layout.spec.ts:141:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯
+
+ FAIL   bomkeeper  src/app/dialog-layout.spec.ts > Dialog layout > layout: the edit prices dialog uses the shared single-column form
+AssertionError: unexpected dialog-form child <p class="">: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ expectSharedLayout src/app/dialog-layout.spec.ts:32:108
+     30|       child.matches('.form-row') ||
+     31|       child.matches('p.form-error, p.dialog-context');
+     32|     expect(ok, `unexpected dialog-form child <${child.tagName.toLowerC…
+       |                                                                                                            ^
+     33|   }
+     34|   for (const row of Array.from(form.querySelectorAll('.form-row'))) {
+ ❯ src/app/dialog-layout.spec.ts:154:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  6 failed | 1 passed (7)
+   Start at  15:54:27
+   Duration  3.61s (environment 33%, tests 25%, import 24%, setup 12%, transform 6%)
+

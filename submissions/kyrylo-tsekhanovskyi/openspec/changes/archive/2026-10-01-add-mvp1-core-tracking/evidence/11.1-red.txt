@@ -1,0 +1,92 @@
+# Red evidence: task 11.1 (add-mvp1-core-tracking)
+# date: 2026-09-30  side: fe  exit code: 1
+# command: npm --prefix frontend run test -- --include src/app/items/**/*.spec.ts
+# verdict: Tests ran and failed on assertions.
+
+> bomkeeper@0.0.0 test
+> ng test --watch=false --include src/app/items/**/*.spec.ts
+
+❯ Building...
+✔ Building...
+Application bundle generation complete. [2.638 seconds] - 2026-09-30T20:16:20.695Z
+
+
+ RUN  v5.0.2 D:/Education/External/AI/CrashCourseAgenticEngineering/2026-agentic-engineering-crash-course-capstone/submissions/kyrylo-tsekhanovskyi/frontend
+
+ ❯  bomkeeper  src/app/items/item-detail-page/item-detail-page.spec.ts (3 tests | 3 failed) 66ms
+   ❯ ItemDetailPage (3)
+     × offers: Link a listing from the item page 51ms
+     × offers: Choose an offer from the item page 8ms
+     × offers: Wrong items are visible 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.spec.ts > ItemDetailPage > offers: Link a listing from the item page
+AssertionError: GET /api/items/i1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/items/item-detail-page/item-detail-page.spec.ts:30:5
+     28|
+     29|   async function load(offers: Offer[]) {
+     30|     expectRequest(http, 'GET', '/api/items/i1').flush(anItem());
+       |     ^
+     31|     expectRequest(http, 'GET', '/api/items/i1/offers').flush(offers);
+     32|     await settle(fixture);
+ ❯ src/app/items/item-detail-page/item-detail-page.spec.ts:42:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.spec.ts > ItemDetailPage > offers: Choose an offer from the item page
+AssertionError: GET /api/items/i1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/items/item-detail-page/item-detail-page.spec.ts:30:5
+     28|
+     29|   async function load(offers: Offer[]) {
+     30|     expectRequest(http, 'GET', '/api/items/i1').flush(anItem());
+       |     ^
+     31|     expectRequest(http, 'GET', '/api/items/i1/offers').flush(offers);
+     32|     await settle(fixture);
+ ❯ src/app/items/item-detail-page/item-detail-page.spec.ts:88:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL   bomkeeper  src/app/items/item-detail-page/item-detail-page.spec.ts > ItemDetailPage > offers: Wrong items are visible
+AssertionError: GET /api/items/i1 requests: expected +0 to be 1 // Object.is equality
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ expectRequest src/app/testing/http.ts:10:56
+ ❯ load src/app/items/item-detail-page/item-detail-page.spec.ts:30:5
+     28|
+     29|   async function load(offers: Offer[]) {
+     30|     expectRequest(http, 'GET', '/api/items/i1').flush(anItem());
+       |     ^
+     31|     expectRequest(http, 'GET', '/api/items/i1/offers').flush(offers);
+     32|     await settle(fixture);
+ ❯ src/app/items/item-detail-page/item-detail-page.spec.ts:105:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed (3)
+   Start at  23:16:21
+   Duration  2.43s (environment 60%, setup 19%, import 12%, transform 5%, tests 3%, worker 1%)
+
