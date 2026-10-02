@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "default",
+    "allow": [
+      "Read",
+      "Bash(git status *)",
+      "Bash(git diff *)",
+      "Bash(git log *)"
+    ],
+    "ask": [
+      "Bash(git push *)",
+      "Bash(composer require *)",
+      "Bash(composer install *)",
+      "Bash(composer update *)"
+    ],
+    "deny": [
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Edit(./.env)",
+      "Edit(./.env.*)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Edit|Write|NotebookEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/protect-env.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-actions.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-actions.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/phpstan.sh"
+            ],
+            "timeout": 180
+          },
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/tests.sh"
+            ],
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-actions.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/phpstan.sh",
+              "stop"
+            ],
+            "timeout": 180
+          },
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/tests.sh",
+              "stop"
+            ],
+            "timeout": 300
+          }
+        ]
+      }
+    ],
+    "InstructionsLoaded": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-actions.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-actions.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh",
+            "args": [
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/run-node.sh",
+              "${CLAUDE_PROJECT_DIR}/.claude/hooks/log-actions.mjs"
+            ],
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  },
+  "enabledMcpjsonServers": [
+    "context7",
+    "laravel-boost"
+  ]
+}
