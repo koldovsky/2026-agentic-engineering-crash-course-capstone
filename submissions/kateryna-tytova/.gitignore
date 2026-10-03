@@ -1,0 +1,73 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+/app/generated/prisma
+
+# local SQLite database
+*.db
+*.db-journal
+
+# the e2e seed snapshot, written by `npm run e2e:db` beside e2e.db
+/e2e-seed.json
+
+# agent skills installed by `prisma init` (npx skills add prisma/skills);
+# .claude/skills/prisma-* are symlinks with absolute local paths
+/.agents/
+/.windsurf/
+/.claude/skills/prisma-*
+/skills-lock.json
+
+# hook state: which completed changes were already announced as review-ready
+/.agent-log/review-ready.json
+
+# playwright run artefacts
+/test-results/
+/playwright-report/
+/blob-report/
+
+# Where Vitest writes a report when asked for `--reporter=json`. Nothing in the
+# config produces one, so a copy here is debris, and it records whatever the suite
+# happened to say that run - a committed one once read "4 failed".
+/.vitest/
+
+# A stale archive claim blocks `openspec archive` for everyone who clones.
+.openspec-archive.lock

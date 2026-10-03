@@ -1,0 +1,515 @@
+// @vitest-environment jsdom
+import "@testing-library/jest-dom/vitest";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import type { JobApplication } from "@/app/generated/prisma/client";
+import { ApplicationCard } from "./ApplicationCard";
+
+const TIMESTAMP = new Date("2026-09-01T00:00:00.000Z");
+/**
+ * The instant the board was served. Passed explicitly in every render: the prop
+ * is required precisely so a forgotten call site is a compile error rather than
+ * a component quietly reaching for a clock.
+ */
+const NOW = TIMESTAMP;
+
+
+function application(overrides: Partial<JobApplication> = {}): JobApplication {
+  return {
+    id: "a",
+    company: "Acme Cloud",
+    position: "Frontend Engineer",
+    status: "APPLIED",
+    link: null,
+    notes: null,
+    appliedDate: null,
+    statusChangedAt: TIMESTAMP,
+    createdAt: TIMESTAMP,
+    updatedAt: TIMESTAMP,
+    ...overrides,
+  };
+}
+
+// The config deliberately has no `globals: true`, so RTL's automatic cleanup
+// never registers itself. Without this, renders pile up in one document.
+afterEach(cleanup);
+
+describe("ApplicationCard", () => {
+  it("offers no link when the stored value is not an http address", () => {
+    // seed.ts and direct database edits bypass validateApplicationInput, so the
+    // render path cannot assume the stored scheme was ever checked.
+    render(<ApplicationCard now={NOW} application={application({ link: "javascript:alert(1)" })} />);
+
+    expect(screen.queryByRole("link")).toBeNull();
+  });
+
+  it("offers no link when the stored value is not an address the form would accept", () => {
+    // The card and the form share one rule, so a value the form refuses must
+    // not be presented here as something to open. A bare word is a valid host
+    // to the URL parser, and credentials in front of a real domain are how one
+    // domain is made to look like another.
+    for (const link of ["https://test", "https://user:pass@example.com"]) {
+      const { unmount } = render(
+        <ApplicationCard now={NOW} application={application({ link })} />,
+      );
+
+      expect(screen.queryByRole("link"), link).toBeNull();
+      unmount();
+    }
+  });
+
+  it("names the application in the posting link's accessible name", () => {
+    // A column of cards otherwise reads as "View posting" over and over in a
+    // screen reader's link list, with nothing to tell the entries apart.
+    render(
+      <ApplicationCard now={NOW}
+        application={application({ company: "Acme Cloud", link: "https://acme.test/job" })}
+      />,
+    );
+
+    expect(screen.getByRole("link")).toHaveAccessibleName(/Acme Cloud/);
+  });
+
+  it("shows a very long value in full rather than truncating the stored text", () => {
+    // Only the clause jsdom can check. The geometry half of this requirement -
+    // that the value changes no column's width and does not overflow the page -
+    // is measured in e2e/long-value-layout.spec.ts, where layout exists. The
+    // class assertions that used to stand in for it were removed: they could not
+    // fail for any reason the spec cares about, and they read as evidence.
+    const long = "A".repeat(200);
+    render(<ApplicationCard now={NOW} application={application({ company: long, position: long })} />);
+
+    expect(screen.getByText(long, { selector: "h3" })).toBeInTheDocument();
+    expect(screen.getByText(long, { selector: "p" })).toBeInTheDocument();
+  });
+
+  // The two tests below protect requirements that already hold. There is no red
+  // step; each is proved non-vacuous by mutation, recorded in tasks 5.3-5.4.
+
+  it("shows both the company and the position", () => {
+    render(<ApplicationCard now={NOW} application={application()} />);
+
+    expect(screen.getByText("Acme Cloud")).toBeInTheDocument();
+    expect(screen.getByText("Frontend Engineer")).toBeInTheDocument();
+  });
+
+  it("offers a link only when one is stored", () => {
+    const { unmount } = render(<ApplicationCard now={NOW} application={application({ link: null })} />);
+    expect(screen.queryByRole("link")).toBeNull();
+    unmount();
+
+    render(<ApplicationCard now={NOW} application={application({ link: "https://acme.test/job" })} />);
+    expect(screen.getByRole("link")).toHaveAttribute("href", "https://acme.test/job");
+  });
+
+  it("names the card after its company so navigation says where it is", () => {
+    render(<ApplicationCard now={NOW} application={application()} />);
+
+    expect(screen.getByRole("article", { name: "Acme Cloud" })).toBeInTheDocument();
+  });
+
+  it("offers a move control named after its application", () => {
+    // Without the company in the name, a board of handles is "Move application"
+    // repeated once per card.
+    render(<ApplicationCard now={NOW} application={application()} />);
+
+    expect(
+      screen.getByRole("button", { name: /move Acme Cloud/i }),
+    ).toBeInTheDocument();
+  });
+
+  it("disables the move control while that card's move is being stored", () => {
+    render(<ApplicationCard now={NOW} application={application()} isCardBusy />);
+
+    expect(screen.getByRole("button", { name: /move Acme Cloud/i })).toBeDisabled();
+  });
+
+  it("leaves the move control enabled when no move is in flight", () => {
+    render(<ApplicationCard now={NOW} application={application()} />);
+
+    expect(screen.getByRole("button", { name: /move Acme Cloud/i })).toBeEnabled();
+  });
+
+  it("says the posting link opens a new tab", () => {
+    render(<ApplicationCard now={NOW} application={application({ link: "https://acme.test/job" })} />);
+
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("target", "_blank");
+    expect(link).toHaveAccessibleName(/opens in a new tab/i);
+  });
+});
+
+describe("ApplicationCard's edit and delete controls", () => {
+  it("offers both, named after the application", () => {
+    render(
+      <ApplicationCard now={NOW}
+        application={application({ company: "Acme Cloud" })}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
+
+    // Named rather than "Edit" and "Delete": a column of cards otherwise offers
+    // the same two control names over and over, with nothing to tell them apart.
+    expect(screen.getByRole("button", { name: "Edit Acme Cloud" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Delete Acme Cloud" })).toBeInTheDocument();
+  });
+
+  it("calls back with its own application", () => {
+    const onEdit = vi.fn();
+    const onDelete = vi.fn();
+    const card = application({ id: "b", company: "Globex" });
+    render(<ApplicationCard now={NOW} application={card} onEdit={onEdit} onDelete={onDelete} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Edit Globex" }));
+    expect(onEdit).toHaveBeenCalledWith(card);
+
+    fireEvent.click(screen.getByRole("button", { name: "Delete Globex" }));
+    expect(onDelete).toHaveBeenCalledWith(card);
+  });
+
+  it("does not fire the drag handle's listeners", () => {
+    // The controls sit in the same row as the handle, and dnd-kit's listeners
+    // are pointer-event handlers. If either control were inside the handle - or
+    // the handle wrapped the row - activating one would start a drag.
+    const onPointerDown = vi.fn();
+    const onKeyDown = vi.fn();
+    render(
+      <ApplicationCard now={NOW}
+        application={application({ company: "Acme Cloud" })}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+        dragHandle={{
+          attributes: {} as never,
+          listeners: { onPointerDown, onKeyDown },
+        }}
+      />,
+    );
+
+    fireEvent.pointerDown(screen.getByRole("button", { name: "Edit Acme Cloud" }));
+    fireEvent.pointerDown(screen.getByRole("button", { name: "Delete Acme Cloud" }));
+    fireEvent.keyDown(screen.getByRole("button", { name: "Edit Acme Cloud" }), { key: " " });
+
+    expect(onPointerDown).not.toHaveBeenCalled();
+    expect(onKeyDown).not.toHaveBeenCalled();
+  });
+
+  it("stays usable while that card's move is being stored", () => {
+    // Only the handle is held during a move: the person can still correct a typo
+    // or give up on the application while its status write is outstanding.
+    render(
+      <ApplicationCard now={NOW}
+        application={application({ company: "Acme Cloud" })}
+        isCardBusy
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
+
+    expect(screen.getByRole("button", { name: "Move Acme Cloud" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Edit Acme Cloud" })).toBeEnabled();
+    expect(screen.getByRole("button", { name: "Delete Acme Cloud" })).toBeEnabled();
+  });
+
+  it("offers neither when the card is rendered without them", () => {
+    // How the card is rendered outside a DndContext, and how BoardColumn renders
+    // it in its own tests.
+    render(<ApplicationCard now={NOW} application={application({ company: "Acme Cloud" })} />);
+
+    expect(screen.queryByRole("button", { name: /^Edit/ })).toBeNull();
+    expect(screen.queryByRole("button", { name: /^Delete/ })).toBeNull();
+  });
+
+  it("offers a card with a link exactly four controls, counting the link", () => {
+    // Counted, so a fourth button added to the header has to fail here.
+    render(
+      <ApplicationCard now={NOW}
+        application={application({ company: "Acme Cloud", link: "https://acme.test/job" })}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
+
+    expect(screen.getAllByRole("button")).toHaveLength(3);
+    expect(screen.getAllByRole("link")).toHaveLength(1);
+  });
+});
+
+describe("ApplicationCard after an optional value was cleared", () => {
+  it("offers no posting link while still offering both controls", () => {
+    // The one scenario where an edit changes what the card renders: clearing the
+    // link stores null, and the card must drop the control rather than offer an
+    // empty href.
+    render(
+      <ApplicationCard now={NOW}
+        application={application({ company: "Acme Cloud", link: null })}
+        onEdit={vi.fn()}
+        onDelete={vi.fn()}
+      />,
+    );
+
+    expect(screen.queryByRole("link")).toBeNull();
+    expect(screen.getByRole("button", { name: "Edit Acme Cloud" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Delete Acme Cloud" })).toBeInTheDocument();
+  });
+});
+
+describe("ApplicationCard's days-in-status badge", () => {
+  const DAY = 24 * 60 * 60 * 1000;
+  /** `now`, with the card's statusChangedAt a controlled distance behind it. */
+  const servedAt = (daysAgo: number, extraMs = 0) =>
+    new Date(TIMESTAMP.getTime() + daysAgo * DAY + extraMs);
+
+  it("announces the count as a length of time in the named status", () => {
+    // The whole point of the sr-only text: a card otherwise announces two
+    // unexplained numbers, its column's count and its own.
+    render(
+      <ApplicationCard
+        application={application({ status: "INTERVIEW" })}
+        now={servedAt(12)}
+      />,
+    );
+
+    expect(screen.getByText("12 days in Interview")).toBeInTheDocument();
+  });
+
+  it("does not announce the abbreviation", () => {
+    render(<ApplicationCard application={application()} now={servedAt(12)} />);
+
+    // Present for the eye, hidden from the accessibility tree.
+    const short = screen.getByText("12d");
+    expect(short).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("names whichever status the card is in", () => {
+    render(
+      <ApplicationCard application={application({ status: "WISHLIST" })} now={servedAt(3)} />,
+    );
+
+    expect(screen.getByText("3 days in Wishlist")).toBeInTheDocument();
+  });
+
+  it("says today rather than zero days when less than a day has passed", () => {
+    render(
+      <ApplicationCard
+        application={application({ status: "APPLIED" })}
+        now={servedAt(0, 20 * 60 * 60 * 1000)}
+      />,
+    );
+
+    expect(screen.getByText("Today")).toBeInTheDocument();
+    expect(screen.getByText("Today in Applied")).toBeInTheDocument();
+    expect(screen.queryByText("0d")).toBeNull();
+  });
+
+  it("uses the singular at exactly one day", () => {
+    render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAt(1)} />,
+    );
+
+    expect(screen.getByText("1 day in Applied")).toBeInTheDocument();
+    expect(screen.queryByText("1 days in Applied")).toBeNull();
+  });
+
+  it("reads as today when the stored moment is in the future", () => {
+    // The database does not enforce that statusChangedAt is in the past, and
+    // "-5 days in Applied" is not something to render.
+    render(
+      <ApplicationCard
+        application={application({ status: "APPLIED", statusChangedAt: servedAt(5) })}
+        now={TIMESTAMP}
+      />,
+    );
+
+    expect(screen.getByText("Today in Applied")).toBeInTheDocument();
+  });
+
+  it("renders a four-digit count", () => {
+    render(
+      <ApplicationCard application={application({ status: "OFFER" })} now={servedAt(5000)} />,
+    );
+
+    expect(screen.getByText("5000d")).toBeInTheDocument();
+    expect(screen.getByText("5000 days in Offer")).toBeInTheDocument();
+  });
+
+  it("carries exactly one badge", () => {
+    render(<ApplicationCard application={application()} now={servedAt(7)} />);
+
+    expect(screen.getAllByText(/days in /)).toHaveLength(1);
+  });
+});
+
+describe("ApplicationCard's no-movement flag", () => {
+  const DAY = 24 * 60 * 60 * 1000;
+  /** `now`, with the card's statusChangedAt a controlled distance behind it. */
+  const servedAfter = (days: number) => new Date(TIMESTAMP.getTime() + days * DAY);
+
+  const flag = () => screen.queryByText("No movement");
+  const announced = () => screen.queryByText("No movement for 14 days or more");
+
+  it("flags an application that has sat in Applied well past the threshold", () => {
+    render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAfter(30)} />,
+    );
+
+    // Both forms: an empty amber pill carrying only the .sr-only sentence would
+    // satisfy an assertion on the announced form alone, and the requirement is
+    // that the flag survives having its colours taken away.
+    expect(flag()).toBeInTheDocument();
+    expect(announced()).toBeInTheDocument();
+  });
+
+  it("flags one at exactly the threshold", () => {
+    render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAfter(14)} />,
+    );
+
+    expect(flag()).toBeInTheDocument();
+  });
+
+  it("does not flag one a day short of the threshold", () => {
+    render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAfter(13)} />,
+    );
+
+    expect(flag()).toBeNull();
+  });
+
+  it("does not flag one that has just arrived in Applied", () => {
+    render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAfter(0)} />,
+    );
+
+    expect(flag()).toBeNull();
+  });
+
+  it.each(["WISHLIST", "INTERVIEW", "OFFER", "REJECTED"] as const)(
+    "does not flag an old application in %s",
+    (status) => {
+      render(
+        <ApplicationCard application={application({ status })} now={servedAfter(200)} />,
+      );
+
+      expect(flag()).toBeNull();
+    },
+  );
+
+  it("announces nothing about movement on an unflagged card", () => {
+    render(
+      <ApplicationCard application={application({ status: "WISHLIST" })} now={servedAfter(200)} />,
+    );
+
+    expect(announced()).toBeNull();
+    expect(screen.queryByText(/movement/i)).toBeNull();
+  });
+
+  it("still shows the day count, worded and styled the same as on an unflagged card", () => {
+    // The count answers how long, the flag answers whether that is a problem.
+    // Restyling the count into the flag would make one element answer both.
+    const { unmount } = render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAfter(30)} />,
+    );
+    const flagged = screen.getByText("30d");
+    const flaggedClass = flagged.parentElement?.className;
+    expect(screen.getByText("30 days in Applied")).toBeInTheDocument();
+    unmount();
+
+    render(
+      <ApplicationCard application={application({ status: "WISHLIST" })} now={servedAfter(30)} />,
+    );
+    const unflagged = screen.getByText("30d");
+
+    expect(unflagged.textContent).toBe(flagged.textContent);
+    expect(unflagged.parentElement?.className).toBe(flaggedClass);
+  });
+
+  it("puts the flag beside the count, in the same row", () => {
+    render(
+      <ApplicationCard application={application({ status: "APPLIED" })} now={servedAfter(30)} />,
+    );
+
+    const row = screen.getByText("30d").closest("p");
+    expect(row).not.toBeNull();
+    expect(row).toContainElement(flag());
+    // The row wraps, so two non-shrinking pills drop to a second line rather
+    // than overflowing the card.
+    expect(row?.className).toContain("flex-wrap");
+  });
+});
+
+describe("ApplicationCard's move control", () => {
+  it("calls back with its own application when it is clicked", () => {
+    const onMove = vi.fn();
+    const card = application({ id: "b", company: "Globex" });
+    render(<ApplicationCard now={NOW} application={card} onMove={onMove} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Move Globex" }));
+
+    expect(onMove).toHaveBeenCalledTimes(1);
+    expect(onMove).toHaveBeenCalledWith(card);
+  });
+
+  it("is not an edit or a deletion", () => {
+    // The three controls sit side by side, and only this one answers to more than
+    // one gesture. Which control was reached must not depend on the gesture.
+    const onEdit = vi.fn();
+    const onDelete = vi.fn();
+    render(
+      <ApplicationCard
+        now={NOW}
+        application={application()}
+        onEdit={onEdit}
+        onDelete={onDelete}
+        onMove={vi.fn()}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Move Acme Cloud" }));
+
+    expect(onEdit).not.toHaveBeenCalled();
+    expect(onDelete).not.toHaveBeenCalled();
+  });
+
+  it("is focused before the callback runs", () => {
+    // A click does not focus a button in WebKit, which is the engine on the device
+    // the chooser exists for. The chooser's dialog gives focus back to whatever
+    // held it when it opened, so without this it would hand it back to the body.
+    let focusedWhenCalled: Element | null = null;
+    const onMove = vi.fn(() => {
+      focusedWhenCalled = document.activeElement;
+    });
+    render(<ApplicationCard now={NOW} application={application()} onMove={onMove} />);
+
+    const handle = screen.getByRole("button", { name: "Move Acme Cloud" });
+    fireEvent.click(handle);
+
+    expect(focusedWhenCalled).toBe(handle);
+  });
+
+  it("keeps its name, which the keyboard specs select it by", () => {
+    render(<ApplicationCard now={NOW} application={application()} onMove={vi.fn()} />);
+
+    expect(screen.getByRole("button", { name: "Move Acme Cloud" })).toBeInTheDocument();
+  });
+
+  it("calls nothing back while that card's write is outstanding", () => {
+    const onMove = vi.fn();
+    render(<ApplicationCard now={NOW} application={application()} isCardBusy onMove={onMove} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Move Acme Cloud" }));
+
+    expect(onMove).not.toHaveBeenCalled();
+  });
+
+  it("does not take focus when clicked on a card rendered without a chooser", () => {
+    // Focusing the handle belongs to opening the chooser, so with none to open a
+    // click must leave focus where it was. Asserted on focus rather than on
+    // "does not throw": a missing guard that did not throw would pass that.
+    render(<ApplicationCard now={NOW} application={application()} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Move Acme Cloud" }));
+
+    expect(document.body).toHaveFocus();
+  });
+});

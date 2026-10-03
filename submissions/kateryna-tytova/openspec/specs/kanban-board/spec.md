@@ -1,0 +1,851 @@
+# kanban-board Specification
+
+## Purpose
+
+Presents saved job applications as a Kanban board, so the person job-hunting can see at a
+glance how many applications sit at each stage of the funnel and which company and role each
+one refers to, without opening the database.
+
+## Requirements
+
+### Requirement: Board shows one column per application status
+
+The board SHALL show exactly five columns, one for each application status: Wishlist, Applied,
+Interview, Offer, Rejected. The set of columns SHALL be fixed and SHALL NOT depend on the stored
+data: a status with no applications still shows its column.
+
+On a wide viewport the five columns SHALL be laid out side by side in funnel order, left to right.
+Below that width the columns MAY wrap onto several rows; their funnel order SHALL be preserved in
+reading order. The left-to-right guarantee is therefore a wide-viewport guarantee, not an
+unconditional one.
+
+#### Scenario: All five columns are present
+
+- **WHEN** the board is opened
+- **THEN** five columns are shown, labelled Wishlist, Applied, Interview, Offer and Rejected
+
+#### Scenario: Funnel order on a wide viewport
+
+- **WHEN** the board is opened on a wide viewport
+- **THEN** the five columns appear side by side in the order Wishlist, Applied, Interview, Offer,
+  Rejected, left to right
+
+#### Scenario: Narrow viewport keeps the order
+
+- **WHEN** the board is opened on a viewport too narrow for five columns side by side
+- **THEN** the columns wrap onto several rows and still follow funnel order in reading order
+
+#### Scenario: A status with no applications still has a column
+
+- **WHEN** no application has the status Offer
+- **THEN** the Offer column is still shown, in its usual position
+
+#### Scenario: The board is empty
+
+- **WHEN** no applications are stored at all
+- **THEN** all five columns are shown, each in its empty state, and no error is shown
+
+### Requirement: Each application appears in the column for its current status
+
+Every stored application SHALL appear exactly once on the board, in the column that matches its
+current status. No application SHALL be hidden or duplicated.
+
+#### Scenario: An application is placed by its status
+
+- **WHEN** an application has the status Interview
+- **THEN** that application is shown in the Interview column and in no other column
+
+#### Scenario: Every stored application is shown
+
+- **WHEN** the board is opened with applications stored across several statuses
+- **THEN** the number of cards on the board equals the number of stored applications
+
+### Requirement: The board tolerates an unrecognised stored status
+
+If a stored application has a status that is not one of the five known statuses, the board SHALL
+still render. That application MAY be left off the board, but its presence SHALL NOT prevent the
+other applications from being shown.
+
+The stored status is not guaranteed to be one of the five: the database does not enforce the set,
+so a seed script, a hand edit or a future migration can introduce a value the board does not know.
+One such row must cost at most one card, never the page.
+
+#### Scenario: A stored application has an unknown status
+
+- **WHEN** the board is opened and one stored application has a status outside the five known
+  statuses
+- **THEN** all five columns are shown with every other application in its column, and no error
+  page is shown in place of the board
+
+#### Scenario: Known applications are unaffected
+
+- **WHEN** the board is opened with one unknown-status application and three known ones
+- **THEN** the three known applications are each shown in the column matching their status
+
+### Requirement: Each column shows how many applications it holds
+
+Each column SHALL show a count of the applications currently in it, so the shape of the funnel is
+readable without counting cards. The count SHALL be presented so that it is understood as that
+column's count, and not as a number standing on its own, when the board is read by assistive
+technology.
+
+#### Scenario: Count matches the cards shown
+
+- **WHEN** the Applied column holds three applications
+- **THEN** the Applied column shows the count 3
+
+#### Scenario: Empty column shows zero
+
+- **WHEN** the Offer column holds no applications
+- **THEN** the Offer column shows the count 0
+
+#### Scenario: The count is announced with its column
+
+- **WHEN** the Applied column holds three applications and the board is read by assistive
+  technology
+- **THEN** the count is announced as a number of applications rather than as a bare "3"
+
+### Requirement: A card identifies the company and the role
+
+Each card SHALL show the company name and the position of that application. The company name SHALL
+be visually dominant, because applications are recognised by company first.
+
+A card SHALL remain readable whatever the stored values are. A long company name or position SHALL
+wrap or be shortened within the card, and SHALL NOT change the width of its column or the layout of
+the board.
+
+#### Scenario: Card content
+
+- **WHEN** an application for company "Acme Cloud" and position "Frontend Engineer" is shown
+- **THEN** its card shows both "Acme Cloud" and "Frontend Engineer"
+
+#### Scenario: A very long value does not distort the board
+
+- **WHEN** an application whose company name is a single very long unbroken word is shown
+- **THEN** its card contains that value without widening its column, and the other columns keep
+  their positions
+
+### Requirement: A card links to the job posting when one is stored
+
+When an application has a link to its job posting, the card SHALL offer a way to open that posting.
+When no link is stored, the card SHALL show no broken or empty link.
+
+The card SHALL offer a link only when the stored value is an address the form would accept — an
+http or https address whose host is a domain name, with no credentials before the host. A stored
+value that is not one SHALL be treated as if no link were stored, because a stored address is not
+guaranteed to have passed the validation applied when an application is saved.
+
+The card and the form SHALL decide this by the same rule rather than each holding its own. A value
+the form refuses must not be presented by the card as something to open, and a value the form
+accepts must not be hidden by the card.
+
+Where several cards are shown together, each card's link SHALL identify which application it
+belongs to, so a list of links is not a repetition of the same name.
+
+#### Scenario: Application with a link
+
+- **WHEN** an application has a stored job posting link
+- **THEN** its card offers a link that opens that posting
+
+#### Scenario: Application without a link
+
+- **WHEN** an application has no stored job posting link
+- **THEN** its card shows no link control
+
+#### Scenario: Stored value is not an http address
+
+- **WHEN** an application's stored link uses a scheme other than http or https
+- **THEN** its card shows no link control
+
+#### Scenario: Stored value has no domain
+
+- **WHEN** an application's stored link is an http or https address whose host is not a domain name
+- **THEN** its card shows no link control
+
+#### Scenario: Stored value carries credentials
+
+- **WHEN** an application's stored link has a username or password before its host
+- **THEN** its card shows no link control
+
+#### Scenario: Links are distinguishable across cards
+
+- **WHEN** a column holds several cards that each have a posting link
+- **THEN** each link identifies its own application rather than carrying the same name as the
+  others
+
+### Requirement: An empty column explains that it is empty
+
+A column with no applications SHALL show a short message in place of its cards, so an empty
+column reads as "nothing here yet" rather than as a rendering fault.
+
+#### Scenario: Empty column message
+
+- **WHEN** the Rejected column holds no applications
+- **THEN** the Rejected column shows a short empty-state message instead of a blank area
+
+### Requirement: The board reflects the stored data when it is opened
+
+The board SHALL show the applications as they are stored at the moment the page is served. It
+SHALL NOT require any user action to load the data, and SHALL NOT show a loading placeholder in
+place of the columns.
+
+The stored data SHALL be read when the page is requested, not when the application is built. A
+board built once and served unchanged afterwards does not satisfy this requirement, because it
+shows the data as it was at build time.
+
+#### Scenario: Data is present on first paint
+
+- **WHEN** the board page is opened
+- **THEN** the columns and their cards are already populated with the stored applications
+
+#### Scenario: Data changed elsewhere
+
+- **WHEN** an application's status was changed outside the board and the board page is opened
+  again
+- **THEN** the card appears in the column matching its new status
+
+#### Scenario: Data changed after the application was built
+
+- **WHEN** an application is added or changed outside the board after the application was built,
+  and the board page is then opened
+- **THEN** the board shows that change without the application being built again
+
+### Requirement: Moving a card to another column changes the application's status
+
+A card SHALL be movable from one column to another. When it is moved to a different
+column, the application's status SHALL become that column's status, and the change
+SHALL be stored, not only shown.
+
+This SHALL hold however the move was made. Dropping the card on a column, moving it
+with the keyboard and choosing a column directly are three ways of activating one
+move, not three moves with their own rules: each SHALL produce the same stored
+result, and every guarantee below SHALL apply to all of them.
+
+#### Scenario: Card dropped on another column
+
+- **WHEN** a card in the Applied column is dropped on the Interview column
+- **THEN** that application's status becomes Interview and the card is shown in the Interview
+  column
+
+#### Scenario: The move survives a reload
+
+- **WHEN** a card has been moved to another column and the board is reloaded
+- **THEN** the card is still in the column it was moved to
+
+#### Scenario: Column counts follow the move
+
+- **WHEN** a card is moved from Applied to Interview
+- **THEN** the Applied count decreases by one and the Interview count increases by one
+
+#### Scenario: A card cannot be moved again while its move is being stored
+
+- **WHEN** a card has been moved and that move has not finished being stored
+- **THEN** that card cannot be moved again until it has, so two moves of one card cannot settle
+  out of the order they were made in
+
+#### Scenario: Other cards stay movable
+
+- **WHEN** one card's move is being stored
+- **THEN** every other card on the board can still be moved
+
+#### Scenario: A card being stored cannot be moved by any means
+
+- **WHEN** a card has been moved and that move has not finished being stored
+- **THEN** it can neither be dragged nor moved by choosing a column, so no way of
+  activating a move can bypass the hold
+
+#### Scenario: The same failure handling whatever the means
+
+- **WHEN** a move made by choosing a column fails to be stored
+- **THEN** the card returns to the column it came from and a failure message is
+  shown, exactly as for a failed drop
+
+### Requirement: The first move into Applied records the application date
+
+The first time an application's status becomes Applied, the system SHALL record the date it was
+applied to. A later move into Applied SHALL NOT overwrite that date, so the original application
+date is never lost by moving a card around.
+
+#### Scenario: First move into Applied
+
+- **WHEN** an application that has never been Applied is moved into the Applied column
+- **THEN** its application date is set to the moment of the move
+
+#### Scenario: Moving into Applied again
+
+- **WHEN** an application that already has an application date is moved into Applied again
+- **THEN** its original application date is unchanged
+
+### Requirement: Dropping a card in its own column changes nothing
+
+When a card is released over the column it already belongs to, the system SHALL treat it as no
+change: the status stays the same and the time the status last changed is not reset, so a
+cancelled or misjudged drag cannot restart the "time in this status" clock.
+
+#### Scenario: Card dropped on its own column
+
+- **WHEN** a card in the Offer column is dropped on the Offer column
+- **THEN** the application is unchanged, including the time its status last changed
+
+#### Scenario: Drag cancelled
+
+- **WHEN** a drag is started and then cancelled without dropping on a column
+- **THEN** the card returns to its column and the application is unchanged
+
+### Requirement: A failed move reports the failure and leaves the board truthful
+
+When storing the new status fails, the board SHALL tell the person that the move did not happen,
+and SHALL NOT keep showing a position that the stored data does not have. Where the application
+still exists, the card SHALL return to the column it came from. Where the application no longer
+exists, the card SHALL NOT be restored, because no column is the truthful one for an application
+that is gone.
+
+This SHALL hold for any failure, including one the storage raises rather than reports. A failure
+SHALL NOT remove the board, and SHALL NOT leave the moved card held: once a move has failed, that
+card SHALL be movable again without the page being reloaded.
+
+#### Scenario: The write fails
+
+- **WHEN** a card is moved to another column and storing the new status fails while the
+  application still exists
+- **THEN** the card returns to its original column and a failure message is shown
+
+#### Scenario: The board stays truthful after a failure
+
+- **WHEN** a move has failed and the board is reloaded
+- **THEN** the card is in the column it occupied before the failed move
+
+#### Scenario: The application was deleted while the move was in flight
+
+- **WHEN** a card is moved and the application is found to no longer exist
+- **THEN** a failure message is shown and the card is not left on the board, without the person
+  having to reload
+
+#### Scenario: The storage fails in a way it cannot describe
+
+- **WHEN** a card is moved and storing the new status fails for a reason the application cannot
+  classify, such as the database being unavailable
+- **THEN** the board is still shown, the card returns to its original column, and a failure
+  message is shown, exactly as for a failure the storage does describe
+
+#### Scenario: A card can be moved again after a failed move
+
+- **WHEN** a move has failed and the person moves the same card again
+- **THEN** the card can be picked up and moved, without the page being reloaded
+
+### Requirement: A card can be moved with the keyboard
+
+Moving a card SHALL NOT require a pointing device. A card SHALL be reachable with the keyboard,
+and SHALL be movable to another column with the keyboard alone, producing the same status change
+as a pointer drag.
+
+#### Scenario: Keyboard move
+
+- **WHEN** a card is focused with the keyboard and moved to the next column using the keyboard
+- **THEN** the application's status changes exactly as it would after a pointer drag
+
+#### Scenario: One key press moves one column
+
+- **WHEN** a card has been picked up with the keyboard and the key for the next column is pressed
+  once
+- **THEN** the card is over the adjacent column in funnel order, whatever the width of the
+  columns
+
+#### Scenario: Card is reachable
+
+- **WHEN** the board is navigated with the keyboard
+- **THEN** each card's move control can be reached and is announced as a control, not as plain
+  text
+
+### Requirement: A card offers controls for editing and deleting its own application
+
+Each card SHALL offer a control that opens its application for editing and a control that deletes
+it. Both SHALL be announced as controls rather than as plain text, and both SHALL name the
+application they act on, so a column of several cards does not present a row of identically named
+controls to someone reading the board by its controls alone.
+
+Neither control SHALL act as a drag source: activating one SHALL NOT start or end a move, and
+dragging the card by its drag handle SHALL NOT activate either control. Equally, activating the
+card's move control SHALL NOT open either control's own flow — the three controls sit beside each
+other, and the move control is the only one of them that answers to more than one gesture, so
+which control was reached must never depend on which gesture was used.
+
+#### Scenario: Both controls are on the card
+
+- **WHEN** a card is shown
+- **THEN** it offers a control for editing that application and a control for deleting it
+
+#### Scenario: The controls name their application
+
+- **WHEN** a column holds several cards
+- **THEN** each card's edit and delete controls identify their own application rather than carrying
+  the same name as the others
+
+#### Scenario: The controls are reachable by keyboard
+
+- **WHEN** the board is navigated with the keyboard
+- **THEN** each card's edit and delete controls can be reached and are announced as controls
+
+#### Scenario: A control is not a drag
+
+- **WHEN** a card's edit control is activated
+- **THEN** the application's status is unchanged and no move is recorded
+
+#### Scenario: A move is not an edit or a deletion
+
+- **WHEN** a card's move control is activated
+- **THEN** neither the edit form nor the delete confirmation is shown
+
+#### Scenario: The controls do not distort the card
+
+- **WHEN** a card whose company name is a single very long unbroken word is shown with both
+  controls
+- **THEN** the card contains that value without widening its column, and the other columns keep
+  their positions
+
+### Requirement: The board reports a failed edit or deletion where the person is looking
+
+A failure to edit or delete SHALL be reported to the person without the page being replaced by an
+error. Where the form is open, the form SHALL carry the message, because that is where the person's
+attention is. Where no form is open — a deletion confirmed and failed — the board SHALL carry it,
+announced so that it interrupts rather than waiting to be noticed.
+
+#### Scenario: A failed deletion is announced
+
+- **WHEN** a confirmed deletion fails
+- **THEN** a message is shown on the board and announced, and the board itself is still shown
+
+#### Scenario: One failure does not hide the next
+
+- **WHEN** a deletion has failed and a second deletion of another card then fails
+- **THEN** the second failure is reported too rather than being taken for the first
+
+#### Scenario: A succeeded action clears the message
+
+- **WHEN** a deletion has failed and a later deletion succeeds
+- **THEN** the failure message is no longer shown
+
+### Requirement: A card shows how long its application has been in its status
+
+Each card SHALL show how long its application has been in its current status, counted from the
+moment that status was last changed.
+
+The count SHALL be whole elapsed days: a card reads as one day old once a full day has passed since
+the status changed, not when the calendar date changes. This is deliberate. A calendar-day count
+needs a timezone, and the one the system renders in is not guaranteed to be the viewer's, so the
+number could be wrong by one for reasons the person cannot see. Elapsed days cannot be.
+
+The count SHALL be computed from a single instant taken when the board is served, so every card on
+one board is counted against the same moment and no card disagrees with another about what "now" is.
+
+#### Scenario: An application that has been in its status for several days
+
+- **WHEN** a card's status last changed 12 whole days ago
+- **THEN** its card shows that it has been 12 days in that status
+
+#### Scenario: Less than a day
+
+- **WHEN** a card's status last changed less than a whole day ago
+- **THEN** its card says so as today rather than as "0 days"
+
+#### Scenario: Exactly one day
+
+- **WHEN** a card's status last changed exactly one whole day ago
+- **THEN** its card shows a singular day, not "1 days"
+
+#### Scenario: A day boundary is not a calendar boundary
+
+- **WHEN** a card's status last changed 20 hours ago, which is on the previous calendar date
+- **THEN** its card still reads as today, because a whole day has not passed
+
+#### Scenario: Every card is counted against the same moment
+
+- **WHEN** a board holding several applications is served
+- **THEN** each card's count is measured from the same instant, so two applications whose statuses
+  changed at the same moment show the same number
+
+### Requirement: The count is never negative and never absent
+
+A stored `statusChangedAt` is not guaranteed to be in the past: the database does not enforce it, so
+a clock that has been set back, a hand-edited row or a seed script can put it in the future. A card
+in that state SHALL still render, and SHALL NOT show a negative count.
+
+Every card SHALL carry the badge. There is no application without a status and therefore none
+without a moment that status was last set, so a card with no badge would mean a rendering fault
+rather than an absence.
+
+#### Scenario: The stored moment is in the future
+
+- **WHEN** a card's stored status-changed moment is later than the moment the board was served
+- **THEN** its card renders and reads as today, not as a negative number of days
+
+#### Scenario: A very large count does not distort the board
+
+- **WHEN** a card's status last changed several thousand days ago
+- **THEN** its card shows that count without widening its column, and the other columns keep their
+  positions
+
+#### Scenario: Every card has one
+
+- **WHEN** a board holding applications across several statuses is served
+- **THEN** every card shows a count, and no card shows two
+
+### Requirement: The badge is announced as a length of time in a named status
+
+The count SHALL be presented so that assistive technology reads it as a length of time, not as a
+bare number. A card otherwise announces two unexplained numbers — its column's count and its own —
+with nothing to tell them apart.
+
+The announced form SHALL name the status it refers to. A card's accessible name is its company, and
+its status is carried only by the column landmark around it, so "12 days in this status" cannot be
+resolved without leaving the card. Naming the status makes the badge answer the question on its own.
+
+#### Scenario: Read by assistive technology
+
+- **WHEN** a card in the Interview column whose status last changed 12 days ago is read by
+  assistive technology
+- **THEN** the badge is announced as 12 days in Interview rather than as a bare "12"
+
+#### Scenario: The named status follows the card
+
+- **WHEN** a card is moved to another column
+- **THEN** its badge is announced with the name of the column it is now in
+
+#### Scenario: The abbreviation is not what is announced
+
+- **WHEN** the badge is shown in a shortened form to fit the card
+- **THEN** what is announced is still the full length of time, not the shortened form
+
+### Requirement: Moving a card resets its badge with the move
+
+When a card is moved to another column, its badge SHALL show the application as newly arrived in
+that status, without waiting for the page to be reloaded — the move resets the moment the status was
+last changed, so a card showing its old count in a new column would be stating something the stored
+data contradicts.
+
+Where the move fails, the badge SHALL go back with the card: the status was not stored, so the clock
+was not reset either.
+
+#### Scenario: A card is moved
+
+- **WHEN** a card that has been 12 days in Applied is moved to Interview
+- **THEN** its card in Interview reads as today, without the board being reloaded
+
+#### Scenario: The move is stored
+
+- **WHEN** a card has been moved to another column and the board is reloaded
+- **THEN** its badge still reads as today
+
+#### Scenario: The move fails
+
+- **WHEN** a card that has been 12 days in Applied is moved and storing the new status fails
+- **THEN** the card returns to Applied and its badge reads 12 days again
+
+#### Scenario: A card dropped in its own column
+
+- **WHEN** a card that has been 12 days in Offer is dropped on the Offer column
+- **THEN** its badge still reads 12 days, because the clock was not reset
+
+### Requirement: The badge reflects the moment the board was served
+
+Every badge on one board SHALL be measured from the instant that board was served, and from no
+other. A board left open therefore goes on showing the counts it was served with: the board as a
+whole already shows the stored data as of the moment it was served, and a badge that ticked on its
+own would be the one thing on the page disagreeing with the rest about what time it is.
+
+#### Scenario: The board is reloaded later
+
+- **WHEN** a board is reloaded after a card's count has increased
+- **THEN** the card shows the higher count
+
+### Requirement: A card that has gone quiet in Applied is flagged
+
+A card SHALL be flagged as having had no movement when both of these hold: its application's status
+is Applied, and it has been in that status for 14 whole days or more.
+
+Both halves are required. An application that has sat in any other column for any length of time
+SHALL NOT be flagged: Applied is the one stage where silence carries information, because the
+application went out and nothing came back. A card in Wishlist is a bookmark and a card in Rejected
+is finished, however old either is.
+
+The age SHALL be the same count the day badge shows, so a card reading 14 days is flagged and a card
+reading 13 days is not. Nothing SHALL compute the elapsed time a second way.
+
+#### Scenario: Applied and well past the threshold
+
+- **WHEN** a card's application is in Applied and its status last changed 30 whole days ago
+- **THEN** that card is flagged as having had no movement
+
+#### Scenario: Exactly at the threshold
+
+- **WHEN** a card's application is in Applied and its status last changed exactly 14 whole days ago
+- **THEN** that card is flagged
+
+#### Scenario: One day short of the threshold
+
+- **WHEN** a card's application is in Applied and its status last changed 13 whole days ago
+- **THEN** that card is not flagged
+
+#### Scenario: Old, but in another column
+
+- **WHEN** a card's application has been in Wishlist for 200 whole days
+- **THEN** that card is not flagged
+
+#### Scenario: Old in every other column
+
+- **WHEN** a card's application has been in Interview, Offer or Rejected for 200 whole days
+- **THEN** that card is not flagged
+
+#### Scenario: Recently moved into Applied
+
+- **WHEN** a card's application moved into Applied today
+- **THEN** that card is not flagged
+
+#### Scenario: The flag agrees with the count on the same card
+
+- **WHEN** a flagged card is shown
+- **THEN** the day count it shows is 14 or more, and no card showing fewer is flagged
+
+### Requirement: The flag is carried by text, not by colour alone
+
+The flag SHALL be conveyed by visible text. Colour MAY reinforce it but SHALL NOT be the only thing
+that distinguishes a flagged card from an unflagged one, because a person who cannot distinguish the
+two colours would then have no way to tell them apart.
+
+The flag SHALL also reach assistive technology, announced as what it means rather than as a bare
+word standing next to a number.
+
+#### Scenario: Shown without colour
+
+- **WHEN** a flagged card is rendered with its colours removed or unavailable
+- **THEN** the flag is still readable as text
+
+#### Scenario: Read by assistive technology
+
+- **WHEN** a flagged card is read by assistive technology
+- **THEN** the flag is announced as the application having had no movement, and not as a bare
+  number or an unexplained word
+
+#### Scenario: An unflagged card announces nothing extra
+
+- **WHEN** a card that is not flagged is read by assistive technology
+- **THEN** nothing about movement is announced for it
+
+### Requirement: The flag does not replace the day count
+
+A flagged card SHALL go on showing how long it has been in its status. The two SHALL remain
+distinguishable: the count answers how long, the flag answers whether that is a problem, and one
+element carrying both would answer neither clearly.
+
+#### Scenario: A flagged card still shows its count
+
+- **WHEN** a card in Applied whose status last changed 30 whole days ago is shown
+- **THEN** it shows both its day count and the flag
+
+#### Scenario: The count is not restyled into the flag
+
+- **WHEN** a flagged card and an unflagged card are shown side by side
+- **THEN** both day counts read the same way, and only the flag distinguishes them
+
+### Requirement: The flag follows a move
+
+When a card is moved, its flag SHALL be recalculated from where the card now is and from the reset
+clock, without the page being reloaded — a move both changes the status and resets the time in it,
+so either half of the rule can stop holding.
+
+Where the move fails, the flag SHALL return with the card: the status was not stored, so neither
+half of the rule changed.
+
+#### Scenario: Moved out of Applied
+
+- **WHEN** a flagged card is moved from Applied to Interview
+- **THEN** it is no longer flagged, without the board being reloaded
+
+#### Scenario: Moved into Applied
+
+- **WHEN** a card that has been in Wishlist for 200 days is moved into Applied
+- **THEN** it is not flagged, because its time in Applied starts at the move
+
+#### Scenario: The move fails
+
+- **WHEN** a flagged card is moved and storing the new status fails
+- **THEN** the card returns to Applied and is flagged again
+
+#### Scenario: Dropped in its own column
+
+- **WHEN** a flagged card in Applied is dropped on the Applied column
+- **THEN** it is still flagged, because the clock was not reset
+
+### Requirement: The flag does not distort the card or its column
+
+A flagged card SHALL NOT change the width of its column or the position of any other column. The
+flag shares the row the day count already occupies.
+
+#### Scenario: A flagged card does not move the columns
+
+- **WHEN** a board is shown with a flagged card in it
+- **THEN** every column keeps the width and position it had without the flag, and the page does not
+  scroll sideways
+
+#### Scenario: A flagged card with a long company name
+
+- **WHEN** a flagged card's company name is a single very long unbroken word
+- **THEN** its column keeps its width and the other columns keep their positions
+
+### Requirement: Moving a card SHALL NOT require a drag gesture
+
+A card SHALL be movable to another column without any drag gesture at all. This is
+not a convenience: on a device whose only input is a touchscreen, a drag cannot be
+relied on — the browser may claim the gesture for scrolling the moment the finger
+moves — and the board's five columns are stacked vertically at that width, so even
+a drag that did start would have to cross the length of several screens. A board on
+which the status cannot be changed is a board that does not work.
+
+Every card SHALL therefore offer, on the control it already offers for moving, a way
+to name the column to move to directly. Choosing a column SHALL produce the same
+status change, the same stored result and the same board as dropping the card on
+that column.
+
+#### Scenario: A card is moved without dragging
+
+- **WHEN** a card's move control is activated without any dragging and the Interview
+  column is chosen
+- **THEN** that application's status becomes Interview and the card is shown in the
+  Interview column
+
+#### Scenario: The move survives a reload
+
+- **WHEN** a card has been moved by choosing a column and the board is reloaded
+- **THEN** the card is still in the column it was moved to
+
+#### Scenario: No pointing device that can press and hold
+
+- **WHEN** the board is used on a device where a press-and-hold drag cannot be
+  completed
+- **THEN** a card can still be moved to any other column
+
+#### Scenario: The way of moving is not chosen for the person
+
+- **WHEN** the board is opened on any device
+- **THEN** every card offers the direct way of naming a column, whether or not
+  dragging also works there
+
+### Requirement: The chooser names the card it will move and the columns it can move to
+
+The chooser SHALL identify the application it is about to move, because a board holds
+several cards and a chooser naming none of them cannot be acted on with confidence.
+
+It SHALL offer every column the card is not already in, in funnel order. It SHALL
+show which column the card is in now, and SHALL NOT offer that column as something
+to choose: a move to the column the card already occupies is not a move, and offering
+it invites the person to make a change that will do nothing.
+
+#### Scenario: The chooser names the application
+
+- **WHEN** the chooser is opened for a card whose company is "Acme Cloud"
+- **THEN** the chooser identifies that application
+
+#### Scenario: The other four columns are offered
+
+- **WHEN** the chooser is opened for a card in the Applied column
+- **THEN** Wishlist, Interview, Offer and Rejected are each offered as a destination
+
+#### Scenario: The current column is shown but not offered
+
+- **WHEN** the chooser is opened for a card in the Applied column
+- **THEN** Applied is shown as the column the card is in now and cannot be chosen as
+  a destination
+
+#### Scenario: Funnel order
+
+- **WHEN** the chooser is opened
+- **THEN** the columns it offers appear in funnel order
+
+### Requirement: The chooser can be dismissed without moving the card
+
+Opening the chooser SHALL NOT itself change anything. The person SHALL be able to
+dismiss it and leave the application exactly as it was, and dismissing it SHALL NOT
+be reported as a failure.
+
+While the chooser is open, the board behind it SHALL NOT be operable, so a choice
+cannot be made against a board the person is no longer looking at.
+
+#### Scenario: Dismissed without choosing
+
+- **WHEN** the chooser is opened for a card and then dismissed without a column being
+  chosen
+- **THEN** the application is unchanged, including the time its status last changed,
+  and no message is shown
+
+#### Scenario: Dismissed with the keyboard
+
+- **WHEN** the chooser is open and the dismiss key is pressed
+- **THEN** the chooser closes and the application is unchanged
+
+#### Scenario: The board behind is not operable
+
+- **WHEN** the chooser is open
+- **THEN** the cards and columns behind it cannot be operated until it is closed
+
+### Requirement: Focus returns to the card after the chooser closes
+
+When the chooser closes, focus SHALL return to the move control of the card it was
+opened for, whether a column was chosen or not. A card's move control is inside the
+card, and a card that has just moved is re-rendered under a different column, so
+focus left anywhere else would strand someone navigating by keyboard at the top of
+the page with no way back to where they were.
+
+#### Scenario: Focus after a move
+
+- **WHEN** a card is moved by choosing a column from the chooser
+- **THEN** focus is on that card's move control in the column it moved to
+
+#### Scenario: Focus after a dismissal
+
+- **WHEN** the chooser is dismissed without a column being chosen
+- **THEN** focus is on the move control of the card it was opened for
+
+### Requirement: A card's move control distinguishes pressing-and-moving from activating
+
+The one control on a card that moves it SHALL support both ways of moving without
+either triggering the other. Pressing it and moving SHALL drag the card and SHALL NOT
+open the chooser. Activating it without moving SHALL open the chooser and SHALL NOT
+start, complete or cancel a move.
+
+A pointer that moves only incidentally — the few pixels a trackpad or an unsteady
+hand contributes to what was meant as a click — SHALL be treated as an activation,
+not as a drag, because a drag of a few pixels never lands on another column and so
+can only have been a misread click.
+
+This requirement is about a pointer. Keyboard activation of the move control SHALL
+continue to pick the card up for a keyboard move, as the keyboard requirement
+already specifies, and SHALL NOT open the chooser: a keyboard user can reach every
+column by that path already, so two keyboard entry points to one move would buy
+nothing and could only disagree.
+
+#### Scenario: Pressed and moved
+
+- **WHEN** a card's move control is pressed and the pointer is moved across to
+  another column and released
+- **THEN** the card moves to that column and the chooser is not shown
+
+#### Scenario: Activated without moving
+
+- **WHEN** a card's move control is pressed and released without the pointer moving
+- **THEN** the chooser opens and the application is unchanged
+
+#### Scenario: A click with incidental movement
+
+- **WHEN** a card's move control is pressed and released after the pointer has moved
+  only a few pixels
+- **THEN** the chooser opens and the application is unchanged
+
+#### Scenario: The keyboard still picks the card up
+
+- **WHEN** a card's move control is focused and activated with the keyboard
+- **THEN** the card is picked up for a keyboard move and the chooser is not shown
+
+#### Scenario: The move control is announced as moving its application
+
+- **WHEN** a card's move control is read by assistive technology
+- **THEN** it is announced as a control that moves that named application
