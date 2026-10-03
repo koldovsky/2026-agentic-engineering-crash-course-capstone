@@ -1,0 +1,23 @@
+{
+  "generatedBy": "review-gate",
+  "clean": true,
+  "scope": "add-generation-failure",
+  "change": "add-generation-failure",
+  "baseRef": "cd6567dcd2b67aea44e0ea3ebcf0b7b7a2e19764",
+  "headRef": "working tree",
+  "reviewedAt": "2026-10-02T15:39:45Z",
+  "generatedAt": "2026-10-02T15:39:45Z",
+  "reviewers": [
+    "code-reviewer",
+    "security-reviewer",
+    "spec-compliance-auditor"
+  ],
+  "confirmed": [],
+  "confirmedTitles": [],
+  "dimensions": {
+    "correctness": { "confirmed": 0, "contested": 0, "rejected": 0 },
+    "security": { "confirmed": 0, "contested": 0, "rejected": 0 },
+    "spec-compliance": { "confirmed": 0, "contested": 0, "rejected": 0 }
+  },
+  "coverage": "5 scenarios: 5 implemented, 0 partial, 0 missing, 0 contradicted"
+}

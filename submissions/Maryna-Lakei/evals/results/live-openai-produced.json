@@ -1,0 +1,93 @@
+{
+  "kind": "supplemental-live-openai",
+  "gradedBar": "unchanged fake-model evals/results/latest.json",
+  "generatedAt": "2026-10-02T18:01:52.441Z",
+  "model": "gpt-4.1-mini",
+  "keyRecorded": false,
+  "calls": [
+    {
+      "rawRequest": "Need a weekly sales report.",
+      "elapsedMs": 2936,
+      "result": {
+        "ok": true,
+        "userStory": "As a sales manager, I want to receive a weekly sales report, so that I can track the performance and trends of our sales over time.",
+        "acceptanceCriteria": [
+          "The report is generated every week on a specified day.",
+          "The report includes total sales figures for the week.",
+          "The report details sales broken down by product category.",
+          "The report highlights any significant changes compared to the previous week.",
+          "The report is delivered via email to designated recipients."
+        ],
+        "clarifyingQuestions": [
+          "What day of the week should the report be generated and delivered?",
+          "Should the report include sales data segmented by region or salesperson?",
+          "What format should the report be in (e.g., PDF, Excel, web dashboard)?",
+          "Who are the intended recipients of the report?",
+          "Are there any specific metrics or KPIs that should be highlighted in the report?"
+        ]
+      }
+    },
+    {
+      "rawRequest": "Need a weekly sales report for the regional team",
+      "elapsedMs": 1947,
+      "result": {
+        "ok": true,
+        "userStory": "As a regional sales manager, I want a weekly sales report for the regional team, so that I can track performance and make informed decisions.",
+        "acceptanceCriteria": [
+          "The report is generated every week on a specified day.",
+          "The report includes total sales figures for each team member.",
+          "The report compares current week sales to the previous week.",
+          "The report highlights top-performing products or services.",
+          "The report is accessible via email and the company dashboard."
+        ],
+        "clarifyingQuestions": [
+          "Which day of the week should the report be generated?",
+          "Should the report include sales data broken down by individual team members or aggregated?",
+          "What specific metrics should be included in the report besides total sales?",
+          "Do you want the report in a specific format, such as PDF or Excel?",
+          "Who should have access to the report besides the regional sales manager?"
+        ]
+      }
+    }
+  ],
+  "cases": [
+    {
+      "id": "eval-clarifying-questions-unstated-gaps",
+      "source": "live-openai",
+      "rawRequest": "Need a weekly sales report.",
+      "elapsedMs": 2936,
+      "output": [
+        "What day of the week should the report be generated and delivered?",
+        "Should the report include sales data segmented by region or salesperson?",
+        "What format should the report be in (e.g., PDF, Excel, web dashboard)?",
+        "Who are the intended recipients of the report?",
+        "Are there any specific metrics or KPIs that should be highlighted in the report?"
+      ]
+    },
+    {
+      "id": "eval-user-story-shape",
+      "source": "live-openai",
+      "rawRequest": "Need a weekly sales report for the regional team",
+      "elapsedMs": 1947,
+      "output": "As a regional sales manager, I want a weekly sales report for the regional team, so that I can track performance and make informed decisions."
+    },
+    {
+      "id": "eval-acceptance-criteria-bullets",
+      "source": "live-openai",
+      "rawRequest": "Need a weekly sales report for the regional team",
+      "elapsedMs": 1947,
+      "output": [
+        "The report is generated every week on a specified day.",
+        "The report includes total sales figures for each team member.",
+        "The report compares current week sales to the previous week.",
+        "The report highlights top-performing products or services.",
+        "The report is accessible via email and the company dashboard."
+      ]
+    }
+  ],
+  "notSentToOpenAi": {
+    "id": "eval-generation-failure-message",
+    "reason": "The visible failure sentence is local. The [[provider-error]] marker is ignored unless REQUIREMENTS_MODEL_MODE=fake, so it was not sent to OpenAI. The graded fake-model case stays the bar.",
+    "message": "Generation failed. You can try Generate again."
+  }
+}

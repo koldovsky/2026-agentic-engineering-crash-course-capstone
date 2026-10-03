@@ -1,0 +1,80 @@
+[
+  {
+    "id": "eval-clarifying-questions-unstated-gaps",
+    "trace": [
+      "FR-5",
+      "FR-11"
+    ],
+    "dimension": "gap-questions",
+    "capability": "requirement-generation",
+    "scenario": "A business analyst submits the raw request \"Need a weekly sales report.\" Grade the clarifying questions produced for that request.",
+    "output": [
+      "Which regions are included?",
+      "Who receives the report?",
+      "What counts as a sale?"
+    ],
+    "rubric": [
+      "CRITICAL: the output is 3 to 5 clarifying questions",
+      "CRITICAL: each question addresses a gap the raw request does not already state",
+      "CRITICAL: no question merely restates information the request already states, and no question introduces an unrelated topic",
+      "A missing question about regions, the recipient, or what counts as a sale is not a defect when the questions that are present address other unstated gaps"
+    ]
+  },
+  {
+    "id": "eval-user-story-shape",
+    "trace": [
+      "FR-3",
+      "FR-9"
+    ],
+    "dimension": "story-shape",
+    "capability": "requirement-generation",
+    "scenario": "A business analyst submits \"Need a weekly sales report for the regional team\". Grade the single User Story that comes back.",
+    "output": "As a regional manager, I want a weekly sales report, so that I can review team performance.",
+    "rubric": [
+      "CRITICAL: the output is one User Story, not a list of stories",
+      "CRITICAL: the story contains the phrases As a, I want, and so that, in that order",
+      "the story is readable English about the requested report"
+    ]
+  },
+  {
+    "id": "eval-acceptance-criteria-bullets",
+    "trace": [
+      "FR-4",
+      "FR-10"
+    ],
+    "dimension": "acceptance-criteria",
+    "capability": "requirement-generation",
+    "scenario": "A business analyst submits \"Need a weekly sales report for the regional team\". Grade the Acceptance Criteria that come back.",
+    "output": [
+      "The report lists sales by region.",
+      "The report covers the previous week."
+    ],
+    "rubric": [
+      "CRITICAL: the output is a short list of acceptance criteria, not a single paragraph",
+      "CRITICAL: Given/When/Then format is not required, and its absence is not a defect",
+      "each item is a concrete check a reader could use"
+    ]
+  },
+  {
+    "id": "eval-generation-failure-message",
+    "trace": [
+      "FR-8",
+      "NFR-3"
+    ],
+    "dimension": "error-clarity",
+    "capability": "generation-failure",
+    "scenario": "The model call fails. Grade the message the Business Analyst sees, together with whether the failure is a reason code rather than a generic server error.",
+    "output": {
+      "outcome": {
+        "ok": false,
+        "reason": "provider-error"
+      },
+      "message": "Generation failed. You can try Generate again."
+    },
+    "rubric": [
+      "CRITICAL: the visible message is specific and tells the Business Analyst they can try Generate again",
+      "CRITICAL: the message is not a generic HTTP 500 and does not say Internal Server Error",
+      "CRITICAL: the failure is reported as a clear reason, not an empty success"
+    ]
+  }
+]

@@ -1,0 +1,163 @@
+{
+  "generatedAt": "2026-10-03T09:10:50.117Z",
+  "ledger": {
+    "path": "trace/ledger.jsonl",
+    "present": true,
+    "eventCount": 30,
+    "malformedLines": 0
+  },
+  "productCodePresent": true,
+  "result": "PASS",
+  "vacuousPasses": 0,
+  "warningsByClass": {},
+  "acceptanceCoverage": {
+    "covered": 29,
+    "declared": 30
+  },
+  "metrics": {
+    "vacuousPasses": {
+      "count": 0,
+      "events": []
+    },
+    "warningsByClass": {},
+    "notEarned": {
+      "count": 1
+    },
+    "warningTrendByClass": {},
+    "retriesPerCheck": {
+      "pre-commit": {
+        "runs": 10,
+        "failures": 1,
+        "retries": 1
+      },
+      "commit-msg": {
+        "runs": 8,
+        "failures": 2,
+        "retries": 2
+      },
+      "traceability": {
+        "runs": 2,
+        "failures": 0,
+        "retries": 0
+      },
+      "trajectory": {
+        "runs": 2,
+        "failures": 0,
+        "retries": 0
+      },
+      "recordings": {
+        "runs": 2,
+        "failures": 1,
+        "retries": 1
+      },
+      "acceptance-artifacts": {
+        "runs": 2,
+        "failures": 2,
+        "retries": 1
+      },
+      "qa-verify": {
+        "runs": 2,
+        "failures": 2,
+        "retries": 1
+      },
+      "gate-status": {
+        "runs": 2,
+        "failures": 2,
+        "retries": 1
+      }
+    },
+    "redToGreenLatency": {
+      "perCheck": {
+        "pre-commit": {
+          "episodes": [
+            {
+              "redAt": "2026-10-02T18:24:39.207Z",
+              "greenAt": "2026-10-02T18:25:42.441Z",
+              "ms": 63234
+            }
+          ],
+          "avgMs": 63234,
+          "stillRed": false
+        },
+        "commit-msg": {
+          "episodes": [
+            {
+              "redAt": "2026-10-02T12:05:35.800Z",
+              "greenAt": "2026-10-02T12:06:22.664Z",
+              "ms": 46864
+            }
+          ],
+          "avgMs": 46864,
+          "stillRed": false
+        },
+        "traceability": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": false
+        },
+        "trajectory": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": false
+        },
+        "recordings": {
+          "episodes": [
+            {
+              "redAt": "2026-10-02T17:25:51.447Z",
+              "greenAt": "2026-10-02T17:53:53.710Z",
+              "ms": 1682263
+            }
+          ],
+          "avgMs": 1682263,
+          "stillRed": false
+        },
+        "acceptance-artifacts": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": true
+        },
+        "qa-verify": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": true
+        },
+        "gate-status": {
+          "episodes": [],
+          "avgMs": null,
+          "stillRed": true
+        }
+      },
+      "overallAvgMs": 597454
+    },
+    "waivers": {
+      "ledgerEvents": 0,
+      "contractWaivers": 0,
+      "total": 0
+    },
+    "claimDivergence": {
+      "ledgerEvents": 0,
+      "unmetContracts": 1,
+      "unmet": [
+        {
+          "reqId": "NFR-2",
+          "method": "deploy-gated"
+        }
+      ],
+      "total": 1
+    },
+    "uncommittedWork": {
+      "dirtyStreakEvents": 30,
+      "since": "2026-09-30T15:55:59.991Z",
+      "ageMs": 181789602
+    },
+    "corrections": {
+      "total": 0,
+      "open": 0,
+      "openIds": []
+    }
+  },
+  "inputs": {
+    "acceptanceContracts": 30,
+    "corrections": 0
+  }
+}

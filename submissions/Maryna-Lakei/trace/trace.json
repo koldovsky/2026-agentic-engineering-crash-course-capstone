@@ -1,0 +1,230 @@
+{
+  "generatedBy": "scripts/check-traceability.mjs",
+  "requirements": {
+    "FR-1": "MVP",
+    "FR-2": "MVP",
+    "FR-13": "MVP",
+    "FR-3": "MVP",
+    "FR-4": "MVP",
+    "FR-5": "MVP",
+    "FR-6": "MVP",
+    "FR-9": "MVP",
+    "FR-10": "MVP",
+    "FR-11": "MVP",
+    "FR-12": "MVP",
+    "FR-7": "MVP",
+    "FR-8": "MVP",
+    "NFR-1": "MVP",
+    "NFR-2": "MVP",
+    "NFR-3": "MVP",
+    "NFR-4": "MVP",
+    "NFR-5": "MVP",
+    "TC-1": "MVP",
+    "TC-2": "MVP",
+    "TC-3": "MVP",
+    "TC-4": "MVP",
+    "TC-5": "MVP",
+    "TC-6": "MVP",
+    "TC-7": "MVP",
+    "TC-8": "MVP",
+    "BC-1": "MVP",
+    "BC-2": "Future",
+    "BC-3": "MVP",
+    "BC-4": "MVP",
+    "BC-5": "MVP"
+  },
+  "links": [
+    {
+      "id": "FR-1",
+      "specs": [
+        "openspec/specs/request-intake/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/request-intake-controls.test.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-2",
+      "specs": [
+        "openspec/specs/request-intake/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/request-intake-controls.test.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-13",
+      "specs": [
+        "openspec/specs/request-intake/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/request-intake-controls.test.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-3",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/parse-generation.test.ts",
+        "evals/cases/requirement-shape.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-4",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/parse-generation.test.ts",
+        "evals/cases/requirement-shape.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-5",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/parse-generation.test.ts",
+        "evals/cases/clarifying-questions.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-6",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/result-review/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/result-review.test.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-9",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/parse-generation.test.ts",
+        "evals/cases/requirement-shape.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-10",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/parse-generation.test.ts",
+        "evals/cases/requirement-shape.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-11",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/parse-generation.test.ts",
+        "evals/cases/clarifying-questions.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-12",
+      "specs": [
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/result-review/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/result-review.test.ts",
+        "tests/cross-slice.integration.test.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-7",
+      "specs": [
+        "openspec/specs/generation-failure/spec.md",
+        "openspec/specs/request-intake/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/validation.test.ts",
+        "tests/cross-slice.integration.test.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    },
+    {
+      "id": "FR-8",
+      "specs": [
+        "openspec/specs/generation-failure/spec.md",
+        "openspec/specs/request-intake/spec.md",
+        "openspec/specs/requirement-generation/spec.md"
+      ],
+      "planned": true,
+      "tests": [
+        "lib/requirements/generation-failure.test.ts",
+        "tests/cross-slice.integration.test.ts",
+        "evals/cases/generation-failure-message.eval.ts"
+      ],
+      "recordings": [
+        "docs/qa/demo-recordings/manifest.json"
+      ]
+    }
+  ],
+  "failures": [],
+  "warnings": []
+}

@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "url": "https://ai-requirements-assistant-umber.vercel.app",
+  "verifiedAt": "2026-10-03T13:15:56+03:00",
+  "platform": "vercel",
+  "project": "marynalakei-png/ai-requirements-assistant",
+  "deploymentId": "dpl_rGZG9Z5czhWLhWrPdAyv3fNLK24u",
+  "deploymentUrl": "https://ai-requirements-assistant-rlmxe37m8-marynalakei-png.vercel.app",
+  "target": "production",
+  "framework": "nextjs",
+  "deploymentProtection": [],
+  "loginWall": false,
+  "httpStatus": 200,
+  "productionEnv": {
+    "LLM_API_KEY": "set-as-secret-value-not-recorded",
+    "LLM_MODEL": "gpt-4.1-mini",
+    "REQUIREMENTS_MODEL_MODE": "unset"
+  },
+  "smoke": {
+    "request": "Need a weekly sales report for the regional team.",
+    "pageTitle": "AI Requirements Assistant",
+    "generateCompleted": true,
+    "failureMessageShown": false,
+    "inputPreserved": true,
+    "generateReenabled": true,
+    "userStory": "As a regional sales manager, I want a weekly sales report for the regional team, so that I can track performance and make informed decisions.",
+    "acceptanceCriteriaCount": 5,
+    "clarifyingQuestionsCount": 5,
+    "matchesFakeWeeklyFixture": false,
+    "browserContactedHosts": ["ai-requirements-assistant-umber.vercel.app"],
+    "secretMaterialInPage": false
+  }
+}

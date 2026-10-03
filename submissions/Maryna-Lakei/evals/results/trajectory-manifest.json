@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-10-03T10:30:07Z",
+  "kind": "trajectory-eval",
+  "slices": [
+    "add-request-intake",
+    "add-requirement-generation",
+    "add-result-review",
+    "add-generation-failure"
+  ],
+  "dimensions": {
+    "process-order": 38.5,
+    "test-integrity": 95.5,
+    "in-scope": 90.5,
+    "craft": 96.5
+  }
+}

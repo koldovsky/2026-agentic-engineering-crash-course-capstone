@@ -1,0 +1,36 @@
+{
+  "generatedBy": "scripts/check-trajectory.mjs",
+  "slices": [
+    {
+      "slice": "2026-10-02-add-generation-failure",
+      "reviewEvidence": "clean",
+      "trailerCommits": 1,
+      "libDomains": [],
+      "processComplete": true
+    },
+    {
+      "slice": "2026-10-02-add-request-intake",
+      "reviewEvidence": "clean",
+      "trailerCommits": 1,
+      "libDomains": [],
+      "processComplete": true
+    },
+    {
+      "slice": "2026-10-02-add-requirement-generation",
+      "reviewEvidence": "clean",
+      "trailerCommits": 1,
+      "libDomains": [],
+      "processComplete": true
+    },
+    {
+      "slice": "2026-10-02-add-result-review",
+      "reviewEvidence": "clean",
+      "trailerCommits": 1,
+      "libDomains": [],
+      "processComplete": true
+    }
+  ],
+  "overlaps": [],
+  "failures": [],
+  "warnings": []
+}

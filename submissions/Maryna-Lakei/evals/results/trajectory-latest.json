@@ -1,0 +1,162 @@
+{
+  "generatedAt": "2026-10-03T10:30:07Z",
+  "threshold": 70,
+  "dimensions": {
+    "process-order": 38.5,
+    "test-integrity": 95.5,
+    "in-scope": 90.5,
+    "craft": 96.5
+  },
+  "sliceRollup": {
+    "add-request-intake": 25,
+    "add-requirement-generation": 46,
+    "add-result-review": 32,
+    "add-generation-failure": 51
+  },
+  "units": [
+    {
+      "id": "add-request-intake:process-order",
+      "slice": "add-request-intake",
+      "dimension": "process-order",
+      "score": 25,
+      "pass": false,
+      "judges": 2,
+      "notes": "Tests and implementation landed together in 5733b56, so there is no red-before-green commit. review-findings.json was written on 2026-10-03 and says it was not in the 2026-10-02 archive. | The second grade is the same finding: the archive commit itself recorded the review file as missing."
+    },
+    {
+      "id": "add-request-intake:test-integrity",
+      "slice": "add-request-intake",
+      "dimension": "test-integrity",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "notes": "Empty and whitespace rejection, the exact validation sentence, no generation request, and Generate disabled in flight are asserted. No skipped or deleted case."
+    },
+    {
+      "id": "add-request-intake:in-scope",
+      "slice": "add-request-intake",
+      "dimension": "in-scope",
+      "score": 72,
+      "pass": false,
+      "judges": 2,
+      "notes": "First grade 65, fail: the same first commit adds the factory scaffold (132 files) with the intake feature. | Second grade 78, pass: that extra material is required setup, not other product behavior, but the diff is still not confined to the slice. Combined pass is false because one vote failed."
+    },
+    {
+      "id": "add-request-intake:craft",
+      "slice": "add-request-intake",
+      "dimension": "craft",
+      "score": 96,
+      "pass": true,
+      "judges": 1,
+      "notes": "No TODO/FIXME, commented-out blocks, or revert churn in the intake sources. The server action is the specified pre-generation stub."
+    },
+    {
+      "id": "add-requirement-generation:process-order",
+      "slice": "add-requirement-generation",
+      "dimension": "process-order",
+      "score": 46,
+      "pass": false,
+      "judges": 2,
+      "notes": "First grade 32, fail: spec, tests, implementation, and a clean review file all first appear in e986fcf. | Second grade 60, fail: the assertions track the spec, but git does not show a separate red-then-green sequence. Combined pass is false."
+    },
+    {
+      "id": "add-requirement-generation:test-integrity",
+      "slice": "add-requirement-generation",
+      "dimension": "test-integrity",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "notes": "Missing key, timeout at 30 seconds, question counts 3 to 5, and story shape are asserted. No skipped or removed expect."
+    },
+    {
+      "id": "add-requirement-generation:in-scope",
+      "slice": "add-requirement-generation",
+      "dimension": "in-scope",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "notes": "Product changes stay in the generation modules and the spec-named config. The handoff rewrite is the only partial miss."
+    },
+    {
+      "id": "add-requirement-generation:craft",
+      "slice": "add-requirement-generation",
+      "dimension": "craft",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "notes": "One commit. The old stub was deleted and replaced. No TODO, FIXME, or commented-out production path."
+    },
+    {
+      "id": "add-result-review:process-order",
+      "slice": "add-result-review",
+      "dimension": "process-order",
+      "score": 32,
+      "pass": false,
+      "judges": 2,
+      "notes": "Both grades fail. Tests and implementation landed together in cd6567d. The clean review file is inside that same commit, so red-before-green is not in git history."
+    },
+    {
+      "id": "add-result-review:test-integrity",
+      "slice": "add-result-review",
+      "dimension": "test-integrity",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "notes": "Headings, replacement, and the absence of a copy control are asserted. Native selection is checked on the user-story paragraph only."
+    },
+    {
+      "id": "add-result-review:in-scope",
+      "slice": "add-result-review",
+      "dimension": "in-scope",
+      "score": 98,
+      "pass": true,
+      "judges": 1,
+      "notes": "Edits are the result-review module, the labeled form, and the second fixture the spec requires."
+    },
+    {
+      "id": "add-result-review:craft",
+      "slice": "add-result-review",
+      "dimension": "craft",
+      "score": 90,
+      "pass": true,
+      "judges": 2,
+      "notes": "First grade 80, pass. Second grade 100, pass. One non-revert commit, no TODO/FIXME, and no abandoned half-implementation."
+    },
+    {
+      "id": "add-generation-failure:process-order",
+      "slice": "add-generation-failure",
+      "dimension": "process-order",
+      "score": 51,
+      "pass": false,
+      "judges": 2,
+      "notes": "First grade 38, fail: the red run is only described in the handoff, not as its own commit. | Second grade 64, fail: the tests match the failure scenarios, but spec, tests, implementation, review, and archive are one commit. Combined pass is false."
+    },
+    {
+      "id": "add-generation-failure:test-integrity",
+      "slice": "add-generation-failure",
+      "dimension": "test-integrity",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "notes": "The exact failure sentence, timeout precedence, a kept prior result, and empty-input copy are asserted. The 1500 ms value is a fake-mode test clock."
+    },
+    {
+      "id": "add-generation-failure:in-scope",
+      "slice": "add-generation-failure",
+      "dimension": "in-scope",
+      "score": 98,
+      "pass": true,
+      "judges": 1,
+      "notes": "Product edits stay on the failure sentence, fake markers, and deadline. No unrelated rewrite."
+    },
+    {
+      "id": "add-generation-failure:craft",
+      "slice": "add-generation-failure",
+      "dimension": "craft",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "notes": "One commit. The failure sentence is one live function. No TODO/FIXME, commented-out alternative, or revert."
+    }
+  ]
+}

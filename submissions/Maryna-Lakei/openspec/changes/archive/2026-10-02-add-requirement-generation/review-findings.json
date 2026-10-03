@@ -1,0 +1,21 @@
+{
+  "clean": true,
+  "scope": "add-requirement-generation",
+  "baseRef": "5733b56989a75f0f8a1b3d36ae989f754e66b3f2",
+  "reviewedAt": "2026-10-02",
+  "reviewers": ["code-reviewer", "security-reviewer", "spec-compliance-auditor"],
+  "confirmed": [],
+  "fixed": [
+    "Empty input and a new Generate clear the previous failure reason so a later slice does not treat validation as a provider failure."
+  ],
+  "refuted": [
+    {
+      "title": "Failed generation is invisible on the page",
+      "reason": "Design decision 5 and task 4.5 keep the FR-8 sentence in add-generation-failure. This slice stores a structured reason and does not throw a generic HTTP 500."
+    },
+    {
+      "title": "A second As a substring rejects one story",
+      "reason": "The slice test defines a second story as another As a lead. The parser matches that test."
+    }
+  ]
+}

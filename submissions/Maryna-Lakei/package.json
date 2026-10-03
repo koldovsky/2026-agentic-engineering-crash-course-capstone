@@ -1,0 +1,59 @@
+{
+  "name": "ai-requirements-assistant",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AI Requirements Assistant — public desktop demo for Business Analysts.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.55.1",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.1.11",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.8",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "^4.1.11"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "build": "next build",
+    "test:run": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:e2e": "playwright test --project=chromium",
+    "test:coverage": "vitest run --coverage",
+    "qa:verify": "node scripts/qa-verify.mjs",
+    "qa:record-demos": "node scripts/record-demos.mjs",
+    "qa:record-proof": "node scripts/record-demos.mjs",
+    "check:trace": "node scripts/check-traceability.mjs",
+    "check:coverage": "node scripts/check-coverage-ratchet.mjs",
+    "check:eval": "node scripts/check-eval-ratchet.mjs",
+    "check:trajectory": "node scripts/check-trajectory.mjs",
+    "check:recordings": "node scripts/check-recordings.mjs",
+    "check:a11y": "node scripts/check-a11y.mjs",
+    "check:vision": "node scripts/check-vision.mjs",
+    "check:deploy": "node scripts/check-deploy.mjs",
+    "gate:status": "node scripts/gate-status.mjs",
+    "correct": "node scripts/correct.mjs",
+    "retro:digest": "node scripts/ledger-report.mjs",
+    "check:acceptance": "node scripts/check-acceptance-methods.mjs --mode=existence",
+    "check:acceptance:artifact": "node scripts/check-acceptance-methods.mjs --mode=artifact",
+    "check:process": "node scripts/check-process-ratchet.mjs",
+    "check:integrity": "node scripts/check-factory-integrity.mjs",
+    "check:visual": "node scripts/check-visual-fidelity.mjs",
+    "dev": "next dev",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "16.3.8",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "server-only": "^0.0.1"
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "kind": "demo",
+  "results": [
+    {
+      "id": "01-request-intake",
+      "title": "Public English intake validates empty input and disables Generate in flight",
+      "proof": "FR-1, FR-2, FR-7, FR-13, NFR-1, NFR-2, NFR-5",
+      "video": "docs/qa/demo-recordings/01-request-intake.webm",
+      "screenshot": "docs/qa/demo-recordings/01-request-intake.png",
+      "explainer": "docs/qa/demo-recordings/01-request-intake.md",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "Fresh vision judge on 2026-10-02. Desktop still is legible and shows the clip moment."
+      }
+    },
+    {
+      "id": "02-requirement-generation",
+      "title": "Generate returns one story, acceptance criteria, and gap questions",
+      "proof": "FR-3, FR-4, FR-5, FR-9, FR-10, FR-11, NFR-4",
+      "video": "docs/qa/demo-recordings/02-requirement-generation.webm",
+      "screenshot": "docs/qa/demo-recordings/02-requirement-generation.png",
+      "explainer": "docs/qa/demo-recordings/02-requirement-generation.md",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "Fresh vision judge on 2026-10-02. Desktop still is legible and shows the clip moment."
+      }
+    },
+    {
+      "id": "03-result-review",
+      "title": "Labeled sections stay readable and a later success replaces them",
+      "proof": "FR-6, FR-12",
+      "video": "docs/qa/demo-recordings/03-result-review.webm",
+      "screenshot": "docs/qa/demo-recordings/03-result-review.png",
+      "explainer": "docs/qa/demo-recordings/03-result-review.md",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "Fresh vision judge on 2026-10-02. Desktop still is legible and shows the clip moment."
+      }
+    },
+    {
+      "id": "04-generation-failure",
+      "title": "A provider error shows a clear message and keeps the previous result",
+      "proof": "FR-8, NFR-3",
+      "video": "docs/qa/demo-recordings/04-generation-failure.webm",
+      "screenshot": "docs/qa/demo-recordings/04-generation-failure.png",
+      "explainer": "docs/qa/demo-recordings/04-generation-failure.md",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "Fresh vision judge on 2026-10-02. Desktop still is legible and shows the clip moment."
+      }
+    },
+    {
+      "id": "05-security-negative",
+      "title": "No login wall and no generic server error",
+      "proof": "NFR-2, NFR-3, FR-7",
+      "video": "docs/qa/demo-recordings/05-security-negative.webm",
+      "screenshot": "docs/qa/demo-recordings/05-security-negative.png",
+      "explainer": "docs/qa/demo-recordings/05-security-negative.md",
+      "asserted": true,
+      "vision": {
+        "met": true,
+        "readable": true,
+        "notes": "Fresh vision judge on 2026-10-02. Desktop still is legible and shows the clip moment."
+      }
+    }
+  ]
+}

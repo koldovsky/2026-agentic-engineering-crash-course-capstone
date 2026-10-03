@@ -1,0 +1,57 @@
+{
+  "generatedAt": "2026-10-02T17:48:00Z",
+  "threshold": 70,
+  "status": "passed",
+  "dimensions": {
+    "gap-questions": 100,
+    "story-shape": 100,
+    "acceptance-criteria": 100,
+    "error-clarity": 100
+  },
+  "cases": [
+    {
+      "id": "eval-clarifying-questions-unstated-gaps",
+      "dimension": "gap-questions",
+      "trace": ["FR-5", "FR-11"],
+      "capability": "requirement-generation",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Re-graded 2026-10-02 against the corrected FR-5/FR-11 rubric. The fake output is three questions. Each asks something \"Need a weekly sales report.\" does not state, and none restates the request or leaves the topic. Score 100. Judge 82dbea44-e8c8-4ee8-a275-66b902023b54. The other three cases were not re-judged."
+    },
+    {
+      "id": "eval-user-story-shape",
+      "dimension": "story-shape",
+      "trace": ["FR-3", "FR-9"],
+      "capability": "requirement-generation",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "The output is one sentence. It uses As a, I want, and so that in that order, and it is readable English about the weekly sales report."
+    },
+    {
+      "id": "eval-acceptance-criteria-bullets",
+      "dimension": "acceptance-criteria",
+      "trace": ["FR-4", "FR-10"],
+      "capability": "requirement-generation",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "The user receives two separate acceptance statements, not a paragraph. Neither uses Given/When/Then, which the rubric does not require. Each names a property a reader can check."
+    },
+    {
+      "id": "eval-generation-failure-message",
+      "dimension": "error-clarity",
+      "trace": ["FR-8", "NFR-3"],
+      "capability": "generation-failure",
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "The visible copy names the failure as generation and tells the Business Analyst they can try Generate again. It is not an HTTP 500. The outcome is an explicit provider-error, not an empty success."
+    }
+  ]
+}

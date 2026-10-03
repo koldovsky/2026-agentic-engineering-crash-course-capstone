@@ -1,0 +1,9 @@
+{
+  "clean": true,
+  "scope": "add-result-review",
+  "baseRef": "e986fcf3b1087ab34b99f39fa1b4702e3d5945c2",
+  "reviewedAt": "2026-10-02",
+  "reviewers": ["code-reviewer", "security-reviewer", "spec-compliance-auditor"],
+  "confirmed": [],
+  "vision": { "met": true, "readable": true }
+}

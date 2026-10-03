@@ -1,0 +1,24 @@
+{
+  "generatedBy": "review-gate",
+  "clean": true,
+  "scope": "add-request-intake",
+  "change": "add-request-intake",
+  "baseRef": "cbee9be57cf6afbe3ddd919f4488a0d15f75245d",
+  "headRef": "975a6d215fa2b97094c1e765087a7543159c628c",
+  "reviewedAt": "2026-10-03T09:15:54Z",
+  "generatedAt": "2026-10-03T09:15:54Z",
+  "reviewers": [
+    "code-reviewer",
+    "security-reviewer",
+    "spec-compliance-auditor"
+  ],
+  "confirmed": [],
+  "confirmedTitles": [],
+  "dimensions": {
+    "correctness": { "confirmed": 0, "contested": 0, "rejected": 0 },
+    "security": { "confirmed": 0, "contested": 0, "rejected": 0 },
+    "spec-compliance": { "confirmed": 0, "contested": 0, "rejected": 0 }
+  },
+  "note": "The 2026-10-02 archive did not contain review-findings.json. This file is a fresh review on 2026-10-03 of the archived slice. It does not claim the review ran before that archive.",
+  "coverage": "add-request-intake scenarios implemented. No confirmed findings. Public deploy (NFR-2) is not part of this slice's code review."
+}

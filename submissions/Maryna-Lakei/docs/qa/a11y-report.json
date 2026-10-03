@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "tool": "@axe-core/playwright",
+  "tags": ["wcag2a", "wcag2aa"],
+  "baseUrl": "http://127.0.0.1:3000",
+  "routes": ["/"],
+  "schemes": ["light", "dark"],
+  "seriousOrCritical": 0,
+  "generatedAt": "2026-10-02T17:50:00Z",
+  "summary": "a11y: 1 route(s) × 2 scheme(s) — 0 serious/critical violation(s). axe clean.",
+  "note": "Dark scheme is the browser color-scheme preference used by the locked axe script. This MVP does not add a dark theme."
+}

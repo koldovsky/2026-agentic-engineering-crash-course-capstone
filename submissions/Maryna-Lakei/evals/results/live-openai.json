@@ -1,0 +1,66 @@
+{
+  "kind": "supplemental-live-openai",
+  "generatedAt": "2026-10-02T18:01:52Z",
+  "gradedAt": "2026-10-02T18:10:00Z",
+  "threshold": 70,
+  "model": "gpt-4.1-mini",
+  "keyRecorded": false,
+  "gradedBarUnchanged": "evals/results/latest.json",
+  "status": "passed",
+  "dimensions": {
+    "gap-questions": 100,
+    "story-shape": 100,
+    "acceptance-criteria": 75
+  },
+  "cases": [
+    {
+      "id": "eval-clarifying-questions-unstated-gaps",
+      "dimension": "gap-questions",
+      "trace": ["FR-5", "FR-11"],
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "votes": [{ "score": 100, "pass": true }],
+      "notes": "Re-graded 2026-10-02 from the saved live output. No new OpenAI call. Five questions, each about an unstated gap. Judge 73dee2e3-fc03-49bd-aad9-2a36951ee267.",
+      "previousRubric": {
+        "score": 35,
+        "pass": false,
+        "votes": [
+          { "score": 32, "pass": false },
+          { "score": 38, "pass": false }
+        ],
+        "reason": "The first rubric required regions, recipient, and what counts as a sale. That rubric was replaced."
+      }
+    },
+    {
+      "id": "eval-user-story-shape",
+      "dimension": "story-shape",
+      "trace": ["FR-3", "FR-9"],
+      "score": 100,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "votes": [{ "score": 100, "pass": true }],
+      "notes": "One story. As a, I want, and so that appear in that order."
+    },
+    {
+      "id": "eval-acceptance-criteria-bullets",
+      "dimension": "acceptance-criteria",
+      "trace": ["FR-4", "FR-10"],
+      "score": 75,
+      "pass": true,
+      "judges": 2,
+      "disagreement": false,
+      "votes": [
+        { "score": 74, "pass": true },
+        { "score": 76, "pass": true }
+      ],
+      "notes": "Both judges passed. Concreteness is partial: a specified day is unnamed, and top-performing is undefined."
+    }
+  ],
+  "notSentToOpenAi": {
+    "id": "eval-generation-failure-message",
+    "reason": "The visible failure sentence is local. The [[provider-error]] marker is ignored unless REQUIREMENTS_MODEL_MODE=fake, so it was not sent to OpenAI."
+  }
+}

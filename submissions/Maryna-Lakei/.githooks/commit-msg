@@ -1,0 +1,11 @@
+#!/bin/sh
+# Git starts this hook in the repository root and passes a message-file path
+# relative to that root. Make the path absolute before entering the project.
+root=$(git rev-parse --show-toplevel) || exit 1
+msg=$1
+case "$msg" in
+  /*) ;;
+  *) msg="$root/$msg" ;;
+esac
+cd "$(dirname "$0")/.." || exit 1
+exec node scripts/hooks-commit-msg.mjs "$msg"

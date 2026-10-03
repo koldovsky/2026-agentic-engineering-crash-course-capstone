@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "generatedAt": "2026-10-03T09:20:00.000Z",
+  "auditedBy": "process-auditor (plain subagent)",
+  "trigger": "on-demand",
+  "inputs": [
+    "docs/qa/process-health.md",
+    "trace/process-health.json",
+    "docs/qa/process-defects.json",
+    "docs/qa/automated-verification-latest.md",
+    "docs/qa/2026-10-03-global-review.md",
+    "docs/qa/mvp-acceptance-report.md",
+    "docs/qa/risk-register.md",
+    "docs/qa/README.md",
+    "docs/qa/requirements-traceability-matrix.md",
+    "docs/qa/traceability-report.md",
+    "docs/qa/trajectory-report.md",
+    "docs/qa/recordings-report.md",
+    "docs/qa/eval-report.md",
+    "docs/qa/2026-10-02-live-openai-eval.md",
+    "docs/qa/2026-10-02-clarifying-questions-rubric-correction.md",
+    "docs/qa/2026-10-02-add-requirement-generation-live-smoke.md",
+    "docs/qa/2026-10-02-add-result-review-live-smoke.md",
+    "docs/qa/2026-10-02-add-generation-failure-owner-smoke.md",
+    "docs/qa/manual-test-plan.md",
+    "docs/qa/demo-script.md",
+    "docs/qa/vision-report.json",
+    "docs/qa/a11y-report.json",
+    "retro/corrections/ (0 files)"
+  ],
+  "defects": [
+    {
+      "id": "PD-1",
+      "class": "missing-check",
+      "severity": "P0",
+      "evidence": [
+        {
+          "pointer": "docs/qa/process-health.md:43",
+          "quote": "Declared-but-unmet acceptance contracts: NFR-2 (deploy-gated)",
+          "note": "Digest claim divergence is this one unmet contract. acceptanceCoverage in trace/process-health.json is 29 of 30."
+        },
+        {
+          "pointer": "docs/qa/automated-verification-latest.md:65",
+          "quote": "FAIL  [NFR-2] deploy-gated: no deploy-gated artifact found (expected: docs/qa/deploy-verification.json | docs/qa/deploy-verification.md | docs/qa/deploy-report.*) — run the deploy-gated mechanism and commit its report",
+          "note": "The acceptance check fails closed. Overall result on line 6 is Fail. This is not a vacuous PASS."
+        },
+        {
+          "pointer": "docs/qa/risk-register.md:13",
+          "quote": "Deploy-gated evidence is **MISSING**. Phase 7 was not done. This pack does not add `docs/qa/deploy-verification.json`.",
+          "note": "Release stays blocked until a real deploy writes that artifact. A waiver is not an allowed fix."
+        }
+      ],
+      "metric": {
+        "name": "claimDivergence.unmetContracts",
+        "current": 1,
+        "expectedMovement": "1 -> 0 only after a real deploy artifact exists and check-acceptance-methods --mode=artifact no longer fails NFR-2"
+      },
+      "proposedFix": {
+        "targetFile": "docs/qa/deploy-verification.json",
+        "sketch": "Do not change the acceptance check, do not waive NFR-2, and do not commit a hand-written deploy report. Deploy for real and commit the report that deploy writes. scripts/check-deploy.mjs already requires status passed|pass|ok|green and a non-empty url.",
+        "proposalDir": "docs/qa/process-improvements/2026-10-03-improve-PD-1/"
+      },
+      "status": "resolved",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-2",
+      "class": "process-bypass",
+      "severity": "P1",
+      "evidence": [
+        {
+          "pointer": "docs/qa/risk-register.md:15",
+          "quote": "Lock entry (created 2026-09-30) is `17f6801b1211de2c38eeff1349350fc3aadff2c687138e594b0adb1721038bd6`. The file on disk on 2026-10-02 hashes to `8a2de0399509972051fcd5a93a703be40d51d9058971c9f239921fb5c7ca1d46`.",
+          "note": "Approved by Maryna Lakei on 2026-10-03. The lock was resealed onto the on-disk hook and the two baselines. The hook file was not restored and git config was not changed."
+        },
+        {
+          "pointer": "docs/qa/README.md:44",
+          "quote": "`.githooks/commit-msg` still drifts from `factory-lock.json`.",
+          "note": "docs/qa/automated-verification-latest.md stops at acceptance-artifacts, so this drift is not a row in that bundle."
+        }
+      ],
+      "metric": {
+        "name": "factoryIntegrity.commitMsgDrift",
+        "current": "hash mismatch; check-factory-integrity Result: FAIL",
+        "expectedMovement": "FAIL -> PASS after a human-approved Refs: PD-2 reseal of the on-disk hook hash, not after restoring the locked bytes"
+      },
+      "proposedFix": {
+        "targetFile": "factory-lock.json",
+        "sketch": "Human decision only: reseal the lock to the on-disk commit-msg hash. Restoring the locked bytes would break commits, because the hook absolutizes the message path before cd in this nested project. The same commit adds quality/coverage-baseline.json and quality/eval-baseline.json to the lock. Do not apply it here. Do not add quality/visual-parity.config.json.",
+        "proposalDir": "docs/qa/process-improvements/2026-10-03-improve-PD-2/"
+      },
+      "status": "resolved",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-3",
+      "class": "stale-evidence",
+      "severity": "P1",
+      "evidence": [
+        {
+          "pointer": "docs/qa/risk-register.md:16",
+          "quote": "docs/qa/automated-verification-latest.md (finished 2026-10-02T20:25:51+03:00) records Overall result: Fail. That run saw recordings at scope 0 and no a11y or eval artifact.",
+          "note": "The file on disk says Finished: 2026-10-02T17:53:53.763Z and recordings PASS Scope: 5. 20:25:51+03:00 is the earlier recordings red time, not this file."
+        },
+        {
+          "pointer": "docs/qa/mvp-acceptance-report.md:79",
+          "quote": "Overall result: Fail at 2026-10-02T20:25:51+03:00, before the a11y report, eval results, and clips were the current evidence",
+          "note": "Same wrong finish time. The bundle already records Scope: 5 clips."
+        },
+        {
+          "pointer": "docs/qa/README.md:45",
+          "quote": "It still lists every FR recording cell as blank and warns that FR-1, FR-2, and FR-13 have no `@trace` in the directories the walker scans.",
+          "note": "docs/qa/traceability-report.md now shows FR-1, FR-2, and FR-13 with test trace 1, recording yes, and Warnings: None."
+        },
+        {
+          "pointer": "docs/qa/risk-register.md:14",
+          "quote": "docs/qa/trajectory-report.md Result: PASS with one warning: review evidence missing for `2026-10-02-add-request-intake`.",
+          "note": "Current trajectory-report.md lists that slice as clean and Warnings: None. docs/qa/2026-10-03-global-review.md says the review-findings file was written that day and clean is true."
+        },
+        {
+          "pointer": "docs/qa/automated-verification-latest.md:39",
+          "quote": "WARN  [review-evidence] 2026-10-02-add-request-intake: review-findings.json is missing (review must have run clean before archive)",
+          "note": "The bundle still embeds the older trajectory and traceability warnings after the standalone reports were regenerated."
+        }
+      ],
+      "metric": {
+        "name": "handoffClaimMismatch",
+        "current": "4 handoff docs contradict the current generated traceability, trajectory, or recordings results",
+        "expectedMovement": "4 -> 0 once those docs quote the generated reports, and the qa-verify bundle is regenerated so it embeds the same results"
+      },
+      "proposedFix": {
+        "targetFile": "docs/qa/risk-register.md",
+        "sketch": "Correct the stale citations in the risk register, QA README, traceability matrix, and a post-signature addendum on the acceptance report. Do not hand-edit automated-verification-latest.md. Do not treat the correction as a green G6, and do not add a visual-parity config.",
+        "proposalDir": "docs/qa/process-improvements/2026-10-03-improve-PD-3/"
+      },
+      "status": "not-adopted",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-4",
+      "class": "check-too-weak",
+      "severity": "P1",
+      "evidence": [
+        {
+          "pointer": "docs/qa/process-health.md:6",
+          "quote": "Result: PASS, 1 warning(s)",
+          "note": "ledger-report exits 0 and prints PASS whenever the ledger has events. The same page records unmet NFR-2 and three checks still red."
+        },
+        {
+          "pointer": "docs/qa/process-health.md:36",
+          "quote": "| acceptance-artifacts | 2 | 2 | 1 | - | **yes** |",
+          "note": "qa-verify and gate-status are also Still red yes on the following rows. trace/process-health.json result is PASS with redToGreenLatency stillRed true for those three checks."
+        }
+      ],
+      "metric": {
+        "name": "result",
+        "current": "PASS while acceptance-artifacts, qa-verify, and gate-status are still red",
+        "expectedMovement": "PASS -> FAIL for this digest until those checks are actually green and unmetContracts is 0"
+      },
+      "proposedFix": {
+        "targetFile": "scripts/ledger-report.mjs",
+        "sketch": "When any check is still red, or unmetContracts is greater than 0, print Result: FAIL and exit 1. Do not fold that state into PASS with a warning. Do not waive NFR-2 to make the headline green.",
+        "proposalDir": "docs/qa/process-improvements/2026-10-03-improve-PD-4/"
+      },
+      "status": "not-adopted",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-5",
+      "class": "check-too-weak",
+      "severity": "P1",
+      "evidence": [
+        {
+          "pointer": "docs/qa/README.md:44",
+          "quote": "Acceptance artifacts then failed on the missing NFR-2 deploy report, so the battery stopped.",
+          "note": "The official latest bundle therefore never reaches factory-integrity or visual-fidelity."
+        },
+        {
+          "pointer": "docs/qa/automated-verification-latest.md:14",
+          "quote": "| acceptance-artifacts | `node scripts/check-acceptance-methods.mjs --mode=artifact` | FAIL | 1 |",
+          "note": "The check table ends on this row. Lock drift (PD-2) and visual-fidelity NOT-EARNED are absent from the bundle a reader treats as latest."
+        }
+      ],
+      "metric": {
+        "name": "qaVerify.membersRecorded",
+        "current": "battery stops on first FAIL; latest report has 4 members and omits factory-integrity",
+        "expectedMovement": "partial battery -> every configured member recorded, overall still Fail while NFR-2 fails"
+      },
+      "proposedFix": {
+        "targetFile": "scripts/qa-verify.mjs",
+        "sketch": "Keep running later battery members after a FAIL so the report records them. Overall stays Fail when any member fails. When visual-fidelity then prints NOT-EARNED, leave it NOT-EARNED. Do not add quality/visual-parity.config.json.",
+        "proposalDir": "docs/qa/process-improvements/2026-10-03-improve-PD-5/"
+      },
+      "status": "not-adopted",
+      "correctionIds": []
+    },
+    {
+      "id": "PD-6",
+      "class": "stale-evidence",
+      "severity": "P2",
+      "evidence": [
+        {
+          "pointer": "docs/qa/process-health.md:17",
+          "quote": "Uncommitted-work age (trailing dirty streak) | 3029m 50s (30 event(s) since 2026-09-30T15:55:59.991Z)",
+          "note": "Every ledger event sits in one dirty streak of about 50 hours. trace/process-health.json uncommittedWork.dirtyStreakEvents is 30. Resolved by the Phase 7 release commit of the governed tree. No check script was changed. A ledger line appended by the post-commit hook after that commit is telemetry, not a new product change."
+        }
+      ],
+      "metric": {
+        "name": "uncommittedWork.dirtyStreakEvents",
+        "current": 30,
+        "expectedMovement": "30 -> 0 after the governed tree is committed; not a waiver and not a gate-script change"
+      },
+      "proposedFix": {
+        "targetFile": "trace/ledger.jsonl",
+        "sketch": "Commit the governed project tree so later ledger events are not born inside this dirty streak. No check change is proposed.",
+        "proposalDir": ""
+      },
+      "status": "resolved",
+      "correctionIds": []
+    }
+  ]
+}

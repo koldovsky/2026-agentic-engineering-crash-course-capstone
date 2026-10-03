@@ -1,0 +1,12 @@
+# Project-local ignore. Do not ignore docs/qa — QA evidence is committed proof.
+node_modules/
+coverage/
+**/raw/
+.next/
+playwright-report/
+test-results/
+blob-report/
+.env
+.env.local
+.vercel
+.env*
