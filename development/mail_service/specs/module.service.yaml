@@ -1,0 +1,121 @@
+spec_version: 1
+
+module: mail_service
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Remote service
+#   The user gave base_url `http://emulator.dev:81/init-process`: split into base_url + the method `path` below
+#   (the template wants the host in base_url and the path per method). No real production service is assigned - only the
+#   emulator is called, at emulator_url + /<module.id> + path.
+#   signature: decided project-wide (CLAUDE.md, flow.md §1b) - HMAC-SHA256 over the raw JSON body, headers X-Api-Key /
+#   X-Signature. api_key / secret_key are STATIC demo values generated for this module at the user's explicit request
+#   ("save to the yaml spec for generation"). The generators never write them literally into code or migrations: they
+#   are put into .env / .env.example under api_key_env / secret_key_env (passed to the containers by compose.yaml);
+#   generate-module's RegisterService migration reads them from those env vars and saves them to `service`
+#   (api_key / secret_key), generate-emulator Part B's module reads the same env vars to verify. NOTE: AGENTS.md says
+#   a spec normally holds only the env var NAMES - recorded as an open point; these values are for the local emulator
+#   only, never a real service's secrets.
+# ---------------------------------------------------------------------------------------------------------------------
+remote_service:
+  base_url: http://emulator.dev:81
+  emulator_url: http://emulator.dev:81
+  signature:
+    enabled: true
+    algorithm: hmac-sha256                        # fixed project-wide, recorded here for the generators
+    signed: raw_json_body
+    header_api_key: X-Api-Key
+    header_signature: X-Signature
+    api_key_env: MAIL_SERVICE_API_KEY
+    secret_key_env: MAIL_SERVICE_SECRET_KEY
+    api_key: 5122aa088f72c24d46eb2f3b9cd91cb0
+    secret_key: 3b1faa957287d3a65bac5b1a0e8c312f2fe9ce867b758d3cba79eeebdcbaa154
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Service methods
+# Both methods share the same remote endpoint (POST /init-process), data, response and callback shape; the remote
+# service tells them apart by the `service` field of the request body (mapped from service_method).
+# ---------------------------------------------------------------------------------------------------------------------
+service_methods:
+  - name: general
+    description: General mail sending
+    data:
+      - {name: user_id, type: integer, required: true, example: 42}
+      - {name: send_to, type: string, required: true, example: "user@example.com", rules: [required, [string, {max: 16}]]}
+      - {name: test, type: string, required: true, description: "Text of the mail (user: type text, no length limit)", example: "Hello"}
+    remote_request:
+      method: POST
+      path: /init-process
+      body:
+        params:
+          - {name: request_id, type: string, from: requestId}
+          - {name: service, type: string, from: service_method}
+          - {name: to, type: string, from: data.send_to}
+          - {name: text, type: string, from: data.test}
+      response:
+        params:
+          - {name: id, type: string, required: true, example: "ext-1001"}
+          - {name: status, type: string, required: true, example: Sending}
+        external_id_param: id
+        status_param: status
+        status_map:
+          - {remote: [Sended], status: success}
+          - {remote: [Sending], status: process}
+          - {remote: [Fail], status: fail}
+        default_status: fail                      # assumption (not given) - report this to the user
+    callback:
+      params:
+        - {name: id, type: string, required: true, description: "External id of the process on the service", example: "ext-1001"}
+        - {name: status, type: string, required: true, description: "Status of the process", example: Sended}
+        - {name: created_at, type: integer, required: true, description: "Unix time the process was initiated on the service", example: 1700000000}
+        - {name: updated_at, type: integer, required: true, description: "Unix time of the last status update", example: 1700000005}
+      external_id_param: id
+      status_param: status
+      status_map:
+        - {remote: [Sended], status: success}
+        - {remote: [Sending], status: process}
+        - {remote: [Fail], status: fail}
+      results:
+        - {name: Sended, success: true, description: "The mail was sent"}
+        - {name: Fail, success: false, description: "The service reported a failure"}
+
+  - name: process
+    description: Process mail sending
+    data:
+      - {name: user_id, type: integer, required: true, example: 42}
+      - {name: send_to, type: string, required: true, example: "user@example.com", rules: [required, [string, {max: 16}]]}
+      - {name: test, type: string, required: true, description: "Text of the mail (user: type text, no length limit)", example: "Hello"}
+    remote_request:
+      method: POST
+      path: /init-process
+      body:
+        params:
+          - {name: request_id, type: string, from: requestId}
+          - {name: service, type: string, from: service_method}
+          - {name: to, type: string, from: data.send_to}
+          - {name: text, type: string, from: data.test}
+      response:
+        params:
+          - {name: id, type: string, required: true, example: "ext-2001"}
+          - {name: status, type: string, required: true, example: Sending}
+        external_id_param: id
+        status_param: status
+        status_map:
+          - {remote: [Sended], status: success}
+          - {remote: [Sending], status: process}
+          - {remote: [Fail], status: fail}
+        default_status: fail                      # assumption (not given) - report this to the user
+    callback:
+      params:
+        - {name: id, type: string, required: true, description: "External id of the process on the service", example: "ext-2001"}
+        - {name: status, type: string, required: true, description: "Status of the process", example: Sended}
+        - {name: created_at, type: integer, required: true, description: "Unix time the process was initiated on the service", example: 1700000000}
+        - {name: updated_at, type: integer, required: true, description: "Unix time of the last status update", example: 1700000005}
+      external_id_param: id
+      status_param: status
+      status_map:
+        - {remote: [Sended], status: success}
+        - {remote: [Sending], status: process}
+        - {remote: [Fail], status: fail}
+      results:
+        - {name: Sended, success: true, description: "The mail was sent"}
+        - {name: Fail, success: false, description: "The service reported a failure"}

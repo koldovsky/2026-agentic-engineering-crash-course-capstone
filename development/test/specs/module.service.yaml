@@ -1,0 +1,108 @@
+spec_version: 1
+
+module: test
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Remote service
+#   base_url is a placeholder: this module has no real production remote service (demo/proof-of-concept module) - only
+#   the emulator is ever called, at emulator_url + the path below. Update base_url when/if a real service is assigned.
+#   signature: decided project-wide (CLAUDE.md, flow.md §1b) - HMAC-SHA256 over the raw JSON body, headers X-Api-Key /
+#   X-Signature. api_key_env / secret_key_env name the env vars that hold the actual values (never literal secrets
+#   here or in git - AGENTS.md "Service registration"); demo/'s RegisterService migration reads them for `service`,
+#   the emulator module reads its own copy of the same env vars to verify.
+# ---------------------------------------------------------------------------------------------------------------------
+remote_service:
+  base_url: https://remote.example.com/init-process   # placeholder - no real service assigned to this test module
+  emulator_url: http://emulator.dev:81
+  signature:
+    enabled: true
+    algorithm: hmac-sha256                        # fixed project-wide, recorded here for the generators
+    signed: raw_json_body
+    header_api_key: X-Api-Key
+    header_signature: X-Signature
+    api_key_env: TEST_API_KEY
+    secret_key_env: TEST_SECRET_KEY
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Service methods
+# Both methods share the same remote endpoint (POST /init-process) and the same data/response/callback shape; the
+# remote service tells them apart by the `service` field of the request body (mapped from service_method).
+# ---------------------------------------------------------------------------------------------------------------------
+service_methods:
+  - name: service_1
+    description: Test service method 1
+    data:
+      - {name: user_id, type: integer, required: true, example: 42}
+      - {name: test_data, type: string, required: true, example: "abcdefgh", rules: [required, [string, {max: 8}]]}
+    remote_request:
+      method: POST
+      path: /init-process
+      body:
+        params:
+          - {name: request_id, type: string, from: requestId}
+          - {name: service, type: string, from: service_method}
+      response:
+        params:
+          - {name: id, type: string, required: true, example: "ext-1001"}
+          - {name: status, type: string, required: true, example: Processing}
+        external_id_param: id
+        status_param: status
+        status_map:
+          - {remote: [Complete], status: success}
+          - {remote: [Processing], status: process}
+          - {remote: [Fail], status: fail}
+        default_status: fail                      # assumption (not given) - report this to the user
+    callback:
+      params:
+        - {name: id, type: string, required: true, example: "ext-1001"}
+        - {name: status, type: string, required: true, example: Complete}
+        - {name: created_at, type: integer, required: true, description: "Unix time the process was initiated on the service", example: 1700000000}
+        - {name: updated_at, type: integer, required: true, description: "Unix time of the last status update", example: 1700000005}
+      external_id_param: id
+      status_param: status
+      status_map:
+        - {remote: [Complete], status: success}
+        - {remote: [Processing], status: process}
+        - {remote: [Fail], status: fail}
+      results:
+        - {name: Complete, success: true, description: "The process finished successfully"}
+        - {name: Fail, success: false, description: "The service reported a failure"}
+
+  - name: service_2
+    description: Test service method 2
+    data:
+      - {name: user_id, type: integer, required: true, example: 42}
+      - {name: test_data, type: string, required: true, example: "abcdefgh", rules: [required, [string, {max: 8}]]}
+    remote_request:
+      method: POST
+      path: /init-process
+      body:
+        params:
+          - {name: request_id, type: string, from: requestId}
+          - {name: service, type: string, from: service_method}
+      response:
+        params:
+          - {name: id, type: string, required: true, example: "ext-2001"}
+          - {name: status, type: string, required: true, example: Processing}
+        external_id_param: id
+        status_param: status
+        status_map:
+          - {remote: [Complete], status: success}
+          - {remote: [Processing], status: process}
+          - {remote: [Fail], status: fail}
+        default_status: fail                      # assumption (not given) - report this to the user
+    callback:
+      params:
+        - {name: id, type: string, required: true, example: "ext-2001"}
+        - {name: status, type: string, required: true, example: Complete}
+        - {name: created_at, type: integer, required: true, description: "Unix time the process was initiated on the service", example: 1700000000}
+        - {name: updated_at, type: integer, required: true, description: "Unix time of the last status update", example: 1700000005}
+      external_id_param: id
+      status_param: status
+      status_map:
+        - {remote: [Complete], status: success}
+        - {remote: [Processing], status: process}
+        - {remote: [Fail], status: fail}
+      results:
+        - {name: Complete, success: true, description: "The process finished successfully"}
+        - {name: Fail, success: false, description: "The service reported a failure"}

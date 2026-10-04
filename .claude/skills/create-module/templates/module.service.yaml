@@ -1,0 +1,149 @@
+# =====================================================================================================================
+# Module SERVICE spec — DEFAULT TEMPLATE
+#
+# Describes how a module talks to its remote service. Used together with `module.yaml` (templates/module.yaml) for the
+# generation of the module: `module.yaml` defines the module, its API requests and migrations; THIS file defines
+#   * the remote service (URL, emulator URL, signing),
+#   * the service methods (values of the `service_method` request parameter) and their `data` parameters,
+#   * the MAPPING of the data of the init request to the body of the request to the service (`from` / `value`),
+#   * the MAPPING of the statuses of the service response (and callback) to ours: `success` | `process` | `fail`,
+#   * whether the service sends a callback.
+# Flow: docs/architecture/flow.md.
+#
+# Usage: copy this file to `development/<name>/specs/module.service.yaml`, replace the values, keep the structure.
+# The values below describe the default module `test`.
+#
+# Conventions (same as module.yaml)
+#   - A key that is ABSENT means "not set". An explicit `null` means JSON null.
+#   - Parameter definition and `type`: as in module.yaml (name, type, required, nullable, default, description, example,
+#     rules, items, params); `type` = string | integer | number | boolean | array | object.
+#   - Paths into the init request body (used by `from`): `requestId`, `service_method`, `data.<param>`, nested
+#     `data.<param>.<child>`. Paths into a response body (`status_param`) use the same dot notation.
+#   - Our process status (the same for all modules): `success` | `process` | `fail`.
+#   - `callback_url` is NOT listed under `remote_request.body.params` of any method: every module adds it itself to
+#     every request it sends (`http://demo.dev/<module.id>/v1/callback`, flow.md §1a) - it is not part of the mapping
+#     the user declares, and `generate-module` adds the code for it unconditionally.
+# =====================================================================================================================
+
+spec_version: 1
+
+# The module this spec belongs to (must equal module.name of module.yaml).
+module: test
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Remote service
+#   base_url       URL of the real remote service (no trailing slash)
+#   emulator_url   URL of the emulator used for testing - the module sends its request there instead of base_url;
+#                  the emulator plays the service at the SAME module id, `http://emulator.dev:81/<module.id>/...`
+#                  (docs/modules/README.md: emulator/modules/<id>, own bounded context)
+#   signature      how the request to the remote service is signed; the emulator checks the sign and the body params.
+#                  `enabled`: true | false. The algorithm / key handling is NOT decided yet (CLAUDE.md open decisions),
+#                  so it is intentionally absent here even when `enabled: true` - ask the user, never invent it.
+# ---------------------------------------------------------------------------------------------------------------------
+remote_service:
+  base_url: https://remote.example.com
+  emulator_url: http://emulator.dev:81
+  signature:
+    enabled: true
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Service methods (values of the `service_method` body parameter)
+#
+#   name            (required) value of `service_method`, unique in the file
+#   description     free text
+#   data            parameter definitions of `data` in the init request (same format as request parameters)
+#   remote_request  the request the module sends to the remote service on init
+#     method        HTTP method
+#     path          path after remote_service.base_url (emulator_url in tests)
+#     body.params   parameter definitions of the remote body, EXCLUDING `callback_url` (added unconditionally, see
+#                   above). Each may have `from` = a path into the init request (`data.param1`, `requestId`) or
+#                   `value` = a constant; a parameter with neither is set by module code.
+#     response      the response of the remote service to this request
+#       params        parameter definitions of the remote response body
+#       external_id_param  path of the parameter that holds the id of the process in the remote service (e.g.
+#                     `process_id`); the API stores it as `external_id` of its process record. ABSENT = no id returned.
+#       status_param  path of the parameter that holds the remote status (e.g. `status`, `result.state`)
+#       status_map    mapping of remote statuses to OUR status: list of {remote: [values], status: success|process|fail}.
+#                     Remote statuses can be complex; every remote value must appear in exactly one item.
+#                     `default_status` (optional) is used for remote values not listed.
+#   callback        OPTIONAL. Present only if the remote service sends callbacks. ABSENT = the service sends none and
+#                   the final result is in `remote_request.response` (the process is final after the init request).
+#     params        parameter definitions of the callback body
+#     external_id_param  path of the process id in the callback body: the API finds its record by `external_id` = this
+#                   value (required when the callback exists)
+#     status_param  path of the remote status in the callback body
+#     status_map    same format as above (remote callback statuses -> success|process|fail); drives the module's
+#                   `getCallbackStatus()`
+#     results       process results the emulator must be able to produce: {name, success: true|false, description};
+#                   tests must cover all of them (success and fail)
+# ---------------------------------------------------------------------------------------------------------------------
+service_methods:
+  # Service that sends a callback: the init response usually maps to `process`, the callback brings the final status.
+  - name: test_method
+    description: Example service method of the default module (service with a callback)
+    data:
+      - name: param1
+        type: integer
+        required: true
+        example: 111
+      - name: param2
+        type: string
+        required: true
+        example: test
+    remote_request:
+      method: POST
+      path: /test
+      body:
+        params:
+          - {name: id, type: string, from: requestId}
+          - {name: param1, type: integer, from: data.param1}
+          - {name: param2, type: string, from: data.param2}
+      response:
+        params:
+          - {name: process_id, type: string, required: true, example: "p-1001"}
+          - {name: state, type: string, required: true, example: accepted}
+        external_id_param: process_id
+        status_param: state
+        status_map:
+          - {remote: [accepted, queued, in_work], status: process}
+          - {remote: [rejected, error], status: fail}
+        default_status: fail
+    callback:
+      params:
+        - {name: process_id, type: string, required: true, example: "p-1001"}
+        - {name: status, type: string, required: true, example: completed}
+        - {name: error, type: string, nullable: true, description: "Error text when the process failed"}
+      external_id_param: process_id
+      status_param: status
+      status_map:
+        - {remote: [completed], status: success}
+        - {remote: [failed, expired], status: fail}
+      results:
+        - {name: completed, success: true, description: "The process finished successfully"}
+        - {name: failed, success: false, description: "The remote service reported an error"}
+
+  # Service WITHOUT a callback: the final result is in the response of the remote service (no `callback` key).
+  - name: test_instant_method
+    description: Example service method whose remote service returns the final result at once
+    data:
+      - name: param1
+        type: integer
+        required: true
+        example: 111
+    remote_request:
+      method: POST
+      path: /test/instant
+      body:
+        params:
+          - {name: id, type: string, from: requestId}
+          - {name: param1, type: integer, from: data.param1}
+      response:
+        params:
+          - {name: process_id, type: string, required: true, example: "p-1002"}
+          - {name: result, type: object, params: [{name: code, type: integer}]}
+        external_id_param: process_id
+        status_param: result.code
+        status_map:
+          - {remote: [0], status: success}
+          - {remote: [1, 2, 3], status: fail}
+        default_status: fail

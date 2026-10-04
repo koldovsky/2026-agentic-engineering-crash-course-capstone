@@ -1,0 +1,11 @@
+parameters:
+    level: 5
+    bootstrapFiles:
+        - vendor/yiisoft/yii2/Yii.php
+    paths:
+        - domain
+        - application
+        - infrastructure
+        - controllers
+        - modules
+    tmpDir: runtime/phpstan

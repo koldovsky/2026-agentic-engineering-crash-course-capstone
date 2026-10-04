@@ -1,0 +1,133 @@
+services:
+  nginx:
+    build:
+      context: ./docker/nginx
+    ports:
+      - "80:80"
+      - "81:81"
+    volumes:
+      - .:/app
+    depends_on:
+      - php-fpm
+    networks:
+      default:
+        aliases:
+          - demo.dev
+          - emulator.dev
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        PHP_BASE: php:8.3-fpm
+    command: ["php-fpm"]
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment: &php-environment
+      COMPOSER_GITHUB_TOKEN: ${COMPOSER_GITHUB_TOKEN:-}
+      XDEBUG_MODE: ${XDEBUG_MODE:-debug}
+      XDEBUG_CLIENT_HOST: ${XDEBUG_CLIENT_HOST:-host.docker.internal}
+      XDEBUG_CLIENT_PORT: ${XDEBUG_CLIENT_PORT:-9003}
+      PHP_IDE_CONFIG: serverName=demo.dev
+      DB_HOST: mysql
+      DB_NAME: demo
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      # one per application: both apps run in the same php-fpm / php-cli containers
+      DEMO_COOKIE_VALIDATION_KEY: ${DEMO_COOKIE_VALIDATION_KEY:-}
+      EMULATOR_COOKIE_VALIDATION_KEY: ${EMULATOR_COOKIE_VALIDATION_KEY:-}
+      # RabbitMQ: used by the emulator to delay a callback (docs/architecture/flow.md §6a)
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: ${RABBITMQ_USER}
+      RABBITMQ_PASSWORD: ${RABBITMQ_PASSWORD}
+      RABBITMQ_VHOST: /
+      # Module "test" signing key pair (demo/modules/test; docs/architecture/flow.md §1b)
+      TEST_API_KEY: ${TEST_API_KEY:-}
+      TEST_SECRET_KEY: ${TEST_SECRET_KEY:-}
+      # Module "mail_service" signing key pair (demo/modules/mail_service; docs/architecture/flow.md §1b)
+      MAIL_SERVICE_API_KEY: ${MAIL_SERVICE_API_KEY:-}
+      MAIL_SERVICE_SECRET_KEY: ${MAIL_SERVICE_SECRET_KEY:-}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  php-cli:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        PHP_BASE: php:8.3-cli
+    command: ["sleep", "infinity"]
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment: *php-environment
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+  emulator-queue-worker:
+    # Consumes the emulator's delayed-callback queue (docs/architecture/flow.md §6a) and never exits; separate from the
+    # one-off php-cli so `docker compose exec php-cli ...` is unaffected. Same image as php-cli.
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+      args:
+        PHP_BASE: php:8.3-cli
+    command: ["php", "yii", "queue/listen", "--verbose"]
+    working_dir: /app/emulator
+    volumes:
+      - .:/app
+    environment: *php-environment
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # management UI (http://localhost:15672)
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  mysql-data:
+  rabbitmq-data:

@@ -1,0 +1,20 @@
+<?php
+
+declare(strict_types=1);
+
+namespace app\domain\process;
+
+final readonly class ServiceMethod
+{
+    public const MAX_LENGTH = 128;
+
+    public function __construct(public string $value)
+    {
+        Text::assertValid($value, self::MAX_LENGTH, 'service_method');
+    }
+
+    public function equals(self $other): bool
+    {
+        return $this->value === $other->value;
+    }
+}

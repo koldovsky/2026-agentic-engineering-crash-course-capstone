@@ -1,0 +1,59 @@
+spec_version: 1
+
+module:
+  name: test
+  id: test
+  description: Test API module (demo/proof-of-concept for the module generation pipeline)
+  author:
+    name: Test
+    email: test@gmail.com
+
+requests:
+  - id: init
+    version: v1
+    method: POST
+    path: /init
+    summary: Init process - the module sends a request to the remote service
+    request:
+      body:
+        content_type: application/json
+        params:
+          - {name: requestId, type: string, required: true, example: "123344"}
+          - {name: service_method, type: string, required: true, description: "service_1 | service_2", example: service_1}
+          - {name: data, type: object, required: true, description: "Parameters of the service method (module.service.yaml: service_methods[].data)"}
+    responses:
+      - status: 200
+        description: Process created, request sent to the remote service; `status` is the mapped status
+        content_type: application/json
+        body:
+          params:
+            - {name: requestId, type: string, required: true, example: "123344"}
+            - {name: status, type: string, required: true, description: "success | process | fail", example: process}
+      - status: 422
+        description: Validation failed
+        content_type: application/json
+        body:
+          params:
+            - name: errors
+              type: array
+              items: {type: object, params: [{name: field, type: string}, {name: message, type: string}]}
+
+  - id: callback
+    version: v1
+    method: POST
+    path: /callback
+    summary: Callback from the remote service with the process result or error
+    request:
+      body:
+        content_type: application/json
+        params: []
+    responses:
+      - status: 200
+        description: Status of the process record updated
+        content_type: application/json
+        body:
+          params: []
+
+migrations:
+  register_service: true                        # RegisterService also sets service.api_key/secret_key (signed module)
+  extra_tables: []
