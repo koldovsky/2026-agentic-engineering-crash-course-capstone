@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "deny": [
+      "Edit(docs/qa/approvals/**)",
+      "Bash(node scripts/check-factory-integrity.mjs --approve:*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR/scripts/hooks-post-edit.mjs\""
+          }
+        ]
+      }
+    ]
+  }
+}

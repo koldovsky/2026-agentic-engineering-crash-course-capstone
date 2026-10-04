@@ -1,0 +1,102 @@
+{
+  "generatedBy": "lean review (AGENTS.md lean mode): one code-reviewer and one security-reviewer agent; this file written at close-out from section \"Review fixes, round 1\" of tasks.md and commits f042298 and 3ee1b0b, because the reviewers' own reports were not saved",
+  "scope": "add-session-admin, the slice diff on merged main 1b5b8a3",
+  "change": "add-session-admin",
+  "baseRef": "1b5b8a3",
+  "headRef": "3ee1b0b",
+  "dimensions": 2,
+  "confirmedTitles": 14,
+  "findings": [
+    {
+      "title": "M1 the empty-source guard of backup.sh counted media only, so a run with files only in drafts was refused",
+      "severity": "major",
+      "status": "fixed",
+      "fixedIn": "f042298"
+    },
+    {
+      "title": "M2 draft copies were not in the nightly backup, restore.sh or the restore runbook",
+      "severity": "major",
+      "status": "fixed",
+      "fixedIn": "f042298"
+    },
+    {
+      "title": "M3 the deploy did not make data/drafts (owner 10001:10001, mode 755) before up, so a fresh server would fail at start",
+      "severity": "major",
+      "status": "fixed",
+      "fixedIn": "f042298",
+      "note": "the deploy step is not in the sealed deploy.yml; data/drafts was made by hand on the server and the step moved to improve-PD-47 for the owner (tasks.md R1.14)"
+    },
+    {
+      "title": "M4 an unpublish that failed half way left a set of copies in the wrong folder with no retry (security minor 1)",
+      "severity": "major",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m1 lost update and lock order: Photo wrote every column, order and delete of a session took the Overview lock after the session lock, a deadlock was an uncoded 500",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m2 a publish that failed after its moves left the sets in media",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m3 an upload answered 401 or 403 kept the queue running with no clear message",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m4 the editor kept a stale photo order and cover mark after a reorder or a delete",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m5 the editor poll could reorder tiles on screen and kept polling after sign-in, stale token or session_gone",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m6 the 301 of an old address carried Cache-Control public, max-age=300; it is now no-store",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m7 the seed published through its own path and did not refuse a story over 20000 or a description over 500 characters",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "m8 the check constraints of V8 against live data (checked, no change needed: longest story 156 characters, no descriptions, 1 session, 16 photos)",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "S1 security minor 1: see M4 (a failed unpublish move)",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    },
+    {
+      "title": "S2 security minor 2: an upload could fill the disk; UploadSpaceGuard refuses under PHOTO_MIN_FREE_MB with 507 disk_low",
+      "severity": "minor",
+      "status": "fixed",
+      "fixedIn": "3ee1b0b"
+    }
+  ],
+  "criticalFindings": 0,
+  "securityMajorFindings": 0,
+  "minorsNotFixed": "none",
+  "clean": true,
+  "cleanBecause": "every major finding is fixed test-first (proof/review1-fix-red.txt, proof/review1-fix-green.txt); the Chromium e2e of the touched admin specs ran green over the fixes (proof/review1-fix-e2e.txt, 20 passed on merged main 45a1715); the three-engine e2e ran green on b2c2b16 before the fixes (proof/e2e-slice-end.txt, 794 passed); the slice is live at 271832a (proof/live-deploy.txt)",
+  "generatedAt": "2026-10-01T00:30:00Z"
+}

@@ -1,0 +1,839 @@
+▶ the systemd units
+  ✔ the timer fires at 03:00 Kyiv time and catches up a night the server slept through (0.799625ms)
+  ✔ the service is a oneshot run as deploy from /srv/portfolio with a 3900 second backstop (0.568958ms)
+  ✖ the service stops within 120 seconds, gains no privileges, and keeps the real /tmp because the Docker daemon mounts the lock folder from it (1.469333ms)
+  ✔ the drill overlay takes the published ports off the backend and Caddy and gives the drill its own network (0.710458ms)
+  ✖ the drill overlay lowers the memory of Postgres and the backend so the drill fits beside the live stack on the 2 GB server (0.640042ms)
+✖ the systemd units (5.105625ms)
+▶ install-backup.sh
+  ✔ stops with a message that names a missing tool, sends nothing and enables no timer (330.692916ms)
+  ✔ puts the scripts in /srv/portfolio/backup owned by deploy with mode 750 and the units in /etc/systemd/system (819.142292ms)
+  ✔ pulls the pinned rclone image as deploy, reloads systemd and enables the timer (510.221041ms)
+  ✔ prints the SHA-256 of every file it sent and the timer line, and never reads .env (531.116083ms)
+  ✔ an ssh that fails stops the installer with a message (365.609708ms)
+✔ install-backup.sh (2557.188666ms)
+▶ the written restore procedure
+  ✔ lists the commands to download and load the dump and to put the photo files back (0.483ms)
+  ✔ says how to check that the site shows the restored sessions (0.120041ms)
+  ✔ gives the rclone line that brings one file back from photos/archive (0.099084ms)
+  ✔ says where .env, the certificates and the admin logins come from after a restore (0.143666ms)
+  ✔ describes the drill variant with the project name, the override file and empty Telegram settings (0.087541ms)
+  ✖ every docker compose command of the drill names the project with -p portfolio-drill, the teardown too (1.039791ms)
+  ✖ the drill section says which user runs it, to copy the three compose files, and to check the memory first (0.389709ms)
+  ✖ the restore is into an empty database and in one transaction, in the script and by hand (0.357458ms)
+  ✖ the README says the backend holds no R2 key and asks for a bucket lock on db/ (1.275834ms)
+  ✔ the README has a Backups section with the job, the R2 layout, the exit codes and the commands (0.245ms)
+  ✔ .env.example says the four R2 names are read by the backup job (0.358959ms)
+✖ the written restore procedure (4.881583ms)
+▶ env_value reads a .env file as text
+  ✔ keeps $, # and inner spaces, and drops one pair of matching quotes and the spaces around the value (37.941958ms)
+  ✔ does not run the file and does not mistake a longer name for the name (11.966583ms)
+  ✔ a missing name and a repeated name are refused with different exit codes (16.655167ms)
+  ✔ a value that is only spaces reads as empty (5.974083ms)
+✔ env_value reads a .env file as text (38.5115ms)
+▶ mask_secrets replaces each secret by its literal text
+  ✔ longest first, so a secret inside another leaves no half of it behind (5.895666ms)
+  ✔ regular-expression characters in a secret match only themselves (5.583125ms)
+  ✔ an empty list of secrets leaves the text as it is, and an empty secret is skipped (11.509375ms)
+  ✔ a secret that repeats on one line is replaced every time (6.029458ms)
+✔ mask_secrets replaces each secret by its literal text (29.450834ms)
+▶ date arithmetic
+  ✔ add_days crosses a month end, a leap day and a year end (46.18625ms)
+  ✔ days_between counts calendar days, with a sign (37.788458ms)
+  ✔ run_date is BACKUP_TODAY when set and a date in Europe/Kyiv time otherwise (11.482417ms)
+✔ date arithmetic (46.358125ms)
+▶ retention names
+  ✔ run date 2026-11-30 keeps the dump of 2026-10-31 and removes the one of 2026-10-30 (11.409458ms)
+  ✔ names that match no pattern are never printed (9.210709ms)
+  ✔ archive folders follow the same boundary, and photos/current and other folders are never printed (9.861542ms)
+  ✔ a future date is never expired (10.128875ms)
+✔ retention names (12.988875ms)
+▶ job IDs, log lines and the combined report
+  ✔ two job IDs differ and have the documented shape (14.028833ms)
+  ✔ log_line writes one line with the time, the job ID, the step and the result (9.171875ms)
+  ✔ count_combined counts the lines of one symbol (35.928416ms)
+✔ job IDs, log lines and the combined report (37.405333ms)
+▶ the rclone image
+  ✖ the default image is pinned by tag and digest, so a moved tag cannot change what holds the R2 keys (4.042041ms)
+✖ the rclone image (4.473375ms)
+▶ local Compose view
+  ✔ postgres publishes 127.0.0.1:5433 on the Mac for the owner's database tools, and no port on the server (329.651375ms)
+  ✔ backend publishes only 127.0.0.1:8080:8080 and frontend only 127.0.0.1:3000:3000 (111.621791ms)
+  ✔ all four services restart unless stopped (124.863458ms)
+  ✔ memory limits are 896, 320, 256 and 96 MB, 1568 MB in total (187.573458ms)
+  ✔ the backend's JAVA_TOOL_OPTIONS caps the heap at 384 MB with -Xmx384m (206.436583ms)
+  ✔ the frontend's NODE_OPTIONS caps the heap with --max-old-space-size=192 (159.382083ms)
+  ✔ postgres starts with -c shared_buffers=64MB (103.815583ms)
+  ✔ caddy mounts ./data/media read-only at /srv/media and nothing that holds originals (102.6055ms)
+  ✔ Caddy sees only the served folder: caddy binds only ./data/media, read-only; backend binds ./data at /srv/data (127.564959ms)
+  ✔ backend sets VIPS_CONCURRENCY=1 (119.580458ms)
+  ✔ caddy keeps /data on the named volume caddy-data (133.227667ms)
+✔ local Compose view (1708.016667ms)
+▶ server Compose view
+  ✔ postgres publishes 127.0.0.1:5433 on the Mac for the owner's database tools, and no port on the server (152.110875ms)
+  ✔ backend publishes only 127.0.0.1:8080:8080 and frontend only 127.0.0.1:3000:3000 (120.695791ms)
+  ✔ all four services restart unless stopped (158.620584ms)
+  ✔ memory limits are 896, 320, 256 and 96 MB, 1568 MB in total (204.335834ms)
+  ✔ the backend's JAVA_TOOL_OPTIONS caps the heap at 384 MB with -Xmx384m (123.918875ms)
+  ✔ the frontend's NODE_OPTIONS caps the heap with --max-old-space-size=192 (144.190875ms)
+  ✔ postgres starts with -c shared_buffers=64MB (151.292458ms)
+  ✔ caddy mounts ./data/media read-only at /srv/media and nothing that holds originals (104.145916ms)
+  ✔ Caddy sees only the served folder: caddy binds only ./data/media, read-only; backend binds ./data at /srv/data (99.180875ms)
+  ✔ backend sets VIPS_CONCURRENCY=1 (93.135833ms)
+  ✔ caddy keeps /data on the named volume caddy-data (112.714583ms)
+✔ server Compose view (1464.939375ms)
+▶ public site settings
+  ✔ the local frontend gets SITE_URL http://127.0.0.1:8000 unless the environment sets it (272.197459ms)
+  ✔ the server frontend builds SITE_URL from SITE_DOMAIN, so no new setting appears (117.914291ms)
+  ✔ the backend gets INSTAGRAM_URL and TELEGRAM_URL from .env in both views, empty when unset (366.977417ms)
+✔ public site settings (757.222208ms)
+▶ admin sign-in settings
+  ✔ the backend gets ADMIN_EMAILS, GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET from .env in both views, empty when unset on the Mac (313.926916ms)
+  ✔ the local backend gets SITE_URL http://127.0.0.1:8000 unless the environment sets it (200.15875ms)
+  ✔ the server backend builds SITE_URL from SITE_DOMAIN, like the frontend (110.76125ms)
+  ✔ without GOOGLE_CLIENT_ID, the server view exits non-zero and names the setting (196.81075ms)
+  ✔ without GOOGLE_CLIENT_SECRET, the server view exits non-zero and names the setting (210.631333ms)
+  ✔ the server overlay pins the backend profile to exactly prod, also when the shell sets test (319.373542ms)
+  ✔ deploy/ci.env names the three sign-in settings, so the CI stack starts with placeholders (0.428958ms)
+✔ admin sign-in settings (1352.434875ms)
+▶ booking request settings
+  ✔ the backend gets the four names from the settings file in both views (185.178209ms)
+  ✔ an unset hourly limit is 10 and the three Telegram values are empty on the Mac (162.373834ms)
+  ✔ without TELEGRAM_BOT_TOKEN, or with it empty, the server view exits non-zero and names the setting (331.311333ms)
+  ✔ without TELEGRAM_REQUESTS_CHAT_ID, or with it empty, the server view exits non-zero and names the setting (281.097917ms)
+  ✔ the errors chat ID and the hourly limit stay optional on the server (119.807959ms)
+  ✔ deploy/ci.env holds blank placeholders for the three Telegram names (0.328ms)
+  ✔ no Telegram value reaches an image: no build argument or image label carries one (94.9465ms)
+✔ booking request settings (1175.33625ms)
+▶ local view
+  ✔ caddy publishes 127.0.0.1:8000:80, and every published port binds 127.0.0.1 (93.485292ms)
+  ✔ caddy's fixed address lies in the network subnet and equals Spring's internal-proxies (85.954791ms)
+✔ local view (179.571125ms)
+▶ server view
+  ✔ only caddy publishes on all addresses, and only 80 and 443 over TCP (91.07275ms)
+  ✔ has no build section and names images <IMAGE_PREFIX>-<service>:<IMAGE_TAG> (127.117916ms)
+  ✔ pins SPRING_PROFILES_ACTIVE to prod (91.703833ms)
+  ✔ without SITE_DOMAIN, docker compose config exits non-zero and names the setting (165.034791ms)
+  ✔ the local view has no default password; an unset POSTGRES_PASSWORD stays empty (92.153708ms)
+  ✔ passes POSTGRES_PASSWORD from .env to Postgres and to Spring (93.591458ms)
+  ✔ with POSTGRES_PASSWORD unset, docker compose config exits non-zero and names the setting (174.299125ms)
+  ✔ with POSTGRES_PASSWORD empty, docker compose config exits non-zero and names the setting (152.293042ms)
+  ✔ without IMAGE_TAG, docker compose config exits non-zero and names the setting (163.198833ms)
+✔ server view (1150.914792ms)
+▶ image revision label
+  ✔ each built image is labelled org.opencontainers.image.revision with IMAGE_TAG (76.981375ms)
+✔ image revision label (77.049667ms)
+✔ every service caps its log files: json-file, at most 5 files of 10 MB, in both views (174.423833ms)
+▶ error alert settings
+  ✔ the local view points the backend at the stub and publishes the stub on 127.0.0.1:8090 only (97.519708ms)
+  ✔ the stub service starts only with the profile stubs, so the default local view keeps its four services (100.210666ms)
+  ✔ the server view has no telegram-stub and sends alerts to the real API with a 10 minute window (87.846291ms)
+  ✔ a TELEGRAM_API_URL in .env cannot redirect the server's alerts (92.244208ms)
+  ✔ every masked secret reaches the backend in both views (161.624167ms)
+  ✖ the internet-facing backend holds no R2 key, in both views and with the keys set in .env (79.523417ms)
+  ✖ application.properties reads no R2 name, so the backend does not look for a key it is not given (0.477834ms)
+  ✔ the backend gets the alert settings from .env, and the window is 10m when none is set (149.769ms)
+  ✔ the frontend gets ENABLE_TEST_ERRORS from the environment locally, empty by default (249.497459ms)
+  ✔ the server frontend never has the test failure routes on, whatever .env or the shell holds (81.841584ms)
+✖ error alert settings (1100.877625ms)
+▶ restore.sh list
+  ✔ prints each dump date newest first with its size, and the archive dates (754.288917ms)
+✔ restore.sh list (755.061334ms)
+▶ A restore never writes to R2
+  ✔ every rclone call of every command is a copy, lsf or lsjson, and the bucket is unchanged (837.546166ms)
+✔ A restore never writes to R2 (837.742375ms)
+▶ restore.sh db
+  ✔ loads the newest dump by default with --clean --if-exists --no-owner (284.394292ms)
+  ✔ --date picks that day's dump (272.040833ms)
+  ✔ refuses while the backend container runs, says to stop it and leaves the database alone (84.284ms)
+  ✔ refuses a date that has no dump, names it and lists the dates that exist (143.122208ms)
+  ✔ refuses an empty bucket and a malformed date (179.524083ms)
+  ✔ a restore that fails says so and exits non-zero (270.3305ms)
+  ✔ --drill refuses a non-empty TELEGRAM_BOT_TOKEN and never shows its value (85.708458ms)
+  ✔ --drill refuses a non-empty TELEGRAM_REQUESTS_CHAT_ID and never shows its value (93.684625ms)
+  ✔ --drill refuses a non-empty TELEGRAM_ERRORS_CHAT_ID and never shows its value (105.772542ms)
+  ✔ --drill refuses a non-empty OPENAI_API_KEY and never shows its value (118.677625ms)
+  ✔ --drill goes on when the four settings are empty (363.4345ms)
+  ✖ loads the dump in one transaction, so a failed load leaves the database as it was (315.00975ms)
+  ✖ a backend that is restarting counts as running (331.378417ms)
+  ✖ refuses to restore into the live project from a folder that is the drill's, and names --drill (316.034375ms)
+  ✔ a missing R2 setting is named and no R2 call is made (51.163916ms)
+✖ restore.sh db (791.230125ms)
+▶ restore.sh db --drill uses its own Compose project
+  ✖ refuses when the folder's project is the live one, names COMPOSE_PROJECT_NAME and does not send the operator to stop the live backend (312.938792ms)
+  ✖ refuses when the postgres container of the folder belongs to the live project, whatever the name resolves to (310.564208ms)
+  ✖ refuses when the project name cannot be read, because it then is not known to be the drill (326.356625ms)
+  ✖ a running drill backend is to be stopped with the drill's own project name, never a bare compose command (112.567667ms)
+  ✔ goes on in the drill project and loads the dump (290.907083ms)
+✖ restore.sh db --drill uses its own Compose project (413.4205ms)
+▶ restore.sh leaves no dump behind
+  ✖ a TERM during the download removes the temporary folder and stops the rclone container (208.592333ms)
+  ✖ the script sets umask 077 before it makes its temporary folder (0.448666ms)
+✖ restore.sh leaves no dump behind (209.2375ms)
+▶ restore.sh photos
+  ✔ copies photos/current back under ./data, leaves the archive alone and deletes nothing on the disk (108.413792ms)
+✔ restore.sh photos (108.54975ms)
+▶ restore.sh check
+  ✔ equal stacks give one PASS line per comparison and exit 0, and a different Date header does not matter (315.380209ms)
+  ✔ a changed row count fails and names the table (316.326458ms)
+  ✔ a changed file hash fails and names the file (303.439208ms)
+  ✔ a missing file fails the hashes (309.243084ms)
+  ✔ a different /api/sessions answer fails (253.70225ms)
+  ✔ check writes nothing to R2 and calls no rclone (242.910208ms)
+✔ restore.sh check (562.879542ms)
+▶ restore.sh usage
+  ✔ an unknown command prints the four commands and exits non-zero (12.050416ms)
+✔ restore.sh usage (12.265ms)
+ℹ tests 134
+ℹ suites 26
+ℹ pass 116
+ℹ fail 18
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9208.025833
+
+✖ failing tests:
+
+test at tests/deploy/backup-install.test.mjs:35:3
+✖ the service stops within 120 seconds, gains no privileges, and keeps the real /tmp because the Docker daemon mounts the lock folder from it (1.469333ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^TimeoutStopSec=120$/m. Input:
+  
+  '[Unit]\n' +
+    'Description=Nightly backup of the database and the photo files to R2\n' +
+    'After=docker.service\n' +
+    'Wants=docker.service\n' +
+    '\n' +
+    '[Service]\n' +
+    'Type=oneshot\n' +
+    'User=deploy\n' +
+    'WorkingDirectory=/srv/portfolio\n' +
+    'ExecStart=/bin/sh /srv/portfolio/backup/backup.sh\n' +
+    '# The script stops itself after 60 minutes; this is the backstop for a script that hangs.\n' +
+    'TimeoutStartSec=3900\n' +
+    'Nice=10\n' +
+    'IOSchedulingClass=idle\n'
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '[Unit]\nDescription=Nightly backup of the database and the photo files to R2\nAfter=docker.service\nWants=docker.service\n\n[Service]\nType=oneshot\nUser=deploy\nWorkingDirectory=/srv/portfolio\nExecStart=/bin/sh /srv/portfolio/backup/backup.sh\n# The script stops itself after 60 minutes; this is the backstop for a script that hangs.\nTimeoutStartSec=3900\nNice=10\nIOSchedulingClass=idle\n',
+    expected: /^TimeoutStopSec=120$/m,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/deploy/backup-install.test.mjs:51:3
+✖ the drill overlay lowers the memory of Postgres and the backend so the drill fits beside the live stack on the 2 GB server (0.640042ms)
+  AssertionError [ERR_ASSERTION]: postgres
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/deploy/backup-install.test.mjs:188:3
+✖ every docker compose command of the drill names the project with -p portfolio-drill, the teardown too (1.039791ms)
+  AssertionError [ERR_ASSERTION]: the drill has too few compose commands
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/deploy/backup-install.test.mjs:198:3
+✖ the drill section says which user runs it, to copy the three compose files, and to check the memory first (0.389709ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /sudo -u deploy/. Input:
+  
+  ' (drill)\n' +
+    '\n' +
+    "The drill restores the latest backup into a separate Compose project, `portfolio-drill`, in `/srv/portfolio-drill`, beside the live stack. It runs only Postgres and the backend, with its own database volume and its own `data/` folder, and publishes no port. `compose.drill.yml` (copied by `install-backup.sh` into `/srv/portfolio/backup/`) removes the published ports and gives the drill's network Docker's own address range, because the live stack holds 172.30.80.0/24.\n" +
+    '\n' +
+    "The drill's `.env` is a copy of the live one with `COMPOSE_PROJECT_NAME=portfolio-drill`, `COMPOSE_FILE=compose.yml:compose.server.yml:compose.drill.yml`, and `TELEGRAM_BOT_TOKEN=`, `TELEGRAM_REQUESTS_CHAT_ID=`, `TELEGRAM_ERRORS_CHAT_ID=` and `OPENAI_API_KEY=` left empty. They must be empty: the restored `booking_request` rows can hold notices that were never sent, and the backend would post them to the real groups. `restore.sh db --drill` refuses, and names the setting, when one of the four is not empty.\n" +
+    '\n' +
+    '```sh\n' +
+    'cd /srv/portfolio-drill\n' +
+    'sh /srv/portfolio/backup/restore.sh list\n' +
+    'sh /srv/portfolio/backup/restore.sh db --drill\n' +
+    'sh /srv/portfolio/backup/restore.sh photos\n' +
+    'docker compose up -d --wait backend\n' +
+    'sh /srv/portfolio/backup/restore.sh check /srv/portfolio\n' +
+    '```\n' +
+    '\n' +
+    '`check` compares the drill with the live stack and prints one `PASS` or `FAIL` line for each of: the row count of every table except the two login tables, the SHA-256 list of every file under `originals/` and `media/`, and the answer of `GET /api/sessions` from both backends. The comparison is exact only when nothing was edited on the live site since the last backup run. The backend log of the drill holds one line saying alerts are off. Tear the drill down with `docker compose down -v --remove-orphans` and `rm -rf /srv/portfolio-drill`. The record of the first rehearsal is `docs/qa/restore-rehearsal.md`.\n'
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: " (drill)\n\nThe drill restores the latest backup into a separate Compose project, `portfolio-drill`, in `/srv/portfolio-drill`, beside the live stack. It runs only Postgres and the backend, with its own database volume and its own `data/` folder, and publishes no port. `compose.drill.yml` (copied by `install-backup.sh` into `/srv/portfolio/backup/`) removes the published ports and gives the drill's network Docker's own address range, because the live stack holds 172.30.80.0/24.\n\nThe drill's `.env` is a copy of the live one with `COMPOSE_PROJECT_NAME=portfolio-drill`, `COMPOSE_FILE=compose.yml:compose.server.yml:compose.drill.yml`, and `TELEGRAM_BOT_TOKEN=`, `TELEGRAM_REQUESTS_CHAT_ID=`, `TELEGRAM_ERRORS_CHAT_ID=` and `OPENAI_API_KEY=` left empty. They must be empty: the restored `booking_request` rows can hold notices that were never sent, and the backend would post them to the real groups. `restore.sh db --drill` refuses, and names the setting, when one of the four is not empty.\n\n```sh\ncd /srv/portfolio-drill\nsh /srv/portfolio/backup/restore.sh list\nsh /srv/portfolio/backup/restore.sh db --drill\nsh /srv/portfolio/backup/restore.sh photos\ndocker compose up -d --wait backend\nsh /srv/portfolio/backup/restore.sh check /srv/portfolio\n```\n\n`check` compares the drill with the live stack and prints one `PASS` or `FAIL` line for each of: the row count of every table except the two login tables, the SHA-256 list of every file under `originals/` and `media/`, and the answer of `GET /api/sessions` from both backends. The comparison is exact only when nothing was edited on the live site since the last backup run. The backend log of the drill holds one line saying alerts are off. Tear the drill down with `docker compose down -v --remove-orphans` and `rm -rf /srv/portfolio-drill`. The record of the first rehearsal is `docs/qa/restore-rehearsal.md`.\n",
+    expected: /sudo -u deploy/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/deploy/backup-install.test.mjs:207:3
+✖ the restore is into an empty database and in one transaction, in the script and by hand (0.357458ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /empty database/i. Input:
+  
+  '# Restore from R2\n' +
+    '\n' +
+    'How to bring the database and the photo files back onto a fresh server, and how to rehearse it. The backups are made by the nightly job described in `README.md` ("Backups"). The job keeps, in the private R2 bucket: one dump per day under `db/` (30 days), a mirror of the photo files under `photos/current/`, and what a night deleted or replaced under `photos/archive/<date>/` (30 days).\n' +
+    '\n' +
+    '`deploy/scripts/restore.sh` does the work and only reads from R2: it never writes, moves or deletes anything there. It runs from a Compose folder and reads `./.env` (the four `R2_*` names) and `./data`. Every command of it has a plain version below, for a day when the script cannot run.\n' +
+    '\n' +
+    '## What no backup holds\n' +
+    '\n' +
+    '| What | Where it comes from after a restore |\n' +
+    '|---|---|\n' +
+    '| `.env` | `deploy/.env.prod` on the owner\'s Mac, and the copy in 1Password. Put it on the server as in `README.md` ("First setup", step 4), then `push-env.sh` for later changes |\n' +
+    "| Caddy's certificates | Nothing to restore: Caddy asks Let's Encrypt for new ones by its own at the first start, once DNS points at the server |\n" +
+    '| The admin logins | The dump holds the login tables empty on purpose (each row is a live 30 day cookie), so every admin has to sign in again with Google |\n' +
+    '\n' +
+    '## Restore a fresh server\n' +
+    '\n' +
+    '1. Set the server up as in `README.md` ("First setup"): the two users, Docker, `/srv/portfolio` with `data/media`, `data/originals`, `data/staging` and `data/seed` owned by uid 10001, `.env` from `deploy/.env.prod`. From the Mac run `sh deploy/scripts/install-backup.sh`, which puts `restore.sh` in `/srv/portfolio/backup/`.\n' +
+    "2. Start only the database: `sudo -u deploy sh -c 'cd /srv/portfolio && docker compose up -d --wait postgres'`. The backend must not run while the database is restored; `restore.sh db` refuses while it does.\n" +
+    '3. See what R2 holds, newest dump first, with sizes, and the archive dates:\n' +
+    '\n' +
+    '   ```sh\n' +
+    "   sudo -u deploy sh -c 'cd /srv/portfolio && sh backup/restore.sh list'\n" +
+    '   ```\n' +
+    '4. Load a dump, the newest by default (`--date 2026-10-01` picks one day). The script replaces every table of the database with `pg_restore --clean --if-exists --no-owner`:\n' +
+    '\n' +
+    '   ```sh\n' +
+    "   sudo -u deploy sh -c 'cd /srv/portfolio && sh backup/restore.sh db'\n" +
+    '   ```\n' +
+    '5. Put the photo files back. `photos` copies `photos/current/originals` and `photos/current/media` into `./data` and deletes nothing there. It restores `photos/current/` only, not the archive:\n' +
+    '\n' +
+    '   ```sh\n' +
+    "   sudo -u deploy sh -c 'cd /srv/portfolio && sh backup/restore.sh photos'\n" +
+    '   ```\n' +
+    "6. Start the stack: `sudo -u deploy sh -c 'cd /srv/portfolio && docker compose up -d --remove-orphans'`, or let the next deploy do it.\n" +
+    '7. Check that the site shows the restored sessions. On the server `curl -s http://127.0.0.1:8080/api/sessions` answers the published sessions as JSON, and `https://<SITE_DOMAIN>/` lists them. Compare the titles with what you expect from the day of the dump. Then sign in to `/admin` with Google: there is no old login, and the sessions and photos are there.\n' +
+    '\n' +
+    '## By hand, when the script cannot run\n' +
+    '\n' +
+    'Give the shell the R2 settings without running `.env` as code, and define one shell function named `rclone`, which runs the pinned image in a container. `RC_USER` is the owner of what the container writes: `$(id -u):$(id -g)` for a dump, `10001:10001` for photo files.\n' +
+    '\n' +
+    '```sh\n' +
+    'cd /srv/portfolio\n' +
+    'export RCLONE_CONFIG_R2_TYPE=s3 RCLONE_CONFIG_R2_PROVIDER=Cloudflare RCLONE_CONFIG_R2_REGION=auto RCLONE_CONFIG_R2_NO_CHECK_BUCKET=true\n' +
+    'export RCLONE_CONFIG_R2_ENDPOINT=https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com\n' +
+    'read -rs RCLONE_CONFIG_R2_ACCESS_KEY_ID; read -rs RCLONE_CONFIG_R2_SECRET_ACCESS_KEY\n' +
+    'export RCLONE_CONFIG_R2_ACCESS_KEY_ID RCLONE_CONFIG_R2_SECRET_ACCESS_KEY\n' +
+    'rclone() { docker run --rm --user "${RC_USER:-$(id -u):$(id -g)}" -v "$PWD/data:/data" -v "$PWD:/work" \\\n' +
+    '  -e RCLONE_CONFIG_R2_TYPE -e RCLONE_CONFIG_R2_PROVIDER -e RCLONE_CONFIG_R2_REGION -e RCLONE_CONFIG_R2_NO_CHECK_BUCKET \\\n' +
+    '  -e RCLONE_CONFIG_R2_ENDPOINT -e RCLONE_CONFIG_R2_ACCESS_KEY_ID -e RCLONE_CONFIG_R2_SECRET_ACCESS_KEY \\\n' +
+    '  rclone/rclone:1.75.1 --config /dev/null "$@"; }\n' +
+    '```\n' +
+    '\n' +
+    'Type the two keys at the prompts (from 1Password or `deploy/.env.prod`); nothing is echoed or kept in a file. Then:\n' +
+    '\n' +
+    '```sh\n' +
+    'rclone lsf --format sp --files-only r2:<R2_BUCKET>/db                # what `list` prints: size;name\n' +
+    'rclone copy r2:<R2_BUCKET>/db/portfolio-<date>.dump /work            # the dump lands in ./portfolio-<date>.dump\n' +
+    'docker compose stop backend\n' +
+    'docker compose exec -T postgres pg_restore --clean --if-exists --no-owner -U portfolio -d portfolio < portfolio-<date>.dump\n' +
+    'RC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/current/originals /data/originals\n' +
+    'RC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/current/media /data/media\n' +
+    'rm portfolio-<date>.dump\n' +
+    '```\n' +
+    '\n' +
+    '### One photo back from the archive\n' +
+    '\n' +
+    'A photo that the photographer deleted sits under `photos/archive/<date>/`, where `<date>` is the run that found it gone (30 days). Its files come back with one line each, using the same paths as on the disk:\n' +
+    '\n' +
+    '```sh\n' +
+    'RC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/archive/<date>/originals/<photoId>.jpg /data/originals\n' +
+    'RC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/archive/<date>/media/<photoId> /data/media/<photoId>\n' +
+    '```\n' +
+    '\n' +
+    'The files alone do not bring the photo back on the site: its database row went with the delete. The row is in every dump from before that run. Restore such a dump in the drill project below and copy the row over by hand.\n' +
+    '\n' +
+    '## The rehearsal (drill)\n' +
+    '\n' +
+    "The drill restores the latest backup into a separate Compose project, `portfolio-drill`, in `/srv/portfolio-drill`, beside the live stack. It runs only Postgres and the backend, with its own database volume and its own `data/` folder, and publishes no port. `compose.drill.yml` (copied by `install-backup.sh` into `/srv/portfolio/backup/`) removes the published ports and gives the drill's network Docker's own address range, because the live stack holds 172.30.80.0/24.\n" +
+    '\n' +
+    "The drill's `.env` is a copy of the live one with `COMPOSE_PROJECT_NAME=portfolio-drill`, `COMPOSE_FILE=compose.yml:compose.server.yml:compose.drill.yml`, and `TELEGRAM_BOT_TOKEN=`, `TELEGRAM_REQUESTS_CHAT_ID=`, `TELEGRAM_ERRORS_CHAT_ID=` and `OPENAI_API_KEY=` left empty. They must be empty: the restored `booking_request` rows can hold notices that were never sent, and the backend would post them to the real groups. `restore.sh db --drill` refuses, and names the setting, when one of the four is not empty.\n" +
+    '\n' +
+    '```sh\n' +
+    'cd /srv/portfolio-drill\n' +
+    'sh /srv/portfolio/backup/restore.sh list\n' +
+    'sh /srv/portfolio/backup/restore.sh db --drill\n' +
+    'sh /srv/portfolio/backup/restore.sh photos\n' +
+    'docker compose up -d --wait backend\n' +
+    'sh /srv/portfolio/backup/restore.sh check /srv/portfolio\n' +
+    '```\n' +
+    '\n' +
+    '`check` compares the drill with the live stack and prints one `PASS` or `FAIL` line for each of: the row count of every table except the two login tables, the SHA-256 list of every file under `originals/` and `media/`, and the answer of `GET /api/sessions` from both backends. The comparison is exact only when nothing was edited on the live site since the last backup run. The backend log of the drill holds one line saying alerts are off. Tear the drill down with `docker compose down -v --remove-orphans` and `rm -rf /srv/portfolio-drill`. The record of the first rehearsal is `docs/qa/restore-rehearsal.md`.\n'
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '# Restore from R2\n\nHow to bring the database and the photo files back onto a fresh server, and how to rehearse it. The backups are made by the nightly job described in `README.md` ("Backups"). The job keeps, in the private R2 bucket: one dump per day under `db/` (30 days), a mirror of the photo files under `photos/current/`, and what a night deleted or replaced under `photos/archive/<date>/` (30 days).\n\n`deploy/scripts/restore.sh` does the work and only reads from R2: it never writes, moves or deletes anything there. It runs from a Compose folder and reads `./.env` (the four `R2_*` names) and `./data`. Every command of it has a plain version below, for a day when the script cannot run.\n\n## What no backup holds\n\n| What | Where it comes from after a restore |\n|---|---|\n| `.env` | `deploy/.env.prod` on the owner\'s Mac, and the copy in 1Password. Put it on the server as in `README.md` ("First setup", step 4), then `push-env.sh` for later changes |\n| Caddy\'s certificates | Nothing to restore: Caddy asks Let\'s Encrypt for new ones by its own at the first start, once DNS points at the server |\n| The admin logins | The dump holds the login tables empty on purpose (each row is a live 30 day cookie), so every admin has to sign in again with Google |\n\n## Restore a fresh server\n\n1. Set the server up as in `README.md` ("First setup"): the two users, Docker, `/srv/portfolio` with `data/media`, `data/originals`, `data/staging` and `data/seed` owned by uid 10001, `.env` from `deploy/.env.prod`. From the Mac run `sh deploy/scripts/install-backup.sh`, which puts `restore.sh` in `/srv/portfolio/backup/`.\n2. Start only the database: `sudo -u deploy sh -c \'cd /srv/portfolio && docker compose up -d --wait postgres\'`. The backend must not run while the database is restored; `restore.sh db` refuses while it does.\n3. See what R2 holds, newest dump first, with sizes, and the archive dates:\n\n   ```sh\n   sudo -u deploy sh -c \'cd /srv/portfolio && sh backup/restore.sh list\'\n   ```\n4. Load a dump, the newest by default (`--date 2026-10-01` picks one day). The script replaces every table of the database with `pg_restore --clean --if-exists --no-owner`:\n\n   ```sh\n   sudo -u deploy sh -c \'cd /srv/portfolio && sh backup/restore.sh db\'\n   ```\n5. Put the photo files back. `photos` copies `photos/current/originals` and `photos/current/media` into `./data` and deletes nothing there. It restores `photos/current/` only, not the archive:\n\n   ```sh\n   sudo -u deploy sh -c \'cd /srv/portfolio && sh backup/restore.sh photos\'\n   ```\n6. Start the stack: `sudo -u deploy sh -c \'cd /srv/portfolio && docker compose up -d --remove-orphans\'`, or let the next deploy do it.\n7. Check that the site shows the restored sessions. On the server `curl -s http://127.0.0.1:8080/api/sessions` answers the published sessions as JSON, and `https://<SITE_DOMAIN>/` lists them. Compare the titles with what you expect from the day of the dump. Then sign in to `/admin` with Google: there is no old login, and the sessions and photos are there.\n\n## By hand, when the script cannot run\n\nGive the shell the R2 settings without running `.env` as code, and define one shell function named `rclone`, which runs the pinned image in a container. `RC_USER` is the owner of what the container writes: `$(id -u):$(id -g)` for a dump, `10001:10001` for photo files.\n\n```sh\ncd /srv/portfolio\nexport RCLONE_CONFIG_R2_TYPE=s3 RCLONE_CONFIG_R2_PROVIDER=Cloudflare RCLONE_CONFIG_R2_REGION=auto RCLONE_CONFIG_R2_NO_CHECK_BUCKET=true\nexport RCLONE_CONFIG_R2_ENDPOINT=https://<R2_ACCOUNT_ID>.r2.cloudflarestorage.com\nread -rs RCLONE_CONFIG_R2_ACCESS_KEY_ID; read -rs RCLONE_CONFIG_R2_SECRET_ACCESS_KEY\nexport RCLONE_CONFIG_R2_ACCESS_KEY_ID RCLONE_CONFIG_R2_SECRET_ACCESS_KEY\nrclone() { docker run --rm --user "${RC_USER:-$(id -u):$(id -g)}" -v "$PWD/data:/data" -v "$PWD:/work" \\\n  -e RCLONE_CONFIG_R2_TYPE -e RCLONE_CONFIG_R2_PROVIDER -e RCLONE_CONFIG_R2_REGION -e RCLONE_CONFIG_R2_NO_CHECK_BUCKET \\\n  -e RCLONE_CONFIG_R2_ENDPOINT -e RCLONE_CONFIG_R2_ACCESS_KEY_ID -e RCLONE_CONFIG_R2_SECRET_ACCESS_KEY \\\n  rclone/rclone:1.75.1 --config /dev/null "$@"; }\n```\n\nType the two keys at the prompts (from 1Password or `deploy/.env.prod`); nothing is echoed or kept in a file. Then:\n\n```sh\nrclone lsf --format sp --files-only r2:<R2_BUCKET>/db                # what `list` prints: size;name\nrclone copy r2:<R2_BUCKET>/db/portfolio-<date>.dump /work            # the dump lands in ./portfolio-<date>.dump\ndocker compose stop backend\ndocker compose exec -T postgres pg_restore --clean --if-exists --no-owner -U portfolio -d portfolio < portfolio-<date>.dump\nRC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/current/originals /data/originals\nRC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/current/media /data/media\nrm portfolio-<date>.dump\n```\n\n### One photo back from the archive\n\nA photo that the photographer deleted sits under `photos/archive/<date>/`, where `<date>` is the run that found it gone (30 days). Its files come back with one line each, using the same paths as on the disk:\n\n```sh\nRC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/archive/<date>/originals/<photoId>.jpg /data/originals\nRC_USER=10001:10001 rclone copy r2:<R2_BUCKET>/photos/archive/<date>/media/<photoId> /data/media/<photoId>\n```\n\nThe files alone do not bring the photo back on the site: its database row went with the delete. The row is in every dump from before that run. Restore such a dump in the drill project below and copy the row over by hand.\n\n## The rehearsal (drill)\n\nThe drill restores the latest backup into a separate Compose project, `portfolio-drill`, in `/srv/portfolio-drill`, beside the live stack. It runs only Postgres and the backend, with its own database volume and its own `data/` folder, and publishes no port. `compose.drill.yml` (copied by `install-backup.sh` into `/srv/portfolio/backup/`) removes the published ports and gives the drill\'s network Docker\'s own address range, because the live stack holds 172.30.80.0/24.\n\nThe drill\'s `.env` is a copy of the live one with `COMPOSE_PROJECT_NAME=portfolio-drill`, `COMPOSE_FILE=compose.yml:compose.server.yml:compose.drill.yml`, and `TELEGRAM_BOT_TOKEN=`, `TELEGRAM_REQUESTS_CHAT_ID=`, `TELEGRAM_ERRORS_CHAT_ID=` and `OPENAI_API_KEY=` left empty. They must be empty: the restored `booking_request` rows can hold notices that were never sent, and the backend would post them to the real groups. `restore.sh db --drill` refuses, and names the setting, when one of the four is not empty.\n\n```sh\ncd /srv/portfolio-drill\nsh /srv/portfolio/backup/restore.sh list\nsh /srv/portfolio/backup/restore.sh db --drill\nsh /srv/portfolio/backup/restore.sh photos\ndocker compose up -d --wait backend\nsh /srv/portfolio/backup/restore.sh check /srv/portfolio\n```\n\n`check` compares the drill with the live stack and prints one `PASS` or `FAIL` line for each of: the row count of every table except the two login tables, the SHA-256 list of every file under `originals/` and `media/`, and the answer of `GET /api/sessions` from both backends. The comparison is exact only when nothing was edited on the live site since the last backup run. The backend log of the drill holds one line saying alerts are off. Tear the drill down with `docker compose down -v --remove-orphans` and `rm -rf /srv/portfolio-drill`. The record of the first rehearsal is `docs/qa/restore-rehearsal.md`.\n',
+    expected: /empty database/i,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/deploy/backup-install.test.mjs:215:3
+✖ the README says the backend holds no R2 key and asks for a bucket lock on db/ (1.275834ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /backend[^\n]*(holds|gets|has) no R2/i. Input:
+  
+  '# Server runbook\n' +
+    '\n' +
+    'The site runs as four containers: Caddy in front, then Next.js (`frontend`), Spring Boot (`backend`) and Postgres.\n' +
+    '`compose.yml` is shared by the Mac and the server. `compose.server.yml` is the server overlay: it pulls images from GHCR instead of building them, opens ports 80 and 443, and pins the `prod` profile.\n' +
+    '\n' +
+    '## Versions\n' +
+    '\n' +
+    '- Caddy: `caddy:2.11-alpine` (Caddy v2.11.4 on 2026-09-27), set in `caddy/Dockerfile`. `caddy list-modules` in that image shows `http.handlers.log_append` and `caddy.logging.encoders.filter.delete`, which the Caddyfile needs.\n' +
+    '- Docker Compose 2.24 or newer on the server: the overlay uses `!reset` and `!override`.\n' +
+    '- Docker Engine 28.0.0 or newer. Older engines let a machine on the same local network reach ports bound to `127.0.0.1`, such as Spring\'s `127.0.0.1:8080`. The 28.0.0 release notes list the fix under Networking: "Fix a security issue that was allowing neighbor hosts to connect to ports mapped on a loopback address" (moby/moby#49325). Caddy\'s healthcheck also needs `start_interval`, which came with Engine 25.\n' +
+    '- Tomcat 11.0.24 inside Spring Boot 4.1.1 has the connector option `rejectSuspiciousURIs`. The backend turns it on, so `/api/..;/internal/errors` gets 400 from Spring as well as from Caddy.\n' +
+    '\n' +
+    '## The server\n' +
+    '\n' +
+    'Hetzner CPX12 `portfolio-1` in Nuremberg (NBG1): x86 AMD, 1 vCPU, 2 GB of memory (1909 MB usable), 40 GB of disk, IPv4 only (TC-4, changed 2026-09-28). Set up on 2026-09-28:\n' +
+    '\n' +
+    '| Item | Value |\n' +
+    '|---|---|\n' +
+    '| IPv4 | `203.0.113.10` (no IPv6 address) |\n' +
+    '| Domain | `example-app.example.com`, A record only (`SITE_DOMAIN` in `.env`). The dynamic DNS token is not used by the site and stays in 1Password |\n' +
+    '| SSH host key | ED25519 `SHA256:AbI2yaCgyqECtOrsQNIKItSRIjh+3TTUhK8uXY/0yf0`, as the Mac saw it on first contact, and the same as the key file on the server (task 7.16, `proof/server-host-key.txt`) |\n' +
+    '| OS | Ubuntu 26.04.1 LTS, kernel 7.0, `amd64` |\n' +
+    '| Docker | Engine 29.8.1, Compose v5.5.1, from download.docker.com (`resolute`) |\n' +
+    '| Users | `oleksandr` (admin: SSH key, `sudo` without a password, no password login, not in the `docker` group); `deploy` (the CI key with the `restrict` option, so no terminal; member of `docker`, no `sudo`) |\n' +
+    '| SSH | `/etc/ssh/sshd_config.d/00-hardening.conf`: no root login, no passwords, no X11, `AllowUsers oleksandr deploy`. SSH starts through `ssh.socket` |\n' +
+    "| Firewall | ufw: deny incoming, allow 22, 80 and 443 over TCP, logging off; Hetzner Cloud Firewall `portfolio-fw` with the same three ports and ICMP, made in the console; the owner's screenshot `proof/hetzner-firewall.png` shows it fully applied, with 4 rules, to 1 server and `proof/hetzner-firewall-rules.png` shows its rules (task 7.3) |\n" +
+    "| Updates | `unattended-upgrades` for Ubuntu's security fixes and for Docker's packages from download.docker.com (task 7.15, `proof/server-docker-updates.txt`) |\n" +
+    '| Swap | `/swapfile`, 2 GB, `vm.swappiness=10` |\n' +
+    '\n' +
+    '### Commands by hand\n' +
+    '\n' +
+    "Log in as `oleksandr`. That user is not in the `docker` group, and `/srv/portfolio` is `deploy:deploy` with mode 750, so the admin cannot enter it directly. Run every Docker command as `deploy` through sudo, for example `sudo -u deploy sh -c 'cd /srv/portfolio && docker compose ps'`. To change a setting in the server's `.env`, edit `deploy/.env.prod` on the Mac and run `sh deploy/scripts/push-env.sh` (see `.env` files below). That is the one way: push-env replaces the whole file, so an edit made on the server is lost at the next push. The `deploy` key is the CI key: `restrict` gives its login no terminal, so it is no way in for a person.\n" +
+    '\n' +
+    'Ubuntu 26.04 ships `sudo-rs` and the Rust rewrite of the core tools (uutils coreutils 0.8.0). Two differences matter here, both recorded in `proof/server-uutils-install.txt`: `install -o 10001` fails with "invalid user" for a uid with no user name, so the uid-10001 folders are made with `mkdir` and `chown 10001:10001`; and `sudo -E` is ignored, so pass a variable with `sudo env NAME=value`.\n' +
+    '\n' +
+    'The server has no public IPv6 address, and the dynamic DNS name has no AAAA record. Create the server without a primary IPv6 address; Hetzner offers that option when you create it. The reason: the Compose network is IPv4 only, so Docker would pass every IPv6 visitor to Caddy from one gateway address, and Spring would count all of them as one client. Known limit, to revisit: visitors with IPv6 only cannot reach the site. Turning IPv6 on needs an IPv6 subnet on the Compose network first (design decision 21).\n' +
+    "The CPU is x86, so the `publish` job builds its images on GitHub's default runner. If the server ever moves to an arm64 plan, that job must run on `ubuntu-24.04-arm`.\n" +
+    '\n' +
+    '### Memory\n' +
+    '\n' +
+    'The stack fits the 2 GB server with a 2 GB swap file (NFR-23). `compose.yml` sets the limits:\n' +
+    '\n' +
+    '| Service | Limit | Inside the limit |\n' +
+    '|---|---|---|\n' +
+    "| `backend` | 896 MB | Java heap `-Xmx384m`, the JVM's own memory, and libvips for the photo work |\n" +
+    '| `frontend` | 320 MB | Node heap `--max-old-space-size=192` |\n' +
+    '| `postgres` | 256 MB | started with `-c shared_buffers=64MB` |\n' +
+    '| `caddy` | 96 MB | |\n' +
+    '\n' +
+    'Together that is 1568 MB. The server has 1909 MB usable, so about 340 MB stays for the system, and the OS alone idles at about 330 to 370 MB (`proof/server-initial-check.txt`, `proof/server-swap-users.txt`, both before Docker was installed). So if every container reached its limit at once, the 2 GB swap file would take the rest. The limits are ceilings, and the measured use is far below them: on the Mac, after the full e2e run, the four containers peaked at about 364 MB together (`proof/memory-2gb-battery.txt`).\n' +
+    '\n' +
+    'If the stack runs out of memory (an out-of-memory kill in `dmesg`, or a container restarts on its own) or keeps swapping (`vmstat 1` shows a steady swap-in in the `si` column), move the server to CPX22 with 4 GB. Slow swapping may show up before any out-of-memory kill. In the Hetzner console, power the server off, choose Rescale, and pick "CPU and RAM only". The 40 GB disk then stays as it is, and a move back to CPX12 stays possible. A resize that grows the disk cannot be undone.\n' +
+    '\n' +
+    '## Layout under `/srv/portfolio`\n' +
+    '\n' +
+    '| Path | What it is |\n' +
+    '|---|---|\n' +
+    '| `compose.yml`, `compose.server.yml` | The live Compose files, from the commit that is live |\n' +
+    '| `compose.next.yml`, `compose.server.next.yml` | Staging copies from the commit being deployed. A deploy moves them onto the live names only after pull and `up` succeed; after a failed deploy they stay until the next one |\n' +
+    "| `.env` | Settings and secrets, owned by `deploy` with mode 600; its source is the Mac's untracked `deploy/.env.prod`, sent with `deploy/scripts/push-env.sh` |\n" +
+    '| `data/media/` | Resized copies. Caddy serves it read-only at `/media/` |\n' +
+    '| `data/originals/` | Original photos. Never mounted into Caddy, so never served |\n' +
+    "| `data/staging/` | Work area of the photo worker: a photo's copies are made in `staging/<photo id>/` and renamed to `media/<photo id>/` only when the set is whole. `staging/incoming/` holds uploads until they move to `originals/`. Never served; a folder left there after a crash is deleted when the worker takes the photo again |\n" +
+    '| `backup/` | The backup scripts, `compose.drill.yml` and the restore tools, owned by `deploy` with mode 750; put there by `deploy/scripts/install-backup.sh` (see "Backups") |\n' +
+    "| `data/seed/` | Folders for the seed command, one folder per session, named as the session's Ukrainian title. Never served. Copy photos here with `scp` as `oleksandr`, then make them readable by uid 10001 |\n" +
+    '\n' +
+    '`/srv/portfolio` itself and `.env` belong to the `deploy` user, because the deploy writes the staging files there, renames them and rewrites `.env` over SSH as that user, and `docker compose` reads `.env` as that user.\n' +
+    'The four folders under `data/` belong to uid 10001, the user the backend runs as. `data` itself is `deploy:deploy` with mode 751, so uid 10001 can pass through it without listing it. The backend mounts all of `data/` at `/srv/data`; Caddy mounts only `data/media`, read-only, so it can serve nothing else.\n' +
+    'Certificates live in the Docker volume `caddy-data`, so they survive restarts and deploys.\n' +
+    '\n' +
+    '## `.env` files\n' +
+    '\n' +
+    'Three files hold the settings, and none of the real ones enters git:\n' +
+    '\n' +
+    '| File | Where | What |\n' +
+    '|---|---|---|\n' +
+    '| `deploy/.env` | the Mac, untracked, mode 600 | Local values for every name. `npm run stack:up` (`deploy/scripts/stack-up.sh`) starts the stack from it and stops with a message when it is missing. |\n' +
+    "| `deploy/.env.prod` | the Mac, untracked, mode 600 | The Mac's copy of the server's `/srv/portfolio/.env`. Edit it there, then send it with `deploy/scripts/push-env.sh`. |\n" +
+    '| `deploy/ci.env` | git | Throwaway values for CI, which has no `deploy/.env`; `stack-up.sh` copies it there only when `CI` is set. |\n' +
+    '\n' +
+    "To change a server setting: edit `deploy/.env.prod`, run `sh deploy/scripts/push-env.sh` from the repo root, then start the stack again from the admin login with `sudo -u deploy sh -c 'cd /srv/portfolio && docker compose up -d --remove-orphans'` (or let the next deploy do it). Do not run push-env while a deploy runs: both rewrite `.env`. The script prints no value. It keeps the server's `IMAGE_TAG` line, because each deploy writes it; the server adds that line just before it moves the new file into place, so a tag written a moment earlier stays. The file keeps owner `deploy` and mode 600.\n" +
+    '\n' +
+    'push-env stops and sends nothing when:\n' +
+    '\n' +
+    '- `deploy/.env.prod` does not hold exactly one line `COMPOSE_FILE=compose.yml:compose.server.yml`. Without it, plain `docker compose` on the server reads `compose.yml` alone, and the public ports close.\n' +
+    '- `POSTGRES_PASSWORD`, `SITE_DOMAIN` or `IMAGE_PREFIX` is missing, empty or given twice.\n' +
+    "- the server's `.env` has no `IMAGE_TAG` line, or more than one.\n" +
+    "- the SHA-256 of `POSTGRES_PASSWORD` differs from the server's. Postgres keeps its first password, so a new one needs a planned migration. The check compares only the two hashes and prints neither.\n" +
+    '\n' +
+    'Copy `POSTGRES_PASSWORD` to 1Password as well.\n' +
+    '\n' +
+    '## `.en'... 33926 more characters
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '# Server runbook\n\nThe site runs as four containers: Caddy in front, then Next.js (`frontend`), Spring Boot (`backend`) and Postgres.\n`compose.yml` is shared by the Mac and the server. `compose.server.yml` is the server overlay: it pulls images from GHCR instead of building them, opens ports 80 and 443, and pins the `prod` profile.\n\n## Versions\n\n- Caddy: `caddy:2.11-alpine` (Caddy v2.11.4 on 2026-09-27), set in `caddy/Dockerfile`. `caddy list-modules` in that image shows `http.handlers.log_append` and `caddy.logging.encoders.filter.delete`, which the Caddyfile needs.\n- Docker Compose 2.24 or newer on the server: the overlay uses `!reset` and `!override`.\n- Docker Engine 28.0.0 or newer. Older engines let a machine on the same local network reach ports bound to `127.0.0.1`, such as Spring\'s `127.0.0.1:8080`. The 28.0.0 release notes list the fix under Networking: "Fix a security issue that was allowing neighbor hosts to connect to ports mapped on a loopback address" (moby/moby#49325). Caddy\'s healthcheck also needs `start_interval`, which came with Engine 25.\n- Tomcat 11.0.24 inside Spring Boot 4.1.1 has the connector option `rejectSuspiciousURIs`. The backend turns it on, so `/api/..;/internal/errors` gets 400 from Spring as well as from Caddy.\n\n## The server\n\nHetzner CPX12 `portfolio-1` in Nuremberg (NBG1): x86 AMD, 1 vCPU, 2 GB of memory (1909 MB usable), 40 GB of disk, IPv4 only (TC-4, changed 2026-09-28). Set up on 2026-09-28:\n\n| Item | Value |\n|---|---|\n| IPv4 | `203.0.113.10` (no IPv6 address) |\n| Domain | `example-app.example.com`, A record only (`SITE_DOMAIN` in `.env`). The dynamic DNS token is not used by the site and stays in 1Password |\n| SSH host key | ED25519 `SHA256:AbI2yaCgyqECtOrsQNIKItSRIjh+3TTUhK8uXY/0yf0`, as the Mac saw it on first contact, and the same as the key file on the server (task 7.16, `proof/server-host-key.txt`) |\n| OS | Ubuntu 26.04.1 LTS, kernel 7.0, `amd64` |\n| Docker | Engine 29.8.1, Compose v5.5.1, from download.docker.com (`resolute`) |\n| Users | `oleksandr` (admin: SSH key, `sudo` without a password, no password login, not in the `docker` group); `deploy` (the CI key with the `restrict` option, so no terminal; member of `docker`, no `sudo`) |\n| SSH | `/etc/ssh/sshd_config.d/00-hardening.conf`: no root login, no passwords, no X11, `AllowUsers oleksandr deploy`. SSH starts through `ssh.socket` |\n| Firewall | ufw: deny incoming, allow 22, 80 and 443 over TCP, logging off; Hetzner Cloud Firewall `portfolio-fw` with the same three ports and ICMP, made in the console; the owner\'s screenshot `proof/hetzner-firewall.png` shows it fully applied, with 4 rules, to 1 server and `proof/hetzner-firewall-rules.png` shows its rules (task 7.3) |\n| Updates | `unattended-upgrades` for Ubuntu\'s security fixes and for Docker\'s packages from download.docker.com (task 7.15, `proof/server-docker-updates.txt`) |\n| Swap | `/swapfile`, 2 GB, `vm.swappiness=10` |\n\n### Commands by hand\n\nLog in as `oleksandr`. That user is not in the `docker` group, and `/srv/portfolio` is `deploy:deploy` with mode 750, so the admin cannot enter it directly. Run every Docker command as `deploy` through sudo, for example `sudo -u deploy sh -c \'cd /srv/portfolio && docker compose ps\'`. To change a setting in the server\'s `.env`, edit `deploy/.env.prod` on the Mac and run `sh deploy/scripts/push-env.sh` (see `.env` files below). That is the one way: push-env replaces the whole file, so an edit made on the server is lost at the next push. The `deploy` key is the CI key: `restrict` gives its login no terminal, so it is no way in for a person.\n\nUbuntu 26.04 ships `sudo-rs` and the Rust rewrite of the core tools (uutils coreutils 0.8.0). Two differences matter here, both recorded in `proof/server-uutils-install.txt`: `install -o 10001` fails with "invalid user" for a uid with no user name, so the uid-10001 folders are made with `mkdir` and `chown 10001:10001`; and `sudo -E` is ignored, so pass a variable with `sudo env NAME=value`.\n\nThe server has no public IPv6 address, and the dynamic DNS name has no AAAA record. Create the server without a primary IPv6 address; Hetzner offers that option when you create it. The reason: the Compose network is IPv4 only, so Docker would pass every IPv6 visitor to Caddy from one gateway address, and Spring would count all of them as one client. Known limit, to revisit: visitors with IPv6 only cannot reach the site. Turning IPv6 on needs an IPv6 subnet on the Compose network first (design decision 21).\nThe CPU is x86, so the `publish` job builds its images on GitHub\'s default runner. If the server ever moves to an arm64 plan, that job must run on `ubuntu-24.04-arm`.\n\n### Memory\n\nThe stack fits the 2 GB server with a 2 GB swap file (NFR-23). `compose.yml` sets the limits:\n\n| Service | Limit | Inside the limit |\n|---|---|---|\n| `backend` | 896 MB | Java heap `-Xmx384m`, the JVM\'s own memory, and libvips for the photo work |\n| `frontend` | 320 MB | Node heap `--max-old-space-size=192` |\n| `postgres` | 256 MB | started with `-c shared_buffers=64MB` |\n| `caddy` | 96 MB | |\n\nTogether that is 1568 MB. The server has 1909 MB usable, so about 340 MB stays for the system, and the OS alone idles at about 330 to 370 MB (`proof/server-initial-check.txt`, `proof/server-swap-users.txt`, both before Docker was installed). So if every container reached its limit at once, the 2 GB swap file would take the rest. The limits are ceilings, and the measured use is far below them: on the Mac, after the full e2e run, the four containers peaked at about 364 MB together (`proof/memory-2gb-battery.txt`).\n\nIf the stack runs out of memory (an out-of-memory kill in `dmesg`, or a container restarts on its own) or keeps swapping (`vmstat 1` shows a steady swap-in in the `si` column), move the server to CPX22 with 4 GB. Slow swapping may show up before any out-of-memory kill. In the Hetzner console, power the server off, choose Rescale, and pick "CPU and RAM only". The 40 GB disk then stays as it is, and a move back to CPX12 stays possible. A resize that grows the disk cannot be undone.\n\n## Layout under `/srv/portfolio`\n\n| Path | What it is |\n|---|---|\n| `compose.yml`, `compose.server.yml` | The live Compose files, from the commit that is live |\n| `compose.next.yml`, `compose.server.next.yml` | Staging copies from the commit being deployed. A deploy moves them onto the live names only after pull and `up` succeed; after a failed deploy they stay until the next one |\n| `.env` | Settings and secrets, owned by `deploy` with mode 600; its source is the Mac\'s untracked `deploy/.env.prod`, sent with `deploy/scripts/push-env.sh` |\n| `data/media/` | Resized copies. Caddy serves it read-only at `/media/` |\n| `data/originals/` | Original photos. Never mounted into Caddy, so never served |\n| `data/staging/` | Work area of the photo worker: a photo\'s copies are made in `staging/<photo id>/` and renamed to `media/<photo id>/` only when the set is whole. `staging/incoming/` holds uploads until they move to `originals/`. Never served; a folder left there after a crash is deleted when the worker takes the photo again |\n| `backup/` | The backup scripts, `compose.drill.yml` and the restore tools, owned by `deploy` with mode 750; put there by `deploy/scripts/install-backup.sh` (see "Backups") |\n| `data/seed/` | Folders for the seed command, one folder per session, named as the session\'s Ukrainian title. Never served. Copy photos here with `scp` as `oleksandr`, then make them readable by uid 10001 |\n\n`/srv/portfolio` itself and `.env` belong to the `deploy` user, because the deploy writes the staging files there, renames them and rewrites `.env` over SSH as that user, and `docker compose` reads `.env` as that user.\nThe four folders under `data/` belong to uid 10001, the user the backend runs as. `data` itself is `deploy:deploy` with mode 751, so uid 10001 can pass through it without listing it. The backend mounts all of `data/` at `/srv/data`; Caddy mounts only `data/media`, read-only, so it can serve nothing else.\nCertificates live in the Docker volume `caddy-data`, so they survive restarts and deploys.\n\n## `.env` files\n\nThree files hold the settings, and none of the real ones enters git:\n\n| File | Where | What |\n|---|---|---|\n| `deploy/.env` | the Mac, untracked, mode 600 | Local values for every name. `npm run stack:up` (`deploy/scripts/stack-up.sh`) starts the stack from it and stops with a message when it is missing. |\n| `deploy/.env.prod` | the Mac, untracked, mode 600 | The Mac\'s copy of the server\'s `/srv/portfolio/.env`. Edit it there, then send it with `deploy/scripts/push-env.sh`. |\n| `deploy/ci.env` | git | Throwaway values for CI, which has no `deploy/.env`; `stack-up.sh` copies it there only when `CI` is set. |\n\nTo change a server setting: edit `deploy/.env.prod`, run `sh deploy/scripts/push-env.sh` from the repo root, then start the stack again from the admin login with `sudo -u deploy sh -c \'cd /srv/portfolio && docker compose up -d --remove-orphans\'` (or let the next deploy do it). Do not run push-env while a deploy runs: both rewrite `.env`. The script prints no value. It keeps the server\'s `IMAGE_TAG` line, because each deploy writes it; the server adds that line just before it moves the new file into place, so a tag written a moment earlier stays. The file keeps owner `deploy` and mode 600.\n\npush-env stops and sends nothing when:\n\n- `deploy/.env.prod` does not hold exactly one line `COMPOSE_FILE=compose.yml:compose.server.yml`. Without it, plain `docker compose` on the server reads `compose.yml` alone, and the public ports close.\n- `POSTGRES_PASSWORD`, `SITE_DOMAIN` or `IMAGE_PREFIX` is missing, empty or given twice.\n- the server\'s `.env` has no `IMAGE_TAG` line, or more than one.\n- the SHA-256 of `POSTGRES_PASSWORD` differs from the server\'s. Postgres keeps its first password, so a new one needs a planned migration. The check compares only the two hashes and prints neither.\n\nCopy `POSTGRES_PASSWORD` to 1Password as well.\n\n## `.en'... 33926 more characters,
+    expected: /backend[^\n]*(holds|gets|has) no R2/i,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/deploy/backup-lib.test.mjs:181:3
+✖ the default image is pinned by tag and digest, so a moved tag cannot change what holds the R2 keys (4.042041ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /^rclone\/rclone:1\.75\.1@sha256:[0-9a-f]{64}$/. Input:
+  
+  'rclone/rclone:1.75.1'
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'rclone/rclone:1.75.1',
+    expected: /^rclone\/rclone:1\.75\.1@sha256:[0-9a-f]{64}$/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/deploy/compose.test.mjs:506:3
+✖ the internet-facing backend holds no R2 key, in both views and with the keys set in .env (79.523417ms)
+  AssertionError [ERR_ASSERTION]: local
+  + actual - expected
+  
+  + [
+  +   'R2_ACCESS_KEY_ID',
+  +   'R2_SECRET_ACCESS_KEY'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/deploy/compose.test.mjs:518:3
+✖ application.properties reads no R2 name, so the backend does not look for a key it is not given (0.477834ms)
+  AssertionError [ERR_ASSERTION]: The input was expected to not match the regular expression /R2_/. Input:
+  
+  'spring.application.name=portfolio-backend\n' +
+    'spring.datasource.url=${DATABASE_URL:jdbc:postgresql://localhost:5432/portfolio}\n' +
+    'spring.datasource.username=${DATABASE_USER:portfolio}\n' +
+    'spring.datasource.password=${DATABASE_PASSWORD}\n' +
+    'spring.flyway.locations=classpath:db/migration\n' +
+    '# Flyway owns the schema; Hibernate only checks that the entities match it.\n' +
+    'spring.jpa.hibernate.ddl-auto=validate\n' +
+    'spring.jpa.open-in-view=false\n' +
+    'spring.datasource.hikari.connection-timeout=2000\n' +
+    'spring.datasource.hikari.validation-timeout=1000\n' +
+    'spring.datasource.hikari.data-source-properties.connectTimeout=2\n' +
+    'spring.datasource.hikari.data-source-properties.socketTimeout=3\n' +
+    '\n' +
+    "# Only Caddy's fixed address (deploy/compose.yml) may set the client address through X-Forwarded-For.\n" +
+    'server.forward-headers-strategy=native\n' +
+    'server.tomcat.remoteip.internal-proxies=172\\\\.30\\\\.80\\\\.10\n' +
+    'server.tomcat.remoteip.remote-ip-header=x-forwarded-for\n' +
+    '\n' +
+    '# No client address in the pattern: the Privacy page promises the address is never saved.\n' +
+    'server.tomcat.accesslog.enabled=true\n' +
+    'server.tomcat.accesslog.directory=/dev\n' +
+    'server.tomcat.accesslog.prefix=stdout\n' +
+    'server.tomcat.accesslog.suffix=\n' +
+    'server.tomcat.accesslog.file-date-format=\n' +
+    'server.tomcat.accesslog.buffered=false\n' +
+    'server.tomcat.accesslog.pattern=%t %m %U %s %D %{X-Request-Id}i\n' +
+    '\n' +
+    '# Photos: one mount holds media, originals, staging and seed, so every move between them is a rename.\n' +
+    'portfolio.data-dir=${PORTFOLIO_DATA_DIR:/srv/data}\n' +
+    'spring.servlet.multipart.max-file-size=50MB\n' +
+    'spring.servlet.multipart.max-request-size=50MB\n' +
+    'spring.servlet.multipart.location=${portfolio.data-dir}/staging/incoming\n' +
+    '# Only a handler that asks for the file parses the body, so a multipart POST to any other address is never written to disk.\n' +
+    'spring.servlet.multipart.resolve-lazily=true\n' +
+    '# The worker renews its claim every third of this while it works; after a crash the photo waits this long at most.\n' +
+    'portfolio.photo-worker.claim=2m\n' +
+    '\n' +
+    '# Footer links (FR-14): a blank value hides its link; a change needs a restart.\n' +
+    'portfolio.social.instagram-url=${INSTAGRAM_URL:}\n' +
+    'portfolio.social.telegram-url=${TELEGRAM_URL:}\n' +
+    '\n' +
+    '# Admin login (FR-51 to FR-57): Google sign-in for the emails in ADMIN_EMAILS, kept as a Spring Session row in Postgres.\n' +
+    'portfolio.admin.emails=${ADMIN_EMAILS:}\n' +
+    'portfolio.admin.login-lifetime=30d\n' +
+    'portfolio.google.client-id=${GOOGLE_CLIENT_ID:}\n' +
+    'portfolio.google.client-secret=${GOOGLE_CLIENT_SECRET:}\n' +
+    'portfolio.google.site-url=${SITE_URL:}\n' +
+    '# The dispatcher reads the session id after every request to publish this event, which would renew an admin login on a public address.\n' +
+    'spring.mvc.publish-request-handled-events=false\n' +
+    '# Flyway owns the session tables (V6).\n' +
+    'spring.session.jdbc.initialize-schema=never\n' +
+    "# A row that only waits for Google's return lives 10 minutes; a signed-in row gets portfolio.admin.login-lifetime.\n" +
+    'spring.session.timeout=10m\n' +
+    '# The test profile turns Secure off, because WebKit refuses a Secure cookie from plain http://127.0.0.1.\n' +
+    'portfolio.session.cookie-secure=true\n' +
+    'server.servlet.session.cookie.name=SESSION\n' +
+    'server.servlet.session.cookie.http-only=true\n' +
+    'server.servlet.session.cookie.secure=${portfolio.session.cookie-secure}\n' +
+    'server.servlet.session.cookie.same-site=lax\n' +
+    '# The row ends the login; a browser-session cookie would sign the admin out with every browser restart.\n' +
+    'server.servlet.session.cookie.max-age=400d\n' +
+    '\n' +
+    '# Error alerts (FR-122 to FR-129): every ERROR event and every Next.js server error goes to the Telegram errors group.\n' +
+    'portfolio.alerts.telegram.api-url=${TELEGRAM_API_URL:https://api.telegram.org}\n' +
+    'portfolio.alerts.telegram.bot-token=${TELEGRAM_BOT_TOKEN:}\n' +
+    'portfolio.alerts.telegram.errors-chat-id=${TELEGRAM_ERRORS_CHAT_ID:}\n' +
+    'portfolio.alerts.window=${ALERT_WINDOW:10m}\n' +
+    'portfolio.alerts.queue-size=200\n' +
+    'portfolio.alerts.max-windows=1000\n' +
+    '# Values that an alert must not show; the bot token is masked too.\n' +
+    'portfolio.alerts.secrets.openai-api-key=${OPENAI_API_KEY:}\n' +
+    'portfolio.alerts.secrets.r2-access-key-id=${R2_ACCESS_KEY_ID:}\n' +
+    'portfolio.alerts.secrets.r2-secret-access-key=${R2_SECRET_ACCESS_KEY:}\n' +
+    'portfolio.alerts.secrets.google-client-secret=${GOOGLE_CLIENT_SECRET:}\n' +
+    'portfolio.alerts.secrets.database-password=${DATABASE_PASSWORD:}\n' +
+    '# Every log line holds the request ID or the job ID of its run (NFR-15); both are empty outside a request and a job.\n' +
+    'logging.pattern.correlation=req=%X{requestId:-} job=%X{jobId:-}\\u0020\n' +
+    '# Booking requests: at most this many saved requests per network and hour (FR-167); a value that is not a whole number of at least 1 stops the start.\n' +
+    'portfolio.booking.hourly-limit=${BOOKING_HOURLY_LIMIT:10}\n' +
+    '# The notice worker checks for due tries this often, and right after each save.\n' +
+    'portfolio.booking.notice-poll=5s\n' +
+    '# The Telegram bot and the two groups (FR-116, FR-120); the live profile refuses a blank token or requests chat ID.\n' +
+    'portfolio.telegram.bot-token=${TELEGRAM_BOT_TOKEN:}\n' +
+    'portfolio.telegram.requests-chat-id=${TELEGRAM_REQUESTS_CHAT_ID:}\n' +
+    'portfolio.telegram.errors-chat-id=${TELEGRAM_ERRORS_CHAT_ID:}\n' +
+    '# The Bot API; the local stack sets the Telegram stub, compose.server.yml the real address.\n' +
+    'portfolio.telegram.api-url=${TELEGRAM_API_URL:https://api.telegram.org}\n'
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: "spring.application.name=portfolio-backend\nspring.datasource.url=${DATABASE_URL:jdbc:postgresql://localhost:5432/portfolio}\nspring.datasource.username=${DATABASE_USER:portfolio}\nspring.datasource.password=${DATABASE_PASSWORD}\nspring.flyway.locations=classpath:db/migration\n# Flyway owns the schema; Hibernate only checks that the entities match it.\nspring.jpa.hibernate.ddl-auto=validate\nspring.jpa.open-in-view=false\nspring.datasource.hikari.connection-timeout=2000\nspring.datasource.hikari.validation-timeout=1000\nspring.datasource.hikari.data-source-properties.connectTimeout=2\nspring.datasource.hikari.data-source-properties.socketTimeout=3\n\n# Only Caddy's fixed address (deploy/compose.yml) may set the client address through X-Forwarded-For.\nserver.forward-headers-strategy=native\nserver.tomcat.remoteip.internal-proxies=172\\\\.30\\\\.80\\\\.10\nserver.tomcat.remoteip.remote-ip-header=x-forwarded-for\n\n# No client address in the pattern: the Privacy page promises the address is never saved.\nserver.tomcat.accesslog.enabled=true\nserver.tomcat.accesslog.directory=/dev\nserver.tomcat.accesslog.prefix=stdout\nserver.tomcat.accesslog.suffix=\nserver.tomcat.accesslog.file-date-format=\nserver.tomcat.accesslog.buffered=false\nserver.tomcat.accesslog.pattern=%t %m %U %s %D %{X-Request-Id}i\n\n# Photos: one mount holds media, originals, staging and seed, so every move between them is a rename.\nportfolio.data-dir=${PORTFOLIO_DATA_DIR:/srv/data}\nspring.servlet.multipart.max-file-size=50MB\nspring.servlet.multipart.max-request-size=50MB\nspring.servlet.multipart.location=${portfolio.data-dir}/staging/incoming\n# Only a handler that asks for the file parses the body, so a multipart POST to any other address is never written to disk.\nspring.servlet.multipart.resolve-lazily=true\n# The worker renews its claim every third of this while it works; after a crash the photo waits this long at most.\nportfolio.photo-worker.claim=2m\n\n# Footer links (FR-14): a blank value hides its link; a change needs a restart.\nportfolio.social.instagram-url=${INSTAGRAM_URL:}\nportfolio.social.telegram-url=${TELEGRAM_URL:}\n\n# Admin login (FR-51 to FR-57): Google sign-in for the emails in ADMIN_EMAILS, kept as a Spring Session row in Postgres.\nportfolio.admin.emails=${ADMIN_EMAILS:}\nportfolio.admin.login-lifetime=30d\nportfolio.google.client-id=${GOOGLE_CLIENT_ID:}\nportfolio.google.client-secret=${GOOGLE_CLIENT_SECRET:}\nportfolio.google.site-url=${SITE_URL:}\n# The dispatcher reads the session id after every request to publish this event, which would renew an admin login on a public address.\nspring.mvc.publish-request-handled-events=false\n# Flyway owns the session tables (V6).\nspring.session.jdbc.initialize-schema=never\n# A row that only waits for Google's return lives 10 minutes; a signed-in row gets portfolio.admin.login-lifetime.\nspring.session.timeout=10m\n# The test profile turns Secure off, because WebKit refuses a Secure cookie from plain http://127.0.0.1.\nportfolio.session.cookie-secure=true\nserver.servlet.session.cookie.name=SESSION\nserver.servlet.session.cookie.http-only=true\nserver.servlet.session.cookie.secure=${portfolio.session.cookie-secure}\nserver.servlet.session.cookie.same-site=lax\n# The row ends the login; a browser-session cookie would sign the admin out with every browser restart.\nserver.servlet.session.cookie.max-age=400d\n\n# Error alerts (FR-122 to FR-129): every ERROR event and every Next.js server error goes to the Telegram errors group.\nportfolio.alerts.telegram.api-url=${TELEGRAM_API_URL:https://api.telegram.org}\nportfolio.alerts.telegram.bot-token=${TELEGRAM_BOT_TOKEN:}\nportfolio.alerts.telegram.errors-chat-id=${TELEGRAM_ERRORS_CHAT_ID:}\nportfolio.alerts.window=${ALERT_WINDOW:10m}\nportfolio.alerts.queue-size=200\nportfolio.alerts.max-windows=1000\n# Values that an alert must not show; the bot token is masked too.\nportfolio.alerts.secrets.openai-api-key=${OPENAI_API_KEY:}\nportfolio.alerts.secrets.r2-access-key-id=${R2_ACCESS_KEY_ID:}\nportfolio.alerts.secrets.r2-secret-access-key=${R2_SECRET_ACCESS_KEY:}\nportfolio.alerts.secrets.google-client-secret=${GOOGLE_CLIENT_SECRET:}\nportfolio.alerts.secrets.database-password=${DATABASE_PASSWORD:}\n# Every log line holds the request ID or the job ID of its run (NFR-15); both are empty outside a request and a job.\nlogging.pattern.correlation=req=%X{requestId:-} job=%X{jobId:-}\\u0020\n# Booking requests: at most this many saved requests per network and hour (FR-167); a value that is not a whole number of at least 1 stops the start.\nportfolio.booking.hourly-limit=${BOOKING_HOURLY_LIMIT:10}\n# The notice worker checks for due tries this often, and right after each save.\nportfolio.booking.notice-poll=5s\n# The Telegram bot and the two groups (FR-116, FR-120); the live profile refuses a blank token or requests chat ID.\nportfolio.telegram.bot-token=${TELEGRAM_BOT_TOKEN:}\nportfolio.telegram.requests-chat-id=${TELEGRAM_REQUESTS_CHAT_ID:}\nportfolio.telegram.errors-chat-id=${TELEGRAM_ERRORS_CHAT_ID:}\n# The Bot API; the local stack sets the Telegram stub, compose.server.yml the real address.\nportfolio.telegram.api-url=${TELEGRAM_API_URL:https://api.telegram.org}\n",
+    expected: /R2_/,
+    operator: 'doesNotMatch',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:159:3
+✖ loads the dump in one transaction, so a failed load leaves the database as it was (315.00975ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(restoreCalls(sb)[0].argv.includes("--single-transaction"))
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:168:3
+✖ a backend that is restarting counts as running (331.378417ms)
+  AssertionError [ERR_ASSERTION]: ps --status running --services
+      at TestContext.<anonymous> (file://<local path>)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:179:3
+✖ refuses to restore into the live project from a folder that is the drill's, and names --drill (316.034375ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to: 0
+      at TestContext.<anonymous> (file://<local path>)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Suite.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 0,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:205:3
+✖ refuses when the folder's project is the live one, names COMPOSE_PROJECT_NAME and does not send the operator to stop the live backend (312.938792ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to: 0
+      at TestContext.<anonymous> (file://<local path>)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 0,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:220:3
+✖ refuses when the postgres container of the folder belongs to the live project, whatever the name resolves to (310.564208ms)
+  AssertionError [ERR_ASSERTION]: Expected "actual" to be strictly unequal to: 0
+      at TestContext.<anonymous> (file://<local path>)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 1)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 0,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:231:3
+✖ refuses when the project name cannot be read, because it then is not known to be the drill (326.356625ms)
+  AssertionError [ERR_ASSERTION]: fail
+      at TestContext.<anonymous> (file://<local path>)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 2)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 0,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:244:3
+✖ a running drill backend is to be stopped with the drill's own project name, never a bare compose command (112.567667ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /docker compose -p portfolio-drill stop backend/. Input:
+  
+  '\n' +
+    'restore: the backend container is running. Stop the backend first (docker compose stop backend): a restore replaces every table\n'
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 3)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '\nrestore: the backend container is running. Stop the backend first (docker compose stop backend): a restore replaces every table\n',
+    expected: /docker compose -p portfolio-drill stop backend/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:268:3
+✖ a TERM during the download removes the temporary folder and stops the rclone container (208.592333ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + [
+  +   'restore.DUL7Jm'
+  + ]
+  - []
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at async Test.run (node:internal/test_runner/test:1332:7)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'restore.DUL7Jm' ],
+    expected: [],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests/deploy/restore.test.mjs:284:3
+✖ the script sets umask 077 before it makes its temporary folder (0.448666ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(script.indexOf("umask 077") > 0 && script.indexOf("umask 077") < script.indexOf("mktemp"))
+  
+      at TestContext.<anonymous> (file://<local path>)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1325:25)
+      at Suite.processPendingSubtests (node:internal/test_runner/test:911:18)
+      at Test.postRun (node:internal/test_runner/test:1465:19)
+      at Test.run (node:internal/test_runner/test:1390:12)
+      at async Promise.all (index 0)
+      at async Suite.run (node:internal/test_runner/test:1794:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:911:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

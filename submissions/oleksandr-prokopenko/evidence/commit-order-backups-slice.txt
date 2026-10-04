@@ -1,0 +1,17 @@
+86eb42e 2026-09-30 test: red tests for nightly R2 backups, the restore script and the job-alert endpoint
+1e62475 2026-09-30 feat: POST /internal/alerts lets a job outside Spring post a failure to the errors group
+98025b8 2026-09-30 feat: nightly backup job, status check, restore script, installer and systemd units
+9aca0a5 2026-09-30 docs: restore procedure, Backups runbook, ADR-0009, the real R2 test and the e2e for the hidden alert endpoint
+31ceb78 2026-10-01 test: green evidence for add-backups, tasks ticked, e2e of the hidden alert endpoint corrected
+8a5aac8 2026-10-01 chore: hook ledger lines of the add-backups commits
+cfd1573 2026-10-01 Merge slice 10 add-backups (lane C)
+fb19903 2026-10-01 fix: review round 1 of add-backups (drill project guard, no R2 key in the backend)
+2f194b3 2026-10-01 docs: owner check of the R2 bucket and token scope (task 6.1)
+687d0b0 2026-10-01 Merge slice 10 review round 1 (drill project guard, no R2 key in the backend)
+aaa4d5d 2026-10-01 docs: live install, first run, forced failure and restore drill of add-backups
+ad7ae6c 2026-10-01 Merge slice 10 server proof and restore drill
+72648ba 2026-10-01 docs: the forced-failure alert of add-backups as received (task 6.14)
+63c72dc 2026-10-01 docs: first scheduled nightly backup of add-backups (task 6.13)
+50c45e2 2026-10-01 docs: close-out of add-backups (review findings, live endpoint, final checks, server tools, draft waiver)
+1d38b69 2026-10-01 Merge slice 10 close-out (endpoint check, final checks, review record, tool notes)
+9e13fec 2026-10-01 chore: archive slice 10 add-backups
