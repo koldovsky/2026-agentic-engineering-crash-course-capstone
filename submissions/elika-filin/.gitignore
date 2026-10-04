@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+.vitest/
+.agent-log/summary.txt
+.claude/settings.local.json
+CLAUDE.local.md
+.agent-log/last-check.json
