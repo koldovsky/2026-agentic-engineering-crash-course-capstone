@@ -1,0 +1,57 @@
+3b0722f 2026-10-01 docs(qa): UAT round 1 (the owner's own live use, decision 6) and the four waiver corrections dispositioned
+6b8dd17 2026-10-01 retro: COR-1 resolved, closed by the owner
+eea7f47 2026-10-01 chore: archive slice 7 add-about
+22ed2e7 2026-10-01 chore: archive slice 9 add-ai-translate
+96de581 2026-10-01 chore: archive slice 5b add-session-admin
+d7d5820 2026-10-01 chore: deploy again with the fixed drafts step [deploy]
+989fb6d 2026-10-01 fix(deploy): the drafts step must not read the remote script from stdin
+a788ba0 2026-10-01 retro: COR-1 fixed by the owner (lifecycle rule deleted)
+2b435ed 2026-10-01 retro: COR-1 root cause (the lifecycle rule came from the orchestrator's earlier guidance)
+e44f3fa 2026-10-01 retro: correction COR-1, R2 lifecycle rule missed in the backup explanation
+9e13fec 2026-10-01 chore: archive slice 10 add-backups
+1859ec9 2026-10-01 chore: archive slice 8 add-error-alerts
+ad769ac 2026-10-01 chore: archive slice 6 add-booking-requests
+f80bff4 2026-10-01 fix(deploy): make data/drafts before up with a throw-away backend container
+a7075e9 2026-10-01 chore: deploy slice 9 AI translate with review round 1 [deploy]
+f77a9dd 2026-10-01 Merge slice 9 add-ai-translate with review round 1 (lane C)
+29766b5 2026-10-01 fix: review round 1 of add-ai-translate
+271832a 2026-10-01 chore: deploy slice 5b session admin with review round 1, slice 6 close-out [deploy]
+e23ac6f 2026-10-01 test: Chromium e2e of the admin specs after 5b review round 1
+45a1715 2026-10-01 Merge slice 5b review round 1 (drafts folder at deploy, drafts in backups, unpublish moves, disk floor)
+3ee1b0b 2026-10-01 fix(session-admin): review round 1, unpublish repair, disk floor, lock order, upload halts, seed publish
+f042298 2026-10-01 fix(deploy): make data/drafts before up, and back up and restore draft copies
+745b130 2026-10-01 chore: deploy slices 6 and 10 (booking requests, backups) with review round 1 fixes [deploy]
+687d0b0 2026-10-01 Merge slice 10 review round 1 (drill project guard, no R2 key in the backend)
+8d8efa7 2026-10-01 fix: review round 1 of add-booking-requests (notice injection, slow body, privacy, alert supergroup)
+0bf0ac1 2026-10-01 chore: hook ledger lines of the add-backups review round 1 commit
+fb19903 2026-10-01 fix: review round 1 of add-backups (drill project guard, no R2 key in the backend)
+5ea9088 2026-09-30 fix: review round 1 of add-error-alerts (grouping, shutdown, test routes)
+fc4a830 2026-09-30 chore: archive slice 5a add-admin-access
+01c8adf 2026-09-30 chore: archive slice 4 add-overview
+e0879b6 2026-09-30 fix: slice 4 review round 1: short preview lookup, a lone photo below 720 px, sharper tests
+a11126c 2026-09-30 chore: archive slice 3 add-public-sessions
+048e75b 2026-09-30 chore: archive slice 2 add-photo-pipeline
+ceea9ed 2026-09-30 chore: archive slice 1 add-deploy-pipeline
+222caaf 2026-09-30 fix: slice 2 review round 3 merged [deploy]
+229fa29 2026-09-30 fix: slice 3 review round 2: cheap session probe, LCP preload, stable recordings
+a0e9afc 2026-09-30 fix: photo pipeline review round 3, 9 findings and 1 contested
+b246a02 2026-09-30 fix: slice 2 review round 2 merged; the demo reseeded on the server
+4b38411 2026-09-30 fix: photo pipeline review round 2, 11 findings
+05f2a40 2026-09-30 fix: slice 3 review round 1: server-rendered 404, error pages, bad escapes [deploy]
+c1c8bc8 2026-09-29 fix: slice-2 review round 1: upload filter, photo claims, worker and seed hardening [deploy]
+a302072 2026-09-28 fix: final review round of add-deploy-pipeline [deploy]
+08c6de3 2026-10-01 chore: the owner's approval of PD-49 (--approve)
+fc59901 2026-10-01 Merge the owner's seven release-gate decisions (waivers, PD-49, UAT round 1, process baseline)
+8dd79fc 2026-10-01 docs(qa): waivers for decisions 1 and 2 of the owner's release-gate list, and the archive of improve-PD-49
+0e31ebd 2026-10-01 docs(qa): PD-49, JSON waivers for the recording, trajectory and visual release checks
+921582d 2026-10-01 chore: deploy the Sessions page priority fix and the PD-48 pins [deploy]
+aabfa92 2026-10-01 chore: the owner's approval of the sealed files (PD-31 --approve)
+633e63f 2026-10-01 Merge PD-48 (supply-chain pins, rclone kept on prune) and PD-31 (owner approval files)
+b263de1 2026-10-01 chore: archive the applied process proposals PD-31 and PD-48
+c02cda0 2026-10-01 feat(process): a changed sealed hash needs the owner's approval file; reseal of PD-48 and PD-31
+845d018 2026-10-01 fix: site-wide booking cap with one summary notice, limit on the sign-in start, proposal improve-PD-48
+cb450e8 2026-10-01 Merge archive of applied process proposals PD-1..PD-47
+c7a8cb9 2026-10-01 chore: archive applied process proposals PD-1..PD-47
+9eef652 2026-10-01 chore: deploy viewer fill, session row trim, Overview rows, admin start page, delete text, PD-47 [deploy]
+dc0c7e1 2026-10-01 Merge owner approvals of 2026-10-01 (PD-47 applied and resealed, ADRs accepted, backup waiver open)
+3b63f3f 2026-10-01 fix: keep the sealed deploy workflow; data/drafts made by hand on the server, the deploy step proposed as PD-47

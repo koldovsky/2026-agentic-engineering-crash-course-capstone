@@ -1,0 +1,715 @@
+{
+  "generatedAt": "2026-10-01T13:05:18.401Z",
+  "threshold": 70,
+  "dimensions": {
+    "translation-quality": 82.6,
+    "error-clarity": 91.9
+  },
+  "judging": "fresh eval-judge agents in batches of 5 to 11 cases (maker != checker); outputs produced from the real app texts, translation cases from real OpenAI calls (gpt-6-luna); backend-down cases derived from the Caddy 5xx page files",
+  "cases": [
+    {
+      "id": "eval-translation-story",
+      "dimension": "translation-quality",
+      "trace": [
+        "FR-135",
+        "FR-130"
+      ],
+      "capability": "ai-translate",
+      "score": 86,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Meaning, tone, paragraphs and translation-only all kept; a few phrases read stiff."
+    },
+    {
+      "id": "eval-translation-about",
+      "dimension": "translation-quality",
+      "trace": [
+        "FR-135",
+        "FR-131"
+      ],
+      "capability": "ai-translate",
+      "score": 87,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All four sentences map one to one; the personal warm voice stays; Liuba and Kyiv romanised correctly."
+    },
+    {
+      "id": "eval-translation-place-names",
+      "dimension": "translation-quality",
+      "trace": [
+        "FR-135",
+        "FR-130"
+      ],
+      "capability": "ai-translate",
+      "score": 88,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "The route and every place name carry over in English; no Cyrillic left."
+    },
+    {
+      "id": "eval-translation-quotes-and-dash",
+      "dimension": "translation-quality",
+      "trace": [
+        "FR-135",
+        "FR-130"
+      ],
+      "capability": "ai-translate",
+      "score": 76,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Meaning, tone and paragraphs kept; the one dash kept is visibly broken."
+    },
+    {
+      "id": "eval-translation-long-story",
+      "dimension": "translation-quality",
+      "trace": [
+        "FR-135",
+        "FR-130"
+      ],
+      "capability": "ai-translate",
+      "score": 76,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "The whole 13-paragraph text is translated with no fact changed; small drifts and two awkward phrases cost points."
+    },
+    {
+      "id": "eval-error-clarity-about-text-too-long",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-93"
+      ],
+      "capability": "portfolio-admin",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met by one short sentence with the limit and the actual count. «зараз 5001» is a bit terse."
+    },
+    {
+      "id": "eval-error-clarity-admin-stale-page",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "NFR-1"
+      ],
+      "capability": "admin-access",
+      "score": 88,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "It says clearly that nothing was saved and what to do next; the button label matches the instruction."
+    },
+    {
+      "id": "eval-error-clarity-session-date-format",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-61"
+      ],
+      "capability": "portfolio-admin",
+      "score": 91,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met; the pattern and a real date sit in one short sentence. «не розпізнано» describes the system's failure, so the wrong form is only implied. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-text-too-long",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-60"
+      ],
+      "capability": "portfolio-admin",
+      "score": 88,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met; very terse, no action verb, and it does not say how many characters to cut. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-stale-tab",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-73",
+        "FR-88"
+      ],
+      "capability": "portfolio-admin",
+      "score": 90,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All three messages meet every criterion; the retry message does not tell which of its two cases happened. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-upload-size",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-66"
+      ],
+      "capability": "portfolio-admin",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Two short sentences meet every criterion; «Зменшіть його» does not say how."
+    },
+    {
+      "id": "eval-error-clarity-session-upload-disk-low",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-37"
+      ],
+      "capability": "portfolio-admin",
+      "score": 87,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Cause, result and who to tell are plain; the retry button works against the advice to wait."
+    },
+    {
+      "id": "eval-error-clarity-booking-limit-uk",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-114"
+      ],
+      "capability": "booking-requests",
+      "score": 90,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Both points in two short sentences; it names the network, so a visitor sharing it is not made to feel guilty. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-not-found-uk",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-12"
+      ],
+      "capability": "public-site",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met; the likely reason points away from the visitor; both links back are there."
+    },
+    {
+      "id": "eval-error-clarity-translate-empty",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met; «прийшов порожнім» is slightly casual."
+    },
+    {
+      "id": "eval-error-clarity-translate-body-too-large",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 91,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met in two short sentences; it does not say how much to cut."
+    },
+    {
+      "id": "eval-error-clarity-about-replacement-failed",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-94"
+      ],
+      "capability": "portfolio-admin",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met in two short sentences; it does not confirm the old portrait stays."
+    },
+    {
+      "id": "eval-error-clarity-admin-backend-down",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "NFR-12"
+      ],
+      "capability": "admin-access",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "It names the failed step and its cause in one sentence, with a time frame for the next step."
+    },
+    {
+      "id": "eval-error-clarity-session-date-absent",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-61"
+      ],
+      "capability": "portfolio-admin",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "It matches the case exactly and points at the day and the month."
+    },
+    {
+      "id": "eval-error-clarity-session-publish-no-title",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-80"
+      ],
+      "capability": "portfolio-admin",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "What happened, why and what to do next, in two clear sentences. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-photos-changed",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-73",
+        "FR-91"
+      ],
+      "capability": "portfolio-admin",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Result and cause in one sentence, pointing at the current photos below."
+    },
+    {
+      "id": "eval-error-clarity-session-upload-pixels",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-66"
+      ],
+      "capability": "portfolio-admin",
+      "score": 87,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met; «Фото завелике» can read as file size, and «Зменшіть його» does not say to reduce the resolution."
+    },
+    {
+      "id": "eval-error-clarity-session-copies-moving",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-82"
+      ],
+      "capability": "portfolio-admin",
+      "score": 90,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met in two short sentences; «копії фото» means little to someone who does not know about storage. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-booking-consent-uk",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-108"
+      ],
+      "capability": "booking-requests",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "One sentence: what the visitor wants, then the one action needed. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-not-found-en",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-12"
+      ],
+      "capability": "public-site",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met; both links go back into the English site."
+    },
+    {
+      "id": "eval-error-clarity-translate-incomplete",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "What went wrong, that nothing was lost, and two options, in three short sentences."
+    },
+    {
+      "id": "eval-error-clarity-backend-down-uk",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "NFR-12"
+      ],
+      "capability": "public-site",
+      "score": 91,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Heading, cause, next step and a link back in plain words; «отримати свої дані» is a little vague. Output derived from the Caddy 5xx page files."
+    },
+    {
+      "id": "eval-error-clarity-admin-google-failed",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-51"
+      ],
+      "capability": "admin-access",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met by two short sentences. The «Увійти через Google» button sits right below the message, so the retry step is easy to act on."
+    },
+    {
+      "id": "eval-error-clarity-admin-not-found",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-58"
+      ],
+      "capability": "admin-access",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met. One small deduction: «адмінка» is a colloquial word, still clear to the photographer."
+    },
+    {
+      "id": "eval-error-clarity-session-address-chars",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-85"
+      ],
+      "capability": "portfolio-admin",
+      "score": 91,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met; the example osin-u-parku turns her own words into an allowed address. It does not say which characters broke the rule. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-publish-no-photo",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-80"
+      ],
+      "capability": "portfolio-admin",
+      "score": 88,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met; «фото, яке можна показати» is less direct, and «Завантажте фото» fits less well when photos are still processing or failed. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-conflict",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "NFR-14"
+      ],
+      "capability": "portfolio-admin",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Each rubric line is met by the two sentences. «Дані» is slightly abstract for an admin who thinks in sessions and photos."
+    },
+    {
+      "id": "eval-error-clarity-session-upload-unreadable",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-66"
+      ],
+      "capability": "portfolio-admin",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met with two short, plain sentences. The hedge «Можливо» is honest and still tells her what to check."
+    },
+    {
+      "id": "eval-error-clarity-booking-unreachable-uk",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-112"
+      ],
+      "capability": "booking-requests",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met, including the reassurance that the visitor's input is still in the form."
+    },
+    {
+      "id": "eval-error-clarity-booking-too-long-en",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-110"
+      ],
+      "capability": "booking-requests",
+      "score": 90,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Short and clear with an exact number. It is very terse and does not show how far over the limit the visitor is, which the rubric does not require."
+    },
+    {
+      "id": "eval-error-clarity-translate-failed",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met in three short sentences; the note that the English text was not changed tells her nothing was lost."
+    },
+    {
+      "id": "eval-error-clarity-translate-source-empty",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met. «кнопку» does not name which button, although the message sits right next to it."
+    },
+    {
+      "id": "eval-error-clarity-backend-down-en",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "NFR-12"
+      ],
+      "capability": "public-site",
+      "score": 91,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met by what the visitor sees. «cannot get its data» is slightly abstract but plain enough. Output derived from the Caddy 5xx page files, not a live outage."
+    },
+    {
+      "id": "eval-error-clarity-admin-access-denied",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-54"
+      ],
+      "capability": "admin-access",
+      "score": 89,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met; «адмінки» is casual and the text and button repeat each other."
+    },
+    {
+      "id": "eval-error-clarity-session-title-required",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-60"
+      ],
+      "capability": "portfolio-admin",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Short and clear; says the title is missing only by implication."
+    },
+    {
+      "id": "eval-error-clarity-session-address-taken",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-85"
+      ],
+      "capability": "portfolio-admin",
+      "score": 91,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Both points in two short sentences; for an address kept as another session's old address «зайнята» gives less detail."
+    },
+    {
+      "id": "eval-error-clarity-session-last-ready-photo",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-80",
+        "FR-164"
+      ],
+      "capability": "portfolio-admin",
+      "score": 93,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "The reason is told from the visitor's side; the next step is one clear action. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-session-upload-type",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-66"
+      ],
+      "capability": "portfolio-admin",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met plainly on the row of that file."
+    },
+    {
+      "id": "eval-error-clarity-session-upload-network",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-68"
+      ],
+      "capability": "portfolio-admin",
+      "score": 87,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All three versions say the upload failed and offer a retry."
+    },
+    {
+      "id": "eval-error-clarity-booking-server-error-en",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-112"
+      ],
+      "capability": "booking-requests",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "All criteria are met in three short sentences."
+    },
+    {
+      "id": "eval-error-clarity-booking-admin-gone",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-101"
+      ],
+      "capability": "booking-requests",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Title, two likely causes and a link back; «такої адреси не існує» is vague."
+    },
+    {
+      "id": "eval-error-clarity-translate-timeout",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 95,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met in order."
+    },
+    {
+      "id": "eval-error-clarity-translate-source-too-long",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-132"
+      ],
+      "capability": "ai-translate",
+      "score": 94,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Both critical criteria are met: no technical detail, plain Ukrainian. It says what went wrong, names the 20000-character limit and what to do next. It does not say how far over the limit she is. (regraded 2026-10-01 after the limit became 20000 for a story)"
+    },
+    {
+      "id": "eval-error-clarity-session-publish-copies-failed",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-81"
+      ],
+      "capability": "portfolio-admin",
+      "score": 90,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "Every criterion is met; it does not say what to do if the second try also fails. (regraded after the text rework)"
+    },
+    {
+      "id": "eval-error-clarity-translate-outdated",
+      "dimension": "error-clarity",
+      "trace": [
+        "NFR-17",
+        "FR-133"
+      ],
+      "capability": "ai-translate",
+      "score": 92,
+      "pass": true,
+      "judges": 1,
+      "disagreement": false,
+      "notes": "What happened, that nothing was lost, and what to press, in three short sentences; «кнопку» does not name which button. (regraded after the text rework)"
+    }
+  ],
+  "approved": "owner, 2026-10-01: approved as is (error-clarity baseline 91.9, translation-quality 82.6)"
+}

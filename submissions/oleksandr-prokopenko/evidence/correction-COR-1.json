@@ -1,0 +1,21 @@
+{
+  "id": "COR-1",
+  "ts": "2026-10-01T10:55:54.916Z",
+  "utterance": "R2 lifecycle: the orchestrator claimed R2 deletes nothing by itself and the photos mirror never ages out; the owner's Cloudflare screenshot shows a bucket-wide lifecycle rule delete-after-30-days that deletes every object 30 days after upload, so the whole photos/current mirror and every dump would vanish 30 days after the last backup if the server stops",
+  "contradictedClaim": null,
+  "mappedReqIds": [],
+  "gateThatShouldHaveCaught": null,
+  "failureMode": "wrong-claim",
+  "failureModeSource": "heuristic",
+  "source": "human",
+  "autoKey": null,
+  "disposition": {
+    "status": "resolved",
+    "by": "owner (Oleksandr Prokopenko)",
+    "ts": "2026-10-01T13:28:04.967Z",
+    "note": "Owner approved closing on 2026-10-01 (\"PD-48; PD-31; closing COR-1 — i approve these, do it.\"). Fixed: the owner deleted the delete-after-30-days lifecycle rule; the bucket keeps only Default Multipart Abort Rule and the db-30-days lock."
+  },
+  "rootCause": "The owner added the bucket-wide lifecycle rule delete-after-30-days following the orchestrator's own earlier R2 setup guidance; the later backup design (rclone sync mirror plus script-side retention of db/ dumps and photos/archive/<date>/) assumes no bucket lifecycle rule, and nobody re-checked the bucket settings against it. Owner, 2026-10-01: \"i added this rule using your guidance ... i can remove this rule\".",
+  "followUp": "Owner removes the rule; then the backup status check also reads the bucket lifecycle configuration and alerts on any rule that deletes outside photos/archive/.",
+  "fixed": "2026-10-01: the owner deleted the delete-after-30-days lifecycle rule; the bucket keeps only Default Multipart Abort Rule and the lock db-30-days on db/ (owner screenshot). Disposition left for the owner."
+}
