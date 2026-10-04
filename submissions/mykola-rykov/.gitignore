@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.DS_Store
+__pycache__/
+.venv/
+terrain/raw/
+terrain/prepared/
+terrain/packages/
+public/terrain/
+.cache/
+test-results/
+playwright-report/

@@ -1,0 +1,126 @@
+# Initial prompt (gpt-6-astra medium, Plan mode):
+
+Plan building a simple interactive 3D RF drone flight-planning Web tool with no backend. Its central question would be:
+“Given this terrain, route, frequency, transmitter, receiver, antennas and aircraft configuration, where can the drone fly while maintaining a specified link margin with acceptable energy and aerodynamic cost?”
+Research and propose open data sources for the real terrain elevation data for the given region. The terrain data set should be less than 500MB for a flight of up to 100km length.
+Propose the most pragmatic architecture for the tool that has no backend, no user registration/login, a pure one-off solution: user picks a starting point on a map, enters their drone flight range, picks up a destination point, multiselects types of antennas and emission power levels which are available to them, and sees a proposed collection of heatmap visualisation of the RF signal level along the flight path along with their pros and cons per each antenna/power level/flight path combination.
+Optimise for performance, avoid paid commercial tools like Cesium, Mapbox, Google Earth, etc. 3D map visualisation can be as simple as some basic greyscale 3D terrain built from the open terrain level data plus some shading from a fixed light source.
+
+---
+
+# Manually added vercel-react-best-practices skill:
+
+npx skills add https://github.com/vercel-labs/agent-skills --skill vercel-react-best-practices -a codex --copy -y
+
+---
+
+openspec init
+
+---
+
+$openspec-explore Look at submissions/mykola-rykov/docs/INITIAL_PLAN.md and use Openspec to describe the plan implementation.
+
+I read docs/INITIAL_PLAN.md. OpenSpec is initialized, but there are no existing specs or changes, and no application code yet.
+
+I recommend one change, **`offline-rf-flight-planner`**, covering v1, with tasks grouped into the plan’s five delivery stages:
+
+| Stage                        | Implementation scope                                                                                                                   | Acceptance gate                                                                                                   |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| 1\. Terrain and viewer       | Python/GDAL package builder; versioned manifest; display and conservative obstruction grids; React/Three.js viewer; bounded tile cache | Package below 500,000,000 bytes; peaks and missing-data masks preserved; viewer works offline                     |
+| 2\. Manual-route RF analysis | Waypoints; terrain profiles; independent uplink/downlink budgets; curvature, diffraction, Fresnel clearance and antenna orientation    | Analytical free-space and independent diffraction fixtures pass; missing terrain prevents confident feasibility   |
+| 3\. Aircraft and comparisons | Separate fixed-wing and multirotor models; battery, antenna mass/drag and radio electrical power; scenario comparison cards            | Hand-calculated energy fixtures pass; reserve and weaker-link constraints govern feasibility                      |
+| 4\. Automatic routing        | Corridor search; heading-aware fixed-wing motion; altitude and aircraft constraints; refinement, smoothing and return-leg evaluation   | Final routes satisfy constraints after fine sampling; failed searches report their corridor and resolution limits |
+| 5\. Delivery and validation  | Launcher; bundled assets; additional-region validation; offline installation checks; memory and timing benchmarks                      | Networking-disabled installation works; measured performance meets the documented targets; `pnpm check` passes    |
+
+The OpenSpec artifacts would be:
+
+- **`proposal.md`** — v1 outcome, capabilities and exclusions.
+- **`design.md`** — terrain format, coordinate/datum handling, worker protocol, numerical models, caching and routing architecture.
+- **`specs/*/spec.md`** — requirements and scenarios for terrain packages, offline runtime, mission editing/persistence, RF analysis, aircraft energy, route search and result comparison.
+- **`tasks.md`** — ordered implementation work with validation gates for each stage.
+
+The artifacts should distinguish feasibility failures from unknown results, preserve separate outbound/return evaluations, and treat performance and package sizes as targets requiring measurement. Initial region selection and independently sourced diffraction fixtures remain implementation decisions.
+
+**Should I create `openspec/changes/offline-rf-flight-planner/` with those proposal, design, capability specs and task artifacts?**
+
+I need this confirmation because the openspec-explore skill (.codex/skills/openspec-explore/SKILL.md) says: “Before the first write-capable action, name the artifacts or files you would change … ask a direct yes/no question.” No files have been changed.
+
+---
+
+create `openspec/changes/offline-rf-flight-planner/` with those proposal, design, capability specs and task artifacts
+
+---
+
+`pnpm check` failed because no `check` command exists yet. Establishing it is the first implementation task.
+
+Implementation can begin with `$openspec-apply-change offline-rf-flight-planner`.
+
+---
+
+$openspec-apply-change offline-rf-flight-planner
+
+---
+
+Completed **3/48 tasks**:
+
+- React/Three.js scaffold and static build.
+- Versioned, validated data contracts.
+- First-region configuration and inventory (docs/FIRST_REGION.md) centered on your coordinates: 20 listed GLO-30 tiles, no listed gaps.
+
+**`pnpm check` passes**, including 13 tests. OpenSpec strict validation passes.
+
+Task 1.4 needs GDAL, which is absent. Should I use an existing installation you provide, or set up a project-local environment?
+
+I’m pausing because the apply skill (.codex/skills/openspec-apply-change/SKILL.md) explicitly requires: “Error or blocker encountered → report and wait for guidance.”
+
+---
+
+Step 9: openscpec correctly implicitly picked up the vercel-react-best-practices skill when it started to work on React components!
+
+"The local tile loader is complete, bringing progress to **9/48**. It checks streamed byte counts and checksums before caching, with a 32 MiB cache limit. I’m now connecting the built package to the terrain viewer and adding browser checks for coordinate placement, view switching, and the WebGL2 fallback. I’m using the React best-practices skill for these interface changes."
+
+---
+
+Asked the agent to bump the benchmark test laptop RAM requirement from 16GB to 24GB to match what I have on my machine.
+
+$openspec-apply-change
+
+---
+
+`pnpm check` and all six browser tests pass.
+
+Multirotor integration needs two choices:
+
+- Cruise airspeed: editable value or optimization from the power table?
+- Added drag: editable propulsion efficiency or measured power corrections?
+
+I recommend editable values for both.
+
+Paused under the OpenSpec apply skill (.codex/skills/openspec-apply-change/SKILL.md): “If implementation reveals issues, pause and suggest artifact updates.” These inputs are missing from the current design and mission contract.
+
+---
+
+$code-reviewer Review code changes since commit cc025712bb04512c8f48dd31539fd4b238fa54e7
+
+---
+
+The review is complete with two reproduced findings. The existing `pnpm check` run passed on this unchanged application code; neither defect is covered by those checks. No files were modified.
+
+1. **title:** Clearing a mission coordinate crashes the application  
+   **file + line:** src/mission/RfViews.tsx:36  
+   **severity:** critical  
+   **evidence:** Clearing a latitude or longitude field stores `NaN` through `valueAsNumber`. The render-time call `projection.forward(point.position)` then throws a validation error, which I reproduced. No error boundary exists above this component, so React removes the application UI, losing the unsaved mission state. [React documentation (https://react.dev/reference/react/Component\#catching-rendering-errors-with-an-error-boundary)](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) confirms this behavior.  
+   **suggestion:** Keep incomplete coordinate edits as local strings, validate before updating mission coordinates, and handle projection failures without throwing during rendering.
+2. **title:** Vertical route corners incorrectly pass motion feasibility  
+   **file + line:** src/energy/integration.ts:97  
+   **severity:** major  
+   **evidence:** The corner check compares only `b.headingDeg - a.headingDeg`, ignoring changes in vertical direction. A reproduced fixed-wing route with consecutive 1 km segments climbing from 100 to 200 m and descending to 100 m returned overall `feasible` with no violations. Its pitch switches abruptly from +5.71° to −5.71°, yet it bypasses the rejection applied to horizontal corners lacking finite turn geometry.  
+   **suggestion:** Check continuity of the complete three-dimensional velocity direction at manual waypoints, and reject vertical corners until finite transition geometry is supplied.
+
+---
+
+$openspec-propose Build two specs to implement the issues found in the code review above
+
+---
+
+$openspec-apply-change fix-coordinate-editing-and-vertical-corners
