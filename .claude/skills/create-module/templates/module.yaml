@@ -1,0 +1,154 @@
+# =====================================================================================================================
+# Module generation spec — DEFAULT TEMPLATE
+#
+# Aggregates the data needed to generate one module (skill `generate-module`, host code; skill `generate-emulator`
+# Part B, emulated-service code): module identity, its API requests (the standard `init`/`callback`, docs/architecture/flow.md),
+# migrations (RegisterService + any tables the module needs of its own).
+# The remote service, its methods and the data/status mapping live in the sibling spec `module.service.yaml`
+# (template templates/module.service.yaml).
+#
+# Usage: copy this file to `development/<name>/specs/module.yaml`, replace the values, keep the structure.
+# The values below describe the default module `test`.
+#
+# Conventions
+#   - A key that is ABSENT means "not set" (e.g. a column without `default` has no DEFAULT clause). An explicit `null`
+#     means SQL NULL / JSON null.
+#   - `${module.name}` / `${module.id}` may be used inside string values; the generator replaces them with the values of
+#     the `module` block. `${now}` may be used in record values (evaluated when the migration runs).
+#   - Column `type` is a schema-builder method name (guide, db-migrations: `primaryKey`, `string`, `text`, `integer`,
+#     `dateTime`, ... - see the API docs of yii\db\SchemaBuilderTrait). Abstract types keep migrations portable.
+#   - Parameter `type` (requests/responses): string | integer | number | boolean | array | object.
+#   - Process status (OUR side, the same for every module): `success` | `process` | `fail`. The host records `init` and
+#     `error` itself; the module never returns them (AGENTS.md "Module architecture").
+# =====================================================================================================================
+
+spec_version: 1
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Module
+# ---------------------------------------------------------------------------------------------------------------------
+module:
+  name: test                    # module name = module id = directory demo/modules/<name>/, emulator/modules/<name>/
+  id: test                      # must equal `name` (AGENTS.md: id is the directory, the namespace segment, the URL
+                                 # prefix and the `service` row name - one value, not two); [a-z][a-z0-9_]*, no "-"
+  description: Test API module for the demo REST API
+  author:
+    name: Your Name
+    email: you@example.com
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Requests (API endpoints of the module)
+#
+# Full URL = /<module.id>/<version><path>          e.g. POST /test/v1/init
+#   version : API major version -> controller V<N>Controller (v1 -> V1Controller)
+#   path    : part after the version; "" = the version root (a request without path); may contain {placeholders}
+#             declared in `path_params`
+#
+# Parameter definition (path_params, query_params, headers, body.params and response body.params):
+#   name         (required) parameter / JSON property name
+#   type         (required) string | integer | number | boolean | array | object
+#   required     true | false                (default false)
+#   nullable     true | false                (default false)
+#   default      value used when the parameter is omitted (absent = none)
+#   description  free text
+#   example      example value
+#   rules        optional list of Yii validators, e.g. [required, [string, {max: 255}]]
+#   items        for type=array : one parameter definition (without name) describing the elements
+#   params       for type=object: list of child parameter definitions
+# ---------------------------------------------------------------------------------------------------------------------
+requests:
+  # Standard requests, handled by the host's BaseController (module code implements only doProcess() / getExternalId() /
+  # getCallbackStatus() - AGENTS.md "Module architecture"). Every API request body has ONE structure, all first-level
+  # parameters required: {"requestId": "123344", "service_method": "method_name", "data": {...}}
+  # `data` differs per service method - described in `service_methods[].data` of module.service.yaml, not here.
+  #   init     : the module builds a request to the remote service from `data` (plus `callback_url`, flow.md §1a) and
+  #              sends it. The init response has `status`, mapped from the remote response.
+  #   callback : only for services that send callbacks. Services WITHOUT callbacks return the final result in the
+  #              response to the init request (service_methods[].remote_request.response of module.service.yaml).
+  # These two paths are fixed by BaseController; do not rename them.
+  - id: init
+    version: v1
+    method: POST
+    path: /init                                 # -> POST /test/v1/init
+    summary: Init process - the module sends a request to the remote service
+    request:
+      body:
+        content_type: application/json
+        params:
+          - {name: requestId, type: string, required: true, example: "123344"}
+          - {name: service_method, type: string, required: true, description: "Value from service_methods[].name of module.service.yaml", example: test_method}
+          - {name: data, type: object, required: true, description: "Parameters of the service method (module.service.yaml: service_methods[].data)"}
+    responses:
+      - status: 200
+        description: Process created, request sent to the remote service; `status` is the mapped status
+        content_type: application/json
+        body:
+          params:
+            - {name: requestId, type: string, required: true, example: "123344"}
+            - {name: status, type: string, required: true, description: "success | process | fail", example: process}
+      - status: 422
+        description: Validation failed
+        content_type: application/json
+        body:
+          params:
+            - name: errors
+              type: array
+              items: {type: object, params: [{name: field, type: string}, {name: message, type: string}]}
+
+  - id: callback
+    version: v1
+    method: POST
+    path: /callback                             # -> POST /test/v1/callback
+    summary: Callback from the remote service with the process result or error (only for services that send callbacks)
+    request:
+      body:
+        content_type: application/json
+        params: []                              # defined by the remote service: module.service.yaml service_methods[].callback.params
+    responses:
+      - status: 200
+        description: Status of the process record updated
+        content_type: application/json
+        body:
+          params: []
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Remote service and service methods: NOT in this file. They are described in the sibling spec
+# `development/<name>/specs/module.service.yaml` (template templates/module.service.yaml): the remote service, the
+# mapping of the init request data to the body of the request to the service, and the mapping of the service statuses
+# to ours (`success` | `process` | `fail`).
+# ---------------------------------------------------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Migrations
+#
+# Every module ships the mandatory `RegisterService` migration (AGENTS.md "Service registration"); do not remove or
+# rename it, and never add its table (`service`) here - it is a host table.
+#
+# Extra tables are OPTIONAL: the host's `process` table (service_id-scoped) already tracks every process of every
+# module, so a module needs its own table only for data beyond that (e.g. cached remote-service config, per-method
+# credentials, anything the module's domain layer must persist). Omit `extra_tables` entirely when the module needs
+# none - do not invent placeholder tables.
+#
+# Each item of `extra_tables` -> one namespaced migration class app\modules\<id>\migrations\M<YYMMDDHHMMSS><name>.php
+# (timestamp added at generation time) and, when `entity` is set, one domain entity + AR persistence pair generated by
+# `generate-module` (DDD layers, AGENTS.md "Module architecture" / "Code design").
+#
+# Table:
+#   name         (required) table name, [a-z][a-z0-9_]*; no table prefix; must not collide with host tables
+#   comment      optional table comment
+#   entity       generate: true | false ; class: short class name (domain entity + AR persistence model)
+#   columns      list of columns (below)
+#   indexes      list of {name, columns: [..], unique: true|false}
+#   foreign_keys list of {name, columns: [..], ref_table, ref_columns: [..], on_delete, on_update}
+#   records      list of records INSERTed by the migration (default []); same rules as the RegisterService insert:
+#                columns omitted get their `default` (or auto-increment for `primaryKey`); every NOT NULL column
+#                without a `default` MUST be given; `${now}` allowed for integer timestamp columns
+#
+# Column:
+#   name, type (required); length; nullable (default false); default; unique; comment
+#   `primaryKey` columns are auto-increment integer primary keys (NOT NULL); no nullable/default on them.
+# ---------------------------------------------------------------------------------------------------------------------
+migrations:
+  register_service: true                        # always true - generate-module writes M<ts>RegisterService regardless
+  extra_tables: []                               # e.g. see AGENTS.md "Module architecture" for the layout this feeds
