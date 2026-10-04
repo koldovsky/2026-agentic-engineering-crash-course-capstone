@@ -1,0 +1,205 @@
+===== $ docker compose -f compose.test.yml run --rm --build api_test uv run pytest
+ Network chudovskyi_default Creating 
+ Network chudovskyi_default Creating 
+ Network chudovskyi_default Created 
+ Network chudovskyi_default Created 
+ Container test_pm_db Creating 
+ Container test_pm_db Created 
+ Container test_pm_db Starting 
+ Container test_pm_db Started 
+ Image ipm_api:1.0.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 680B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.test
+#2 transferring dockerfile: 881B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#3 ...
+
+#4 [internal] load metadata for ghcr.io/astral-sh/uv:0.10.12
+#4 DONE 0.3s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#3 DONE 0.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 946B done
+#5 DONE 0.0s
+
+#6 FROM ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec
+#6 resolve ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-0 1/9] FROM docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b
+#7 resolve docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 106.12kB 0.0s done
+#8 DONE 0.0s
+
+#9 [stage-0 2/9] RUN apt-get update      && apt-get install -y --no-install-recommends netcat-openbsd     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [stage-0 4/9] WORKDIR /usr/src/prompt_manager
+#10 CACHED
+
+#11 [stage-0 3/9] COPY --from=ghcr.io/astral-sh/uv:0.10.12 /uv /uvx /bin/
+#11 CACHED
+
+#12 [stage-0 5/9] RUN --mount=type=cache,target=/root/.cache/uv     --mount=type=bind,source=uv.lock,target=uv.lock     --mount=type=bind,source=pyproject.toml,target=pyproject.toml     uv sync --locked --no-install-project
+#12 CACHED
+
+#13 [stage-0 6/9] COPY . .
+#13 DONE 0.1s
+
+#14 [stage-0 7/9] RUN --mount=type=cache,target=/root/.cache/uv     uv sync --locked
+#14 0.201 Resolved 70 packages in 0.92ms
+#14 0.206 Checked 67 packages in 1ms
+#14 DONE 0.2s
+
+#15 [stage-0 8/9] RUN sed -i 's/\r$//g' /usr/src/prompt_manager/docker/entrypoint.test.sh
+#15 DONE 0.3s
+
+#16 [stage-0 9/9] RUN chmod +x /usr/src/prompt_manager/docker/entrypoint.test.sh
+#16 DONE 0.3s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.2s done
+#17 exporting manifest sha256:2b0cac55a9f37273d48a16f50465ba2ef3b69b134def7339b8c8efb45fbcc707 0.0s done
+#17 exporting config sha256:96efd3495f885a441f1e21e62a8fe1f7cd9ad59f48edd1a321091f88fd27d488 0.0s done
+#17 exporting attestation manifest sha256:55ac9b034c4bd9733d00874fda9125251424906f28f509054aa7ed64f154ac2a 0.0s done
+#17 exporting manifest list sha256:aa7f4bfb681bea962b3351cfbc65035349e4031caaefb53edad30f09200851ff 0.0s done
+#17 naming to docker.io/library/ipm_api:1.0.0 done
+#17 unpacking to docker.io/library/ipm_api:1.0.0 0.1s done
+#17 DONE 0.4s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image ipm_api:1.0.0 Built 
+ Container chudovskyi-api_test-run-06541df2d559 Creating 
+ Container chudovskyi-api_test-run-06541df2d559 Created 
+Waiting for postgres (pg_test:5432)...
+Connection to pg_test (172.18.0.2) 5432 port [tcp/postgresql] succeeded!
+PostgreSQL has been launched!
+Starting migrations
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 144e3d5661ee, create users table
+INFO  [alembic.runtime.migration] Running upgrade 144e3d5661ee -> d0183e1abe6e, create access_token table
+INFO  [alembic.runtime.migration] Running upgrade d0183e1abe6e -> cdb136b064d0, create prompts table
+INFO  [alembic.runtime.migration] Running upgrade cdb136b064d0 -> 66857135073a, create categories table
+INFO  [alembic.runtime.migration] Running upgrade 66857135073a -> c369380e9420, create prompt-category OneToMany
+INFO  [alembic.runtime.migration] Running upgrade c369380e9420 -> cc3bc54f73a2, create tags table
+INFO  [alembic.runtime.migration] Running upgrade cc3bc54f73a2 -> de14d3b6a68f, create prompt tag MtM table
+INFO  [alembic.runtime.migration] Running upgrade de14d3b6a68f -> 31e3ab093eab, create prompts-user relationship
+Applied migrations successfully!
+Starting database seeding
+Database seeded successfully!
+============================= test session starts ==============================
+platform linux -- Python 3.11.17, pytest-9.0.3, pluggy-1.6.0
+rootdir: /usr/src/prompt_manager
+configfile: pytest.ini
+testpaths: tests
+plugins: asyncio-1.3.0, anyio-4.12.1, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=session
+collected 47 items
+
+tests/test_db_prompt.py ...........                                      [ 23%]
+tests/test_db_users.py .......                                           [ 38%]
+tests/test_router_gemini.py .                                            [ 40%]
+tests/test_router_health.py ..                                           [ 44%]
+tests/test_router_prompt.py ....                                         [ 53%]
+tests/test_router_register.py ............                               [ 78%]
+tests/test_service_gemini.py .....                                       [ 89%]
+tests/test_service_health.py .....                                       [100%]
+
+=============================== warnings summary ===============================
+tests/test_router_prompt.py::TestPromptBuilder::test_update_prompt
+  /usr/src/prompt_manager/.venv/lib/python3.11/site-packages/fastapi_jsonapi/views/view_base.py:144: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    "required_to_load": data_update.attributes.model_fields.keys(),
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 47 passed, 1 warning in 5.44s =========================
+===== exit=0
+===== $ docker build -f docker/Dockerfile.test -t ipm_api:health-check .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.test
+#1 transferring dockerfile: 881B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#2 ...
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.10.12
+#3 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#2 DONE 0.3s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 946B done
+#4 DONE 0.0s
+
+#5 [stage-0 1/9] FROM docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b
+#5 resolve docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b 0.0s done
+#5 DONE 0.0s
+
+#6 FROM ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec
+#6 resolve ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 19.43kB 0.0s done
+#7 DONE 0.0s
+
+#8 [stage-0 3/9] COPY --from=ghcr.io/astral-sh/uv:0.10.12 /uv /uvx /bin/
+#8 CACHED
+
+#9 [stage-0 2/9] RUN apt-get update      && apt-get install -y --no-install-recommends netcat-openbsd     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [stage-0 4/9] WORKDIR /usr/src/prompt_manager
+#10 CACHED
+
+#11 [stage-0 5/9] RUN --mount=type=cache,target=/root/.cache/uv     --mount=type=bind,source=uv.lock,target=uv.lock     --mount=type=bind,source=pyproject.toml,target=pyproject.toml     uv sync --locked --no-install-project
+#11 CACHED
+
+#12 [stage-0 6/9] COPY . .
+#12 DONE 0.1s
+
+#13 [stage-0 7/9] RUN --mount=type=cache,target=/root/.cache/uv     uv sync --locked
+#13 0.208 Resolved 70 packages in 1ms
+#13 0.213 Checked 67 packages in 1ms
+#13 DONE 0.2s
+
+#14 [stage-0 8/9] RUN sed -i 's/\r$//g' /usr/src/prompt_manager/docker/entrypoint.test.sh
+#14 DONE 0.2s
+
+#15 [stage-0 9/9] RUN chmod +x /usr/src/prompt_manager/docker/entrypoint.test.sh
+#15 DONE 0.2s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.2s done
+#16 exporting manifest sha256:83ead5a2e00b7f816a77336068ca2c8a07151d75081ae34e307568b394267b47 0.0s done
+#16 exporting config sha256:da27af47252a102f8ce5361445d3774cb39272b36f7f37608367fd38384b6210 0.0s done
+#16 exporting attestation manifest sha256:0dd2aedd0181bbc59435137e651f46caa3fb5557eebda5f509d89e9b774edf25 0.0s done
+#16 exporting manifest list sha256:e581e0b9a6f32fb6ba3bdd009e89e0454fa3d01a52ee736d8d11baa11558d6fa 0.0s done
+#16 naming to docker.io/library/ipm_api:health-check done
+#16 unpacking to docker.io/library/ipm_api:health-check 0.1s done
+#16 DONE 0.4s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/uta18fqi3amdv7uq1kzwgenxu
+===== exit=0
+===== $ docker run --rm --entrypoint uv ipm_api:health-check run ruff check app
+All checks passed!
+===== exit=0
+===== $ docker run --rm --entrypoint uv ipm_api:health-check run ruff format --check app
+65 files already formatted
+===== exit=0

@@ -1,0 +1,24 @@
+name: Tests in Docker
+
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  test-build-docker:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_CONFIG__ENV: test
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Tests via Docker Compose
+        run: |
+          docker compose -f compose.test.yml up --build --abort-on-container-exit --exit-code-from api_test

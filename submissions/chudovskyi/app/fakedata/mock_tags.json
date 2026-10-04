@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "fastapi",
+    "description": "It's all about FastAPI"
+  },
+  {
+    "id": 2,
+    "name": "python",
+    "description": "It's all about Python"
+  },
+  {
+    "id": 3,
+    "name": "django",
+    "description": "It's all about Django"
+  },
+  {
+    "id": 4,
+    "name": "flask",
+    "description": "It's all about Flask"
+  },
+  {
+    "id": 5,
+    "name": "sqlalchemy",
+    "description": "It's all about SQLAlchemy"
+  },
+  {
+    "id": 6,
+    "name": "it",
+    "description": "It's all about IT"
+  },
+  {
+    "id": 7,
+    "name": "pydantic",
+    "description": "It's all about Pydantic"
+  }
+]

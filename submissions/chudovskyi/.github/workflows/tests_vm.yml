@@ -1,0 +1,63 @@
+name: Tests & Format & Linting in VM
+
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  test-build:
+    runs-on: ubuntu-latest
+
+    env:
+      APP_CONFIG__ENV: test
+
+    services:
+      postgres:
+        image: postgres:14.10-alpine
+        env:
+          POSTGRES_DB: test_prompt_db
+          POSTGRES_USER: test_admin
+          POSTGRES_PASSWORD: test_adminpass
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U test_admin -d test_prompt_db"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "0.10.12"
+
+      - name: Set up Python
+        run: uv python install 3.11
+
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
+
+      - name: Run Migrations (Alembic)
+        working-directory: ./app
+        run: uv run alembic upgrade head
+        env:
+          APP_CONFIG__DB__HOST: localhost
+
+      - name: Run Ruff (Linting)
+        run: uv run ruff check app
+
+      - name: Run Ruff (Format)
+        run: uv run ruff format --check app
+
+      - name: Run Tests with Coverage
+        run: uv run pytest --cov=app --cov-report=term
+        env:
+          APP_CONFIG__DB__HOST: localhost

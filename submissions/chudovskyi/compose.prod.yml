@@ -1,0 +1,87 @@
+services:
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    environment:
+      APP_CONFIG__ENV: ${APP_CONFIG__ENV}
+      APP_CONFIG__DB__NAME: ${APP_CONFIG__DB__NAME}
+      APP_CONFIG__DB__HOST: ${APP_CONFIG__DB__HOST}
+      APP_CONFIG__DB__PORT: ${APP_CONFIG__DB__PORT}
+      APP_CONFIG__DB__USERNAME: ${APP_CONFIG__DB__USERNAME}
+      APP_CONFIG__DB__DRIVERNAME: ${APP_CONFIG__DB__DRIVERNAME}
+      APP_CONFIG__DB__ECHO: ${APP_CONFIG__DB__ECHO}
+    secrets:
+      - APP_CONFIG__DB__PASSWORD
+      - APP_CONFIG__SUPERUSER__DEFAULT_PASSWORD
+      - APP_CONFIG__ACCESS_TOKEN__RESET_PASSWORD_TOKEN_SECRET
+      - APP_CONFIG__ACCESS_TOKEN__VERIFICATION_TOKEN_SECRET
+      - APP_CONFIG__GEMINI__API_KEY
+    command: >
+      gunicorn server.server:app
+      --workers 2
+      --worker-class uvicorn.workers.UvicornWorker
+      --bind 0.0.0.0:8000
+      --worker-tmp-dir /dev/shm
+      --access-logfile '-'
+#    ports:
+#      - "8000:8000"
+    expose:
+      - 8000
+    volumes:
+      - static_volume:/usr/src/app/static
+      - media_volume:/usr/src/app/media
+    depends_on:
+      pg:
+        condition: service_healthy
+
+
+  pg:
+    image: postgres:14.10-alpine
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: ${APP_CONFIG__DB__NAME}
+      POSTGRES_USER: ${APP_CONFIG__DB__USERNAME}
+      POSTGRES_PASSWORD_FILE: /run/secrets/APP_CONFIG__DB__PASSWORD
+    secrets:
+      - APP_CONFIG__DB__PASSWORD
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${APP_CONFIG__DB__USERNAME} -d ${APP_CONFIG__DB__NAME}" ]
+      interval: 3s
+      timeout: 2s
+      retries: 2
+
+
+  nginx:
+    image: nginx:alpine-slim
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - static_volume:/app/static
+      - media_volume:/app/media
+    ports:
+      - "8005:80"
+    depends_on:
+      - api
+
+
+volumes:
+  pg_data:
+  static_volume:
+  media_volume:
+
+
+secrets:
+  APP_CONFIG__DB__PASSWORD:
+    file: sets/secrets/APP_CONFIG__DB__PASSWORD.txt
+  APP_CONFIG__SUPERUSER__DEFAULT_PASSWORD:
+    file: sets/secrets/APP_CONFIG__SUPERUSER__DEFAULT_PASSWORD.txt
+  APP_CONFIG__ACCESS_TOKEN__RESET_PASSWORD_TOKEN_SECRET:
+    file: sets/secrets/APP_CONFIG__ACCESS_TOKEN__RESET_PASSWORD_TOKEN_SECRET.txt
+  APP_CONFIG__ACCESS_TOKEN__VERIFICATION_TOKEN_SECRET:
+    file: sets/secrets/APP_CONFIG__ACCESS_TOKEN__VERIFICATION_TOKEN_SECRET.txt
+  APP_CONFIG__GEMINI__API_KEY:
+    file: sets/secrets/APP_CONFIG__GEMINI__API_KEY.txt

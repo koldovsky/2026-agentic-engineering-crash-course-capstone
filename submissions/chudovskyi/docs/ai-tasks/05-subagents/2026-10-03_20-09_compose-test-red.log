@@ -1,0 +1,491 @@
+ Image ipm_api:1.0.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 680B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.test
+#2 transferring dockerfile: 881B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.10.12
+#3 DONE 0.8s
+
+#4 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#4 DONE 0.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 946B done
+#5 DONE 0.0s
+
+#6 [stage-0 1/9] FROM docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b
+#6 resolve docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b 0.0s done
+#6 DONE 0.0s
+
+#7 FROM ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec
+#7 resolve ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 212.80kB 0.0s done
+#8 DONE 0.0s
+
+#9 [stage-0 2/9] RUN apt-get update      && apt-get install -y --no-install-recommends netcat-openbsd     && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [stage-0 3/9] COPY --from=ghcr.io/astral-sh/uv:0.10.12 /uv /uvx /bin/
+#10 CACHED
+
+#11 [stage-0 4/9] WORKDIR /usr/src/prompt_manager
+#11 CACHED
+
+#12 [stage-0 5/9] RUN --mount=type=cache,target=/root/.cache/uv     --mount=type=bind,source=uv.lock,target=uv.lock     --mount=type=bind,source=pyproject.toml,target=pyproject.toml     uv sync --locked --no-install-project
+#12 CACHED
+
+#13 [stage-0 6/9] COPY . .
+#13 DONE 0.1s
+
+#14 [stage-0 7/9] RUN --mount=type=cache,target=/root/.cache/uv     uv sync --locked
+#14 0.351 Resolved 70 packages in 1ms
+#14 0.393 Checked 67 packages in 16ms
+#14 DONE 0.4s
+
+#15 [stage-0 8/9] RUN sed -i 's/\r$//g' /usr/src/prompt_manager/docker/entrypoint.test.sh
+#15 DONE 0.2s
+
+#16 [stage-0 9/9] RUN chmod +x /usr/src/prompt_manager/docker/entrypoint.test.sh
+#16 DONE 0.3s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.2s done
+#17 exporting manifest sha256:41ec196bd9053d02c84d7f5213ccb26dff2c87218f0549984a33d154066ff0bc 0.0s done
+#17 exporting config sha256:4856d4e33dae140fed72e8924329f1c52b170050b2c5cb879b6cbbc987b75ec4 0.0s done
+#17 exporting attestation manifest sha256:7e40ed1563faf6c589cdd0d3d142d51e8787815bb2619151de396ee638592b5f 0.0s done
+#17 exporting manifest list sha256:16729ffbbcd7f0502db9b059fb16d5c57a9702c43debaa68862f444897b999b5 0.0s done
+#17 naming to docker.io/library/ipm_api:1.0.0 done
+#17 unpacking to docker.io/library/ipm_api:1.0.0
+#17 unpacking to docker.io/library/ipm_api:1.0.0 0.2s done
+#17 DONE 0.5s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image ipm_api:1.0.0 Built 
+ Network chudovskyi_default Creating 
+ Network chudovskyi_default Creating 
+ Network chudovskyi_default Created 
+ Network chudovskyi_default Created 
+ Container test_pm_db Creating 
+ Container test_pm_db Created 
+ Container test_pm_api Creating 
+ Container test_pm_api Created 
+Attaching to test_pm_api, test_pm_db
+ Container test_pm_db Starting 
+ Container test_pm_db Started 
+ Container test_pm_api Starting 
+test_pm_db  | The files belonging to this database system will be owned by user "postgres".
+test_pm_db  | This user must also own the server process.
+test_pm_db  | 
+test_pm_db  | The database cluster will be initialized with locale "en_US.utf8".
+test_pm_db  | The default database encoding has accordingly been set to "UTF8".
+test_pm_db  | The default text search configuration will be set to "english".
+test_pm_db  | 
+test_pm_db  | Data page checksums are disabled.
+test_pm_db  | 
+test_pm_db  | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+test_pm_db  | creating subdirectories ... ok
+test_pm_db  | selecting dynamic shared memory implementation ... posix
+test_pm_db  | selecting default max_connections ... 100
+test_pm_db  | selecting default shared_buffers ... 128MB
+test_pm_api  | Waiting for postgres (pg_test:5432)...
+ Container test_pm_api Started 
+test_pm_db   | selecting default time zone ... UTC
+test_pm_db   | creating configuration files ... ok
+test_pm_db   | running bootstrap script ... ok
+test_pm_db   | sh: locale: not found
+test_pm_db   | 2026-10-03 17:12:30.548 UTC [30] WARNING:  no usable system locales were found
+test_pm_db   | performing post-bootstrap initialization ... ok
+test_pm_db   | initdb: warning: enabling "trust" authentication for local connections
+test_pm_db   | You can change this by editing pg_hba.conf or using the option -A, or
+test_pm_db   | --auth-local and --auth-host, the next time you run initdb.
+test_pm_db   | syncing data to disk ... ok
+test_pm_db   | 
+test_pm_db   | 
+test_pm_db   | Success. You can now start the database server using:
+test_pm_db   | 
+test_pm_db   |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+test_pm_db   | 
+test_pm_db   | waiting for server to start....2026-10-03 17:12:31.399 UTC [36] LOG:  starting PostgreSQL 14.10 on x86_64-pc-linux-musl, compiled by gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014, 64-bit
+test_pm_db   | 2026-10-03 17:12:31.401 UTC [36] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+test_pm_db   | 2026-10-03 17:12:31.407 UTC [37] LOG:  database system was shut down at 2026-10-03 17:12:31 UTC
+test_pm_db   | 2026-10-03 17:12:31.412 UTC [36] LOG:  database system is ready to accept connections
+test_pm_db   |  done
+test_pm_db   | server started
+test_pm_db   | CREATE DATABASE
+test_pm_db   | 
+test_pm_db   | 
+test_pm_db   | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+test_pm_db   | 
+test_pm_db   | waiting for server to shut down...2026-10-03 17:12:31.634 UTC [36] LOG:  received fast shutdown request
+test_pm_db   | .2026-10-03 17:12:31.635 UTC [36] LOG:  aborting any active transactions
+test_pm_db   | 2026-10-03 17:12:31.637 UTC [36] LOG:  background worker "logical replication launcher" (PID 43) exited with exit code 1
+test_pm_db   | 2026-10-03 17:12:31.637 UTC [38] LOG:  shutting down
+test_pm_db   | 2026-10-03 17:12:31.657 UTC [36] LOG:  database system is shut down
+test_pm_db   |  done
+test_pm_db   | server stopped
+test_pm_db   | 
+test_pm_db   | PostgreSQL init process complete; ready for start up.
+test_pm_db   | 
+test_pm_db   | 2026-10-03 17:12:31.761 UTC [1] LOG:  starting PostgreSQL 14.10 on x86_64-pc-linux-musl, compiled by gcc (Alpine 13.2.1_git20231014) 13.2.1 20231014, 64-bit
+test_pm_db   | 2026-10-03 17:12:31.761 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+test_pm_db   | 2026-10-03 17:12:31.761 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+test_pm_db   | 2026-10-03 17:12:31.765 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+test_pm_db   | 2026-10-03 17:12:31.770 UTC [51] LOG:  database system was shut down at 2026-10-03 17:12:31 UTC
+test_pm_db   | 2026-10-03 17:12:31.775 UTC [1] LOG:  database system is ready to accept connections
+test_pm_api  | Connection to pg_test (172.18.0.2) 5432 port [tcp/postgresql] succeeded!
+test_pm_api  | PostgreSQL has been launched!
+test_pm_api  | Starting migrations
+test_pm_api  | INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+test_pm_api  | INFO  [alembic.runtime.migration] Will assume transactional DDL.
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade  -> 144e3d5661ee, create users table
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade 144e3d5661ee -> d0183e1abe6e, create access_token table
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade d0183e1abe6e -> cdb136b064d0, create prompts table
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade cdb136b064d0 -> 66857135073a, create categories table
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade 66857135073a -> c369380e9420, create prompt-category OneToMany
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade c369380e9420 -> cc3bc54f73a2, create tags table
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade cc3bc54f73a2 -> de14d3b6a68f, create prompt tag MtM table
+test_pm_api  | INFO  [alembic.runtime.migration] Running upgrade de14d3b6a68f -> 31e3ab093eab, create prompts-user relationship
+test_pm_api  | Applied migrations successfully!
+test_pm_api  | Starting database seeding
+test_pm_api  | Database seeded successfully!
+test_pm_api  | ============================= test session starts ==============================
+test_pm_api  | platform linux -- Python 3.11.17, pytest-9.0.3, pluggy-1.6.0 -- /usr/src/prompt_manager/.venv/bin/python
+test_pm_api  | cachedir: .pytest_cache
+test_pm_api  | rootdir: /usr/src/prompt_manager
+test_pm_api  | configfile: pytest.ini
+test_pm_api  | testpaths: tests
+test_pm_api  | plugins: asyncio-1.3.0, anyio-4.12.1, cov-7.1.0
+test_pm_api  | asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=session
+test_pm_api  | collecting ... collected 56 items
+test_pm_api  | 
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseLogic::test_create_prompt_with_relationships postgresql+asyncpg://test_admin:***@pg_test:5432/test_prompt_db
+test_pm_api  | DEBUG2: Створюю таблиці: dict_keys(['prompt_tag_association', 'prompts', 'categories', 'tags', 'users', 'access_tokens'])
+test_pm_api  | PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseLogic::test_prompt_auto_timestamps PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseLogic::test_delete_category_sets_null_in_prompt PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseLogic::test_filter_prompts_by_llm_type PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseLogic::test_prompt_repr_and_str PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseCRUD::test_db_create_prompt PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseCRUD::test_db_read_prompt PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseCRUD::test_db_update_prompt_content PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseCRUD::test_db_delete_prompt PASSED
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseCRUD::test_db_prompt_category_relationship PASSED
+test_pm_db   | 2026-10-03 17:12:43.432 UTC [61] ERROR:  invalid input value for enum typellm: "Unknown-AI"
+test_pm_db   | 2026-10-03 17:12:43.432 UTC [61] CONTEXT:  unnamed portal parameter $1
+test_pm_db   | 2026-10-03 17:12:43.432 UTC [61] STATEMENT:  INSERT INTO prompts (type_llm, title, pmpt_request, pmpt_response, rating, category_id, user_id) VALUES ($1::typellm, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::INTEGER, $6::INTEGER, $7::INTEGER) RETURNING prompts.created_at, prompts.updated_at, prompts.id
+test_pm_api  | tests/test_db_prompt.py::TestPromptDatabaseCRUD::test_db_invalid_llm_type_raises_error PASSED
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_get_users_db_returns_user_db PASSED
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_user_bob_exists_in_db PASSED
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_create_user_success PASSED
+test_pm_db   | 2026-10-03 17:12:43.460 UTC [61] ERROR:  duplicate key value violates unique constraint "ix_users_email"
+test_pm_db   | 2026-10-03 17:12:43.460 UTC [61] DETAIL:  Key (email)=(sam@example.com) already exists.
+test_pm_db   | 2026-10-03 17:12:43.460 UTC [61] STATEMENT:  INSERT INTO users (email, hashed_password, is_active, is_superuser, is_verified) VALUES ($1::VARCHAR, $2::VARCHAR, $3::BOOLEAN, $4::BOOLEAN, $5::BOOLEAN) RETURNING users.id
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_duplicate_email_raises_error PASSED
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_update_user_permissions PASSED
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_delete_user PASSED
+test_pm_api  | tests/test_db_users.py::TestUserDatabase::test_user_password_hash_storage PASSED
+test_pm_api  | tests/test_router_gemini.py::TestPromptGemini::test_send_request_success PASSED
+test_pm_api  | tests/test_router_health.py::TestRouterHealth::test_get_health_without_auth_returns_200 PASSED
+test_pm_api  | tests/test_router_health.py::TestRouterHealth::test_get_health_returns_project_info_and_uptime PASSED
+test_pm_api  | tests/test_router_info.py::TestRouterInfo::test_get_info_without_auth_returns_200 FAILED
+test_pm_api  | tests/test_router_info.py::TestRouterInfo::test_get_info_returns_exact_keys FAILED
+test_pm_api  | tests/test_router_info.py::TestRouterInfo::test_get_info_returns_project_and_api_values FAILED
+test_pm_api  | tests/test_router_info.py::TestRouterInfo::test_get_info_uptime_is_non_negative_number FAILED
+test_pm_api  | tests/test_router_prompt.py::TestPromptBuilder::test_create_prompt PASSED
+test_pm_api  | tests/test_router_prompt.py::TestPromptBuilder::test_get_prompts_list PASSED
+test_pm_api  | tests/test_router_prompt.py::TestPromptBuilder::test_update_prompt PASSED
+test_pm_api  | tests/test_router_prompt.py::TestPromptBuilder::test_delete_prompt_forbidden_for_regular_user PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_empty_body PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_missing_email PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_missing_password PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_wrong_email PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_valid_body[lancelot@camelot.bt] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_valid_body[king.arthur@camelot.bt] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_existing_user[lancelot@camelot.bt] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_existing_user[king.arthur@camelot.bt] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_valid_body_is_superuser[True] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_valid_body_is_superuser[False] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_valid_body_is_active[True] PASSED
+test_pm_api  | tests/test_router_register.py::TestRegister::test_valid_body_is_active[False] PASSED
+test_pm_api  | tests/test_service_gemini.py::TestServiceGemini::test_get_answer_from_gemini_success PASSED
+test_pm_api  | tests/test_service_gemini.py::TestServiceGemini::test_get_answer_from_gemini_empty_response PASSED
+test_pm_api  | tests/test_service_gemini.py::TestServiceGemini::test_add_prompt_to_db_success PASSED
+test_pm_db   | 2026-10-03 17:12:54.643 UTC [61] ERROR:  insert or update on table "prompts" violates foreign key constraint "fk_prompts_user_id_users"
+test_pm_db   | 2026-10-03 17:12:54.643 UTC [61] DETAIL:  Key (user_id)=(999999) is not present in table "users".
+test_pm_db   | 2026-10-03 17:12:54.643 UTC [61] STATEMENT:  INSERT INTO prompts (type_llm, title, pmpt_request, pmpt_response, rating, category_id, user_id) VALUES ($1::typellm, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::INTEGER, $6::INTEGER, $7::INTEGER) RETURNING prompts.created_at, prompts.updated_at, prompts.id
+test_pm_api  | tests/test_service_gemini.py::TestServiceGemini::test_add_prompt_to_db_invalid_user PASSED
+test_pm_db   | 2026-10-03 17:12:54.657 UTC [61] ERROR:  insert or update on table "prompts" violates foreign key constraint "fk_prompts_category_id_categories"
+test_pm_db   | 2026-10-03 17:12:54.657 UTC [61] DETAIL:  Key (category_id)=(999) is not present in table "categories".
+test_pm_db   | 2026-10-03 17:12:54.657 UTC [61] STATEMENT:  INSERT INTO prompts (type_llm, title, pmpt_request, pmpt_response, rating, category_id, user_id) VALUES ($1::typellm, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::INTEGER, $6::INTEGER, $7::INTEGER) RETURNING prompts.created_at, prompts.updated_at, prompts.id
+test_pm_api  | tests/test_service_gemini.py::TestServiceGemini::test_add_prompt_to_db_invalid_category PASSED
+test_pm_api  | tests/test_service_health.py::TestServiceHealth::test_build_health_with_valid_input_returns_ok_status PASSED
+test_pm_api  | tests/test_service_health.py::TestServiceHealth::test_build_health_after_90_seconds_returns_uptime_90 PASSED
+test_pm_api  | tests/test_service_health.py::TestServiceHealth::test_build_health_with_now_before_start_returns_zero_uptime PASSED
+test_pm_api  | tests/test_service_health.py::TestServiceHealth::test_build_health_with_empty_name_raises_value_error PASSED
+test_pm_api  | tests/test_service_health.py::TestServiceHealth::test_build_health_with_blank_name_raises_value_error PASSED
+test_pm_api  | tests/test_service_info.py::TestServiceInfo::test_build_info_with_valid_input_returns_ok_status FAILED
+test_pm_api  | tests/test_service_info.py::TestServiceInfo::test_build_info_after_90_5_seconds_returns_uptime_90_5 FAILED
+test_pm_api  | tests/test_service_info.py::TestServiceInfo::test_build_info_returns_exactly_expected_keys FAILED
+test_pm_api  | tests/test_service_info.py::TestServiceInfo::test_build_info_with_empty_name_raises_value_error FAILED
+test_pm_api  | tests/test_service_info.py::TestServiceInfo::test_build_info_with_blank_name_raises_value_error FAILEDDEBUG2: Дропаю таблиці: dict_keys(['prompt_tag_association', 'prompts', 'categories', 'tags', 'users', 'access_tokens'])
+test_pm_api  | 
+test_pm_api  | 
+test_pm_api  | =================================== FAILURES ===================================
+test_pm_api  | ____________ TestRouterInfo.test_get_info_without_auth_returns_200 _____________
+test_pm_api  | 
+test_pm_api  | self = <tests.test_router_info.TestRouterInfo object at 0x773d220ab090>
+test_pm_api  | ac = <httpx.AsyncClient object at 0x773d1aa5bdd0>, api_prefix = '/api/v1'
+test_pm_api  | 
+test_pm_api  |     async def test_get_info_without_auth_returns_200(
+test_pm_api  |         self,
+test_pm_api  |         ac: AsyncClient,
+test_pm_api  |         api_prefix: str,
+test_pm_api  |     ):
+test_pm_api  |         response = await ac.get(f"{api_prefix}/info")
+test_pm_api  |     
+test_pm_api  | >       assert response.status_code == 200
+test_pm_api  | E       assert 404 == 200
+test_pm_api  | E        +  where 404 = <Response [404 Not Found]>.status_code
+test_pm_api  | 
+test_pm_api  | tests/test_router_info.py:16: AssertionError
+test_pm_api  | _______________ TestRouterInfo.test_get_info_returns_exact_keys ________________
+test_pm_api  | 
+test_pm_api  | self = <tests.test_router_info.TestRouterInfo object at 0x773d220aafd0>
+test_pm_api  | ac = <httpx.AsyncClient object at 0x773d1ad0b550>, api_prefix = '/api/v1'
+test_pm_api  | 
+test_pm_api  |     async def test_get_info_returns_exact_keys(
+test_pm_api  |         self,
+test_pm_api  |         ac: AsyncClient,
+test_pm_api  |         api_prefix: str,
+test_pm_api  |     ):
+test_pm_api  |         response = await ac.get(f"{api_prefix}/info")
+test_pm_api  |     
+test_pm_api  |         data = response.json()
+test_pm_api  | >       assert set(data) == {
+test_pm_api  |             "status",
+test_pm_api  |             "service",
+test_pm_api  |             "version",
+test_pm_api  |             "api_version",
+test_pm_api  |             "uptime_seconds",
+test_pm_api  |         }
+test_pm_api  | E       AssertionError: assert {'detail'} == {'api_version...s', 'version'}
+test_pm_api  | E         
+test_pm_api  | E         Extra items in the left set:
+test_pm_api  | E         'detail'
+test_pm_api  | E         Extra items in the right set:
+test_pm_api  | E         'version'
+test_pm_api  | E         'service'
+test_pm_api  | E         'status'...
+test_pm_api  | E         
+test_pm_api  | E         ...Full output truncated (12 lines hidden), use '-vv' to show
+test_pm_api  | 
+test_pm_api  | tests/test_router_info.py:26: AssertionError
+test_pm_api  | _________ TestRouterInfo.test_get_info_returns_project_and_api_values __________
+test_pm_api  | 
+test_pm_api  | self = <tests.test_router_info.TestRouterInfo object at 0x773d220abdd0>
+test_pm_api  | ac = <httpx.AsyncClient object at 0x773d2012ac50>, api_prefix = '/api/v1'
+test_pm_api  | 
+test_pm_api  |     async def test_get_info_returns_project_and_api_values(
+test_pm_api  |         self,
+test_pm_api  |         ac: AsyncClient,
+test_pm_api  |         api_prefix: str,
+test_pm_api  |     ):
+test_pm_api  |         response = await ac.get(f"{api_prefix}/info")
+test_pm_api  |     
+test_pm_api  |         data = response.json()
+test_pm_api  | >       assert data["status"] == "ok"
+test_pm_api  |                ^^^^^^^^^^^^^^
+test_pm_api  | E       KeyError: 'status'
+test_pm_api  | 
+test_pm_api  | tests/test_router_info.py:42: KeyError
+test_pm_api  | __________ TestRouterInfo.test_get_info_uptime_is_non_negative_number __________
+test_pm_api  | 
+test_pm_api  | self = <tests.test_router_info.TestRouterInfo object at 0x773d21f2e090>
+test_pm_api  | ac = <httpx.AsyncClient object at 0x773d1af001d0>, api_prefix = '/api/v1'
+test_pm_api  | 
+test_pm_api  |     async def test_get_info_uptime_is_non_negative_number(
+test_pm_api  |         self,
+test_pm_api  |         ac: AsyncClient,
+test_pm_api  |         api_prefix: str,
+test_pm_api  |     ):
+test_pm_api  |         response = await ac.get(f"{api_prefix}/info")
+test_pm_api  |     
+test_pm_api  | >       uptime = response.json()["uptime_seconds"]
+test_pm_api  |                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test_pm_api  | E       KeyError: 'uptime_seconds'
+test_pm_api  | 
+test_pm_api  | tests/test_router_info.py:54: KeyError
+test_pm_api  | ______ TestServiceInfo.test_build_info_with_valid_input_returns_ok_status ______
+test_pm_api  | 
+test_pm_api  | self = <tests.test_service_info.TestServiceInfo object at 0x773d21f796d0>
+test_pm_api  | 
+test_pm_api  |     def test_build_info_with_valid_input_returns_ok_status(self):
+test_pm_api  | >       info = build_info("Prompt Manager", "1.0.0", "v1", 100.0, 100.0)
+test_pm_api  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test_pm_api  | 
+test_pm_api  | tests/test_service_info.py:8: 
+test_pm_api  | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_pm_api  | 
+test_pm_api  | service_name = 'Prompt Manager', version = '1.0.0', api_version = 'v1'
+test_pm_api  | started_at = 100.0, now = 100.0
+test_pm_api  | 
+test_pm_api  |     def build_info(
+test_pm_api  |         service_name: str,
+test_pm_api  |         version: str,
+test_pm_api  |         api_version: str,
+test_pm_api  |         started_at: float,
+test_pm_api  |         now: float,
+test_pm_api  |     ) -> dict:
+test_pm_api  |         """Info payload: status, service name, versions and uptime in seconds."""
+test_pm_api  |     
+test_pm_api  | >       raise NotImplementedError
+test_pm_api  | E       NotImplementedError
+test_pm_api  | 
+test_pm_api  | app/services/info.py:15: NotImplementedError
+test_pm_api  | ____ TestServiceInfo.test_build_info_after_90_5_seconds_returns_uptime_90_5 ____
+test_pm_api  | 
+test_pm_api  | self = <tests.test_service_info.TestServiceInfo object at 0x773d21f032d0>
+test_pm_api  | 
+test_pm_api  |     def test_build_info_after_90_5_seconds_returns_uptime_90_5(self):
+test_pm_api  | >       info = build_info("Prompt Manager", "1.0.0", "v1", 100.0, 190.5)
+test_pm_api  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test_pm_api  | 
+test_pm_api  | tests/test_service_info.py:16: 
+test_pm_api  | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_pm_api  | 
+test_pm_api  | service_name = 'Prompt Manager', version = '1.0.0', api_version = 'v1'
+test_pm_api  | started_at = 100.0, now = 190.5
+test_pm_api  | 
+test_pm_api  |     def build_info(
+test_pm_api  |         service_name: str,
+test_pm_api  |         version: str,
+test_pm_api  |         api_version: str,
+test_pm_api  |         started_at: float,
+test_pm_api  |         now: float,
+test_pm_api  |     ) -> dict:
+test_pm_api  |         """Info payload: status, service name, versions and uptime in seconds."""
+test_pm_api  |     
+test_pm_api  | >       raise NotImplementedError
+test_pm_api  | E       NotImplementedError
+test_pm_api  | 
+test_pm_api  | app/services/info.py:15: NotImplementedError
+test_pm_api  | ________ TestServiceInfo.test_build_info_returns_exactly_expected_keys _________
+test_pm_api  | 
+test_pm_api  | self = <tests.test_service_info.TestServiceInfo object at 0x773d21f010d0>
+test_pm_api  | 
+test_pm_api  |     def test_build_info_returns_exactly_expected_keys(self):
+test_pm_api  | >       info = build_info("Prompt Manager", "1.0.0", "v1", 100.0, 190.5)
+test_pm_api  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+test_pm_api  | 
+test_pm_api  | tests/test_service_info.py:21: 
+test_pm_api  | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_pm_api  | 
+test_pm_api  | service_name = 'Prompt Manager', version = '1.0.0', api_version = 'v1'
+test_pm_api  | started_at = 100.0, now = 190.5
+test_pm_api  | 
+test_pm_api  |     def build_info(
+test_pm_api  |         service_name: str,
+test_pm_api  |         version: str,
+test_pm_api  |         api_version: str,
+test_pm_api  |         started_at: float,
+test_pm_api  |         now: float,
+test_pm_api  |     ) -> dict:
+test_pm_api  |         """Info payload: status, service name, versions and uptime in seconds."""
+test_pm_api  |     
+test_pm_api  | >       raise NotImplementedError
+test_pm_api  | E       NotImplementedError
+test_pm_api  | 
+test_pm_api  | app/services/info.py:15: NotImplementedError
+test_pm_api  | ______ TestServiceInfo.test_build_info_with_empty_name_raises_value_error ______
+test_pm_api  | 
+test_pm_api  | self = <tests.test_service_info.TestServiceInfo object at 0x773d21f00050>
+test_pm_api  | 
+test_pm_api  |     def test_build_info_with_empty_name_raises_value_error(self):
+test_pm_api  |         with pytest.raises(ValueError):
+test_pm_api  | >           build_info("", "1.0.0", "v1", 100.0, 190.5)
+test_pm_api  | 
+test_pm_api  | tests/test_service_info.py:33: 
+test_pm_api  | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_pm_api  | 
+test_pm_api  | service_name = '', version = '1.0.0', api_version = 'v1', started_at = 100.0
+test_pm_api  | now = 190.5
+test_pm_api  | 
+test_pm_api  |     def build_info(
+test_pm_api  |         service_name: str,
+test_pm_api  |         version: str,
+test_pm_api  |         api_version: str,
+test_pm_api  |         started_at: float,
+test_pm_api  |         now: float,
+test_pm_api  |     ) -> dict:
+test_pm_api  |         """Info payload: status, service name, versions and uptime in seconds."""
+test_pm_api  |     
+test_pm_api  | >       raise NotImplementedError
+test_pm_api  | E       NotImplementedError
+test_pm_api  | 
+test_pm_api  | app/services/info.py:15: NotImplementedError
+test_pm_api  | ______ TestServiceInfo.test_build_info_with_blank_name_raises_value_error ______
+test_pm_api  | 
+test_pm_api  | self = <tests.test_service_info.TestServiceInfo object at 0x773d21f4f990>
+test_pm_api  | 
+test_pm_api  |     def test_build_info_with_blank_name_raises_value_error(self):
+test_pm_api  |         with pytest.raises(ValueError):
+test_pm_api  | >           build_info("   ", "1.0.0", "v1", 100.0, 190.5)
+test_pm_api  | 
+test_pm_api  | tests/test_service_info.py:37: 
+test_pm_api  | _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+test_pm_api  | 
+test_pm_api  | service_name = '   ', version = '1.0.0', api_version = 'v1', started_at = 100.0
+test_pm_api  | now = 190.5
+test_pm_api  | 
+test_pm_api  |     def build_info(
+test_pm_api  |         service_name: str,
+test_pm_api  |         version: str,
+test_pm_api  |         api_version: str,
+test_pm_api  |         started_at: float,
+test_pm_api  |         now: float,
+test_pm_api  |     ) -> dict:
+test_pm_api  |         """Info payload: status, service name, versions and uptime in seconds."""
+test_pm_api  |     
+test_pm_api  | >       raise NotImplementedError
+test_pm_api  | E       NotImplementedError
+test_pm_api  | 
+test_pm_api  | app/services/info.py:15: NotImplementedError
+test_pm_api  | =============================== warnings summary ===============================
+test_pm_api  | tests/test_router_prompt.py::TestPromptBuilder::test_update_prompt
+test_pm_api  |   /usr/src/prompt_manager/.venv/lib/python3.11/site-packages/fastapi_jsonapi/views/view_base.py:144: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+test_pm_api  |     "required_to_load": data_update.attributes.model_fields.keys(),
+test_pm_api  | 
+test_pm_api  | -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+test_pm_api  | =========================== short test summary info ============================
+test_pm_api  | FAILED tests/test_router_info.py::TestRouterInfo::test_get_info_without_auth_returns_200
+test_pm_api  | FAILED tests/test_router_info.py::TestRouterInfo::test_get_info_returns_exact_keys
+test_pm_api  | FAILED tests/test_router_info.py::TestRouterInfo::test_get_info_returns_project_and_api_values
+test_pm_api  | FAILED tests/test_router_info.py::TestRouterInfo::test_get_info_uptime_is_non_negative_number
+test_pm_api  | FAILED tests/test_service_info.py::TestServiceInfo::test_build_info_with_valid_input_returns_ok_status
+test_pm_api  | FAILED tests/test_service_info.py::TestServiceInfo::test_build_info_after_90_5_seconds_returns_uptime_90_5
+test_pm_api  | FAILED tests/test_service_info.py::TestServiceInfo::test_build_info_returns_exactly_expected_keys
+test_pm_api  | FAILED tests/test_service_info.py::TestServiceInfo::test_build_info_with_empty_name_raises_value_error
+test_pm_api  | FAILED tests/test_service_info.py::TestServiceInfo::test_build_info_with_blank_name_raises_value_error
+test_pm_api  | =================== 9 failed, 47 passed, 1 warning in 11.95s ===================
+[Ktest_pm_api exited with code 1
+ Compose Stopping Aborting on container exit...
+ Container test_pm_api Stopping 
+ Container test_pm_api Stopped 
+ Container test_pm_db Stopping 
+test_pm_db   | 2026-10-03 17:12:56.262 UTC [1] LOG:  received fast shutdown request
+test_pm_db   | 2026-10-03 17:12:56.264 UTC [1] LOG:  aborting any active transactions
+test_pm_db   | 2026-10-03 17:12:56.267 UTC [1] LOG:  background worker "logical replication launcher" (PID 57) exited with exit code 1
+test_pm_db   | 2026-10-03 17:12:56.268 UTC [52] LOG:  shutting down
+test_pm_db   | 2026-10-03 17:12:56.323 UTC [1] LOG:  database system is shut down
+ Container test_pm_db Stopped 
+[Ktest_pm_db exited with code 0
+

@@ -1,0 +1,46 @@
+services:
+
+  api_dev:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.dev
+    image: ipm_api:1.0.0
+    container_name: dev_pm_api
+    command: ["uv", "run", "python", "app/main.py"]
+    ports:
+      - "8000:8000"
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /usr/src/prompt_manager
+          ignore:
+            - venv/
+        - action: rebuild
+          path: ./uv.lock
+    restart: unless-stopped #no, always, on-failure: 5, unless-stopped
+    env_file:
+      - ./app/config/envs/.env.dev
+    depends_on:
+      - pg_dev
+
+
+  pg_dev:
+    container_name: dev_pm_db
+    image: postgres:14.10-alpine
+    volumes:
+      - pg_dev_data:/var/lib/postgresql/data/
+    env_file:
+      - ./app/config/envs/.env.dev
+    ports:
+      - "5432:5432"
+
+
+  adminer:
+    image: adminer
+    ports:
+      - "8080:8080"
+
+
+volumes:
+  pg_dev_data:

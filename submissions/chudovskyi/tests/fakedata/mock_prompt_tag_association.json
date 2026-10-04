@@ -1,0 +1,232 @@
+[
+  {
+    "id": 1,
+    "prompt_id": 1,
+    "tag_id": 1
+  },
+  {
+    "id": 2,
+    "prompt_id": 1,
+    "tag_id": 6
+  },
+  {
+    "id": 3,
+    "prompt_id": 2,
+    "tag_id": 6
+  },
+  {
+    "id": 4,
+    "prompt_id": 2,
+    "tag_id": 5
+  },
+  {
+    "id": 5,
+    "prompt_id": 2,
+    "tag_id": 7
+  },
+  {
+    "id": 6,
+    "prompt_id": 3,
+    "tag_id": 1
+  },
+  {
+    "id": 7,
+    "prompt_id": 3,
+    "tag_id": 5
+  },
+  {
+    "id": 8,
+    "prompt_id": 3,
+    "tag_id": 7
+  },
+  {
+    "id": 9,
+    "prompt_id": 4,
+    "tag_id": 1
+  },
+  {
+    "id": 10,
+    "prompt_id": 4,
+    "tag_id": 5
+  },
+  {
+    "id": 11,
+    "prompt_id": 4,
+    "tag_id": 7
+  },
+  {
+    "id": 12,
+    "prompt_id": 6,
+    "tag_id": 7
+  },
+  {
+    "id": 13,
+    "prompt_id": 6,
+    "tag_id": 6
+  },
+  {
+    "id": 14,
+    "prompt_id": 6,
+    "tag_id": 2
+  },
+  {
+    "id": 15,
+    "prompt_id": 7,
+    "tag_id": 3
+  },
+  {
+    "id": 16,
+    "prompt_id": 7,
+    "tag_id": 6
+  },
+  {
+    "id": 17,
+    "prompt_id": 7,
+    "tag_id": 2
+  },
+  {
+    "id": 18,
+    "prompt_id": 8,
+    "tag_id": 3
+  },
+  {
+    "id": 19,
+    "prompt_id": 8,
+    "tag_id": 6
+  },
+  {
+    "id": 20,
+    "prompt_id": 8,
+    "tag_id": 2
+  },
+  {
+    "id": 21,
+    "prompt_id": 9,
+    "tag_id": 3
+  },
+  {
+    "id": 22,
+    "prompt_id": 9,
+    "tag_id": 6
+  },
+  {
+    "id": 23,
+    "prompt_id": 9,
+    "tag_id": 2
+  },
+  {
+    "id": 24,
+    "prompt_id": 10,
+    "tag_id": 4
+  },
+  {
+    "id": 25,
+    "prompt_id": 10,
+    "tag_id": 2
+  },
+  {
+    "id": 26,
+    "prompt_id": 11,
+    "tag_id": 4
+  },
+  {
+    "id": 27,
+    "prompt_id": 11,
+    "tag_id": 6
+  },
+  {
+    "id": 28,
+    "prompt_id": 12,
+    "tag_id": 3
+  },
+  {
+    "id": 29,
+    "prompt_id": 12,
+    "tag_id": 2
+  },
+  {
+    "id": 30,
+    "prompt_id": 13,
+    "tag_id": 1
+  },
+  {
+    "id": 31,
+    "prompt_id": 13,
+    "tag_id": 2
+  },
+  {
+    "id": 32,
+    "prompt_id": 13,
+    "tag_id": 6
+  },
+  {
+    "id": 33,
+    "prompt_id": 13,
+    "tag_id": 7
+  },
+  {
+    "id": 34,
+    "prompt_id": 14,
+    "tag_id": 1
+  },
+  {
+    "id": 35,
+    "prompt_id": 14,
+    "tag_id": 2
+  },
+  {
+    "id": 36,
+    "prompt_id": 14,
+    "tag_id": 6
+  },
+  {
+    "id": 37,
+    "prompt_id": 14,
+    "tag_id": 7
+  },
+  {
+    "id": 38,
+    "prompt_id": 15,
+    "tag_id": 3
+  },
+  {
+    "id": 39,
+    "prompt_id": 15,
+    "tag_id": 2
+  },
+  {
+    "id": 40,
+    "prompt_id": 15,
+    "tag_id": 6
+  },
+  {
+    "id": 41,
+    "prompt_id": 16,
+    "tag_id": 4
+  },
+  {
+    "id": 42,
+    "prompt_id": 16,
+    "tag_id": 2
+  },
+  {
+    "id": 43,
+    "prompt_id": 16,
+    "tag_id": 6
+  },
+  {
+    "id": 44,
+    "prompt_id": 17,
+    "tag_id": 4
+  },
+  {
+    "id": 45,
+    "prompt_id": 17,
+    "tag_id": 2
+  },
+  {
+    "id": 46,
+    "prompt_id": 17,
+    "tag_id": 6
+  }
+]

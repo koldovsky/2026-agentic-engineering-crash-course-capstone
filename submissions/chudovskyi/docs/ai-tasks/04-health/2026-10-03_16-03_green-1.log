@@ -1,0 +1,113 @@
+ Network chudovskyi_default Creating 
+ Network chudovskyi_default Creating 
+ Network chudovskyi_default Created 
+ Network chudovskyi_default Created 
+ Container test_pm_db Creating 
+ Container test_pm_db Created 
+ Container test_pm_db Starting 
+ Container test_pm_db Started 
+ Image ipm_api:1.0.0 Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 680B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.test
+#2 transferring dockerfile: 881B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.10.12
+#3 ...
+
+#4 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#4 DONE 0.6s
+
+#3 [internal] load metadata for ghcr.io/astral-sh/uv:0.10.12
+#3 DONE 0.9s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 946B done
+#5 DONE 0.0s
+
+#6 FROM ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec
+#6 resolve ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec 0.0s done
+#6 DONE 0.0s
+
+#7 [stage-0 1/9] FROM docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b
+#7 resolve docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b 0.0s done
+#7 DONE 0.0s
+
+#8 [internal] load build context
+#8 transferring context: 104.27kB 0.0s done
+#8 DONE 0.0s
+
+#9 [stage-0 3/9] COPY --from=ghcr.io/astral-sh/uv:0.10.12 /uv /uvx /bin/
+#9 CACHED
+
+#10 [stage-0 4/9] WORKDIR /usr/src/prompt_manager
+#10 CACHED
+
+#11 [stage-0 2/9] RUN apt-get update      && apt-get install -y --no-install-recommends netcat-openbsd     && rm -rf /var/lib/apt/lists/*
+#11 CACHED
+
+#12 [stage-0 5/9] RUN --mount=type=cache,target=/root/.cache/uv     --mount=type=bind,source=uv.lock,target=uv.lock     --mount=type=bind,source=pyproject.toml,target=pyproject.toml     uv sync --locked --no-install-project
+#12 CACHED
+
+#13 [stage-0 6/9] COPY . .
+#13 DONE 0.1s
+
+#14 [stage-0 7/9] RUN --mount=type=cache,target=/root/.cache/uv     uv sync --locked
+#14 0.239 Resolved 70 packages in 1ms
+#14 0.243 Checked 67 packages in 1ms
+#14 DONE 0.3s
+
+#15 [stage-0 8/9] RUN sed -i 's/\r$//g' /usr/src/prompt_manager/docker/entrypoint.test.sh
+#15 DONE 0.3s
+
+#16 [stage-0 9/9] RUN chmod +x /usr/src/prompt_manager/docker/entrypoint.test.sh
+#16 DONE 0.3s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 0.2s done
+#17 exporting manifest sha256:d91abb45d01a8bafc3a4a225d51dafa6c84d8215379d02c6c64892a59fc7c8d2 0.0s done
+#17 exporting config sha256:a34834d4122f30d2f5de3c1d9ec1cc9f485f54762b5ac99aa8c56db720f0d0c6 0.0s done
+#17 exporting attestation manifest sha256:4797b945b612149d2c54a6bff9a510e02b2c9db3cc60e6e5305b17bcc20d992f 0.0s done
+#17 exporting manifest list sha256:55064721c9d19dafb34be4f3446dcea2adbc2bfcc241daa02ce701f016c0691f 0.0s done
+#17 naming to docker.io/library/ipm_api:1.0.0 done
+#17 unpacking to docker.io/library/ipm_api:1.0.0 0.1s done
+#17 DONE 0.4s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ Image ipm_api:1.0.0 Built 
+ Container chudovskyi-api_test-run-6d39242644bb Creating 
+ Container chudovskyi-api_test-run-6d39242644bb Created 
+Waiting for postgres (pg_test:5432)...
+Connection to pg_test (172.18.0.2) 5432 port [tcp/postgresql] succeeded!
+PostgreSQL has been launched!
+Starting migrations
+INFO  [alembic.runtime.migration] Context impl PostgresqlImpl.
+INFO  [alembic.runtime.migration] Will assume transactional DDL.
+INFO  [alembic.runtime.migration] Running upgrade  -> 144e3d5661ee, create users table
+INFO  [alembic.runtime.migration] Running upgrade 144e3d5661ee -> d0183e1abe6e, create access_token table
+INFO  [alembic.runtime.migration] Running upgrade d0183e1abe6e -> cdb136b064d0, create prompts table
+INFO  [alembic.runtime.migration] Running upgrade cdb136b064d0 -> 66857135073a, create categories table
+INFO  [alembic.runtime.migration] Running upgrade 66857135073a -> c369380e9420, create prompt-category OneToMany
+INFO  [alembic.runtime.migration] Running upgrade c369380e9420 -> cc3bc54f73a2, create tags table
+INFO  [alembic.runtime.migration] Running upgrade cc3bc54f73a2 -> de14d3b6a68f, create prompt tag MtM table
+INFO  [alembic.runtime.migration] Running upgrade de14d3b6a68f -> 31e3ab093eab, create prompts-user relationship
+Applied migrations successfully!
+Starting database seeding
+Database seeded successfully!
+============================= test session starts ==============================
+platform linux -- Python 3.11.17, pytest-9.0.3, pluggy-1.6.0
+rootdir: /usr/src/prompt_manager
+configfile: pytest.ini
+plugins: asyncio-1.3.0, anyio-4.12.1, cov-7.1.0
+asyncio: mode=Mode.AUTO, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=session
+collected 7 items
+
+tests/test_service_health.py .....                                       [ 71%]
+tests/test_router_health.py ..                                           [100%]
+
+============================== 7 passed in 0.76s ===============================

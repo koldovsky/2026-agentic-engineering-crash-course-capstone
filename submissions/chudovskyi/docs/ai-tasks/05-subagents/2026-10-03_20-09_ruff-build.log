@@ -1,0 +1,74 @@
+===== $ docker build -f docker/Dockerfile.test -t ipm_api:info-check .
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile.test
+#1 transferring dockerfile: 881B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for ghcr.io/astral-sh/uv:0.10.12
+#2 DONE 1.8s
+
+#3 [internal] load metadata for docker.io/library/python:3.11-slim-trixie
+#3 DONE 1.8s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 946B done
+#4 DONE 0.0s
+
+#5 FROM ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec
+#5 resolve ghcr.io/astral-sh/uv:0.10.12@sha256:72ab0aeb448090480ccabb99fb5f52b0dc3c71923bffb5e2e26517a1c27b7fec 0.0s done
+#5 DONE 0.0s
+
+#6 [stage-0 1/9] FROM docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b
+#6 resolve docker.io/library/python:3.11-slim-trixie@sha256:bab1b7ef4b450c81002278d035eff85ebe394ae94df904f7a3ba14f7e16e487b 0.0s done
+#6 DONE 0.0s
+
+#7 [internal] load build context
+#7 transferring context: 210.52kB 0.0s done
+#7 DONE 0.0s
+
+#8 [stage-0 2/9] RUN apt-get update      && apt-get install -y --no-install-recommends netcat-openbsd     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [stage-0 3/9] COPY --from=ghcr.io/astral-sh/uv:0.10.12 /uv /uvx /bin/
+#9 CACHED
+
+#10 [stage-0 4/9] WORKDIR /usr/src/prompt_manager
+#10 CACHED
+
+#11 [stage-0 5/9] RUN --mount=type=cache,target=/root/.cache/uv     --mount=type=bind,source=uv.lock,target=uv.lock     --mount=type=bind,source=pyproject.toml,target=pyproject.toml     uv sync --locked --no-install-project
+#11 CACHED
+
+#12 [stage-0 6/9] COPY . .
+#12 DONE 0.1s
+
+#13 [stage-0 7/9] RUN --mount=type=cache,target=/root/.cache/uv     uv sync --locked
+#13 0.214 Resolved 70 packages in 0.96ms
+#13 0.220 Checked 67 packages in 1ms
+#13 DONE 0.2s
+
+#14 [stage-0 8/9] RUN sed -i 's/\r$//g' /usr/src/prompt_manager/docker/entrypoint.test.sh
+#14 DONE 0.3s
+
+#15 [stage-0 9/9] RUN chmod +x /usr/src/prompt_manager/docker/entrypoint.test.sh
+#15 DONE 0.3s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.2s done
+#16 exporting manifest sha256:7d9bf1c14830cb38e1980e0d9adedf195c2022510b329f567b4a6acf630f3c23 0.0s done
+#16 exporting config sha256:6b40d3d50b2a4b75caff4fbb5e330892c7ffc406351ee77128b11ede1fb1df48 0.0s done
+#16 exporting attestation manifest sha256:5e3683293fc51a819632ee780dcbd74c9f18b8def8e1b4da64d2f98aeb6b3db0 0.0s done
+#16 exporting manifest list sha256:dfe173c6fa8187dde67cac080fec1cd13179b6bfd66336c1e433b2893e856652 0.0s done
+#16 naming to docker.io/library/ipm_api:info-check done
+#16 unpacking to docker.io/library/ipm_api:info-check 0.1s done
+#16 DONE 0.4s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/prxyfwhudenm97rpypvuo973l
+===== exit=0
+===== $ docker run --rm --entrypoint uv ipm_api:info-check run ruff check app
+All checks passed!
+===== exit=0
+===== $ docker run --rm --entrypoint uv ipm_api:info-check run ruff format --check app
+68 files already formatted
+===== exit=0

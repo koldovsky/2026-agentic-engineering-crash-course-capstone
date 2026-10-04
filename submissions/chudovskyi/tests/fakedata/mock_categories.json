@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "name": "FastAPI",
+    "description": "Everything about FastAPI"
+  },
+  {
+    "id": 2,
+    "name": "Django",
+    "description": "Everything about Django"
+  },
+  {
+    "id": 3,
+    "name": "Flask",
+    "description": "Everything about Flask"
+  }
+]

@@ -1,0 +1,26 @@
+services:
+
+  api_test:
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile.test
+    image: ipm_api:1.0.0
+    container_name: test_pm_api
+#    command: ["uv", "run", "pytest", "-s", "-v"]
+    command: ["sh", "-c", "uv run coverage run -m pytest -s -v && uv run coverage report -m"]
+    ports:
+      - "8000:8000"
+    restart: no #no, always, on-failure: 5, unless-stopped
+    env_file:
+      - ./app/config/envs/.env.test
+    depends_on:
+      - pg_test
+
+
+  pg_test:
+    container_name: test_pm_db
+    image: postgres:14.10-alpine
+    env_file:
+      - ./app/config/envs/.env.test
+    ports:
+      - "5432:5432"
