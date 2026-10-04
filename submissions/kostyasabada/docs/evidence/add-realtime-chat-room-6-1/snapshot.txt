@@ -1,0 +1,16 @@
+# Snapshot: add-realtime-chat-room-6-1, phase B (clean-checkout verification)
+# Final commit verified: e4ed364 (e4ed36401c70a5664d6ba40e8235b3015d43acdf). Phase B changes are evidence only, uncommitted, unstaged.
+# SHA-256, paths from the repository root. Generated 2026-09-30T13:15:49Z. review.md is the checker's file and is not part of the maker snapshot.
+# Phase A deliverables (README.md, docs/*.md) are committed in e4ed364 and unchanged by phase B.
+# Evidence files added or changed in phase B:
+c5c0fc5308ab7c4218cca2ba339e22b93a4bec30345bfc7009aa2fc908aa6ada  submissions/kostyasabada/docs/evidence/add-realtime-chat-room-6-1/implementation.md
+cc1d84caf553bf7152876b2219f2eea9fe374c4c042d83bbd354f1aa9aa3a87d  submissions/kostyasabada/docs/evidence/add-realtime-chat-room-6-1/supplementary-alice.png
+306d5d9f76914704b50bdeca218e39f1c291c107009756c5822913504cd49182  submissions/kostyasabada/docs/evidence/add-realtime-chat-room-6-1/supplementary-bob.png
+b8605e8ca848c3f97dec695ac07fa213419c398e51a57effceb3f2a5dcb58563  submissions/kostyasabada/docs/evidence/add-realtime-chat-room-6-1/supplementary-two-browsers.png
+# checks.txt, final (phase B records end with 'END OF PHASE B'):
+adf155e52d511082641ecffd9c0476f640b2367731193520f56ffde857e98012  submissions/kostyasabada/docs/evidence/add-realtime-chat-room-6-1/checks.txt
+# git diff --stat at snapshot time:
+ .../evidence/add-realtime-chat-room-6-1/checks.txt | 737 +++++++++++++++++++++
+ .../add-realtime-chat-room-6-1/implementation.md   |  41 ++
+ 2 files changed, 778 insertions(+)
+# Whitespace check of this file before this line: git diff --no-index --check /dev/null <copy of snapshot.txt> -> exit 1 (1 = no whitespace error).

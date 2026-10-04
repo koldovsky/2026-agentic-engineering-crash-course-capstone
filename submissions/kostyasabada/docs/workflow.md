@@ -1,0 +1,70 @@
+# OpenSpec workflow
+
+OpenSpec 1.13.2 uses the existing `spec-driven` schema and project context. Its Codex integration is installed under `.agents/skills/` in this submission. The core profile generated six skills: `openspec-propose`, `openspec-explore`, `openspec-apply-change`, `openspec-update-change`, `openspec-sync-specs`, and `openspec-archive-change`. This version uses invocable skills for Codex; it did not install separate slash-command files.
+
+## Skills and activation
+
+The approved `playwright` and `security-best-practices` skills from `openai/skills` are installed personally at `~/.codex/skills/`, outside this repository. They are available on the next turn; if they do not appear, restart Codex. Playwright provides browser automation guidance and a CLI wrapper. The project also installs Playwright Test separately; see `testing.md` for the browser verification result. Security best practices supports explicit security guidance/review requests for Python, JavaScript/TypeScript, and Go. `gh-fix-ci` was not installed.
+
+Start a Codex task with `submissions/kostyasabada/` as its working directory to discover the submission's OpenSpec skills. Repository skill discovery scans from the working directory upward, so a task launched at the course repository root should not be assumed to discover skills in this child directory. In the desktop app, select the skill from the skills UI when available; CLI/IDE users can mention `$openspec-propose`, for example. Installed files and CLI behavior were verified, but runtime discovery and invocation in a new task have not been tested. See [official skill documentation](https://learn.chatgpt.com/docs/build-skills).
+
+Generated instructions remain upstream files. Their task-writing and implementation steps are performed by a fresh maker, while the main agent coordinates. Apply's immediate completion/checkmark examples only apply after the separate checker accepts the final snapshot, as required by `AGENTS.md` and `docs/review-process.md`. Prepare and commit specifications before implementation even when a generated skill permits interleaving; commits require the user's approval (`AGENTS.md`). During archive, delegate spec synchronization synchronously, wait for the maker and independent checker, and only then move the change. A CLI `all_done` state alone is not review evidence. Recheck these rules after regenerating the integration.
+
+## Claude Code
+
+The project is also used with Claude Code (user decision). `CLAUDE.md` imports `AGENTS.md` with `@AGENTS.md`, so both tools follow the same rules; it only adds a short tool mapping.
+
+- Launch Claude Code with `submissions/kostyasabada/` as the working directory.
+- The six OpenSpec skills are exposed at `.claude/skills/<skill-name>` as relative symlinks to `../../.agents/skills/<skill-name>`. `.agents/skills/` remains the single source, so regenerating the Codex integration updates both tools. Invoke them as `/openspec-propose`, `/openspec-apply-change`, and so on.
+- Re-initializing OpenSpec with `--tools claude` would generate separate duplicate copies under `.claude/`; prefer the symlinks. If the Codex integration is regenerated, check that the symlinks still resolve.
+- Apply the same `openspec` executable substitution (see Commands) and the same coordinator, maker, and checker rules. Spawn makers and checkers as fresh Agent-tool subagents with self-contained handoffs, not context-inheriting forks.
+- The personal Codex skills in `~/.codex/skills/` are not exposed to Claude Code.
+- Symlink resolution was verified on the filesystem; runtime skill discovery and invocation in a new Claude Code session have not been verified.
+
+## Commands
+
+Run from `submissions/kostyasabada/`. Install the locked project dependencies with `npm ci`; this requires npm registry access on a clean machine. OpenSpec 1.13.2 is pinned in `package.json` and `package-lock.json`, so no global installation or temporary-cache command is needed.
+
+Generated skills use `openspec ...` as shorthand. In both Codex and Claude Code, replace that executable with `npm run --silent openspec --`, preserving all arguments and the working directory. The npm script resolves the project-local executable. `--silent` keeps npm's script banner out of JSON output.
+
+```bash
+npm ci
+npm run --silent openspec -- list --json
+npm run --silent openspec -- new change <change-name>
+npm run --silent openspec -- status --change <change-name> --json
+npm run --silent openspec -- instructions proposal --change <change-name> --json
+npm run --silent openspec -- validate --all --strict
+```
+
+## Sequence
+
+1. Create a separate change for an agreed task.
+2. Use `status` and `instructions` to obtain current artifact requirements for proposal, specs, design, and tasks. Do not invent the format.
+3. Prepare the artifacts and, with the user's approval, commit them before implementation. Discuss unresolved product decisions with the user.
+4. The main agent coordinates only and spawns a fresh maker subagent for each task with scoped context and no full history by default. The maker implements the task and records actual check results. Follow `docs/review-process.md` for handoffs, evidence, and review snapshots, including specification tasks.
+5. Spawn a separate checker with scoped context. Return findings to that task's maker and obtain checker acceptance of the final snapshot before marking the task complete.
+6. Archive the completed change following CLI guidance, merging requirements into `openspec/specs/`.
+
+`openspec/specs/` contains current requirements; `openspec/changes/` contains active changes; `openspec/changes/archive/` contains completed changes. The first change, `add-realtime-chat-room`, was archived on 2026-09-30: its requirements are in `openspec/specs/` (`agent-loop`, `chat-room`, `session-context-hook`), and its proposal, design, and tasks are in `openspec/changes/archive/2026-09-30-add-realtime-chat-room/`.
+
+This process description is not evidence of an executed automated loop. Claiming loop engineering requires a reproducible mechanism and a record of an actual run.
+
+Documentation: https://github.com/Fission-AI/OpenSpec.
+
+## Agent loop
+
+`scripts/agent-loop.sh` (task 1.4) runs `npm run check:loop`; on failure it passes the failure output and the maker's brief to a fresh non-interactive fixer (`claude -p` by default, `--agent codex` selectable but unverified) and checks again, until the checks pass or the iteration limit (default 5) is reached. When `check:loop` passes, it runs `npm run check` once as the final gate; a failure there feeds the next fixer run. The task's maker launches it; the coordinator does not. Each run appends to `docs/evidence/<task-id>/loop-run.log`; a green loop still needs checker acceptance (`review-process.md`).
+
+```bash
+scripts/agent-loop.sh --task-id <task-id> --brief docs/evidence/<task-id>/loop-brief.md [--agent claude|codex] [--max-iterations N] [--agent-timeout SECONDS]
+```
+
+Requirements: `openspec/specs/agent-loop/spec.md`; interface, permissions, stop reasons, and log format: design D7. Task 2.1 was the first real task run through the loop (`docs/evidence/add-realtime-chat-room-2-1/loop-run.log`, stop reason `checks_passed` after one fixer run).
+
+## Session context hook
+
+The committed project settings `.claude/settings.json` register a Claude Code `SessionStart` hook (sources `startup`, `resume`, `clear`, `compact`) that runs `scripts/session-context.sh`. The script runs the pinned CLI directly, `OPENSPEC_TELEMETRY=0 ./node_modules/.bin/openspec list --json`, and prints its output, which Claude Code adds to the new session's context. It does not use `npm run`, because npm writes debug logs under `~/.npm/_logs` on every run (user decision, design D8). `OPENSPEC_TELEMETRY=0` is OpenSpec's documented telemetry opt-out: without it, a run sends an anonymous usage event once the global config records the telemetry notice as seen, and it writes the global config file only as a one-time copy of an existing `~/.config/openspec/config.json` into a different `XDG_CONFIG_HOME`; with no config anywhere it writes nothing. If the CLI or `node` is missing, the command fails, or it takes longer than 10 seconds, the script prints a one-line notice with the manual command (`npm run --silent openspec -- list --json`) instead; it always exits 0 and writes no files. The 10-second `timeout` sends SIGTERM only: a CLI process that ignored SIGTERM would keep the script waiting until it ended, bounded by Claude Code's 15-second hook timeout (the backstop). Because the script calls `node` directly, `timeout -k 2 10` would kill such a process after about 12 seconds (measured in the task 1.5 review, which then reported status 137 instead of the timeout reason); this is a possible later hardening, not a current need, since the real OpenSpec CLI does not ignore SIGTERM. Requirements: `openspec/specs/session-context-hook/spec.md`.
+
+Evidence: a real Claude Code 2.1.198 session started by the task 1.5 maker ran the hook and its output was recorded, but that session ran the round-1 version of the script (through `npm run`) and could not authenticate (`docs/evidence/add-realtime-chat-room-1-5/hook-output.txt`). Model-side receipt was then confirmed by a session the user ran after commit `47ece6d`: asked which OpenSpec changes are active, the model named `add-realtime-chat-room` with its task count and cited the hook (`docs/evidence/add-realtime-chat-room-1-5/user-session-observation.md`).
+
+Codex: no automatic injection is configured. Codex is not installed in this environment (`command -v codex` fails), so no installed version's `--help` could be checked. The official Codex hooks documentation (https://learn.chatgpt.com/docs/hooks, redirected from https://developers.openai.com/codex/hooks, read 2026-09-26) describes a comparable `SessionStart` hook in `<repo>/.codex/hooks.json` or `.codex/config.toml`: plain-text stdout becomes extra developer context, commands run in the session's working directory, and project hooks run only after the user reviews and trusts them (`/hooks`). This equivalent has not been configured or run here, so parity is not claimed. Until a verified run exists, Codex agents run `npm run --silent openspec -- list --json` themselves at the start of a task.
