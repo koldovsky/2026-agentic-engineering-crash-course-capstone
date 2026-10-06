@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-04",
+  "recorded_at": "2026-10-04T19:26:41.640908+00:00",
+  "base_commit": "e324e33251ec9f09946e118aaa9f071b91d48bce",
+  "author": "Codex (Maker)",
+  "reason": "Fixes after independent Claude Code review; synthetic regression verification, not a live hook activation test.",
+  "runs": [
+    {
+      "cwd_kind": "prepared-logging-commit",
+      "command": "node --test scripts/hooks-selftest.mjs",
+      "exit_code": 0,
+      "output": "✔ both provider registrations target only the logger and required events (6.584208ms)\n✔ real project log directory is writable without creating synthetic live events (2.293083ms)\n✔ claude PreToolUse maps to proposed/null (4.309375ms)\n✔ claude PostToolUse maps to success/0 (0.520458ms)\n✔ claude PostToolUseFailure maps to failure/7 (0.358ms)\n✔ claude PostToolUseFailure maps to failure/null (0.555042ms)\n✔ claude PostToolUseFailure maps to interrupted/null (0.189584ms)\n✔ codex PreToolUse maps to proposed/null (1.241833ms)\n✔ codex PostToolUse maps to success/0 (1.25375ms)\n✔ codex PostToolUse maps to failure/7 (4.45075ms)\n✔ codex PostToolUse maps to failure/2 (0.778917ms)\n✔ codex PostToolUse maps to failure/null (0.9155ms)\n✔ codex PostToolUse maps to failure/7 (0.869833ms)\n✔ codex PostToolUse maps to unknown/null (0.062583ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.2375ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (5.457333ms)\n✔ only exact known verification commands receive a meaningful command label (0.710291ms)\n✔ file paths are repository-relative and outside-project paths are omitted (0.65425ms)\n✔ relative file paths use the event working directory while the log stays at the project root (0.177166ms)\n✔ full session IDs and provider identity survive normalization and summary (2.984375ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.323291ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.251125ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.732834ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (760.189709ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (581.657875ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (288.297166ms)\n✔ malformed hook input fails visibly without echoing private payloads (271.772834ms)\n✔ summary CLI exits nonzero for corrupt or missing logs (491.178208ms)\n✔ concurrent adapters append intact records to the same repository log (824.321333ms)\n✔ Codex rename logs both patch paths and handles CRLF headers (0.510625ms)\n✔ shell aliases retain verification command labels without raw commands (0.211792ms)\nℹ tests 31\nℹ suites 0\nℹ pass 31\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3548.269042\n"
+    },
+    {
+      "cwd_kind": "repository",
+      "command": "pnpm hooks:selftest",
+      "exit_code": 0,
+      "output": "$ node --test scripts/hooks-selftest.mjs\n✔ both provider registrations retain logging and register the guard only before tools (6.147209ms)\n✔ real project log directory is writable without creating synthetic live events (2.209292ms)\n✔ claude PreToolUse maps to proposed/null (2.01025ms)\n✔ claude PostToolUse maps to success/0 (0.960584ms)\n✔ claude PostToolUseFailure maps to failure/7 (1.448625ms)\n✔ claude PostToolUseFailure maps to failure/null (0.742292ms)\n✔ claude PostToolUseFailure maps to interrupted/null (0.294ms)\n✔ codex PreToolUse maps to proposed/null (0.900083ms)\n✔ codex PostToolUse maps to success/0 (2.986083ms)\n✔ codex PostToolUse maps to failure/7 (5.474584ms)\n✔ codex PostToolUse maps to failure/2 (1.119792ms)\n✔ codex PostToolUse maps to failure/null (0.6145ms)\n✔ codex PostToolUse maps to failure/7 (1.043334ms)\n✔ codex PostToolUse maps to unknown/null (0.212875ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.446958ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (3.905ms)\n✔ only exact known verification commands receive a meaningful command label (0.48625ms)\n✔ file paths are repository-relative and outside-project paths are omitted (0.466875ms)\n✔ relative file paths use the event working directory while the log stays at the project root (0.270667ms)\n✔ full session IDs and provider identity survive normalization and summary (1.319167ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.158792ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.146708ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.54725ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (746.701541ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (591.947083ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (293.421667ms)\n✔ malformed hook input fails visibly without echoing private payloads (274.241584ms)\n✔ summary CLI exits nonzero for corrupt or missing logs (475.314917ms)\n✔ concurrent adapters append intact records to the same repository log (719.037875ms)\n✔ environment guard denies protected paths for Read, including examples (0.86575ms)\n✔ environment guard denies protected paths for Edit, including examples (0.462584ms)\n✔ environment guard denies protected paths for Write, including examples (0.064708ms)\n✔ environment guard denies protected paths for MultiEdit, including examples (0.049459ms)\n✔ environment guard denies protected paths for NotebookEdit, including examples (0.05275ms)\n✔ environment guard checks apply_patch Add File targets (0.992ms)\n✔ environment guard checks apply_patch Update File targets (0.106875ms)\n✔ environment guard checks apply_patch Delete File targets (0.365875ms)\n✔ environment guard checks apply_patch Move to targets (0.056542ms)\n✔ safe patches can discuss .env in content without changing protected paths (0.114417ms)\n✔ environment guard covers explicit path arguments in other tools (0.108875ms)\n✔ environment guard denies literal .env shell references without executing input (1.07675ms)\n✔ environment guard ignores non-pre events and makes no allow decision for unrelated tools (0.071083ms)\n✔ claude configured environment guard blocks, allows, and fails closed from a subdirectory (964.751917ms)\n✔ codex configured environment guard blocks, allows, and fails closed from a subdirectory (1078.672542ms)\n✔ environment guard denies malformed JSON and missing protected-tool fields without leaking payloads (1111.014958ms)\n✔ Codex rename logs both patch paths and handles CRLF headers (0.587958ms)\n✔ shell aliases retain verification command labels without raw commands (0.225666ms)\nℹ tests 47\nℹ suites 0\nℹ pass 47\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 6599.505166\n"
+    },
+    {
+      "cwd_kind": "repository",
+      "command": "pnpm lint",
+      "exit_code": 0,
+      "output": "$ eslint\n"
+    },
+    {
+      "cwd_kind": "repository",
+      "command": "pnpm check",
+      "exit_code": 1,
+      "output": "Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL\n\n  × Command \"check\" not found\n\n"
+    }
+  ],
+  "source_sha256": {
+    ".agent-log/README.md": "b87aca8f405e255407ce9ef3b304d5498e803a02f2b808cfe4337e998aff3fdd",
+    ".claude/agents/reviewer.md": "efdda5e1ac4c1773435241bb419e95f6fb2cbf5f2c7ad2dd8d8149419822d8b7",
+    ".claude/hooks/log-action.mjs": "2e9e8fa2f84fd3325f46d862ffef5bf1ef78d5995fa69eb9c9cd67a19f4fc66c",
+    ".claude/hooks/protect-env.mjs": "3a16728c79a54a813dfc362e2bbdd5fe2a0944c9a32f8568fc1b8a4a8ca7789b",
+    ".claude/settings.json": "8d27ced57641e3b23c1fd5479cfe26a2453ee8fe304575f56c635a166f7943dd",
+    ".codex/config.toml": "ba68fad5d19b39fd157b77d2cf7d40359998db3032d2142a97e3988a1980b7bd",
+    ".codex/hooks.json": "ebf1bec09756800e4b90ed9131e0deb634b058f8c7099df10e9ea2d41dc15b15",
+    ".codex/hooks/log-action.mjs": "1ebdfa7cc80fec358ee69673254acce23c166ead0b43e3fbb75c491761f5ca80",
+    ".gitignore": "1257b4f69dec8576dbe7f4a5f6e768ab69a2e2e86c838fa14aaa7ffaf0b8782c",
+    "AGENTS.md": "cfbae35114cd2698356988b1cd5ae33ddd2f1a652baef757cb7e578a9af3d004",
+    "docs/reviews/2026-10-04-logging-hooks-fixes.md": "46603138f8fe86669d8f6446a2754abf7417a177b3e03bdefb9a1a62e63741b1",
+    "docs/reviews/2026-10-04-logging-hooks-review.md": "789095c8a60a692a03beaa5354c95e6c25bd5a6ca0824e6b1e32c1f2b2ad4ec5",
+    "docs/runs/2026-10-04-logging-hooks-fixes.json": "2dea04db79eae7bcf3b35cf4b778e9752bda1f7787f186c6c4dc427266cff086",
+    "docs/runs/2026-10-04-logging-hooks-review.json": "78f2e6d5fab92efa97b7336e0035c88e5192085cdf824c394b161fdca0bd737b",
+    "docs/runs/2026-10-04-protect-env.json": "1730449fef1e7cac02171650617b93c153763d1b17311ae36f94046194292f14",
+    "package.json": "48db9828d1c3c54ffdc59289f294120833f89f35f30970344ad13ab0fe5d24c5",
+    "scripts/agent-log-summary.mjs": "f606695433fdb34a12e15edfeae1caa93a710ddf202c1d34447210540b1d0314",
+    "scripts/hooks-selftest.mjs": "44127a24cd44a8567bf66955a4ff78380e1bdce7ecb7afd957943cbb4a957e60",
+    "scripts/log-agent-action.mjs": "590600949fb114873c7c283b9e9b66d6cd4152ed83593fd8b049830d98e5845a"
+  },
+  "logging_commit_source_sha256": {
+    ".agent-log/README.md": "b1ba1e8dee93521ea9d1a48291299bf4bb915e1775217668af2769131674a440",
+    ".claude/hooks/log-action.mjs": "2e9e8fa2f84fd3325f46d862ffef5bf1ef78d5995fa69eb9c9cd67a19f4fc66c",
+    ".claude/settings.json": "ecc1c956ba76fbf77c346bcdbec5ba03febbf7c3936a3e4223c4350f8a1f38da",
+    ".codex/config.toml": "4a8bf4c32404c0cbfdd261b4737bfc479e4bcd8479d9f45da65ec84283f5384a",
+    ".codex/hooks/log-action.mjs": "1ebdfa7cc80fec358ee69673254acce23c166ead0b43e3fbb75c491761f5ca80",
+    ".codex/hooks.json": "bfeaa43819a1b24365be28c5b2dad90cb736033caaa28e7724871d1869ae063d",
+    ".gitignore": "1257b4f69dec8576dbe7f4a5f6e768ab69a2e2e86c838fa14aaa7ffaf0b8782c",
+    "package.json": "48db9828d1c3c54ffdc59289f294120833f89f35f30970344ad13ab0fe5d24c5",
+    "scripts/agent-log-summary.mjs": "f606695433fdb34a12e15edfeae1caa93a710ddf202c1d34447210540b1d0314",
+    "scripts/hooks-selftest.mjs": "34ad3e7e4981a5a2f0f26fa10f3d78f16906dad51cba51b50bfb2d280457d82c",
+    "scripts/log-agent-action.mjs": "590600949fb114873c7c283b9e9b66d6cd4152ed83593fd8b049830d98e5845a"
+  },
+  "logging_snapshot_verified_at": "2026-10-04T19:31:21.204504+00:00",
+  "commit_split_note": "The Codex config comment change and AGENTS.md land together in commit 3, as the independent reviewer requested."
+}

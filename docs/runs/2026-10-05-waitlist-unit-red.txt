@@ -1,0 +1,33 @@
+# Red run: lib/waitlist.test.ts before lib/waitlist.ts exists (task 2.1)
+HEAD: 5fb52ac + untracked lib/waitlist.test.ts
+Test file sha256: 8e9822913b6e8ffac9fa3595f24bbac9638c07cd01199e2d1ee42c5f3529bc61 (lib/waitlist.test.ts, unchanged between red and green)
+Node: v23.11.0  pnpm: 12.3.4 (red run recorded the same environment; header hash added after review finding 1)
+Command: pnpm test:unit
+
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+ ❯ lib/waitlist.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  lib/waitlist.test.ts [ lib/waitlist.test.ts ]
+Error: Cannot find package '@/lib/waitlist' imported from /Users/mykhailo/work/pet-projects/ai-assisted-development/lib/waitlist.test.ts
+ ❯ lib/waitlist.test.ts:2:1
+      1| import { describe, expect, it } from "vitest";
+      2| import {
+       | ^
+      3|   EMAIL_INVALID_MESSAGE,
+      4|   EMAIL_REQUIRED_MESSAGE,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 passed (1)
+   Start at  16:55:18
+   Duration  149ms (import 63%, transform 24%, worker 9%, tests 4%)
+
+[ELIFECYCLE] Command failed with exit code 1.
+exit: 1

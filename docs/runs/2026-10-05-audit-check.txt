@@ -1,0 +1,94 @@
+# pnpm check + pnpm build — rubric audit run
+HEAD: 3c05168; tracked tree clean. `pnpm check` ran on a fully clean tree; `pnpm build` and `openspec validate` ran later with only these untracked docs present: docs/rubric-audit.md, docs/pr-description-draft.md
+Node: v23.11.0  pnpm: 12.3.4
+
+$ pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:e2e
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully
+$ eslint
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+
+ Test Files  2 passed (2)
+      Tests  12 passed (12)
+   Start at  17:08:25
+   Duration  200ms (import 59%, transform 30%, tests 6%, worker 5%)
+
+$ playwright test
+[WebServer] $ next build
+[WebServer] $ next start --port 3100
+
+Running 38 tests using 5 workers
+
+  ✓   2 [mobile-375] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (332ms)
+  ✓   3 [mobile-375] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (304ms)
+  ✓   4 [mobile-375] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (393ms)
+  ✓   1 [mobile-375] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (448ms)
+  ✓   7 [mobile-375] › tests/e2e/landing.spec.ts:79:5 › page has no horizontal overflow (174ms)
+  ✓   8 [mobile-375] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (173ms)
+  ✓   6 [mobile-375] › tests/e2e/landing.spec.ts:72:5 › pricing has no payment controls (218ms)
+  ✓   9 [mobile-375] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (196ms)
+  ✓   5 [mobile-375] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (726ms)
+  ✓  12 [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (245ms)
+  ✓  11 [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (316ms)
+  ✓  10 [mobile-375] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (336ms)
+  ✓  14 [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (273ms)
+  ✓  13 [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (293ms)
+  ✓  15 [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (311ms)
+  ✓  17 [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (315ms)
+  ✓  18 [mobile-375] › tests/e2e/waitlist.spec.ts:96:5 › submitting sends no network request (218ms)
+  ✓  16 [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (350ms)
+  ✓  19 [mobile-375] › tests/e2e/waitlist.spec.ts:105:5 › nothing persists across a reload (287ms)
+  ✓  20 [desktop-1440] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (182ms)
+  ✓  21 [desktop-1440] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (272ms)
+  ✓  25 [desktop-1440] › tests/e2e/landing.spec.ts:72:5 › pricing has no payment controls (215ms)
+  ✓  24 [desktop-1440] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (270ms)
+  ✓  22 [desktop-1440] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (359ms)
+  ✓  26 [desktop-1440] › tests/e2e/landing.spec.ts:79:5 › page has no horizontal overflow (139ms)
+  ✓  27 [desktop-1440] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (156ms)
+  ✓  28 [desktop-1440] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (178ms)
+  ✓  23 [desktop-1440] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (569ms)
+  ✓  30 [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (209ms)
+  ✓  31 [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (208ms)
+  ✓  29 [desktop-1440] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (281ms)
+  ✓  32 [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (283ms)
+  ✓  33 [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (248ms)
+  ✓  34 [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (277ms)
+  ✓  35 [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (318ms)
+  ✓  36 [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (319ms)
+  ✓  37 [desktop-1440] › tests/e2e/waitlist.spec.ts:96:5 › submitting sends no network request (192ms)
+  ✓  38 [desktop-1440] › tests/e2e/waitlist.spec.ts:105:5 › nothing persists across a reload (226ms)
+
+  38 passed (7.7s)
+exit: 0
+
+## pnpm build
+$ next build
+▲ Next.js 16.3.8 (Turbopack)
+- Environments: .env.local
+✓ Running next.config.ts took 23ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 513ms
+  Running TypeScript ...
+  Finished TypeScript in 1178ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 301ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+build exit: 0
+
+## pnpm exec openspec validate agentflow-landing --strict
+Change 'agentflow-landing' is valid
+validate exit: 0

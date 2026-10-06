@@ -1,0 +1,14 @@
+# Red run 2: current FAQ tests with the FAQ CSS temporarily removed (not committed)
+HEAD: 2a44921
+  ✓  1 [desktop-1440] › tests/e2e/landing.spec.ts:195:5 › nothing outside the FAQ marker and answer area has motion (482ms)
+  ✓  3 [desktop-1440] › tests/e2e/landing.spec.ts:172:5 › FAQ items toggle from the keyboard (517ms)
+  ✓  5 [desktop-1440] › tests/e2e/landing.spec.ts:182:5 › reduced motion disables the FAQ animation (567ms)
+  ✘  4 [desktop-1440] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms (532ms)
+  ✘  2 [desktop-1440] › tests/e2e/landing.spec.ts:149:5 › FAQ closing animates the marker back and the answer height down to zero (1.5s)
+    Error: marker transform transition
+    Received: undefined
+    Error: expect(received).toBeGreaterThan(expected)
+    Expected: > 0
+    Received:   0
+  2 failed
+  3 passed (6.3s)

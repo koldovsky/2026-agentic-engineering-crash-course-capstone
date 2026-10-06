@@ -1,0 +1,452 @@
+# pnpm check — slice 3 (waitlist form, tasks 4.1–4.2)
+HEAD: f86752a + working tree; source sha256 (app/layout.tsx, app/page.tsx, components/*.tsx, lib/*.ts, tests/e2e/*.ts): 5b11a9079de784dea997b603303ae8955de0eb34d9c0955e17b93ac10bce84dc
+Node: v23.11.0  pnpm: 12.3.4
+
+$ pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:e2e
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully
+$ eslint
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+
+ Test Files  2 passed (2)
+      Tests  12 passed (12)
+   Start at  17:01:31
+   Duration  208ms (import 59%, transform 30%, tests 6%, worker 4%)
+
+$ playwright test
+[WebServer] $ next build
+[WebServer] $ next start --port 3100
+
+Running 38 tests using 5 workers
+
+  ✓   2 [mobile-375] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (493ms)
+  ✓   3 [mobile-375] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (502ms)
+  ✓   1 [mobile-375] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (500ms)
+  ✓   5 [mobile-375] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (629ms)
+  ✓   8 [mobile-375] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (157ms)
+  ✓   7 [mobile-375] › tests/e2e/landing.spec.ts:73:5 › page has no horizontal overflow (161ms)
+  ✓   6 [mobile-375] › tests/e2e/landing.spec.ts:66:5 › pricing has no payment controls (190ms)
+  ✓   4 [mobile-375] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (802ms)
+  ✓   9 [mobile-375] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (177ms)
+  ✘  11 [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (293ms)
+  ✓  10 [mobile-375] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (348ms)
+  ✘  12 [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (307ms)
+  ✘  13 [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (282ms)
+  ✘  15 [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (242ms)
+  ✘  17 [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (245ms)
+  ✘  16 [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (337ms)
+  ✓  18 [mobile-375] › tests/e2e/waitlist.spec.ts:94:5 › submitting sends no network request (238ms)
+  ✓  19 [mobile-375] › tests/e2e/waitlist.spec.ts:103:5 › nothing persists across a reload (306ms)
+  ✓  20 [desktop-1440] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (169ms)
+  ✓  23 [desktop-1440] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (169ms)
+  ✓  21 [desktop-1440] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (207ms)
+  ✓  26 [desktop-1440] › tests/e2e/landing.spec.ts:73:5 › page has no horizontal overflow (127ms)
+  ✓  25 [desktop-1440] › tests/e2e/landing.spec.ts:66:5 › pricing has no payment controls (152ms)
+  ✓  27 [desktop-1440] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (134ms)
+  ✓  28 [desktop-1440] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (152ms)
+  ✓  22 [desktop-1440] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (517ms)
+  ✓  24 [desktop-1440] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (296ms)
+  ✓  29 [desktop-1440] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (263ms)
+  ✘  31 [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (265ms)
+  ✘  30 [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (289ms)
+  ✘  32 [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (224ms)
+  ✘  36 [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (238ms)
+  ✘  34 [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (336ms)
+  ✘  35 [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (360ms)
+  ✓  37 [desktop-1440] › tests/e2e/waitlist.spec.ts:94:5 › submitting sends no network request (217ms)
+  ✓  38 [desktop-1440] › tests/e2e/waitlist.spec.ts:103:5 › nothing persists across a reload (252ms)
+  ✘  14 [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (5.2s)
+  ✘  33 [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (5.2s)
+
+
+  1) [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть електронну пошту."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть електронну пошту.</p> aka getByText('Введіть електронну пошту')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      38 | test("empty submission shows the required error and no success", async ({ page }) => {
+      39 |   await submit(page, "");
+    > 40 |   await expect(page.getByRole("alert")).toHaveText(REQUIRED);
+         |                                         ^
+      41 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      42 | });
+      43 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:40:41
+
+    Error Context: test-results/waitlist-empty-submission--d721c-quired-error-and-no-success-mobile-375/error-context.md
+
+  2) [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть електронну пошту."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть електронну пошту.</p> aka getByText('Введіть електронну пошту')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      44 | test("whitespace-only submission shows the required error", async ({ page }) => {
+      45 |   await submit(page, "     ");
+    > 46 |   await expect(page.getByRole("alert")).toHaveText(REQUIRED);
+         |                                         ^
+      47 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      48 | });
+      49 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:46:41
+
+    Error Context: test-results/waitlist-whitespace-only-submission-shows-the-required-error-mobile-375/error-context.md
+
+  3) [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть коректну адресу електронної пошти."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть коректну адресу електронної пошти.</p> aka getByText('Введіть коректну адресу електронної пошти')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      50 | test("invalid email shows the format error and no success", async ({ page }) => {
+      51 |   await submit(page, "not-an-email");
+    > 52 |   await expect(page.getByRole("alert")).toHaveText(INVALID);
+         |                                         ^
+      53 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      54 | });
+      55 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:52:41
+
+    Error Context: test-results/waitlist-invalid-email-shows-the-format-error-and-no-success-mobile-375/error-context.md
+
+  4) [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('alert')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      57 |   await submit(page, "  user@example.com  ");
+      58 |   await expect(page.getByRole("status")).toHaveText(SUCCESS);
+    > 59 |   await expect(page.getByRole("alert")).toHaveCount(0);
+         |                                         ^
+      60 | });
+      61 |
+      62 | test("correcting an invalid email then resubmitting succeeds", async ({ page }) => {
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:59:41
+
+    Error Context: test-results/waitlist-valid-email-padde-b3dc1-e-demo-success-and-no-error-mobile-375/error-context.md
+
+  5) [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть коректну адресу електронної пошти."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть коректну адресу електронної пошти.</p> aka getByText('Введіть коректну адресу електронної пошти')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      62 | test("correcting an invalid email then resubmitting succeeds", async ({ page }) => {
+      63 |   await submit(page, "user@");
+    > 64 |   await expect(page.getByRole("alert")).toHaveText(INVALID);
+         |                                         ^
+      65 |   await submit(page, "user@example.com");
+      66 |   await expect(page.getByRole("status")).toHaveText(SUCCESS);
+      67 |   await expect(page.getByRole("alert")).toHaveCount(0);
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:64:41
+
+    Error Context: test-results/waitlist-correcting-an-inv-f337f--then-resubmitting-succeeds-mobile-375/error-context.md
+
+  6) [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть електронну пошту."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть електронну пошту.</p> aka getByText('Введіть електронну пошту')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      72 |   await expect(page.getByRole("status")).toHaveText(SUCCESS);
+      73 |   await submit(page, "");
+    > 74 |   await expect(page.getByRole("alert")).toHaveText(REQUIRED);
+         |                                         ^
+      75 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      76 | });
+      77 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:74:41
+
+    Error Context: test-results/waitlist-an-empty-submissi-db11a-the-error-and-hides-success-mobile-375/error-context.md
+
+  7) [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть коректну адресу електронної пошти."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть коректну адресу електронної пошти.</p> aka getByText('Введіть коректну адресу електронної пошти')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      82 |   await page.keyboard.type("user@");
+      83 |   await page.keyboard.press("Enter");
+    > 84 |   await expect(page.getByRole("alert")).toHaveText(INVALID);
+         |                                         ^
+      85 |   await expect(input).toHaveAttribute("aria-invalid", "true");
+      86 |   const describedBy = await input.getAttribute("aria-describedby");
+      87 |   expect(describedBy).toBeTruthy();
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:84:41
+
+    Error Context: test-results/waitlist-form-is-keyboard--58947-led-and-linked-to-its-error-mobile-375/error-context.md
+
+  8) [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть електронну пошту."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть електронну пошту.</p> aka getByText('Введіть електронну пошту')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      38 | test("empty submission shows the required error and no success", async ({ page }) => {
+      39 |   await submit(page, "");
+    > 40 |   await expect(page.getByRole("alert")).toHaveText(REQUIRED);
+         |                                         ^
+      41 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      42 | });
+      43 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:40:41
+
+    Error Context: test-results/waitlist-empty-submission--d721c-quired-error-and-no-success-desktop-1440/error-context.md
+
+  9) [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть електронну пошту."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть електронну пошту.</p> aka getByText('Введіть електронну пошту')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      44 | test("whitespace-only submission shows the required error", async ({ page }) => {
+      45 |   await submit(page, "     ");
+    > 46 |   await expect(page.getByRole("alert")).toHaveText(REQUIRED);
+         |                                         ^
+      47 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      48 | });
+      49 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:46:41
+
+    Error Context: test-results/waitlist-whitespace-only-submission-shows-the-required-error-desktop-1440/error-context.md
+
+  10) [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть коректну адресу електронної пошти."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть коректну адресу електронної пошти.</p> aka getByText('Введіть коректну адресу електронної пошти')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      50 | test("invalid email shows the format error and no success", async ({ page }) => {
+      51 |   await submit(page, "not-an-email");
+    > 52 |   await expect(page.getByRole("alert")).toHaveText(INVALID);
+         |                                         ^
+      53 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      54 | });
+      55 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:52:41
+
+    Error Context: test-results/waitlist-invalid-email-shows-the-format-error-and-no-success-desktop-1440/error-context.md
+
+  11) [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error 
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('alert')
+    Expected: 0
+    Received: 1
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+        14 × locator resolved to 1 element
+           - unexpected value "1"
+
+
+      57 |   await submit(page, "  user@example.com  ");
+      58 |   await expect(page.getByRole("status")).toHaveText(SUCCESS);
+    > 59 |   await expect(page.getByRole("alert")).toHaveCount(0);
+         |                                         ^
+      60 | });
+      61 |
+      62 | test("correcting an invalid email then resubmitting succeeds", async ({ page }) => {
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:59:41
+
+    Error Context: test-results/waitlist-valid-email-padde-b3dc1-e-demo-success-and-no-error-desktop-1440/error-context.md
+
+  12) [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть коректну адресу електронної пошти."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть коректну адресу електронної пошти.</p> aka getByText('Введіть коректну адресу електронної пошти')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      62 | test("correcting an invalid email then resubmitting succeeds", async ({ page }) => {
+      63 |   await submit(page, "user@");
+    > 64 |   await expect(page.getByRole("alert")).toHaveText(INVALID);
+         |                                         ^
+      65 |   await submit(page, "user@example.com");
+      66 |   await expect(page.getByRole("status")).toHaveText(SUCCESS);
+      67 |   await expect(page.getByRole("alert")).toHaveCount(0);
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:64:41
+
+    Error Context: test-results/waitlist-correcting-an-inv-f337f--then-resubmitting-succeeds-desktop-1440/error-context.md
+
+  13) [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть електронну пошту."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть електронну пошту.</p> aka getByText('Введіть електронну пошту')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      72 |   await expect(page.getByRole("status")).toHaveText(SUCCESS);
+      73 |   await submit(page, "");
+    > 74 |   await expect(page.getByRole("alert")).toHaveText(REQUIRED);
+         |                                         ^
+      75 |   await expect(page.getByText(SUCCESS)).toHaveCount(0);
+      76 | });
+      77 |
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:74:41
+
+    Error Context: test-results/waitlist-an-empty-submissi-db11a-the-error-and-hides-success-desktop-1440/error-context.md
+
+  14) [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('alert')
+    Expected: "Введіть коректну адресу електронної пошти."
+    Error: strict mode violation: getByRole('alert') resolved to 2 elements:
+        1) <p role="alert" id="waitlist-error" class="text-red-700 dark:text-red-400">Введіть коректну адресу електронної пошти.</p> aka getByText('Введіть коректну адресу електронної пошти')
+        2) <div role="alert" aria-live="assertive" id="__next-route-announcer__"></div> aka locator('[id="__next-route-announcer__"]')
+
+    Call log:
+      - Expect "toHaveText" getByRole('alert') with timeout 5000ms
+      - waiting for getByRole('alert')
+
+
+      82 |   await page.keyboard.type("user@");
+      83 |   await page.keyboard.press("Enter");
+    > 84 |   await expect(page.getByRole("alert")).toHaveText(INVALID);
+         |                                         ^
+      85 |   await expect(input).toHaveAttribute("aria-invalid", "true");
+      86 |   const describedBy = await input.getAttribute("aria-describedby");
+      87 |   expect(describedBy).toBeTruthy();
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/waitlist.spec.ts:84:41
+
+    Error Context: test-results/waitlist-form-is-keyboard--58947-led-and-linked-to-its-error-desktop-1440/error-context.md
+
+  14 failed
+    [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error 
+  24 passed (14.0s)
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Command failed with exit code 1.
+exit: 1
+
+Cause: test locators getByRole('alert') also matched Next.js's built-in route announcer (strict-mode violation); the form's own alert rendered correctly. Test corrected to scope role locators to #waitlist (locator fix, assertions unchanged).

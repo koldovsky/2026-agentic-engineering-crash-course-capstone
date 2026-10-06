@@ -1,0 +1,7 @@
+- Validating...
+✓ spec/landing-page
+  ℹ [INFO] requirements[4]: Requirement text is very long (>500 characters). Move examples and edge cases into scenarios, or split it into separate requirements that each state one behavior.
+✓ spec/waitlist-signup
+  ℹ [INFO] requirements[4]: Requirement text is very long (>500 characters). Move examples and edge cases into scenarios, or split it into separate requirements that each state one behavior.
+Totals: 2 passed, 0 failed (2 items)
+exit 0

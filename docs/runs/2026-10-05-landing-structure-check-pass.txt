@@ -1,0 +1,44 @@
+# pnpm check — slice 2 final run (tasks 3.1–3.3)
+HEAD: b921515 + staged slice 2; source sha256: 0fd19925649bd8aceeadc7639af7557c26d0d9e45d0cc6bd3bafc377c9e54b93
+Node: v23.11.0  pnpm: 12.3.4
+
+$ pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:e2e
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully
+$ eslint
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+
+ Test Files  2 passed (2)
+      Tests  12 passed (12)
+   Start at  16:58:45
+   Duration  205ms (import 60%, transform 29%, tests 6%, worker 5%)
+
+$ playwright test
+[WebServer] $ next build
+[WebServer] $ next start --port 3100
+
+Running 16 tests using 5 workers
+
+  ✓   2 [mobile-375] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (491ms)
+  ✓   4 [mobile-375] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (512ms)
+  ✓   1 [mobile-375] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (517ms)
+  ✓   3 [mobile-375] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (633ms)
+  ✓   7 [mobile-375] › tests/e2e/landing.spec.ts:73:5 › page has no horizontal overflow (176ms)
+  ✓   6 [mobile-375] › tests/e2e/landing.spec.ts:66:5 › pricing has no payment controls (190ms)
+  ✓   8 [mobile-375] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (171ms)
+  ✓   5 [mobile-375] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (861ms)
+  ✓   9 [desktop-1440] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (183ms)
+  ✓  10 [desktop-1440] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (301ms)
+  ✓  14 [desktop-1440] › tests/e2e/landing.spec.ts:66:5 › pricing has no payment controls (195ms)
+  ✓  12 [desktop-1440] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (415ms)
+  ✓  15 [desktop-1440] › tests/e2e/landing.spec.ts:73:5 › page has no horizontal overflow (138ms)
+  ✓  13 [desktop-1440] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (207ms)
+  ✓  16 [desktop-1440] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (124ms)
+  ✓  11 [desktop-1440] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (601ms)
+
+  16 passed (6.6s)
+exit: 0

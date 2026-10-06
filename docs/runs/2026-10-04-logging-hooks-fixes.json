@@ -1,0 +1,88 @@
+{
+  "date": "2026-10-04",
+  "author": "Codex (Maker for this fix; not an independent review)",
+  "scope": "Logging scripts and local provider configurations only; no landing page implementation.",
+  "verification_type": "Synthetic event/configuration tests and real repository command runs. No live agent hook activation.",
+  "runs": [
+    {
+      "command": "pnpm hooks:selftest",
+      "exit_code": 0,
+      "output": "$ node --test scripts/hooks-selftest.mjs\n✔ both provider registrations target only the logger and required events (4.678125ms)\n✔ real project log directory is writable without creating synthetic live events (1.599375ms)\n✔ claude PreToolUse maps to proposed/null (1.9825ms)\n✔ claude PostToolUse maps to success/0 (0.782708ms)\n✔ claude PostToolUseFailure maps to failure/7 (0.771125ms)\n✔ claude PostToolUseFailure maps to failure/null (1.16975ms)\n✔ claude PostToolUseFailure maps to interrupted/null (0.152458ms)\n✔ codex PreToolUse maps to proposed/null (1.071917ms)\n✔ codex PostToolUse maps to success/0 (1.267ms)\n✔ codex PostToolUse maps to failure/7 (4.226875ms)\n✔ codex PostToolUse maps to failure/2 (0.620917ms)\n✔ codex PostToolUse maps to failure/null (0.418833ms)\n✔ codex PostToolUse maps to failure/7 (0.796959ms)\n✔ codex PostToolUse maps to unknown/null (0.211958ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.166667ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (4.374917ms)\n✔ only exact known verification commands receive a meaningful command label (0.405833ms)\n✔ file paths are repository-relative and outside-project paths are omitted (1.455833ms)\n✔ relative file paths use the event working directory while the log stays at the project root (0.325167ms)\n✔ full session IDs and provider identity survive normalization and summary (1.214041ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.148791ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.138375ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.742458ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (724.02975ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (522.587ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (259.651167ms)\n✔ malformed hook input fails visibly without echoing private payloads (256.350583ms)\n✔ summary CLI exits nonzero for corrupt or missing logs (451.09725ms)\n✔ concurrent adapters append intact records to the same repository log (657.995959ms)\nℹ tests 29\nℹ suites 0\nℹ pass 29\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3171.16275\n"
+    },
+    {
+      "command": "pnpm lint",
+      "exit_code": 0,
+      "output": "$ eslint\n"
+    },
+    {
+      "command": "pnpm check",
+      "expected": "Unavailable until the planned OpenSpec implementation configures the application pipeline.",
+      "exit_code": 1,
+      "output": "Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL\n\n  × Command \"check\" not found\n\n"
+    },
+    {
+      "command": "pnpm agent:log",
+      "expected": "Exit 1 because no live hook log exists yet.",
+      "exit_code": 1,
+      "output": "$ node scripts/agent-log-summary.mjs\n[agent-log] Cannot read the log. Run pnpm hooks:selftest and verify hook activation in both agents.\n[ELIFECYCLE] Command failed with exit code 1.\n"
+    }
+  ],
+  "initial_sandbox_attempts": [
+    {
+      "command": "pnpm lint",
+      "classification": "Sandbox restriction on pnpm dependency symlink maintenance; rerun with filesystem authorization.",
+      "exit_code": 1,
+      "output": "✓ Lockfile passes supply-chain policies (verified 2d ago)\nLockfile is up to date, resolution step is skipped\nAlready up to date\nError: ERR_PNPM_PACKAGE_MANAGER_SYMLINK_FAILED\n\n  × installing dependencies\n  ╰─▶ Failed to symlink \"eslint-config-next\" for importer \".\": Failed to\n      create symlink at \"/Users/mykhailo/work/pet-projects/ai-assisted-\n      development/node_modules/eslint-config-next\" to \"/Users/mykhailo/work/\n      pet-projects/ai-assisted-development/node_modules/.pnpm/eslint-config-\n      next@16.3.8_@typescript-\n      eslint+parser@8.71.0_eslint@9.39.5_jiti@2.7.0_sup_5adcb1351f86f17c54f894\n      a8e9e9a150/node_modules/eslint-config-next\": Operation not permitted (os\n      error 1)\n\n"
+    },
+    {
+      "command": "pnpm check",
+      "classification": "Sandbox restriction before command dispatch; authorized rerun confirms check is not configured.",
+      "exit_code": 1,
+      "output": "✓ Lockfile passes supply-chain policies (verified 2d ago)\nLockfile is up to date, resolution step is skipped\nAlready up to date\nError: ERR_PNPM_PACKAGE_MANAGER_SYMLINK_FAILED\n\n  × installing dependencies\n  ╰─▶ Failed to symlink \"next\" for importer \".\": Failed to create symlink at\n      \"/Users/mykhailo/work/pet-projects/ai-assisted-development/node_modules/\n      next\" to \"/Users/mykhailo/work/pet-projects/ai-assisted-development/\n      node_modules/.pnpm/next@16.3.8_@babel+core@7.29.7_supports-\n      color@7.2.0__@types+node@20.19.43_react-\n      dom@19.2.8_react@19.2.8__react@19.2.8/node_modules/next\": Operation not\n      permitted (os error 1)\n\n"
+    }
+  ],
+  "manual_loop": {
+    "description": "A new regression test failed because the summary CLI entry guard compared /var and /private/var paths literally. The guard now resolves the executable's real path. The assertion was retained unchanged; the final suite also includes a relative file-path regression.",
+    "initial_pass": 27,
+    "initial_fail": 1,
+    "final_pass": 29,
+    "final_fail": 0,
+    "automated_repair": false,
+    "initial_output": "✔ both provider registrations target only the logger and required events (5.171ms)\n✔ real project log directory is writable without creating synthetic live events (1.709917ms)\n✔ claude PreToolUse maps to proposed/null (2.017875ms)\n✔ claude PostToolUse maps to success/0 (0.773166ms)\n✔ claude PostToolUseFailure maps to failure/7 (0.731917ms)\n✔ claude PostToolUseFailure maps to failure/null (0.770084ms)\n✔ claude PostToolUseFailure maps to interrupted/null (0.118417ms)\n✔ codex PreToolUse maps to proposed/null (0.845625ms)\n✔ codex PostToolUse maps to success/0 (1.287209ms)\n✔ codex PostToolUse maps to failure/7 (5.031625ms)\n✔ codex PostToolUse maps to failure/2 (0.819792ms)\n✔ codex PostToolUse maps to failure/null (0.596542ms)\n✔ codex PostToolUse maps to failure/7 (1.227375ms)\n✔ codex PostToolUse maps to unknown/null (0.217834ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.27575ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (4.277375ms)\n✔ only exact known verification commands receive a meaningful command label (0.321583ms)\n✔ file paths are repository-relative and outside-project paths are omitted (1.832916ms)\n✔ full session IDs and provider identity survive normalization and summary (1.768791ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.148083ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.142084ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.996417ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (674.738417ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (522.007667ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (256.278ms)\n✔ malformed hook input fails visibly without echoing private payloads (242.074625ms)\n✖ summary CLI exits nonzero for corrupt or missing logs (248.242958ms)\n✔ concurrent adapters append intact records to the same repository log (674.219833ms)\nℹ tests 28\nℹ suites 0\nℹ pass 27\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 2907.799291\n\n✖ failing tests:\n\ntest at scripts/hooks-selftest.mjs:195:1\n✖ summary CLI exits nonzero for corrupt or missing logs (248.242958ms)\n  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n  \n  0 !== 1\n  \n      at TestContext.<anonymous> (file:///private/tmp/agentflow-logging-fix-dg7li76e/scripts/hooks-selftest.mjs:200:12)\n      at Test.runInAsyncScope (node:async_hooks:226:14)\n      at Test.run (node:internal/test_runner/test:1201:25)\n      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)\n      at Test.postRun (node:internal/test_runner/test:1330:19)\n      at Test.run (node:internal/test_runner/test:1258:12)\n      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {\n    generatedMessage: true,\n    code: 'ERR_ASSERTION',\n    actual: 0,\n    expected: 1,\n    operator: 'strictEqual',\n    diff: 'simple'\n  }\n",
+    "first_successful_rerun_output": "✔ both provider registrations target only the logger and required events (4.26975ms)\n✔ real project log directory is writable without creating synthetic live events (1.493584ms)\n✔ claude PreToolUse maps to proposed/null (1.852583ms)\n✔ claude PostToolUse maps to success/0 (0.771667ms)\n✔ claude PostToolUseFailure maps to failure/7 (0.679666ms)\n✔ claude PostToolUseFailure maps to failure/null (0.531458ms)\n✔ claude PostToolUseFailure maps to interrupted/null (0.115583ms)\n✔ codex PreToolUse maps to proposed/null (0.657917ms)\n✔ codex PostToolUse maps to success/0 (0.827792ms)\n✔ codex PostToolUse maps to failure/7 (4.761458ms)\n✔ codex PostToolUse maps to failure/2 (1.337542ms)\n✔ codex PostToolUse maps to failure/null (0.404875ms)\n✔ codex PostToolUse maps to failure/7 (1.173166ms)\n✔ codex PostToolUse maps to unknown/null (0.069792ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.167083ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (4.015416ms)\n✔ only exact known verification commands receive a meaningful command label (0.221125ms)\n✔ file paths are repository-relative and outside-project paths are omitted (1.789042ms)\n✔ full session IDs and provider identity survive normalization and summary (1.802291ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.142416ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.134125ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.8345ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (659.759292ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (566.35925ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (270.792ms)\n✔ malformed hook input fails visibly without echoing private payloads (245.256ms)\n✔ summary CLI exits nonzero for corrupt or missing logs (433.061083ms)\n✔ concurrent adapters append intact records to the same repository log (636.294833ms)\nℹ tests 28\nℹ suites 0\nℹ pass 28\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3093.535417\n"
+  },
+  "limitations": [
+    "Fresh trusted Claude Code and Codex sessions have not exercised these hooks.",
+    "The installed Codex CLI failed during the original review; desktop runtime was not tested.",
+    "pnpm check, application unit tests and Playwright are still future OpenSpec work.",
+    "A different agent must independently review these changes."
+  ],
+  "recorded_at": "2026-10-04T17:58:43.393208+00:00",
+  "base_commit": "e324e33251ec9f09946e118aaa9f071b91d48bce",
+  "working_tree": "Uncommitted logging fix; hashes below identify the tested source.",
+  "source_sha256": {
+    ".claude/settings.json": "ecc1c956ba76fbf77c346bcdbec5ba03febbf7c3936a3e4223c4350f8a1f38da",
+    ".claude/hooks/log-action.mjs": "2e9e8fa2f84fd3325f46d862ffef5bf1ef78d5995fa69eb9c9cd67a19f4fc66c",
+    ".codex/hooks.json": "bfeaa43819a1b24365be28c5b2dad90cb736033caaa28e7724871d1869ae063d",
+    ".codex/hooks/log-action.mjs": "1ebdfa7cc80fec358ee69673254acce23c166ead0b43e3fbb75c491761f5ca80",
+    ".codex/config.toml": "ba68fad5d19b39fd157b77d2cf7d40359998db3032d2142a97e3988a1980b7bd",
+    "scripts/log-agent-action.mjs": "ac8d9cd68a198e1e7c8d3ebf9e207a0c6387510a590d0212a587b744b1eea783",
+    "scripts/agent-log-summary.mjs": "f606695433fdb34a12e15edfeae1caa93a710ddf202c1d34447210540b1d0314",
+    "scripts/hooks-selftest.mjs": "682ca61d369fd04abe168fc7d635e76c16c0dd1df9398acee64c22bcfaf8078f",
+    "package.json": "48db9828d1c3c54ffdc59289f294120833f89f35f30970344ad13ab0fe5d24c5",
+    ".gitignore": "1257b4f69dec8576dbe7f4a5f6e768ab69a2e2e86c838fa14aaa7ffaf0b8782c",
+    "AGENTS.md": "71f73a7eec86106c6645ff7a4dfcf33277a43f7ffaa3d813b3946165213439c4",
+    ".agent-log/README.md": "b1ba1e8dee93521ea9d1a48291299bf4bb915e1775217668af2769131674a440"
+  },
+  "live_log_exists": false,
+  "removed_files": [
+    ".claude/hooks/log-filter.mjs",
+    ".claude/hooks/protect-env.mjs",
+    "scripts/pricing-refresh.mjs",
+    "scripts/fixtures-claude.mjs",
+    ".claude/agents/design-reviewer.md",
+    ".claude/rules/app-router.md",
+    "scripts/openspec-pin.mjs",
+    "scripts/spec-check.mjs"
+  ]
+}

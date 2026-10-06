@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-04",
+  "recorded_at": "2026-10-04T19:31:21.204504+00:00",
+  "base_commit": "e324e33251ec9f09946e118aaa9f071b91d48bce",
+  "author": "Codex (Maker)",
+  "verification_type": "Synthetic standalone logging snapshot prepared for commit 1; no guard or reviewer dependency.",
+  "runs": [
+    {
+      "cwd_kind": "prepared-logging-commit",
+      "command": "node --test scripts/hooks-selftest.mjs",
+      "exit_code": 0,
+      "output": "✔ both provider registrations target only the logger and required events (6.584208ms)\n✔ real project log directory is writable without creating synthetic live events (2.293083ms)\n✔ claude PreToolUse maps to proposed/null (4.309375ms)\n✔ claude PostToolUse maps to success/0 (0.520458ms)\n✔ claude PostToolUseFailure maps to failure/7 (0.358ms)\n✔ claude PostToolUseFailure maps to failure/null (0.555042ms)\n✔ claude PostToolUseFailure maps to interrupted/null (0.189584ms)\n✔ codex PreToolUse maps to proposed/null (1.241833ms)\n✔ codex PostToolUse maps to success/0 (1.25375ms)\n✔ codex PostToolUse maps to failure/7 (4.45075ms)\n✔ codex PostToolUse maps to failure/2 (0.778917ms)\n✔ codex PostToolUse maps to failure/null (0.9155ms)\n✔ codex PostToolUse maps to failure/7 (0.869833ms)\n✔ codex PostToolUse maps to unknown/null (0.062583ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.2375ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (5.457333ms)\n✔ only exact known verification commands receive a meaningful command label (0.710291ms)\n✔ file paths are repository-relative and outside-project paths are omitted (0.65425ms)\n✔ relative file paths use the event working directory while the log stays at the project root (0.177166ms)\n✔ full session IDs and provider identity survive normalization and summary (2.984375ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.323291ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.251125ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.732834ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (760.189709ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (581.657875ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (288.297166ms)\n✔ malformed hook input fails visibly without echoing private payloads (271.772834ms)\n✔ summary CLI exits nonzero for corrupt or missing logs (491.178208ms)\n✔ concurrent adapters append intact records to the same repository log (824.321333ms)\n✔ Codex rename logs both patch paths and handles CRLF headers (0.510625ms)\n✔ shell aliases retain verification command labels without raw commands (0.211792ms)\nℹ tests 31\nℹ suites 0\nℹ pass 31\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 3548.269042\n"
+    }
+  ],
+  "source_sha256": {
+    ".agent-log/README.md": "b1ba1e8dee93521ea9d1a48291299bf4bb915e1775217668af2769131674a440",
+    ".claude/hooks/log-action.mjs": "2e9e8fa2f84fd3325f46d862ffef5bf1ef78d5995fa69eb9c9cd67a19f4fc66c",
+    ".claude/settings.json": "ecc1c956ba76fbf77c346bcdbec5ba03febbf7c3936a3e4223c4350f8a1f38da",
+    ".codex/config.toml": "4a8bf4c32404c0cbfdd261b4737bfc479e4bcd8479d9f45da65ec84283f5384a",
+    ".codex/hooks/log-action.mjs": "1ebdfa7cc80fec358ee69673254acce23c166ead0b43e3fbb75c491761f5ca80",
+    ".codex/hooks.json": "bfeaa43819a1b24365be28c5b2dad90cb736033caaa28e7724871d1869ae063d",
+    ".gitignore": "1257b4f69dec8576dbe7f4a5f6e768ab69a2e2e86c838fa14aaa7ffaf0b8782c",
+    "package.json": "48db9828d1c3c54ffdc59289f294120833f89f35f30970344ad13ab0fe5d24c5",
+    "scripts/agent-log-summary.mjs": "f606695433fdb34a12e15edfeae1caa93a710ddf202c1d34447210540b1d0314",
+    "scripts/hooks-selftest.mjs": "34ad3e7e4981a5a2f0f26fa10f3d78f16906dad51cba51b50bfb2d280457d82c",
+    "scripts/log-agent-action.mjs": "590600949fb114873c7c283b9e9b66d6cd4152ed83593fd8b049830d98e5845a"
+  }
+}

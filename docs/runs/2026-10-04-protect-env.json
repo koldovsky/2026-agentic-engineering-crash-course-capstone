@@ -1,0 +1,61 @@
+{
+  "date": "2026-10-04",
+  "author": "Codex (Maker)",
+  "scope": "Shared protect-env PreToolUse guard for Claude Code and Codex; synthetic tests and registrations. No application functionality.",
+  "verification_type": "Synthetic payloads and configured commands; not live agent activation.",
+  "base_commit": "e324e33251ec9f09946e118aaa9f071b91d48bce",
+  "runs": [
+    {
+      "command": "pnpm hooks:selftest",
+      "exit_code": 0,
+      "output": "$ node --test scripts/hooks-selftest.mjs\n✔ both provider registrations retain logging and register the guard only before tools (5.837083ms)\n✔ real project log directory is writable without creating synthetic live events (2.683125ms)\n✔ claude PreToolUse maps to proposed/null (3.102291ms)\n✔ claude PostToolUse maps to success/0 (1.136958ms)\n✔ claude PostToolUseFailure maps to failure/7 (0.832959ms)\n✔ claude PostToolUseFailure maps to failure/null (0.641709ms)\n✔ claude PostToolUseFailure maps to interrupted/null (2.030917ms)\n✔ codex PreToolUse maps to proposed/null (0.508042ms)\n✔ codex PostToolUse maps to success/0 (1.965375ms)\n✔ codex PostToolUse maps to failure/7 (5.534625ms)\n✔ codex PostToolUse maps to failure/2 (1.399875ms)\n✔ codex PostToolUse maps to failure/null (0.35325ms)\n✔ codex PostToolUse maps to failure/7 (1.691958ms)\n✔ codex PostToolUse maps to unknown/null (0.065625ms)\n✔ status-like stdout cannot override metadata or turn unknown output into success (0.262833ms)\n✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (5.246375ms)\n✔ only exact known verification commands receive a meaningful command label (0.7345ms)\n✔ file paths are repository-relative and outside-project paths are omitted (0.499708ms)\n✔ relative file paths use the event working directory while the log stays at the project root (0.188125ms)\n✔ full session IDs and provider identity survive normalization and summary (2.678584ms)\n✔ tool IDs from other sessions or providers cannot match an unfinished action (0.213208ms)\n✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.154625ms)\n✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.758542ms)\n✔ claude configured commands run from a subdirectory of a path containing spaces (732.983209ms)\n✔ codex configured commands run from a subdirectory of a path containing spaces (565.787ms)\n✔ unwritable log destination produces a failing hook and visible diagnostic (285.656292ms)\n✔ malformed hook input fails visibly without echoing private payloads (276.730875ms)\n✔ summary CLI exits nonzero for corrupt or missing logs (481.09325ms)\n✔ concurrent adapters append intact records to the same repository log (957.627666ms)\n✔ environment guard denies protected paths for Read, including examples (0.628875ms)\n✔ environment guard denies protected paths for Edit, including examples (0.495083ms)\n✔ environment guard denies protected paths for Write, including examples (0.066167ms)\n✔ environment guard denies protected paths for MultiEdit, including examples (0.049333ms)\n✔ environment guard denies protected paths for NotebookEdit, including examples (0.053958ms)\n✔ environment guard checks apply_patch Add File targets (0.870458ms)\n✔ environment guard checks apply_patch Update File targets (0.169959ms)\n✔ environment guard checks apply_patch Delete File targets (0.081542ms)\n✔ environment guard checks apply_patch Move to targets (0.4505ms)\n✔ safe patches can discuss .env in content without changing protected paths (0.136791ms)\n✔ environment guard covers explicit path arguments in other tools (0.109709ms)\n✔ environment guard denies literal .env shell references without executing input (1.20275ms)\n✔ environment guard ignores non-pre events and makes no allow decision for unrelated tools (0.122625ms)\n✔ claude configured environment guard blocks, allows, and fails closed from a subdirectory (938.385417ms)\n✔ codex configured environment guard blocks, allows, and fails closed from a subdirectory (1091.165125ms)\n✔ environment guard denies malformed JSON and missing protected-tool fields without leaking payloads (1135.941708ms)\nℹ tests 45\nℹ suites 0\nℹ pass 45\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 6799.231709\n"
+    },
+    {
+      "command": "pnpm lint",
+      "exit_code": 0,
+      "output": "$ eslint\n"
+    },
+    {
+      "command": "pnpm check",
+      "exit_code": 1,
+      "output": "Error: ERR_PNPM_RECURSIVE_EXEC_FIRST_FAIL\n\n  × Command \"check\" not found\n\n"
+    },
+    {
+      "command": "git diff --check",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "source_sha256": {
+    ".claude/hooks/protect-env.mjs": "3a16728c79a54a813dfc362e2bbdd5fe2a0944c9a32f8568fc1b8a4a8ca7789b",
+    ".claude/settings.json": "8d27ced57641e3b23c1fd5479cfe26a2453ee8fe304575f56c635a166f7943dd",
+    ".codex/hooks.json": "ebf1bec09756800e4b90ed9131e0deb634b058f8c7099df10e9ea2d41dc15b15",
+    "scripts/hooks-selftest.mjs": "baf986da075d2c9e3f68134aa633fec24db47df254bf773aea66b1d093706f2e",
+    ".agent-log/README.md": "b87aca8f405e255407ce9ef3b304d5498e803a02f2b808cfe4337e998aff3fdd",
+    "package.json": "48db9828d1c3c54ffdc59289f294120833f89f35f30970344ad13ab0fe5d24c5",
+    "scripts/log-agent-action.mjs": "ac8d9cd68a198e1e7c8d3ebf9e207a0c6387510a590d0212a587b744b1eea783",
+    "scripts/agent-log-summary.mjs": "f606695433fdb34a12e15edfeae1caa93a710ddf202c1d34447210540b1d0314",
+    ".claude/hooks/log-action.mjs": "2e9e8fa2f84fd3325f46d862ffef5bf1ef78d5995fa69eb9c9cd67a19f4fc66c",
+    ".codex/hooks/log-action.mjs": "1ebdfa7cc80fec358ee69673254acce23c166ead0b43e3fbb75c491761f5ca80"
+  },
+  "recorded_at": "2026-10-04T19:11:40.171760+00:00",
+  "test_changes": "Existing logger coverage retained; PreToolUse assertions require both logger and guard. Added 16 guard tests for 45 total.",
+  "limitations": [
+    "Input guard only: no symlink/alias resolution, broad search containment, implicit file-load protection, or decoding of constructed shell paths.",
+    "Literal shell matching can reject harmless mentions.",
+    "Hook startup failures, timeouts and disabled/untrusted hooks remain runtime limitations.",
+    "Live hook activation and independent Checker review are unverified.",
+    "pnpm check is not yet configured."
+  ],
+  "policy": "All explicit .env* path components, including .env.example and .env.sample, are denied. No real environment files were read or modified. Malformed inputs deny; safe requests do not grant permissions or rewrite tools.",
+  "references": [
+    "https://learn.chatgpt.com/docs/hooks",
+    "https://code.claude.com/docs/en/hooks"
+  ],
+  "working_tree": "Uncommitted; source hashes identify the tested state."
+}

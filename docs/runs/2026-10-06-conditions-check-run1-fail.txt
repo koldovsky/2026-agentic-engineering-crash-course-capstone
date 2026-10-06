@@ -1,0 +1,105 @@
+$ pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:e2e
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully
+$ eslint
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  10:50:03
+   Duration  207ms (import 58%, transform 32%, tests 6%, worker 4%)
+
+$ playwright test
+[WebServer] $ next build
+[WebServer] $ next start --port 3100
+
+Running 58 tests using 5 workers
+
+  ✓   3 [mobile-375] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (534ms)
+  ✓   5 [mobile-375] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (492ms)
+  ✓   1 [mobile-375] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (545ms)
+  ✓   4 [mobile-375] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (737ms)
+  ✓   7 [mobile-375] › tests/e2e/landing.spec.ts:79:5 › page has no horizontal overflow (174ms)
+  ✓   6 [mobile-375] › tests/e2e/landing.spec.ts:72:5 › pricing has no payment controls (220ms)
+  ✓   2 [mobile-375] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (1.0s)
+  ✓  10 [mobile-375] › tests/e2e/landing.spec.ts:172:5 › FAQ items toggle from the keyboard (269ms)
+  ✓  11 [mobile-375] › tests/e2e/landing.spec.ts:182:5 › reduced motion disables the FAQ animation (318ms)
+  ✓  12 [mobile-375] › tests/e2e/landing.spec.ts:195:5 › nothing outside the FAQ marker and answer area has motion (135ms)
+  ✓  13 [mobile-375] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (129ms)
+  ✓  14 [mobile-375] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (149ms)
+  ✓  16 [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (188ms)
+  ✓  15 [mobile-375] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (304ms)
+  ✓  17 [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (189ms)
+  ✘   8 [mobile-375] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms (850ms)
+  ✓  18 [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (176ms)
+  ✓  19 [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (211ms)
+  ✓  20 [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (248ms)
+  ✓  21 [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (264ms)
+  ✓  22 [mobile-375] › tests/e2e/waitlist.spec.ts:96:5 › submitting sends no network request (188ms)
+  ✓   9 [mobile-375] › tests/e2e/landing.spec.ts:149:5 › FAQ closing animates the marker back and the answer height down to zero (1.2s)
+  ✓  23 [mobile-375] › tests/e2e/waitlist.spec.ts:105:5 › nothing persists across a reload (299ms)
+  ✓  24 [mobile-375] › tests/e2e/waitlist.spec.ts:119:5 › the error disappears as soon as the edited value becomes valid (245ms)
+  ✓  27 [mobile-375] › tests/e2e/waitlist.spec.ts:137:5 › typing before the first submit shows no error (181ms)
+  ✓  26 [mobile-375] › tests/e2e/waitlist.spec.ts:129:5 › the shown error follows the current value while it is invalid (357ms)
+  ✓  29 [mobile-375] › tests/e2e/waitlist.spec.ts:151:5 › editing after success keeps the success state (265ms)
+  ✓  28 [mobile-375] › tests/e2e/waitlist.spec.ts:142:5 › a cleared error does not return while typing (355ms)
+  ✓  25 [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (430ms)
+  ✓  30 [desktop-1440] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (242ms)
+  ✓  31 [desktop-1440] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (285ms)
+  ✓  36 [desktop-1440] › tests/e2e/landing.spec.ts:79:5 › page has no horizontal overflow (352ms)
+  ✓  35 [desktop-1440] › tests/e2e/landing.spec.ts:72:5 › pricing has no payment controls (429ms)
+  ✓  33 [desktop-1440] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (512ms)
+  ✓  34 [desktop-1440] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (323ms)
+  ✓  32 [desktop-1440] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (819ms)
+  ✓  39 [desktop-1440] › tests/e2e/landing.spec.ts:172:5 › FAQ items toggle from the keyboard (193ms)
+  ✓  41 [desktop-1440] › tests/e2e/landing.spec.ts:195:5 › nothing outside the FAQ marker and answer area has motion (154ms)
+  ✓  40 [desktop-1440] › tests/e2e/landing.spec.ts:182:5 › reduced motion disables the FAQ animation (256ms)
+  ✓  42 [desktop-1440] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (151ms)
+  ✓  43 [desktop-1440] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (203ms)
+  ✓  45 [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (258ms)
+  ✓  37 [desktop-1440] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms (850ms)
+  ✓  44 [desktop-1440] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (314ms)
+  ✓  46 [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (280ms)
+  ✓  47 [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (296ms)
+  ✓  48 [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (319ms)
+  ✓  49 [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (414ms)
+  ✓  38 [desktop-1440] › tests/e2e/landing.spec.ts:149:5 › FAQ closing animates the marker back and the answer height down to zero (1.3s)
+  ✓  50 [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (341ms)
+  ✓  52 [desktop-1440] › tests/e2e/waitlist.spec.ts:96:5 › submitting sends no network request (270ms)
+  ✓  51 [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (306ms)
+  ✓  54 [desktop-1440] › tests/e2e/waitlist.spec.ts:119:5 › the error disappears as soon as the edited value becomes valid (287ms)
+  ✓  53 [desktop-1440] › tests/e2e/waitlist.spec.ts:105:5 › nothing persists across a reload (336ms)
+  ✓  57 [desktop-1440] › tests/e2e/waitlist.spec.ts:137:5 › typing before the first submit shows no error (185ms)
+  ✓  55 [desktop-1440] › tests/e2e/waitlist.spec.ts:129:5 › the shown error follows the current value while it is invalid (300ms)
+  ✓  56 [desktop-1440] › tests/e2e/waitlist.spec.ts:142:5 › a cleared error does not return while typing (285ms)
+  ✓  58 [desktop-1440] › tests/e2e/waitlist.spec.ts:151:5 › editing after success keeps the success state (191ms)
+
+
+  1) [mobile-375] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      137 |     return { mid, end: read(), answerRendered };
+      138 |   });
+    > 139 |   expect(heights.answerRendered).toBe(true);
+          |                                  ^
+      140 |   expect(heights.end).toBeGreaterThan(0);
+      141 |   expect(heights.mid).toBeLessThan(heights.end);
+      142 |   await expect(page.locator("#faq details").first()).toHaveAttribute("open", "");
+        at /Users/mykhailo/work/pet-projects/ai-assisted-development/tests/e2e/landing.spec.ts:139:34
+
+    Error Context: test-results/landing-FAQ-marker-rotates-af21b-a-transitions-within-250-ms-mobile-375/error-context.md
+
+  1 failed
+    [mobile-375] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms 
+  57 passed (10.1s)
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Command failed with exit code 1.
+exit 1

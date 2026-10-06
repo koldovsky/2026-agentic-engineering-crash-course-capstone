@@ -7,6 +7,13 @@ dist/
 build/
 .next/
 out/
+/coverage
+.pnp
+.pnp.*
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+.pnpm-debug.log*
 
 # Python
 __pycache__/
@@ -34,3 +41,12 @@ vendor/
 Thumbs.db
 .idea/
 .vscode/
+
+# Live agent logs stay local; commit reviewed evidence under docs/runs/.
+/.agent-log/actions.jsonl
+/.agent-log/summary.txt
+/.agent-log/.write-check-*
+
+# Test output
+/test-results/
+/playwright-report/

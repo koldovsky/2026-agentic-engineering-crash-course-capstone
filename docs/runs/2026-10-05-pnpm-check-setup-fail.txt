@@ -1,0 +1,45 @@
+# Deliberate failure (temporary failing unit test, since removed)
+HEAD: 93d408e (staged changes, diff sha256 6ddcff5276db3c16655a4e177e3b5c472245ded8d8d9bcf7284117162e01161f)
+Node: v23.11.0  pnpm: 12.3.4
+Command: pnpm check
+
+$ pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:e2e
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully
+$ eslint
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+ ❯ tests/unit/tmp-fail.test.ts (1 test | 1 failed) 5ms
+   × deliberate failure 4ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  tests/unit/tmp-fail.test.ts > deliberate failure
+AssertionError: expected 1 to be 2 // Object.is equality
+
+- Expected
++ Received
+
+- 2
++ 1
+
+ ❯ tests/unit/tmp-fail.test.ts:2:42
+      1| import { expect, it } from "vitest";
+      2| it("deliberate failure", () => expect(1).toBe(2));
+       |                                          ^
+      3|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  1 failed | 1 passed (2)
+   Start at  16:52:30
+   Duration  189ms (import 52%, transform 31%, tests 10%, worker 7%)
+
+[ELIFECYCLE] Command failed with exit code 1.
+[ELIFECYCLE] Command failed with exit code 1.
+EXIT=1

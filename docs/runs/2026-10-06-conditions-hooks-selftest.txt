@@ -1,0 +1,57 @@
+$ node --test scripts/hooks-selftest.mjs
+✔ both provider registrations retain logging and register the guard only before tools (1.449333ms)
+✔ real project log directory is writable without creating synthetic live events (0.967375ms)
+✔ claude PreToolUse maps to proposed/null (1.047ms)
+✔ claude PostToolUse maps to success/0 (0.135959ms)
+✔ claude PostToolUseFailure maps to failure/7 (0.171209ms)
+✔ claude PostToolUseFailure maps to failure/null (0.078125ms)
+✔ claude PostToolUseFailure maps to interrupted/null (0.124375ms)
+✔ codex PreToolUse maps to proposed/null (0.047917ms)
+✔ codex PostToolUse maps to success/0 (0.406625ms)
+✔ codex PostToolUse maps to failure/7 (0.294875ms)
+✔ codex PostToolUse maps to failure/2 (0.124625ms)
+✔ codex PostToolUse maps to failure/null (0.048875ms)
+✔ codex PostToolUse maps to failure/7 (0.094583ms)
+✔ codex PostToolUse maps to unknown/null (0.024958ms)
+✔ status-like stdout cannot override metadata or turn unknown output into success (0.08175ms)
+✔ raw credentials, URLs, patterns, patch content, prompts and results are omitted (0.2955ms)
+✔ only exact known verification commands receive a meaningful command label (0.04225ms)
+✔ file paths are repository-relative and outside-project paths are omitted (0.075042ms)
+✔ relative file paths use the event working directory while the log stays at the project root (0.200083ms)
+✔ full session IDs and provider identity survive normalization and summary (0.250125ms)
+✔ tool IDs from other sessions or providers cannot match an unfinished action (0.072042ms)
+✔ matching terminal events resolve unmatched actions and preserve unknown and failure (0.146041ms)
+✔ corrupt, legacy, and unrelated lifecycle records are reported, not executed (0.481041ms)
+✔ claude configured commands run from a subdirectory of a path containing spaces (156.832625ms)
+✔ codex configured commands run from a subdirectory of a path containing spaces (147.788834ms)
+✔ unwritable log destination produces a failing hook and visible diagnostic (70.447041ms)
+✔ malformed hook input fails visibly without echoing private payloads (65.211083ms)
+✔ summary CLI exits nonzero for corrupt or missing logs (99.168542ms)
+✔ concurrent adapters append intact records to the same repository log (223.029834ms)
+✔ environment guard denies protected paths for Read, including examples (0.58275ms)
+✔ environment guard denies protected paths for Edit, including examples (0.132542ms)
+✔ environment guard denies protected paths for Write, including examples (0.041917ms)
+✔ environment guard denies protected paths for MultiEdit, including examples (0.035958ms)
+✔ environment guard denies protected paths for NotebookEdit, including examples (0.033334ms)
+✔ environment guard checks apply_patch Add File targets (0.201084ms)
+✔ environment guard checks apply_patch Update File targets (0.028875ms)
+✔ environment guard checks apply_patch Delete File targets (0.023ms)
+✔ environment guard checks apply_patch Move to targets (0.0205ms)
+✔ safe patches can discuss .env in content without changing protected paths (0.040666ms)
+✔ environment guard covers explicit path arguments in other tools (0.052708ms)
+✔ environment guard denies literal .env shell references without executing input (0.229709ms)
+✔ environment guard ignores non-pre events and makes no allow decision for unrelated tools (0.032666ms)
+✔ claude configured environment guard blocks, allows, and fails closed from a subdirectory (187.487583ms)
+✔ codex configured environment guard blocks, allows, and fails closed from a subdirectory (247.315583ms)
+✔ environment guard denies malformed JSON and missing protected-tool fields without leaking payloads (196.604125ms)
+✔ Codex rename logs both patch paths and handles CRLF headers (0.295375ms)
+✔ shell aliases retain verification command labels without raw commands (0.179ms)
+ℹ tests 47
+ℹ suites 0
+ℹ pass 47
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1459.312625
+exit 0

@@ -1,0 +1,27 @@
+$ node scripts/agent-log-summary.mjs
+Agent actions: 349 completed, 3 unmatched, 9 failed, 0 interrupted, 0 unknown — 10 session(s)
+┌─────────┬──────────┬────────────────────────────────────────┬──────────┬───────────┬───────────┬────────┬─────────────┬─────────┐
+│ (index) │ agent    │ tool                                   │ proposed │ completed │ unmatched │ failed │ interrupted │ unknown │
+├─────────┼──────────┼────────────────────────────────────────┼──────────┼───────────┼───────────┼────────┼─────────────┼─────────┤
+│ 0       │ 'claude' │ 'Read'                                 │ 57       │ 57        │ 0         │ 0      │ 0           │ 0       │
+│ 1       │ 'claude' │ 'Glob'                                 │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+│ 2       │ 'claude' │ 'Grep'                                 │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+│ 3       │ 'claude' │ 'Bash'                                 │ 196      │ 193       │ 3         │ 8      │ 0           │ 0       │
+│ 4       │ 'claude' │ 'Agent'                                │ 11       │ 11        │ 0         │ 0      │ 0           │ 0       │
+│ 5       │ 'claude' │ 'SubagentHandback'                     │ 11       │ 11        │ 0         │ 0      │ 0           │ 0       │
+│ 6       │ 'claude' │ 'Edit'                                 │ 12       │ 12        │ 0         │ 0      │ 0           │ 0       │
+│ 7       │ 'claude' │ 'Write'                                │ 8        │ 8         │ 0         │ 0      │ 0           │ 0       │
+│ 8       │ 'claude' │ 'mcp__hearthbot__fetch_thread'         │ 2        │ 2         │ 0         │ 1      │ 0           │ 0       │
+│ 9       │ 'claude' │ 'mcp__hearthbot__list_thread_sessions' │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+│ 10      │ 'claude' │ 'mcp__hearthbot__update_status'        │ 23       │ 23        │ 0         │ 0      │ 0           │ 0       │
+│ 11      │ 'claude' │ 'mcp__hearthbot__reply'                │ 9        │ 9         │ 0         │ 0      │ 0           │ 0       │
+│ 12      │ 'claude' │ 'ReadNotifications'                    │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+│ 13      │ 'claude' │ 'mcp__hearthbot__no_reply_needed'      │ 10       │ 10        │ 0         │ 0      │ 0           │ 0       │
+│ 14      │ 'claude' │ 'Skill'                                │ 3        │ 3         │ 0         │ 0      │ 0           │ 0       │
+│ 15      │ 'claude' │ 'mcp__hearthbot__react'                │ 3        │ 3         │ 0         │ 0      │ 0           │ 0       │
+│ 16      │ 'claude' │ 'mcp__hearthbot__update_message'       │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+│ 17      │ 'claude' │ 'Monitor'                              │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+│ 18      │ 'claude' │ 'mcp__hearthbot__set_thread_resolved'  │ 1        │ 1         │ 0         │ 0      │ 0           │ 0       │
+└─────────┴──────────┴────────────────────────────────────────┴──────────┴───────────┴───────────┴────────┴─────────────┴─────────┘
+Unmatched means pending or missing a terminal record; it is not proof of a blocked action.
+exit 0

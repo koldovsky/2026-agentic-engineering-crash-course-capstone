@@ -1,0 +1,11 @@
+schema: spec-driven
+
+context: |
+  Project: AgentFlow, a small single-page landing page at /.
+  Read PRODUCT_BRIEF.md, TECH_STACK.md, and AGENTS.md for the approved scope and rules.
+  Write planning artifacts in English; preserve OpenSpec headings and SHALL/MUST keywords.
+  UI copy is Ukrainian. The waitlist form is a local demo without network calls or email persistence.
+  No backend, authentication, database, AI APIs, payments, or external integrations.
+  Use the approved stack and include Vitest unit tests and Playwright Chromium E2E tests.
+  Keep the work minimal. Commit the specification before implementing AgentFlow features.
+  OpenSpec is installed locally: run pnpm exec openspec from the repository root.

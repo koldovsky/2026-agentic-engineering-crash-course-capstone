@@ -1,0 +1,4 @@
+# Diagnostic: getAnimations() after toggling a FAQ item (Chromium via Playwright)
+Shows only the ::before transform transition; the ::details-content block-size transition is not listed even though computed style shows it and block-size is mid-way (2.27px).
+HEAD: 2a44921 + uncommitted implementation
+{"anims":[{"t":"CSSTransition","ps":"::before","tp":"transform"}],"ts":"block-size 0.2s, content-visibility 0.2s allow-discrete","bs":"2.25px","cv":"visible","sup":true}

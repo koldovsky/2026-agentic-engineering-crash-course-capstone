@@ -1,0 +1,169 @@
+{
+  "kind": "synthetic_hook_review",
+  "date": "2026-10-04",
+  "reviewer": "Codex",
+  "reviewed_head": "e324e33251ec9f09946e118aaa9f071b91d48bce",
+  "live_agent_hook_run": false,
+  "source_sha256": {
+    "AGENTS.md": "571e02874d950798baeb2e945d8f7e3e732795b86df8555ec76f34971015b0c7",
+    ".claude/settings.json": "aa71dea99960fae0249b3a4088dfc68faf50bcd6e4cf631382a8996acccc5e50",
+    ".codex/config.toml": "4a8bf4c32404c0cbfdd261b4737bfc479e4bcd8479d9f45da65ec84283f5384a",
+    ".claude/hooks/log-action.mjs": "30ce0869a4ae1d92534dc27039b833a39dc7f90aebdccc135014e988edda65db",
+    ".claude/hooks/log-filter.mjs": "f31816ffa29c60d0e61de0448b2442afeb738833675881708a03b14a1278f664",
+    ".claude/hooks/protect-env.mjs": "16c2943fb0a23d57d62b05a8b8ea23f2434f4d4061c74bb237ae85eac2186a4b",
+    "scripts/agent-log-summary.mjs": "757fe3bd73100715b1ee0649daee0429d2b004a5ff8485be6784cd6bb7cd9f88",
+    "scripts/hooks-selftest.mjs": "78b46a3c95a783258dbe8ff39e46fa73f37045a4aff9ca7fb24fb2bc2cc2a7e2",
+    "scripts/fixtures-claude.mjs": "aaab68d9ea3d13dc1cfc84ff95736d33fdb2836f544a07eb974d96a43747b75a",
+    "scripts/pricing-refresh.mjs": "6e2b803c55fce1f1b249b5fc302797bd99c019f1d2865faa0d640347594e0570",
+    "scripts/spec-check.mjs": "118ae828c121d9c70f7a2a338373992e19b170f7ee2525e8af2edc011acfc017",
+    "scripts/openspec-pin.mjs": "cc44dbc285c0b65fd9c090d057fcce21daf89225a73891b1f1ced214c9e9de4a",
+    "package.json": "6029bdddc6a384f7ac217e4c744f7fc0e4cb6a30fee1ceaab9fd5e969ce7d4f3"
+  },
+  "staged_diff_sha256": "4111c70f7e54a68c3fa4219c2ef824d590fe42576e0329977ea3f1c82bce341d",
+  "unstaged_diff_sha256": "0514627758d932c43fab4d1606f3822586c7a5ea21f083b1555da661d3c682c4",
+  "results": [
+    {
+      "case": "repository registration",
+      "observed": {
+        "claude_hook_events": [],
+        "codex_hooks_json_exists": false,
+        "codex_config_noncomment_lines": []
+      }
+    },
+    {
+      "case": "existing selftest",
+      "observed": {
+        "exit": 0,
+        "pass_count": 41,
+        "fail_count": 0
+      }
+    },
+    {
+      "case": "Codex PostToolUse with nonzero tool response",
+      "observed": {
+        "hook_exit": 0,
+        "recorded_exit": 0,
+        "provider_field_present": false
+      }
+    },
+    {
+      "case": "logger cannot create log directory",
+      "observed": {
+        "exit": 0,
+        "stdout": "",
+        "stderr": "",
+        "log_written": false
+      }
+    },
+    {
+      "case": "two distinct sessions sharing first eight characters",
+      "observed": {
+        "stored_sessions": [
+          "11111111",
+          "11111111"
+        ],
+        "summary": {
+          "exit": 0,
+          "headline": "Agent actions: 0 executed, 2 proposed but not executed, 0 failed \u2014 1 session(s), 2026-10-04T17:31:59.362Z .. 2026-10-04T17:31:59.539Z",
+          "stderr": ""
+        }
+      }
+    },
+    {
+      "case": "Pre from session A incorrectly matched to Post from session B",
+      "observed": {
+        "exit": 0,
+        "headline": "Agent actions: 1 executed, 0 proposed but not executed, 0 failed \u2014 2 session(s), 2026-10-04T17:31:59.892Z .. 2026-10-04T17:32:00.242Z",
+        "stderr": ""
+      }
+    },
+    {
+      "case": "in-flight Pre immediately counted as blocked",
+      "observed": {
+        "exit": 0,
+        "headline": "Agent actions: 0 executed, 1 proposed but not executed, 0 failed \u2014 1 session(s), 2026-10-04T17:32:00.596Z .. 2026-10-04T17:32:00.596Z",
+        "stderr": ""
+      }
+    },
+    {
+      "case": "filter drops unrelated verification command",
+      "observed": {
+        "hookSpecificOutput": {
+          "hookEventName": "PreToolUse",
+          "updatedInput": {
+            "command": "node scripts/agent-log-summary.mjs"
+          }
+        },
+        "systemMessage": "Rewritten by hook (log-filter): the raw .agent-log/actions.jsonl never enters the context window \u2014 running \"node scripts/agent-log-summary.mjs\" instead."
+      }
+    },
+    {
+      "case": "filter Codex rewrite contract",
+      "observed": {
+        "updatedInput_present": true,
+        "permissionDecision": null
+      }
+    },
+    {
+      "case": "raw command logging retains synthetic token",
+      "observed": {
+        "synthetic_token_retained": true,
+        "command_executed": false
+      }
+    },
+    {
+      "case": "guard ignores Codex apply_patch input",
+      "observed": {
+        "exit": 0,
+        "stderr": "",
+        "patch_executed": false
+      }
+    },
+    {
+      "case": "guard permits env example despite AGENTS prohibition",
+      "observed": {
+        "exit": 0,
+        "file_written": false
+      }
+    },
+    {
+      "case": "corrupt log accepted as zero events",
+      "observed": {
+        "exit": 0,
+        "headline": "Agent actions: 0 executed, 0 proposed but not executed, 0 failed \u2014 0 session(s), - .. -",
+        "stderr": ""
+      }
+    },
+    {
+      "case": "generated summary is not ignored",
+      "observed": {
+        "git_check_ignore_exit": 1,
+        "ignored": false
+      }
+    },
+    {
+      "case": "documented commands",
+      "observed": {
+        "agent:log": null,
+        "hooks:selftest": null,
+        "check": null
+      }
+    },
+    {
+      "case": "empty specification gate with a stub CLI that exits zero",
+      "observed": {
+        "exit": 0,
+        "stdout": "spec:check ok \u2014 specs: 0 \u00b7 active changes: 0 \u00b7 archived: 0",
+        "stderr": "",
+        "real_OpenSpec_run": false
+      }
+    }
+  ],
+  "selftest_output": "PASS  protect-env Edit .env -> exit 2  Blocked by hook: /var/folders/4l/91w3jc1928z1n57gjms3x0280000gq/T/hooks-selftest-rEPj0B/.env is a secrets file; the agent must not edit it. Use .env.example instead and ask the user to update .env manually.\nPASS  protect-env Write .env.local -> exit 2  Blocked by hook: /var/folders/4l/91w3jc1928z1n57gjms3x0280000gq/T/hooks-selftest-rEPj0B/.env.local is a secrets file; the agent must not edit it. Use .env.example instead and ask the user to update .env manually.\nPASS  protect-env Read .env.production -> exit 2  Blocked by hook: /var/folders/4l/91w3jc1928z1n57gjms3x0280000gq/T/hooks-selftest-rEPj0B/.env.production is a secrets file; the agent must not read it. Use .env.example instead and ask the user to update .env manually.\nPASS  protect-env Edit .env.example -> exit 0\nPASS  protect-env Read env.ts -> exit 0\nPASS  protect-env Edit route.ts -> exit 2  Blocked by hook: app/api/** \u2014 process.env \u043d\u0435 \u0432 \u0445\u0435\u043d\u0434\u043b\u0435\u0440\u0456\nPASS  protect-env Write route.ts -> exit 2  Blocked by hook: app/api/** \u2014 process.env \u043d\u0435 \u0432 \u0445\u0435\u043d\u0434\u043b\u0435\u0440\u0456\nPASS  protect-env Edit health.ts (outside app/api) -> exit 0\nPASS  protect-env Write route.ts (no process.env) -> exit 0\nPASS  log-action PreToolUse Bash exits 0 silently\nPASS  log-action PostToolUse Bash exits 0 silently\nPASS  log-action PreToolUse Edit exits 0 silently\nPASS  log-action PostToolUse Edit exits 0 silently\nPASS  log-action PreToolUse Bash exits 0 silently\nPASS  log-action PostToolUseFailure Bash exits 0 silently\nPASS  log-action PreToolUse Edit exits 0 silently\nPASS  log has 7 lines\nPASS  PreToolUse line has no exit field\nPASS  PostToolUse Bash keeps cmd and exit 0\nPASS  Edit line stores repo-relative path  app/page.tsx\nPASS  failure line carries exit code 2\nPASS  exactly one proposed-but-not-executed action (.env edit)\nPASS  agent-log-summary reports 1 proposed but not executed\nPASS  log-filter Bash `cat .agent-log/actions.jsonl` -> summary command  node scripts/agent-log-summary.mjs\nPASS  log-filter Bash `tail -n 500 .agent-log/actions.jsonl | grep PreToolUse` -> summary command  node scripts/agent-log-summary.mjs\nPASS  log-filter Bash `grep gate .agent-log/actions.jsonl` -> summary command  node scripts/agent-log-summary.mjs\nPASS  log-filter Bash `cat ./.agent-log/actions.jsonl` -> summary command  node scripts/agent-log-summary.mjs\nPASS  log-filter Bash `pnpm check` -> untouched\nPASS  log-filter Bash `cat package.json` -> untouched\nPASS  log-filter Bash `node scripts/agent-log-summary.mjs` -> untouched\nPASS  log-filter Bash `node scripts/agent-log-summary.mjs .agent-log/actions.jsonl` -> untouched\nPASS  log-filter Read actions.jsonl -> summary.txt (summary missing), other input kept  /var/folders/4l/91w3jc1928z1n57gjms3x0280000gq/T/hooks-selftest-rEPj0B/.agent-log/summary.txt\nPASS  log-filter rebuilt .agent-log/summary.txt from the log\nPASS  log-filter reuses a summary newer than the log\nPASS  log-filter rebuilds a summary older than the log\nPASS  log-filter matches a Windows-shaped path too  /var/folders/4l/91w3jc1928z1n57gjms3x0280000gq/T/hooks-selftest-rEPj0B/.agent-log/summary.txt\nPASS  log-filter leaves Read health.ts alone\nPASS  log-filter leaves Read summary.txt alone\nPASS  log-filter ignores events other than PreToolUse\nPASS  log-filter survives malformed input (exit 0, silent)\nPASS  log-filter names itself in systemMessage, so the rewrite is visible\n\nall hook checks passed\n",
+  "runtime": {
+    "claude_code": "2.1.286",
+    "node": "v25.9.0",
+    "pnpm": "12.3.4",
+    "codex_cli": "Did not start: Missing optional dependency @openai/codex-darwin-x64; desktop runtime not tested."
+  }
+}

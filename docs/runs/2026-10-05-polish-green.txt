@@ -1,0 +1,84 @@
+# Full pnpm check after implementation and review fixes (tasks 2.2, 3.2, 4.2)
+HEAD: 2a44921 + uncommitted implementation (commit SHA recorded in docs/runs/2026-10-05-polish-final.txt)
+$ pnpm typecheck && pnpm lint && pnpm test:unit && pnpm test:e2e
+$ next typegen && tsc --noEmit
+Generating route types...
+✓ Types generated successfully
+$ eslint
+$ vitest run
+
+ RUN  v5.0.3 /Users/mykhailo/work/pet-projects/ai-assisted-development
+
+
+ Test Files  2 passed (2)
+      Tests  15 passed (15)
+   Start at  23:25:09
+   Duration  143ms (import 59%, transform 30%, tests 6%, worker 5%)
+
+$ playwright test
+[WebServer] $ next build
+[WebServer] $ next start --port 3100
+
+Running 58 tests using 5 workers
+
+  ✓   5 [mobile-375] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (258ms)
+  ✓   4 [mobile-375] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (277ms)
+  ✓   1 [mobile-375] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (326ms)
+  ✓   3 [mobile-375] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (374ms)
+  ✓   7 [mobile-375] › tests/e2e/landing.spec.ts:79:5 › page has no horizontal overflow (133ms)
+  ✓   6 [mobile-375] › tests/e2e/landing.spec.ts:72:5 › pricing has no payment controls (176ms)
+  ✓   2 [mobile-375] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (609ms)
+  ✓  10 [mobile-375] › tests/e2e/landing.spec.ts:172:5 › FAQ items toggle from the keyboard (186ms)
+  ✓  11 [mobile-375] › tests/e2e/landing.spec.ts:182:5 › reduced motion disables the FAQ animation (227ms)
+  ✓  12 [mobile-375] › tests/e2e/landing.spec.ts:195:5 › nothing outside the FAQ marker and answer area has motion (113ms)
+  ✓  13 [mobile-375] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (106ms)
+  ✓  14 [mobile-375] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (132ms)
+  ✓  16 [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (220ms)
+  ✓  15 [mobile-375] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (275ms)
+  ✓  17 [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (184ms)
+  ✓   8 [mobile-375] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms (782ms)
+  ✓  18 [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (177ms)
+  ✓  19 [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (172ms)
+  ✓  20 [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (260ms)
+  ✓  21 [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (249ms)
+  ✓  22 [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (225ms)
+  ✓  23 [mobile-375] › tests/e2e/waitlist.spec.ts:96:5 › submitting sends no network request (193ms)
+  ✓   9 [mobile-375] › tests/e2e/landing.spec.ts:149:5 › FAQ closing animates the marker back and the answer height down to zero (1.1s)
+  ✓  26 [mobile-375] › tests/e2e/waitlist.spec.ts:137:5 › typing before the first submit shows no error (146ms)
+  ✓  24 [mobile-375] › tests/e2e/waitlist.spec.ts:105:5 › nothing persists across a reload (255ms)
+  ✓  27 [mobile-375] › tests/e2e/waitlist.spec.ts:129:5 › the shown error follows the current value while it is invalid (175ms)
+  ✓  25 [mobile-375] › tests/e2e/waitlist.spec.ts:119:5 › the error disappears as soon as the edited value becomes valid (252ms)
+  ✓  29 [mobile-375] › tests/e2e/waitlist.spec.ts:151:5 › editing after success keeps the success state (180ms)
+  ✓  28 [mobile-375] › tests/e2e/waitlist.spec.ts:142:5 › a cleared error does not return while typing (236ms)
+  ✓  30 [desktop-1440] › tests/e2e/landing.spec.ts:9:5 › all eight sections render in order (214ms)
+  ✓  31 [desktop-1440] › tests/e2e/landing.spec.ts:20:5 › page is Ukrainian and replaces the scaffold (255ms)
+  ✓  36 [desktop-1440] › tests/e2e/landing.spec.ts:79:5 › page has no horizontal overflow (156ms)
+  ✓  35 [desktop-1440] › tests/e2e/landing.spec.ts:72:5 › pricing has no payment controls (196ms)
+  ✓  34 [desktop-1440] › tests/e2e/landing.spec.ts:58:5 › informational sections have the specified content (230ms)
+  ✓  32 [desktop-1440] › tests/e2e/landing.spec.ts:26:5 › navbar shows the brand and links reach their sections (557ms)
+  ✓  33 [desktop-1440] › tests/e2e/landing.spec.ts:43:5 › signup calls to action point at the waitlist section (345ms)
+  ✓  41 [desktop-1440] › tests/e2e/landing.spec.ts:195:5 › nothing outside the FAQ marker and answer area has motion (125ms)
+  ✓  39 [desktop-1440] › tests/e2e/landing.spec.ts:172:5 › FAQ items toggle from the keyboard (242ms)
+  ✓  40 [desktop-1440] › tests/e2e/landing.spec.ts:182:5 › reduced motion disables the FAQ animation (218ms)
+  ✓  42 [desktop-1440] › tests/e2e/smoke.spec.ts:3:5 › app is served and fits the viewport width (118ms)
+  ✓  43 [desktop-1440] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note (133ms)
+  ✓  45 [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success (171ms)
+  ✓  46 [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error (164ms)
+  ✓  44 [desktop-1440] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form (256ms)
+  ✓  37 [desktop-1440] › tests/e2e/landing.spec.ts:107:5 › FAQ marker rotates and the answer area transitions within 250 ms (746ms)
+  ✓  48 [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error (205ms)
+  ✓  47 [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success (235ms)
+  ✓  49 [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds (328ms)
+  ✓  52 [desktop-1440] › tests/e2e/waitlist.spec.ts:96:5 › submitting sends no network request (208ms)
+  ✓  50 [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success (344ms)
+  ✓  51 [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error (349ms)
+  ✓  38 [desktop-1440] › tests/e2e/landing.spec.ts:149:5 › FAQ closing animates the marker back and the answer height down to zero (1.2s)
+  ✓  53 [desktop-1440] › tests/e2e/waitlist.spec.ts:105:5 › nothing persists across a reload (334ms)
+  ✓  54 [desktop-1440] › tests/e2e/waitlist.spec.ts:119:5 › the error disappears as soon as the edited value becomes valid (313ms)
+  ✓  56 [desktop-1440] › tests/e2e/waitlist.spec.ts:137:5 › typing before the first submit shows no error (237ms)
+  ✓  55 [desktop-1440] › tests/e2e/waitlist.spec.ts:129:5 › the shown error follows the current value while it is invalid (324ms)
+  ✓  57 [desktop-1440] › tests/e2e/waitlist.spec.ts:142:5 › a cleared error does not return while typing (302ms)
+  ✓  58 [desktop-1440] › tests/e2e/waitlist.spec.ts:151:5 › editing after success keeps the success state (278ms)
+
+  58 passed (8.6s)
+EXIT: 0

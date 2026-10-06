@@ -1,0 +1,44 @@
+# Red E2E run: tests/e2e/waitlist.spec.ts before the form exists (task 4.1)
+HEAD: f86752a + untracked tests/e2e/waitlist.spec.ts (sha256 85ca0193b8073ce52de7cef6768971ff33ad702af0d4a04ac1418785253c3176)
+Command: pnpm test:e2e
+
+
+    Error Context: test-results/waitlist-submitting-sends-no-network-request-desktop-1440/error-context.md
+
+  22) [desktop-1440] › tests/e2e/waitlist.spec.ts:103:5 › nothing persists across a reload ─────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByLabel('Електронна пошта')
+
+
+
+    Error Context: test-results/waitlist-nothing-persists-across-a-reload-desktop-1440/error-context.md
+
+  22 failed
+    [mobile-375] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error 
+    [mobile-375] › tests/e2e/waitlist.spec.ts:94:5 › submitting sends no network request ───────────
+    [mobile-375] › tests/e2e/waitlist.spec.ts:103:5 › nothing persists across a reload ─────────────
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:22:5 › exactly one form exists, inside the waitlist section, with a demo note 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:29:5 › hero and plan calls to action scroll to the form 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:38:5 › empty submission shows the required error and no success 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:44:5 › whitespace-only submission shows the required error 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:50:5 › invalid email shows the format error and no success 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:56:5 › valid email (padded) shows the demo success and no error 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:62:5 › correcting an invalid email then resubmitting succeeds 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:70:5 › an empty submission after success shows the error and hides success 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:78:5 › form is keyboard operable and the input is labeled and linked to its error 
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:94:5 › submitting sends no network request ─────────
+    [desktop-1440] › tests/e2e/waitlist.spec.ts:103:5 › nothing persists across a reload ───────────
+  16 passed (2.1m)
+[ELIFECYCLE] Command failed with exit code 1.
