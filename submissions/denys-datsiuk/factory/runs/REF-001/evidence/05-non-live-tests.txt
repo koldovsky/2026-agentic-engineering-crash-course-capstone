@@ -1,0 +1,7 @@
+Test run for <isolated-workspace>/tests/OperationsDashboard.Tests/bin/Release/net8.0/OperationsDashboard.Tests.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.1 (arm64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+
+Passed!  - Failed:     0, Passed:     4, Skipped:     0, Total:     4, Duration: 8 ms - OperationsDashboard.Tests.dll (net8.0)

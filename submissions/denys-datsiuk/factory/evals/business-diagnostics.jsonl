@@ -1,0 +1,3 @@
+{"case_id":"BD-01","input":{"correlation_id":"SYN-RUN-017","invariants":["IDENTITY-MULTIPLE-CANDIDATES"],"affected_count":3},"expected":{"category":"identity_ambiguity","human_review_required":true,"retry":"after_input_correction","allowed_action":"review_mapping"}}
+{"case_id":"BD-02","input":{"correlation_id":"SYN-RUN-018","invariants":[],"affected_count":0},"expected":{"category":"insufficient_evidence","human_review_required":true,"retry":"blocked","allowed_action":"escalate_domain_owner"}}
+{"case_id":"BD-03","input":{"correlation_id":"SYN-RUN-019","invariants":["CARDINALITY-DROP"],"affected_count":240},"expected":{"category":"cardinality_anomaly","human_review_required":true,"retry":"blocked","allowed_action":"quarantine_affected_records"}}

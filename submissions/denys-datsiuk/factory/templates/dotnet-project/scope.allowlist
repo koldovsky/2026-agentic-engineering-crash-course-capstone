@@ -1,0 +1,6 @@
+# Replace for every task. One repository-relative path or directory prefix per line.
+src/Component/
+tests/Component.Tests/
+docs/specification.md
+docs/traceability.md
+docs/adr/

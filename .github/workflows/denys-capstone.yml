@@ -1,0 +1,37 @@
+name: Denys capstone checks
+on:
+  pull_request:
+    paths: ['submissions/denys-datsiuk/**', '.github/workflows/denys-capstone.yml']
+  push:
+    branches: [denys-datsiuk]
+    paths: ['submissions/denys-datsiuk/**', '.github/workflows/denys-capstone.yml']
+permissions:
+  contents: read
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: submissions/denys-datsiuk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test dashboard and executable diagnostics
+        run: node --test scripts/test-dashboard.mjs scripts/test-business-diagnostics.mjs
+      - name: Test policy boundaries and TRX guards
+        run: python3 scripts/test-policy-controls.py
+      - name: Verify package structure without granting release approval
+        run: ALLOW_VIDEO_TODO=1 ALLOW_PENDING_REVIEW=1 bash scripts/verify-package.sh
+      - name: Test package gate mutations
+        run: bash scripts/self-test-gates.sh
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.422'
+      - name: Execute synthetic .NET factory fixture
+        run: bash scripts/run-reference-factory.sh

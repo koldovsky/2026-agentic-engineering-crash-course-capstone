@@ -1,0 +1,4 @@
+src/OperationsDashboard/
+tests/OperationsDashboard.Tests/
+docs/specification.md
+docs/traceability.md

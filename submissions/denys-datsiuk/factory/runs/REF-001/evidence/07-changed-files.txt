@@ -1,0 +1,4 @@
+docs/specification.md
+docs/traceability.md
+src/OperationsDashboard/DashboardQuery.cs
+tests/OperationsDashboard.Tests/DashboardPolicyTests.cs

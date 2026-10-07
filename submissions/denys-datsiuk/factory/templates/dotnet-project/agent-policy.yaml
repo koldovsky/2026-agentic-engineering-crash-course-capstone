@@ -1,0 +1,47 @@
+version: 1
+mode: supervised
+
+filesystem:
+  default: deny
+  read_write:
+    - src/**
+    - tests/**
+    - docs/**
+  read_only:
+    - "*.sln"
+    - "*.slnx"
+    - Directory.Build.*
+    - Directory.Packages.props
+    - global.json
+    - NuGet.Config
+    - .editorconfig
+  deny_file: .agent-deny-paths
+
+network:
+  execution_sandbox: none
+  production_endpoints: deny
+  private_networks: deny
+
+commands:
+  allow_prefixes:
+    - dotnet restore
+    - dotnet build
+    - dotnet test
+    - dotnet format --verify-no-changes
+    - git status
+    - git diff
+  deny:
+    - deployment
+    - database mutation
+    - secret-store access
+    - remote git mutation
+
+authority:
+  commit: human_approval
+  push: deny
+  publish: deny
+  migration: human_approval
+  release_control_change: human_approval
+
+# This file documents the portable policy. Enforce it with the sandbox wrapper
+# and the specific agent runtime's permission system; YAML alone is not a boundary.

@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "status": "synthetic_reference",
+  "categories": {
+    "identity_ambiguity": {
+      "invariant_prefixes": [
+        "IDENTITY"
+      ],
+      "default_severity": "high",
+      "human_review_required": true,
+      "retry": "after_input_correction",
+      "recommended_action": "review_mapping",
+      "business_impact": "Identity match is ambiguous; projection is incomplete."
+    },
+    "projection_incompleteness": {
+      "invariant_prefixes": [
+        "PROJECTION"
+      ],
+      "default_severity": "high",
+      "human_review_required": true,
+      "retry": "blocked",
+      "recommended_action": "keep_previous_valid_projection",
+      "business_impact": "Required projection relationships are missing."
+    },
+    "authoritative_conflict": {
+      "invariant_prefixes": [
+        "AUTHORITY"
+      ],
+      "default_severity": "high",
+      "human_review_required": true,
+      "retry": "after_input_correction",
+      "recommended_action": "escalate_domain_owner",
+      "business_impact": "Authoritative source values conflict."
+    },
+    "referential_inconsistency": {
+      "invariant_prefixes": [
+        "REFERENCE"
+      ],
+      "default_severity": "medium",
+      "human_review_required": true,
+      "retry": "after_input_correction",
+      "recommended_action": "request_corrected_input",
+      "business_impact": "A referenced entity is missing or inactive."
+    },
+    "freshness_violation": {
+      "invariant_prefixes": [
+        "FRESHNESS"
+      ],
+      "default_severity": "medium",
+      "human_review_required": false,
+      "retry": "after_input_correction",
+      "recommended_action": "inspect_source_freshness",
+      "business_impact": "Source data is outside the accepted freshness window."
+    },
+    "cardinality_anomaly": {
+      "invariant_prefixes": [
+        "CARDINALITY"
+      ],
+      "default_severity": "medium",
+      "human_review_required": true,
+      "retry": "blocked",
+      "recommended_action": "quarantine_affected_records",
+      "business_impact": "Record volume violates the declared cardinality invariant."
+    }
+  },
+  "allowed_actions": [
+    "review_mapping",
+    "request_corrected_input",
+    "keep_previous_valid_projection",
+    "quarantine_affected_records",
+    "inspect_source_freshness",
+    "escalate_domain_owner"
+  ],
+  "forbidden_actions": [
+    "modify_source_record",
+    "change_authority_priority",
+    "lower_validation_threshold",
+    "publish_incomplete_projection",
+    "retry_high_impact_without_approval"
+  ],
+  "confidence": {
+    "basis": "deterministic_evidence_coverage",
+    "minimum_for_recommendation": 0.8,
+    "below_minimum_action": "escalate_domain_owner"
+  }
+}

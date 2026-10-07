@@ -1,0 +1,22 @@
+# Paths that must not enter an agent context or execution sandbox.
+.env
+.env.*
+**/.env
+**/.env.*
+**/appsettings.*.json
+**/secrets.json
+**/*.pfx
+**/*.p12
+**/*.pem
+**/*.key
+**/*.bak
+**/*.dump
+**/*.sql
+**/*.log
+**/production-data/**
+**/exports/**
+**/backups/**
+**/TestResults/**
+**/bin/**
+**/obj/**
+.git/**

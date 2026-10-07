@@ -1,0 +1,7 @@
+**
+!docker/
+!docker/Dockerfile
+!docker/scripts/
+!docker/scripts/container-verify.sh
+!scripts/
+!scripts/test-results.py

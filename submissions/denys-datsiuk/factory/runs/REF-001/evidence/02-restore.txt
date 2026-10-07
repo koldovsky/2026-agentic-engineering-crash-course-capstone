@@ -1,0 +1,3 @@
+  Determining projects to restore...
+  Restored <isolated-workspace>/src/OperationsDashboard/OperationsDashboard.csproj (in 23 ms).
+  Restored <isolated-workspace>/tests/OperationsDashboard.Tests/OperationsDashboard.Tests.csproj (in 45 ms).

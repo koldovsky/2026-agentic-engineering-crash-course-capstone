@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Business diagnostic result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["correlation_id", "policy_version", "category", "severity", "business_impact", "evidence", "affected_count", "confidence", "recommended_action", "retry", "human_review_required", "limitations"],
+  "properties": {
+    "correlation_id": { "type": "string", "pattern": "^SYN-[A-Z0-9-]+$" },
+    "policy_version": { "type": "integer", "const": 1 },
+    "category": { "enum": ["identity_ambiguity", "projection_incompleteness", "authoritative_conflict", "referential_inconsistency", "freshness_violation", "cardinality_anomaly", "insufficient_evidence"] },
+    "severity": { "enum": ["low", "medium", "high", "critical"] },
+    "business_impact": { "type": "string", "minLength": 1 },
+    "evidence": { "type": "array", "minItems": 1, "items": { "type": "string", "pattern": "^[A-Z]+-[A-Z0-9-]+$" } },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "affected_count": { "type": ["integer", "null"], "minimum": 0 },
+    "recommended_action": { "enum": ["review_mapping", "request_corrected_input", "keep_previous_valid_projection", "quarantine_affected_records", "inspect_source_freshness", "escalate_domain_owner"] },
+    "retry": { "enum": ["safe", "blocked", "after_input_correction"] },
+    "human_review_required": { "type": "boolean" },
+    "limitations": { "type": "array", "items": { "type": "string" } }
+  }
+}

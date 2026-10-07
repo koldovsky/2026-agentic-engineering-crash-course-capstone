@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Interactive Synthetic Operations Console</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="shell">
+  <header class="header">
+    <div class="brand"><div class="logo">↻</div><div><h1>Operations Console</h1><div class="subtitle">Interactive synthetic demo · no backend · no production data</div></div></div>
+    <span class="badge">SAFE DEMO</span>
+  </header>
+
+  <section class="demo-help">
+    <strong>Зміна UI/UX:</strong> вкладка «Зміни даних» підключена до глобального фільтра дат. Оберіть записи на обох вкладках, змініть період і перевірте оновлення даних та скидання стану. Активний alert залишається видимим.
+  </section>
+
+  <section class="filters" aria-label="Фільтри">
+    <button class="quick" data-days="7">7 днів</button>
+    <button class="quick active" data-days="30">30 днів</button>
+    <div class="field"><label for="date-from">Від</label><input id="date-from" type="date" value="2026-09-01"></div>
+    <div class="field"><label for="date-to">До</label><input id="date-to" type="date" value="2026-09-30"></div>
+    <button id="reset-demo" class="refresh" type="button">Скинути демо</button>
+  </section>
+
+  <div id="status" class="status ok" role="status">Quick-фільтр «30 днів» застосовано · сторінка 1</div>
+  <div id="applied-range" class="panel-sub"></div>
+  <div class="tabs" role="tablist" aria-label="Розділи dashboard">
+    <button id="tab-overview" role="tab" aria-selected="true" aria-controls="panel-overview">Огляд</button>
+    <button id="tab-changes" role="tab" aria-selected="false" aria-controls="panel-changes" tabindex="-1">Зміни даних</button>
+  </div>
+
+  <section class="cards">
+    <div class="card"><small>Запуски</small><div id="runs" class="value">48</div></div>
+    <div class="card"><small>Успішні</small><div id="success" class="value">43</div></div>
+    <div class="card"><small>Зміни</small><div id="changes" class="value">1 284</div></div>
+    <div class="card"><small>Потребують уваги</small><div id="attention" class="value">1</div></div>
+  </section>
+
+  <section id="panel-overview" class="grid" role="tabpanel" aria-labelledby="tab-overview">
+    <div class="panel">
+      <h2>Активність</h2>
+      <div id="range-caption" class="panel-sub">Результат quick-фільтра за 30 днів</div>
+      <div id="chart" class="bar-chart" aria-label="Синтетична діаграма активності"></div>
+      <div class="legend"><span><i class="dot" style="background:var(--green)"></i>Події</span><span><i class="dot" style="background:var(--blue)"></i>Запуски</span></div>
+      <div class="pagination"><button id="prev-page" type="button">←</button><span id="page-label">Сторінка 1</span><button id="next-page" type="button">→</button></div>
+    </div>
+
+    <div class="panel">
+      <h2>Останні запуски</h2>
+      <div class="panel-sub">Натисніть рядок, щоб створити selected state</div>
+      <table><thead><tr><th>Процес</th><th>Дата</th><th>Стан</th></tr></thead><tbody id="run-table"></tbody></table>
+      <div id="selection" class="selection">Нічого не вибрано</div>
+    </div>
+  </section>
+  <section id="panel-changes" class="panel" role="tabpanel" aria-labelledby="tab-changes" hidden>
+    <h2>Зміни даних</h2>
+    <div class="panel-sub">Синтетичні записи · той самий глобальний період, що й на вкладці «Огляд»</div>
+    <table><thead><tr><th>Ключ</th><th>Дата</th><th>Сутність</th><th>Поле</th></tr></thead><tbody id="change-table"></tbody></table>
+    <div id="change-selection" class="selection">Нічого не вибрано</div>
+    <div class="pagination"><button id="change-prev-page" type="button" aria-label="Попередня сторінка змін">←</button><span id="change-page-label">Сторінка 1</span><button id="change-next-page" type="button" aria-label="Наступна сторінка змін">→</button></div>
+  </section>
+  <aside class="callout" aria-label="Активні помилки"><strong>Активна помилка</strong><div id="active-alert"></div></aside>
+
+  <section class="panel diagnostics">
+    <div class="diagnostic-head"><div><h2>Business-level diagnostics</h2><div class="panel-sub">Executable synthetic reference · policy-driven analysis · no autonomous correction</div></div><button id="analyze-issue" class="refresh" type="button">Проаналізувати alert</button></div>
+    <label for="diagnostic-case">Синтетичний сценарій</label>
+    <select id="diagnostic-case"><option value="identity">Identity ambiguity</option><option value="cardinality">Cardinality anomaly</option><option value="missing">Insufficient evidence</option></select>
+    <div id="diagnostic-empty" class="muted">Запустіть аналіз для проблемного процесу Pipeline Orbit.</div>
+    <div id="diagnostic-result" class="diagnostic-grid" hidden>
+      <div><small>Категорія</small><strong id="diagnostic-category"></strong></div>
+      <div><small>Вплив</small><strong id="diagnostic-impact"></strong></div>
+      <div><small>Зачеплено</small><strong id="diagnostic-count"></strong></div>
+      <div><small>Confidence</small><strong id="diagnostic-confidence"></strong></div>
+      <div class="diagnostic-wide"><small>Доказ</small><strong id="diagnostic-evidence"></strong></div>
+      <div class="diagnostic-wide"><small>Рекомендована дія</small><strong id="diagnostic-action"></strong></div>
+    </div>
+  </section>
+</main>
+<script type="module" src="demo.js"></script>
+</body>
+</html>

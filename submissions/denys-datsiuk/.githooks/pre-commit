@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+git diff --cached --check
+package_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$package_root"
+python3 factory/templates/dotnet-project/scripts/path-policy.py --public-root .
+node --test scripts/test-dashboard.mjs scripts/test-business-diagnostics.mjs
+ALLOW_VIDEO_TODO=1 ALLOW_PENDING_REVIEW=1 bash scripts/verify-package.sh
