@@ -1,0 +1,15 @@
+#!/bin/sh
+# Blocks any commit that touches the app unless `npm run check` passes.
+# Enable once per clone: git config core.hooksPath submissions/ivan-mykhalevych/.githooks
+APP=submissions/ivan-mykhalevych
+if [ -n "$RED_COMMIT" ]; then
+  echo "pre-commit: RED_COMMIT set - check skipped for a test-first red commit."
+  exit 0
+fi
+if git diff --cached --name-only | grep -q "^$APP/"; then
+  echo "pre-commit: running npm run check in $APP ..."
+  (cd "$APP" && npm run check) || {
+    echo "pre-commit: check FAILED - commit blocked."
+    exit 1
+  }
+fi
